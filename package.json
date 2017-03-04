@@ -1,10 +1,10 @@
 {
-  "name": "lerna-learn",
-  "version": "8.0.0",
-  "description": "This repo is a test repo for handling a workflow with `lerna-semantic-release`.",
-  "main": "index.js",
+  "name": "rlsr",
+  "version": "0.1.0",
+  "description": "create npm releses and changelogs from a multi repo",
+  "main": "src/index.js",
   "publishConfig": {
-    "registry": "http://npmo.dc.xing.com:8080/"
+    "registry": "http://registry.npmjs.com/"
   },
   "scripts": {
     "start": "node ./bin/rlsr pre",
@@ -13,11 +13,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://source.xing.com/frontend/lerna-learn.git"
+    "url": "https://github.com/matthias-reis/rlsr.git"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": ["npm", "release", "changelog", "conventional-changelog"],
+  "author": "Matthias Reis",
+  "license": "MIT",
   "devDependencies": {
     "commitizen": "2.9.6",
     "cz-conventional-changelog": "2.0.0"
@@ -35,14 +35,5 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
-  },
-  "rlsr": {
-    "previouslyUnreleased": [
-      "lrn-package-1-1-1",
-      "lrn-package-1-1",
-      "lrn-package-1-2",
-      "lrn-package-1",
-      "lrn-package-2"
-    ]
   }
 }
