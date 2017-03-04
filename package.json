@@ -9,16 +9,22 @@
   "scripts": {
     "start": "node ./bin/rlsr pre",
     "c": "git-cz",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/matthias-reis/rlsr.git"
   },
-  "keywords": ["npm", "release", "changelog", "conventional-changelog"],
+  "keywords": [
+    "npm",
+    "release",
+    "changelog",
+    "conventional-changelog"
+  ],
   "author": "Matthias Reis",
   "license": "MIT",
   "devDependencies": {
+    "jest": "^19.0.2",
     "commitizen": "2.9.6",
     "cz-conventional-changelog": "2.0.0"
   },
