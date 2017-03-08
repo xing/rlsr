@@ -9,8 +9,7 @@ module.exports = env => {
   const shell = exec(env.log, env.dbg);
 
   // commit the current state
-  shell('git add .')
-    .then(shell(`git commit -m "chore: release ${env.version}"`))
+  shell(`git add . && git commit -m "chore: release ${env.version}"`)
 
     // fetch packages
     .then(() => packages(path.join(env.appRoot, env.packagePath || './packages'), env.nsp))
