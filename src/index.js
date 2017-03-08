@@ -1,4 +1,4 @@
-// task runner
+const path = require('path');
 const R = require('ramda');
 const npmlog = require('npmlog');
 const log = R.curry(npmlog.log);
@@ -10,6 +10,7 @@ const NAME = 'rlsr';
 
 const COMMANDS = ['pre', 'perform'];
 
+// task runner
 const run = (cmd, debug = false) => {
   if (debug) {
     npmlog.level = 'verbose';
@@ -20,15 +21,18 @@ const run = (cmd, debug = false) => {
     process.exit(1);
   }
   const runner = require(`./runners/${cmd}`);
+  const appRoot = process.cwd();
+  const pkg = require(path.join(appRoot, 'package.json'));
 
   inf('rlsr')(`command <${cmd}>`);
-  runner({
+  runner(Object.assign({}, pkg[NAME], {
     dbg: dbg(`${NAME} ${cmd}`),
     err: err(`${NAME} ${cmd}`),
     log: inf(`${NAME} ${cmd}`),
     nsp: NAME,
+    version: pkg.version,
     appRoot: process.cwd()
-  });
+  }));
 };
 
 module.exports = run;
