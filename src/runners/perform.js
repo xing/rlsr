@@ -40,8 +40,8 @@ module.exports = env => {
       .then(writeCleanedPackageJson(env))
 
       // commit main package.json
-      .then(shell(`git add . && git commit -m "chore: update main package ${env.version}"`))
-      .then(shell(`git tag -a -m 'chore: tagged main package @ ${env.version}' ${env.version}`))
+      .then(() => shell(`git add . && git commit -m "chore: update main package ${env.version}"`))
+      .then(() => shell(`git tag -a -m 'chore: tagged main package @ ${env.version}' ${env.version}`))
 
       // npm publish every changed component
       .catch(e => {
