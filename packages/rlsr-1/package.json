@@ -7,7 +7,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://source.xing.com/frontend/lerna-learn.git"
+    "url": "https://github.com/matthias-reis/rlsr.git"
+  },
+  "publishConfig": {
+    "registry": "http://npmo.dc.xing.com:8080/"
   },
   "keywords": [],
   "author": "",
