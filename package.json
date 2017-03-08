@@ -7,7 +7,8 @@
     "registry": "http://registry.npmjs.com/"
   },
   "scripts": {
-    "start": "node ./bin/rlsr pre",
+    "pre": "node ./bin/rlsr pre",
+    "perform": "node ./bin/rlsr perform",
     "c": "git-cz",
     "test": "jest"
   },
