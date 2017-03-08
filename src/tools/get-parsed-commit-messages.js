@@ -2,8 +2,8 @@ const commits = require('git-raw-commits');
 const parser = require('conventional-commits-parser');
 const R = require('ramda');
 
-const BREAKING_REGEXP = /BREAKING/;
-const PATCH_TYPES = ['fix', 'style', 'perf', 'revert'];
+const BREAKING_REGEXP = /BREAKING/i;
+const PATCH_TYPES = ['fix', 'refactor', 'perf', 'revert'];
 const MINOR_TYPES = ['feat'];
 
 const isRelevant = msg => R.contains(msg.type, R.concat(PATCH_TYPES, MINOR_TYPES));
