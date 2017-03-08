@@ -6,38 +6,49 @@ const writeCleanedPackageJson = require('../tools/write-cleaned-main-package-jso
 
 module.exports = env => {
   env.log('running step PERFORM PUBLISH');
-  const shell = exec(env.log, env.dbg);
 
-  // commit the current state
-  shell(`git add . && git commit -m "chore: release ${env.version}"`)
+  if (env.previouslyUnreleased) {
+    const shell = exec(env.log, env.dbg);
 
-    // fetch packages
-    .then(() => packages(path.join(env.appRoot, env.packagePath || './packages'), env.nsp))
+    env.log(`Previously unreleased packages: <${env.previouslyUnreleased.length}>`);
 
-    .then(flatPackages => {
-      return R.indexBy(R.prop('name'), flatPackages);
-    })
+    shell(`git add . && git commit -m "chore: release ${env.version}"`)
 
-    // filter unreleased
-    .then(packages => {
-      return env.previouslyUnreleased.map(packageName => packages[packageName]);
-    })
+      // fetch packages
+      .then(() => packages(path.join(env.appRoot, env.packagePath || './packages'), env.nsp))
 
-    // add tag for every changed component
-    .then(packages => Promise.all(packages.map(
-      p => shell(`git tag -a -m 'chore: tagged ${p.name}@${p.version}' ${p.name}@${p.version}`)
-    )).then(() => packages))
+      .then(flatPackages => {
+        return R.indexBy(R.prop('name'), flatPackages);
+      })
 
-    // npm publish all packages
-    .then(packages => Promise.all(packages.map(
-      p => shell(`npm publish ${p[env.nsp].dir}`)
+      // filter unreleased
+      .then(packages => {
+        return env.previouslyUnreleased.map(packageName => packages[packageName]);
+      })
 
-    // clean up main package.json
-    )).then(writeCleanedPackageJson(env)))
+      // add tag for every changed component
+      .then(packages => Promise.all(packages.map(
+        p => shell(`git tag -a -m 'chore: tagged ${p.name}@${p.version}' ${p.name}@${p.version}`)
+      )).then(() => packages))
 
-    // npm publish every changed component
-    .catch(e => {
-      env.err(e);
-      process.exit(1);
-    });
+      // npm publish all packages
+      .then(packages => Promise.all(packages.map(
+        p => shell(`npm publish ${p[env.nsp].dir}`)
+      )))
+
+      // clean up main package.json
+      .then(writeCleanedPackageJson(env))
+
+      // commit main package.json
+      .then(shell(`git add . && git commit -m "chore: update main package ${env.version}"`))
+      .then(shell(`git tag -a -m 'chore: tagged main package @ ${env.version}' ${env.version}`))
+
+      // npm publish every changed component
+      .catch(e => {
+        env.err(e);
+        process.exit(1);
+      });
+  } else {
+    env.log('no previously unreleased packages. Stopping now ...');
+  }
 };
