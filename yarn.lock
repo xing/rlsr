@@ -24,8 +24,8 @@ acorn@^4.0.4:
   resolved "http://10.12.35.216:8080/a/acorn/_attachments/acorn-4.0.11.tgz#edcda3bd937e7556410d42ed5860f67399c794c0"
 
 ajv@^4.9.1:
-  version "4.11.3"
-  resolved "http://10.12.35.216:8080/a/ajv/_attachments/ajv-4.11.3.tgz#ce30bdb90d1254f762c75af915fb3a63e7183d22"
+  version "4.11.4"
+  resolved "http://10.12.35.216:8080/a/ajv/_attachments/ajv-4.11.4.tgz#ebf3a55d4b132ea60ff5847ae85d2ef069960b45"
   dependencies:
     co "^4.6.0"
     json-stable-stringify "^1.0.1"
@@ -137,10 +137,6 @@ async@^2.1.4:
   resolved "http://10.12.35.216:8080/a/async/_attachments/async-2.1.5.tgz#e587c68580994ac67fc56ff86d3ac56bdbe810bc"
   dependencies:
     lodash "^4.14.0"
-
-async@~0.2.6:
-  version "0.2.10"
-  resolved "http://10.12.35.216:8080/a/async/_attachments/async-0.2.10.tgz#b6bbe0b0674b9d719708ca38de8c237cb526c3d1"
 
 asynckit@^0.4.0:
   version "0.4.0"
@@ -872,6 +868,13 @@ getpass@^0.1.1:
   dependencies:
     assert-plus "^1.0.0"
 
+git-latest-semver-tag@^1.0.2:
+  version "1.0.2"
+  resolved "http://10.12.35.216:8080/g/git-latest-semver-tag/_attachments/git-latest-semver-tag-1.0.2.tgz#061130cbf4274111cc6be4612b3ff3a6d93e2660"
+  dependencies:
+    git-semver-tags "^1.1.2"
+    meow "^3.3.0"
+
 git-raw-commits@1.1.2:
   version "1.1.2"
   resolved "http://10.12.35.216:8080/g/git-raw-commits/_attachments/git-raw-commits-1.1.2.tgz#a12d8492aeba2881802d700825ed81c9f39e6f2f"
@@ -882,7 +885,7 @@ git-raw-commits@1.1.2:
     split2 "^2.0.0"
     through2 "^2.0.0"
 
-git-semver-tags@1.1.2:
+git-semver-tags@1.1.2, git-semver-tags@^1.1.2:
   version "1.1.2"
   resolved "http://10.12.35.216:8080/g/git-semver-tags/_attachments/git-semver-tags-1.1.2.tgz#aecf9b1b2447a6b548d48647f53edba0acad879f"
   dependencies:
@@ -1621,9 +1624,13 @@ lodash.templatesettings@^4.0.0:
   dependencies:
     lodash._reinterpolate "~3.0.0"
 
-lodash@4.17.2, lodash@^4.14.0, lodash@^4.2.0, lodash@^4.2.1, lodash@^4.3.0:
+lodash@4.17.2:
   version "4.17.2"
   resolved "http://10.12.35.216:8080/l/lodash/_attachments/lodash-4.17.2.tgz#34a3055babe04ce42467b607d700072c7ff6bf42"
+
+lodash@^4.14.0, lodash@^4.2.0, lodash@^4.2.1, lodash@^4.3.0:
+  version "4.17.4"
+  resolved "http://10.12.35.216:8080/l/lodash/_attachments/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
 
 longest@^1.0.1:
   version "1.0.1"
@@ -1751,8 +1758,8 @@ node-notifier@^5.0.1:
     which "^1.2.12"
 
 normalize-package-data@^2.3.2, normalize-package-data@^2.3.4:
-  version "2.3.5"
-  resolved "http://10.12.35.216:8080/n/normalize-package-data/_attachments/normalize-package-data-2.3.5.tgz#8d924f142960e1777e7ffe170543631cc7cb02df"
+  version "2.3.6"
+  resolved "http://10.12.35.216:8080/n/normalize-package-data/_attachments/normalize-package-data-2.3.6.tgz#498fa420c96401f787402ba21e600def9f981fff"
   dependencies:
     hosted-git-info "^2.1.4"
     is-builtin-module "^1.0.0"
@@ -1959,8 +1966,8 @@ punycode@^1.4.1:
   resolved "http://10.12.35.216:8080/p/punycode/_attachments/punycode-1.4.1.tgz#c0d5a63b2718800ad8e1eb0fa5269c84dd41845e"
 
 qs@~6.3.0:
-  version "6.3.1"
-  resolved "http://10.12.35.216:8080/q/qs/_attachments/qs-6.3.1.tgz#918c0b3bcd36679772baf135b1acb4c1651ed79d"
+  version "6.3.2"
+  resolved "http://10.12.35.216:8080/q/qs/_attachments/qs-6.3.2.tgz#e75bd5f6e268122a2a0e0bda630b2550c166502c"
 
 ramda@0.23.0:
   version "0.23.0"
@@ -2386,10 +2393,9 @@ typedarray@^0.0.6:
   resolved "http://10.12.35.216:8080/t/typedarray/_attachments/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
 
 uglify-js@^2.6:
-  version "2.8.5"
-  resolved "http://10.12.35.216:8080/u/uglify-js/_attachments/uglify-js-2.8.5.tgz#ae9f5b143f4183d99a1dabb350e243fdc06641ed"
+  version "2.8.7"
+  resolved "http://10.12.35.216:8080/u/uglify-js/_attachments/uglify-js-2.8.7.tgz#e0391911507b6d2e05697a528f1686e90a11b160"
   dependencies:
-    async "~0.2.6"
     source-map "~0.5.1"
     uglify-to-browserify "~1.0.0"
     yargs "~3.10.0"
@@ -2474,9 +2480,13 @@ word-wrap@^1.0.3:
   version "1.2.1"
   resolved "http://10.12.35.216:8080/w/word-wrap/_attachments/word-wrap-1.2.1.tgz#248f459b465d179a17bc407c854d3151d07e45d8"
 
-wordwrap@0.0.2, wordwrap@~0.0.2:
+wordwrap@0.0.2:
   version "0.0.2"
   resolved "http://10.12.35.216:8080/w/wordwrap/_attachments/wordwrap-0.0.2.tgz#b79669bb42ecb409f83d583cad52ca17eaa1643f"
+
+wordwrap@~0.0.2:
+  version "0.0.3"
+  resolved "http://10.12.35.216:8080/w/wordwrap/_attachments/wordwrap-0.0.3.tgz#a3d5da6cd5c0bc0008d37234bbaf1bed63059107"
 
 wordwrap@~1.0.0:
   version "1.0.0"

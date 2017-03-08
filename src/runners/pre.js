@@ -55,7 +55,7 @@ module.exports = env => {
     })
     // update version numbers
     .then(packages => {
-      R.values(packages).forEach(updateVersionNumber(env.nsp));
+      R.values(packages).forEach(updateVersionNumber(env.nsp, packages));
       return packages;
     })
     // write main package.json
