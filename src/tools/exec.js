@@ -4,16 +4,18 @@ const cp = require('child_process');
 module.exports = R.curry((log, dbg, line) => new Promise(
   (resolve, reject) => {
     const t = Date.now();
-    log(`executing <${line}>`);
-    cp.exec(line, (error, stdout, stderr) => {
-      log(`<${line}> done in ${Date.now() - t}ms`);
-      dbg(stdout);
-      dbg(stderr);
-      if (error) {
-        reject(error);
-      } else {
-        resolve();
-      }
-    });
+    setTimeout(() => {
+      log(`executing <${line}>`);
+      cp.exec(line, (error, stdout, stderr) => {
+        log(`<${line}> done in ${Date.now() - t}ms`);
+        dbg(stdout);
+        dbg(stderr);
+        if (error) {
+          reject(error);
+        } else {
+          resolve();
+        }
+      });
+    }, 100);
   }
 ));
