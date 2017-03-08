@@ -1,4 +1,6 @@
+const path = require('path');
 const exec = require('../tools/exec');
+const R = require('ramda');
 const packages = require('../tools/get-packages');
 
 module.exports = env => {
@@ -6,13 +8,16 @@ module.exports = env => {
   const shell = exec(env.log, env.dbg);
 
   // commit the current state
-  shell('git add .', env.log, env.dbg)
-    .then(shell(`git commit -m "chore: release ${env.version}"`, env.log, env.dbg))
+  shell('git add .')
+    // .then(shell(`git commit -m "chore: release ${env.version}"`))
 
     // add tag for every changed component
-    .then(packages(path.join(env.appRoot, env.packagePath || './packages'))
+    .then(() => packages(path.join(env.appRoot, env.packagePath || './packages')))
+    .then(flatPackages => {
+      return R.indexBy(R.prop('name'), flatPackages);
+    })
     .then(packages => {
-      console.log(packages);
+      console.log(env);
       return packages;
     })
 
