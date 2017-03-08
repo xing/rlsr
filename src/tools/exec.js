@@ -1,6 +1,7 @@
+const R = require('ramda');
 const cp = require('child_process');
 
-module.exports = (line, log = console.log, dbg = console.log) => new Promise(
+module.exports = R.curry((log = console.log, dbg = console.log, line) => new Promise(
   (resolve, reject) => {
     const t = Date.now();
     log(`executing <${line}>`);
@@ -14,4 +15,4 @@ module.exports = (line, log = console.log, dbg = console.log) => new Promise(
       }
     });
   }
-);
+));
