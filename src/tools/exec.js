@@ -16,6 +16,6 @@ module.exports = R.curry((log, dbg, line) => new Promise(
           resolve();
         }
       });
-    }, 100);
+    }, 50);
   }
 ));
