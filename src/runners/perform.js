@@ -1,19 +1,15 @@
 const path = require('path');
-const exec = require('../tools/exec');
 const R = require('ramda');
 const packages = require('../tools/get-packages');
 const writeCleanedPackageJson = require('../tools/write-cleaned-main-package-json');
-
+const commands = require('../tools/commands');
 module.exports = env => {
   env.log('running step PERFORM PUBLISH');
 
   if (env.previouslyUnreleased) {
-    const execInDir = exec(env.log, env.dbg);
-    const execInCwd = exec(env.log, env.dbg, null);
-
     env.log(`Previously unreleased packages: <${env.previouslyUnreleased.length}>`);
 
-    execInCwd(`git add . && git commit -m "chore: release ${env.version}"`)
+    commands.commitChanges(env.version)
 
       // fetch packages
       .then(() => packages(path.join(env.appRoot, env.packagePath || './packages'), env.nsp))
@@ -29,21 +25,21 @@ module.exports = env => {
 
       // add tag for every changed component
       .then(packages => Promise.all(packages.map(
-        p => execInCwd(`git tag -a -m 'chore: tagged ${p.name}@${p.version}' ${p.name}@${p.version}`)
+        p => commands.tagPackage(p.name, p.version)
       )).then(() => packages))
 
       // npm publish all packages
       .then(packages => Promise.all(packages.map(
-        p => execInDir(p[env.nsp].dir, `npm publish -ddd`)
+        p => commands.publishPackage(p.name, p.version, p[env.nsp].dir)
       )))
 
       // clean up main package.json
       .then(() => writeCleanedPackageJson(env))
 
       // commit main package.json
-      .then(() => execInCwd(`git add . && git commit -m "chore: update main package ${env.version}"`))
-      .then(() => execInCwd(`git tag -a -m 'chore: tagged main package @ ${env.version}' ${env.version}`))
-      .then(() => execInCwd(`git push --follow-tags`))
+      .then(() => commands.commitMain(env.version))
+      .then(() => commands.tagMain(env.version))
+      .then(() => commands.push())
 
       // npm publish every changed component
       .catch(e => {
