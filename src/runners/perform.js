@@ -38,7 +38,7 @@ module.exports = env => {
       )))
 
       // clean up main package.json
-      .then(writeCleanedPackageJson(env))
+      .then(() => writeCleanedPackageJson(env))
 
       // commit main package.json
       .then(() => execInCwd(`git add . && git commit -m "chore: update main package ${env.version}"`))
