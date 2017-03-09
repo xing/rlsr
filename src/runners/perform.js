@@ -34,7 +34,7 @@ module.exports = env => {
 
       // npm publish all packages
       .then(packages => Promise.all(packages.map(
-        p => execInDir(`npm publish -ddd`, p[env.nsp].dir)
+        p => execInDir(p[env.nsp].dir, `npm publish -ddd`)
       )))
 
       // clean up main package.json
