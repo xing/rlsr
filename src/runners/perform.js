@@ -2,12 +2,13 @@ const path = require('path');
 const R = require('ramda');
 const packages = require('../tools/get-packages');
 const writeCleanedPackageJson = require('../tools/write-cleaned-main-package-json');
-const commands = require('../tools/commands');
+const commandsFactory = require('../tools/commands');
 module.exports = env => {
   env.log('running step PERFORM PUBLISH');
 
   if (env.previouslyUnreleased) {
     env.log(`Previously unreleased packages: <${env.previouslyUnreleased.length}>`);
+    const commands = commandsFactory(env.log, env.dbg);
 
     commands.commitChanges(env.version)
 
