@@ -8,11 +8,12 @@ module.exports = env => {
   env.log('running step PERFORM PUBLISH');
 
   if (env.previouslyUnreleased) {
-    const shell = exec(env.log, env.dbg);
+    const execInDir = exec(env.log, env.dbg);
+    const execInCwd = exec(env.log, env.dbg, null);
 
     env.log(`Previously unreleased packages: <${env.previouslyUnreleased.length}>`);
 
-    shell(`git add . && git commit -m "chore: release ${env.version}"`)
+    execInCwd(`git add . && git commit -m "chore: release ${env.version}"`)
 
       // fetch packages
       .then(() => packages(path.join(env.appRoot, env.packagePath || './packages'), env.nsp))
@@ -28,21 +29,21 @@ module.exports = env => {
 
       // add tag for every changed component
       .then(packages => Promise.all(packages.map(
-        p => shell(`git tag -a -m 'chore: tagged ${p.name}@${p.version}' ${p.name}@${p.version}`)
+        p => execInCwd(`git tag -a -m 'chore: tagged ${p.name}@${p.version}' ${p.name}@${p.version}`)
       )).then(() => packages))
 
       // npm publish all packages
       .then(packages => Promise.all(packages.map(
-        p => shell(`npm publish ${p[env.nsp].dir}`)
+        p => execInDir(`npm publish -ddd`, p[env.nsp].dir)
       )))
 
       // clean up main package.json
       .then(writeCleanedPackageJson(env))
 
       // commit main package.json
-      .then(() => shell(`git add . && git commit -m "chore: update main package ${env.version}"`))
-      .then(() => shell(`git tag -a -m 'chore: tagged main package @ ${env.version}' ${env.version}`))
-      .then(() => shell(`git push --follow-tags`))
+      .then(() => execInCwd(`git add . && git commit -m "chore: update main package ${env.version}"`))
+      .then(() => execInCwd(`git tag -a -m 'chore: tagged main package @ ${env.version}' ${env.version}`))
+      .then(() => execInCwd(`git push --follow-tags`))
 
       // npm publish every changed component
       .catch(e => {
