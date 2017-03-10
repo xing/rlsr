@@ -20,7 +20,7 @@ BREAKING CHANGE: description of breaking stuff
 
 ## release process
 
-BAsed on these commit messages, the tool automatically
+Taking these commit messages, the tool automatically
 
 * creates **changelogs**
 * updates **package.jsons** of the modules
