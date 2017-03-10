@@ -1,3 +1,3 @@
-const run = require('../src');
+const rlsr = require('rlsr');
 
-run(process.argv[2]);
+rlsr(process.argv[2]);
