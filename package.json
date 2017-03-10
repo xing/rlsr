@@ -1,10 +1,10 @@
 {
   "name": "rlsr",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "create npm releses and changelogs from a multi repo",
   "main": "src/index.js",
   "bin": {
-    "rlsr": "./bin/rlsr" 
+    "rlsr": "./bin/rlsr"
   },
   "publishConfig": {
     "registry": "http://registry.npmjs.com/"
