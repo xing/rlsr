@@ -21,7 +21,7 @@ const run = (cmd) => {
   const appRoot = process.cwd();
   const pkg = require(path.join(appRoot, 'package.json'));
 
-  if (pkg[NAME].verbose) {
+  if (R.path([NAME, 'verbose'], pkg)) {
     npmlog.level = 'verbose';
   }
 
