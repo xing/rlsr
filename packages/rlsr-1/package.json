@@ -7,7 +7,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://source.xing.com/frontend/lerna-learn.git"
+    "url": "https://source.xing.com/frontend/rlsr.git"
+  },
+  "publishConfig": {
+    "registry": "http://npmo.dc.xing.com:8080/"
   },
   "keywords": [],
   "author": "",
