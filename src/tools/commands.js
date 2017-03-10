@@ -1,7 +1,7 @@
 const exec = require('./exec');
 const R = require('ramda');
 
-const command = R.curry((log, dbg, dir, cmd, description) => () => {
+const command = R.curry((log, dbg, dir, cmd, description) => {
   log(`exec command: ${description}`);
   return exec(dbg, dir, cmd);
 });
