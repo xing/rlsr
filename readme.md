@@ -12,15 +12,30 @@ The easiest way to do this is using commitizen to replace the `git commit` comma
 
 Based on commits formatted like this
 
-`fix(my-package): description of contents``
+```txt
+fix(my-package): description of contents
 
-The tool automatically
+BREAKING CHANGE: description of breaking stuff
+```
 
-* creates changelogs
-* updates package.jsons of the modules
-* creates all needed tags
-* persists everything to git
-* finally publishes the relevant packages to npm
+## release process
+
+BAsed on these commit messages, the tool automatically
+
+* creates **changelogs**
+* updates **package.jsons** of the modules
+* updates package.jsons of the **related modules**
+* creates all needed **git tags**
+* persists everything as **git commit**s
+* finally **publish**es the relevant packages to npm
+
+For this the following rules apply:
+
+* The type `feat` triggers a **minor** release
+* The types `fix`, `refactor`, `perf`, `revert`trigger a **patch** release
+* The word `BREAKING` somewhere in the message (subject or body) converts this to a **major** release
+* The scope (sitting in brackets next to the type) is the most important part. It determines which package is tackled with the commit
+
 
 ## installation
 
@@ -43,9 +58,18 @@ and after that add it to your package.json
 }
 ```
 
+
 ## usage
 
 Finally, you can use it for a dry run (without any persistence)
-`npm run prepublish` or consequently with full effects
-`npm run release`.
+`npm run prepublish` (or `rlsr pre`) and check what it has created.
 
+For the full power you can persist these changes with git commits and tags as well as the
+npm publish using `npm run release` (or `rlsr pre && rlsr perform`).
+
+## api
+
+RLSR has some config values, that you can set inside your package.json in a `rlsr` section.
+
+* `verbose` (boolean): `true` creates a lot more output for debugging purposes.
+* `packagePath` (string): tells the system where the multi repo packages live (defaults to `./packages`)
