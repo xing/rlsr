@@ -92,3 +92,12 @@ A message of type `feat(package-name)` triggers a minor release.
 ### What triggers a minor release?
 
 A message of type `fix`, `refactor`, `perf` or `revert` triggers a minor release.
+
+### What does `previouslyUnreleased` in the package.json mean?
+
+The two processes (`pre` and `perform`) are independent of each other. But they
+use the main package.json as a amall data exchange layer.
+
+`pre` leaves `previouslyUnreleased` as an information for `perform`. It tells the second process
+which components need to be published. `perform` finally removes this again. But you may stumble upon this
+package.json entry at times.
