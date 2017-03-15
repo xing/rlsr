@@ -73,3 +73,31 @@ RLSR has some config values, that you can set inside your package.json in a `rls
 
 * `verbose` (boolean): `true` creates a lot more output for debugging purposes.
 * `packagePath` (string): tells the system where the multi repo packages live (defaults to `./packages`)
+
+## FAQ
+
+### How can I trigger a breaking change?
+
+There are currently two criteria:
+
+- The commit message type would itself trigger at least a patch release (`feat`, `fix`, `refactor`, `perf`, `revert`)
+- AND the message subject ot the message body contains at least the term `BREAKING`
+
+The easiest way to achieve this is by using `commitizen` and enter something under the BREAKING CHANGE topic.
+
+### What triggers a minor release?
+
+A message of type `feat(package-name)` triggers a minor release.
+
+### What triggers a minor release?
+
+A message of type `fix`, `refactor`, `perf` or `revert` triggers a minor release.
+
+### What does `previouslyUnreleased` in the package.json mean?
+
+The two processes (`pre` and `perform`) are independent of each other. But they
+use the main package.json as a amall data exchange layer.
+
+`pre` leaves `previouslyUnreleased` as an information for `perform`. It tells the second process
+which components need to be published. `perform` finally removes this again. But you may stumble upon this
+package.json entry at times.

@@ -20,8 +20,9 @@ module.exports = env => {
       })
 
       // filter unreleased
+      // for manual manipulation, we filter stuff that doesn't match any real package (#5)
       .then(packages => {
-        return env.previouslyUnreleased.map(packageName => packages[packageName]);
+        return env.previouslyUnreleased.map(packageName => packages[packageName]).filter(p => !!p);
       })
 
       // add tag for every changed component
