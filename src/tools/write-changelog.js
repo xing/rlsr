@@ -4,8 +4,19 @@ const R = require('ramda');
 
 const levels = ['patch', 'minor', '**BREAKING**'];
 
-const getMessageString = msg => `${levels[msg.level]} ${msg.type}: ${msg.subject}`;
-const getRelatedMessageString = msg => `Dependency update of *${msg.package}* (${msg.type}): ${msg.subject}`;
+const getMessageString = msg => {
+  let content = [msg.body, msg.footer]
+    .filter(item => !!item)
+    .map(item => '\n' + item)
+    .join('')
+    .replace(/\n/g, '\n> ');
+  let ret = `${levels[msg.level]} ${msg.type}: **${msg.subject}**${content}
+`;
+  return ret;
+};
+
+const getRelatedMessageString = msg => `Dependency update of *${msg.package}* (${msg.type}): **${msg.subject}**
+`;
 
 module.exports = nsp => pkg => new Promise((resolve, reject) => {
   if ((pkg[nsp].messages.length + pkg[nsp].relatedMessages.length) > 0) {

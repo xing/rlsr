@@ -37,7 +37,10 @@ module.exports = env => {
             package: relatedPackage.name,
             level: msg.level,
             subject: msg.subject,
-            mentions: msg.mentions
+            mentions: msg.mentions,
+            notes: msg.notes,
+            body: msg.body,
+            footer: msg.footer
           });
         }
       });
