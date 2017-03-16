@@ -24,12 +24,12 @@ module.exports = env => {
     })
     // assign messages to packages
     .then(([msgs, pkgs]) => {
-      env.log(`<${msgs.length}> relevant commits`);
       env.log(`<${pkgs.length}> packages`);
 
       const flatPackages = pkgs.map(polish(env.nsp, pkgs.map(pkg => pkg.name)));
       const indexedPackages = R.indexBy(R.prop('name'), flatPackages);
       msgs.forEach(msg => {
+        env.dbg(`[${msg.level}] ${msg.type}(${msg.scope}): ${msg.subject}`);
         const relatedPackage = indexedPackages[msg.scope];
         if (relatedPackage) {
           relatedPackage[env.nsp].messages.push({
@@ -44,6 +44,7 @@ module.exports = env => {
           });
         }
       });
+      env.log(`<${msgs.length}> relevant commits`);
       return indexedPackages;
     })
     // determine related packages
