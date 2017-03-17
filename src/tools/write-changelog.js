@@ -41,7 +41,6 @@ module.exports = nsp => pkg => new Promise((resolve, reject) => {
     const content = `# Changelog ${pkg.name}
 
 ## Version ${pkg.version}
-
 ${getSection(
   'BREAKING CHANGES', breakingChanges
 )}${getSection(

@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const R = require('ramda');
-const bump = require('./bump');
+const semver = require('./semver');
 
 module.exports = (packages, env) => new Promise((resolve, reject) => {
   const requiredBump = R.last(R.flatten(packages.map(p => p[env.nsp].messages)).map(msg => msg.level).sort());
@@ -13,7 +13,7 @@ module.exports = (packages, env) => new Promise((resolve, reject) => {
     const previouslyUnreleased = R.uniq(R.pathOr([], [env.nsp, 'previouslyUnreleased'], mainPkg)
       .concat(packages.filter(p => p[env.nsp].determinedIncrementLevel > -1).map(p => p.name)));
 
-    mainPkg.version = bump(mainPkg.version, requiredBump);
+    mainPkg.version = semver.bump(mainPkg.version, requiredBump);
     mainPkg[env.nsp] = Object.assign({}, mainPkg[env.nsp], { previouslyUnreleased });
 
     fs.writeFile(pkgPath, JSON.stringify(mainPkg, null, 2), (err) => {
