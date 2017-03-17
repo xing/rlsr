@@ -13,13 +13,13 @@ const getMessageString = msg => {
   return ret;
 };
 
-const getRelatedMessageString = msg => `${msg.type} in *${msg.package}*: **${msg.subject}**
+const getRelatedMessageString = msg => `${msg.type} in *${msg.package}@${msg.version}*: **${msg.subject}**
 `;
 
 const getSection = (title, items) => {
   if (items.length > 0) {
     return `
-#### ${title}
+### ${title}
 
 ${items.join('\n')}`;
   } else {
@@ -28,15 +28,15 @@ ${items.join('\n')}`;
 };
 
 module.exports = nsp => pkg => new Promise((resolve, reject) => {
-  if ((pkg[nsp].messages.length + pkg[nsp].relatedMessages.length) > 0) {
-    const breakingChanges = pkg[nsp].messages.filter(m => m.level === 2).map(m => getMessageString(m));
+  if (pkg[nsp].determinedIncrementLevel > -1 && (pkg[nsp].messages.length + pkg[nsp].relatedMessages.length) > 0) {
+    const breakingChanges = pkg[nsp].messages.filter(m => m.level === 2).map(getMessageString);
     const nonBreakingChanges = pkg[nsp].messages.filter(m => m.level !== 2);
-    const feat = nonBreakingChanges.filter(m => m.type === 'feat').map(m => getMessageString(m));
-    const fix = nonBreakingChanges.filter(m => m.type === 'fix').map(m => getMessageString(m));
-    const perf = nonBreakingChanges.filter(m => m.type === 'perf').map(m => getMessageString(m));
-    const refactor = nonBreakingChanges.filter(m => m.type === 'refactor').map(m => getMessageString(m));
-    const revert = nonBreakingChanges.filter(m => m.type === 'revert').map(m => getMessageString(m));
-    const dep = pkg[nsp].relatedMessages.map(m => getRelatedMessageString(m));
+    const feat = nonBreakingChanges.filter(m => m.type === 'feat').map(getMessageString);
+    const fix = nonBreakingChanges.filter(m => m.type === 'fix').map(getMessageString);
+    const perf = nonBreakingChanges.filter(m => m.type === 'perf').map(getMessageString);
+    const refactor = nonBreakingChanges.filter(m => m.type === 'refactor').map(getMessageString);
+    const revert = nonBreakingChanges.filter(m => m.type === 'revert').map(getMessageString);
+    const dep = pkg[nsp].relatedMessages.map(getRelatedMessageString);
 
     const content = `# Changelog ${pkg.name}
 

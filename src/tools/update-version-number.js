@@ -1,15 +1,25 @@
-const R = require('ramda');
-const bump = require('./bump');
+const semver = require('./semver');
 
 module.exports = (nsp, packages) => pkg => {
-  const incrementLevelThroughRelation = pkg[nsp].relatedMessages.length > 0 ? 0 : -1;
   const incrementLevelsThroughMessages = pkg[nsp].messages.map(msg => msg.level);
 
-  pkg[nsp].determinedIncrementLevel = R.last([incrementLevelThroughRelation, ...incrementLevelsThroughMessages].sort());
+  pkg[nsp].determinedIncrementLevel = Math.max.apply(null, [pkg[nsp].determinedIncrementLevel, ...incrementLevelsThroughMessages]);
 
-  pkg.version = bump(pkg.version, pkg[nsp].determinedIncrementLevel);
+  pkg.version = semver.bump(pkg.version, pkg[nsp].determinedIncrementLevel);
   pkg[nsp].relations.forEach(rel => {
     const relatedPackage = packages[rel];
-    relatedPackage.dependencies[pkg.name] = pkg.version;
+    const oldRange = relatedPackage.dependencies[pkg.name];
+    const newRange = semver.adjustRange(pkg.version, oldRange);
+    relatedPackage.dependencies[pkg.name] = newRange;
+    if (oldRange !== newRange && relatedPackage[nsp].determinedIncrementLevel === -1) {
+      relatedPackage[nsp].determinedIncrementLevel = 0;
+      relatedPackage[nsp].relatedMessages = relatedPackage[nsp].relatedMessages.concat(
+        pkg[nsp].messages.map(m => Object.assign(
+          {},
+          m,
+          {package: pkg.name, version: pkg.version}
+        ))
+      );
+    }
   });
 };
