@@ -74,6 +74,20 @@ RLSR has some config values, that you can set inside your package.json in a `rls
 * `verbose` (boolean): `true` creates a lot more output for debugging purposes.
 * `packagePath` (string): tells the system where the multi repo packages live (defaults to `./packages`)
 
+## rlsr-latest
+
+RLSR is able to fill in the latest version of a package to dependants.
+A dependant package just needs to use `rlsr-latest` instead of a concrete version in it's dependencies.
+
+```json
+{
+  "my-package"
+  "dependencies": {
+    "my-dependency": "rlsr-latest"
+  }
+}
+```
+
 ## FAQ
 
 ### How can I trigger a breaking change?
