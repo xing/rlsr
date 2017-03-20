@@ -66,7 +66,8 @@ describe('updateVersionNumber()', () => {
     ['in Range', 0, '1.2.3 - 1', '1.2.3 - 1', -1],
     ['against fixed range', 0, '1.2.3', '1.2.3 - 1', 0],
     ['against too small caret range', 2, '^1.2.3', '1.2.3 - 2', 0],
-    ['against too small hyphen range', 2, '1.2.3 - 1', '1.2.3 - 2', 0]
+    ['against too small hyphen range', 2, '1.2.3 - 1', '1.2.3 - 2', 0],
+    ['against rlsr-latest declaration', 2, 'rlsr-latest', '^2.0.0', 0]
   ].map(t => it(`updates related packages (${t[0]})`, () => {
     const p = R.clone(packages);
     p.one.rlsr.messages[0].level = t[1];
