@@ -31,8 +31,8 @@ module.exports = (log, dbg) => {
       `git tag -a -m 'chore: tagged main package @ ${version}' ${version}`,
       `adding general git tag <${version}>`
     ),
-    push: () => run(
-      `git push --follow-tags`,
+    push: (remote, branch) => run(
+      `git push ${remote} ${branch} --follow-tags`,
       `pushing to remote`
     )
   };
