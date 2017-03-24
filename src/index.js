@@ -26,7 +26,10 @@ const run = (cmd) => {
   }
 
   inf('rlsr')(`command <${cmd}>`);
-  runner(Object.assign({}, pkg[NAME], {
+  runner(Object.assign({
+    remote: 'origin',
+    branch: 'master'
+  }, pkg[NAME], {
     dbg: dbg(`${NAME} ${cmd}`),
     err: err(`${NAME} ${cmd}`),
     log: inf(`${NAME} ${cmd}`),

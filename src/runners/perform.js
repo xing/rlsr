@@ -30,18 +30,18 @@ module.exports = env => {
         p => commands.tagPackage(p.name, p.version)
       )).then(() => packages))
 
+      // clean up main package.json
+      .then((packages) => writeCleanedPackageJson(env).then(() => packages))
+
+      // commit main package.json
+      .then((packages) => commands.commitMain(env.version).then(() => packages))
+      .then((packages) => commands.tagMain(env.version).then(() => packages))
+      .then((packages) => commands.push(env.remote, env.branch).then(() => packages))
+
       // npm publish all packages
       .then(packages => Promise.all(packages.map(
         p => commands.publishPackage(p.name, p.version, p[env.nsp].dir)
       )))
-
-      // clean up main package.json
-      .then(() => writeCleanedPackageJson(env))
-
-      // commit main package.json
-      .then(() => commands.commitMain(env.version))
-      .then(() => commands.tagMain(env.version))
-      .then(() => commands.push())
 
       // npm publish every changed component
       .catch(e => {
