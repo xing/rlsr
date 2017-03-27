@@ -12,7 +12,7 @@ const packages = {
       determinedIncrementLevel: -1,
       messages: [{level: 0}],
       relatedMessages: [],
-      relations: ['two']
+      relations: ['two', 'three']
     }
   },
   two: {
@@ -26,7 +26,19 @@ const packages = {
       relatedMessages: [],
       relations: []
     }
-  }
+  },
+  three: {
+    name: 'three',
+    devDependencies: {
+      one: '1.0.0'
+    },
+    rlsr: {
+      determinedIncrementLevel: -1,
+      messages: [],
+      relatedMessages: [],
+      relations: []
+    }
+  },
 };
 
 describe('updateVersionNumber()', () => {
@@ -72,10 +84,13 @@ describe('updateVersionNumber()', () => {
     const p = R.clone(packages);
     p.one.rlsr.messages[0].level = t[1];
     p.two.dependencies.one = t[2];
+    p.three.devDependencies.one = t[2];
 
     updateVersionNumber('rlsr', p)(p.one);
 
     expect(p.two.dependencies.one).toEqual(t[3]);
+    expect(p.three.devDependencies.one).toEqual(t[3]);
     expect(p.two.rlsr.determinedIncrementLevel).toEqual(t[4]);
+    expect(p.three.rlsr.determinedIncrementLevel).toEqual(-1);
   }));
 });
