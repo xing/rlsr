@@ -5,6 +5,7 @@ const messages = require('../tools/get-parsed-commit-messages');
 const packages = require('../tools/get-packages');
 const polish = require('../tools/polish-package');
 const addRelations = require('../tools/add-relations-to-package');
+const updateRelatedVersionNumber = require('../tools/update-related-version-number');
 const updateVersionNumber = require('../tools/update-version-number');
 const writeChangelog = require('../tools/write-changelog');
 const cleanPackage = require('../tools/clean-package');
@@ -54,6 +55,7 @@ module.exports = env => {
     // update version numbers
     .then(packages => {
       R.values(packages).forEach(updateVersionNumber(env.nsp, packages));
+      R.values(packages).forEach(updateRelatedVersionNumber(env.nsp, packages));
       return packages;
     })
     // write main package.json
