@@ -42,4 +42,28 @@ describe('polish-package', () => {
 
     expect(polishPackages(nsp, packages)(pkg)[nsp].dependencies).toEqual([]);
   });
+
+  it('adds peerDependencies', () => {
+    const nsp = 'noet';
+    const packages = ['foo', 'bar', 'baz'];
+    const pkg = {
+      peerDependencies: {
+        baz: '7.8.9'
+      }
+    };
+
+    expect(polishPackages(nsp, packages)(pkg)[nsp].dependencies).toEqual(['baz']);
+  });
+
+  it('adds devDependencies', () => {
+    const nsp = 'fp';
+    const packages = ['foo', 'bar', 'baz'];
+    const pkg = {
+      devDependencies: {
+        foo: '1.1.0'
+      }
+    };
+
+    expect(polishPackages(nsp, packages)(pkg)[nsp].dependencies).toEqual(['foo']);
+  });
 });
