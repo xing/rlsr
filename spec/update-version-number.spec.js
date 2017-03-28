@@ -60,4 +60,21 @@ describe('updateVersionNumber()', () => {
 
     expect(p.one.version).toEqual(t[2]);
   }));
+
+  // test message, message level, initial dep range, expected dep range
+  [
+    ['in Range', 0, '1.2.3 - 1', '1.2.3 - 1'],
+    ['against fixed range', 0, '1.2.3', '1.2.3 - 1'],
+    ['against too small caret range', 2, '^1.2.3', '1.2.3 - 2'],
+    ['against too small hyphen range', 2, '1.2.3 - 1', '1.2.3 - 2'],
+    ['against rlsr-latest declaration', 2, 'rlsr-latest', '^2.0.0']
+  ].map(t => it(`marks related packages to bump (${t[0]})`, () => {
+    const p = R.clone(packages);
+    p.one.rlsr.messages[0].level = t[1];
+    p.two.dependencies.one = t[2];
+
+    updateVersionNumber('rlsr', p)(p.one);
+
+    expect(p.two.dependencies.one).toEqual(t[3]);
+  }));
 });
