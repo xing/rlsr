@@ -10,10 +10,10 @@ module.exports = env => {
     env.log(`Previously unreleased packages: <${env.previouslyUnreleased.length}>`);
     const commands = commandsFactory(env.log, env.dbg);
 
-    commands.commitChanges(env.version)
+    commands.commitChanges(env.env.version, env.previouslyUnreleased)
 
       // fetch packages
-      .then(() => packages(path.join(env.appRoot, env.packagePath || './packages'), env.nsp))
+      .then(() => packages(path.join(env.appRoot, env.packagePath), env.nsp))
 
       .then(flatPackages => {
         return R.indexBy(R.prop('name'), flatPackages);

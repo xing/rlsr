@@ -66,4 +66,3 @@ module.exports.bump = (oldVersion, bump) => {
 
   return `${parsed[0]}.${parsed[1]}.${parsed[2]}`;
 };
-

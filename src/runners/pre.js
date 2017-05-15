@@ -20,7 +20,7 @@ module.exports = env => {
     // gather all the data
     .then(tag => {
       env.log(`last semver tag <${tag}>`);
-      return Promise.all([messages(tag), packages(path.join(env.appRoot, env.packagePath || './packages'), env.nsp)]);
+      return Promise.all([messages(tag), packages(path.join(env.appRoot, env.packagePath), env.nsp)]);
     })
     // assign messages to packages
     .then(([msgs, pkgs]) => {

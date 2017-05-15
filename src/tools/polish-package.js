@@ -10,4 +10,3 @@ module.exports = (nsp, pkgNames) => pkg => {
   });
   return pkg;
 };
-
