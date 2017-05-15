@@ -18,7 +18,7 @@ module.exports = (packages, env) => new Promise((resolve, reject) => {
 
     fs.writeFile(pkgPath, JSON.stringify(mainPkg, null, 2), (err) => {
       if (err) {
-        reject();
+        reject(err);
       } else {
         env.log(`written main json file @ version <${mainPkg.version}>`);
         resolve();

@@ -6,7 +6,7 @@ module.exports = nsp => pkg => new Promise((resolve, reject) => {
   delete pkg[nsp];
   fs.writeFile(dest, JSON.stringify(pkg, null, 2), (err) => {
     if (err) {
-      reject();
+      reject(err);
     } else {
       resolve();
     }
