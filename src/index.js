@@ -7,11 +7,12 @@ const err = log('error');
 const inf = log('info');
 
 const NAME = 'rlsr';
+const RLSR_LATEST = 'rlsr-latest';
 
 const COMMANDS = ['pre', 'perform'];
 
 // task runner
-const run = (cmd) => {
+const run = cmd => {
   if (COMMANDS.indexOf(cmd) === -1) {
     err('rlsr', 'Please run one of the following commands');
     COMMANDS.forEach(c => err(NAME, `* ${c}`));
@@ -26,18 +27,26 @@ const run = (cmd) => {
   }
 
   inf('rlsr')(`command <${cmd}>`);
-  runner(Object.assign({
-    remote: 'origin',
-    branch: 'master',
-    packagePath: './packages'
-  }, pkg[NAME], {
-    dbg: dbg(`${NAME} ${cmd}`),
-    err: err(`${NAME} ${cmd}`),
-    log: inf(`${NAME} ${cmd}`),
-    nsp: NAME,
-    version: pkg.version,
-    appRoot: process.cwd()
-  }));
+  runner(
+    Object.assign(
+      {
+        remote: 'origin',
+        branch: 'master',
+        packagePath: './packages',
+        exactRelations: false
+      },
+      pkg[NAME],
+      {
+        dbg: dbg(`${NAME} ${cmd}`),
+        err: err(`${NAME} ${cmd}`),
+        log: inf(`${NAME} ${cmd}`),
+        nsp: NAME,
+        rlsrLatest: RLSR_LATEST,
+        version: pkg.version,
+        appRoot: process.cwd()
+      }
+    )
+  );
 };
 
 module.exports = run;

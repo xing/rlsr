@@ -7,6 +7,7 @@ const polish = require('../tools/polish-package');
 const addRelations = require('../tools/add-relations-to-package');
 const updateRelatedVersionNumber = require('../tools/update-related-version-number');
 const updateVersionNumber = require('../tools/update-version-number');
+const addDependeciesToRlsrLatest = require('../tools/add-dependencies-to-rlsr-latest');
 const writeChangelog = require('../tools/write-changelog');
 const cleanPackage = require('../tools/clean-package');
 const writePackageJson = require('../tools/write-package-json');
@@ -14,13 +15,17 @@ const writeMainPackageJson = require('../tools/write-main-package-json');
 
 module.exports = env => {
   env.log('running step PRE PUBLISH');
+  env.log(`mode ${env.exactRelations ? 'EXACT' : 'RANGE'}`);
 
   // retrieve last semver tag
   latestTag
     // gather all the data
     .then(tag => {
       env.log(`last semver tag <${tag}>`);
-      return Promise.all([messages(tag), packages(path.join(env.appRoot, env.packagePath), env.nsp)]);
+      return Promise.all([
+        messages(tag),
+        packages(path.join(env.appRoot, env.packagePath), env.nsp)
+      ]);
     })
     // assign messages to packages
     .then(([msgs, pkgs]) => {
@@ -29,7 +34,10 @@ module.exports = env => {
       const flatPackages = pkgs.map(polish(env.nsp, pkgs.map(pkg => pkg.name)));
       const indexedPackages = R.indexBy(R.prop('name'), flatPackages);
       msgs.forEach(msg => {
-        env.dbg(`[${msg.level}] ${msg.type}(${msg.scope}): ${msg.subject}`);
+        const levels = ['patch', 'minor', 'major'];
+        env.dbg(
+          `[${levels[msg.level]}] ${msg.type}(${msg.scope}): ${msg.subject}`
+        );
         const relatedPackage = indexedPackages[msg.scope];
         if (relatedPackage) {
           relatedPackage[env.nsp].messages.push({
@@ -52,29 +60,36 @@ module.exports = env => {
       R.values(packages).forEach(addRelations(env.nsp, packages));
       return packages;
     })
+    // assign messages to related packages (always as patch level)
+    // .then(packages => {
+    //   R.values(packages).forEach(assignRelatedMessages(env.nsp, packages));
+    //   return packages;
+    // })
     // update version numbers
     .then(packages => {
-      R.values(packages).forEach(updateVersionNumber(env.nsp, packages));
-      R.values(packages).forEach(updateRelatedVersionNumber(env.nsp, packages));
+      R.values(packages).forEach(updateVersionNumber(env, packages, env));
+      R.values(packages).forEach(updateRelatedVersionNumber(env, packages));
+      R.values(packages).forEach(addDependeciesToRlsrLatest(env, packages));
       return packages;
     })
     // write main package.json
     .then(packages => {
-      return writeMainPackageJson(R.values(packages), env)
-        .then(() => packages);
+      return writeMainPackageJson(R.values(packages), env).then(() => packages);
     })
     // write changelogs
     .then(packages => {
-      return Promise
-        .all(R.values(packages).map(writeChangelog(env.nsp)))
-        .then(() => packages);
+      return Promise.all(R.values(packages).map(writeChangelog(env.nsp))).then(
+        () => packages
+      );
     })
     // write package.jsons
     .then(packages => {
       R.values(packages)
         .map(pkg => {
           const bumps = ['patch bump to ', 'minor bump to ', 'MAJOR bump to '];
-          env.log(`${pkg.name}: ${pkg[env.nsp].determinedIncrementLevel === -1 ? '-' : bumps[pkg[env.nsp].determinedIncrementLevel] + pkg.version}`);
+          env.log(
+            `${pkg.name}: ${pkg[env.nsp].determinedIncrementLevel === -1 ? '-' : bumps[pkg[env.nsp].determinedIncrementLevel] + pkg.version}`
+          );
           return pkg;
         })
         .map(cleanPackage(env.nsp))

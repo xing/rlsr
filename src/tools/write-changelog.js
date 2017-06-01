@@ -13,7 +13,7 @@ const getMessageString = msg => {
   return ret;
 };
 
-const getRelatedMessageString = msg => `${msg.type} in *${msg.package}@${msg.version}*: **${msg.subject}**
+const getRelatedMessageString = msg => `- ${msg.source ? 'indirect dependency from *' + msg.source + '*: ' : ''}${msg.type} in *${msg.package}@${msg.version}*: **${msg.subject}**
 `;
 
 const getSection = (title, items) => {
@@ -27,69 +27,77 @@ ${items.join('\n')}`;
   }
 };
 
-module.exports = nsp => pkg => new Promise((resolve, reject) => {
-  if (pkg[nsp].determinedIncrementLevel > -1 && (pkg[nsp].messages.length + pkg[nsp].relatedMessages.length) > 0) {
-    const breakingChanges = pkg[nsp].messages.filter(m => m.level === 2).map(getMessageString);
-    const nonBreakingChanges = pkg[nsp].messages.filter(m => m.level !== 2);
-    const feat = nonBreakingChanges.filter(m => m.type === 'feat').map(getMessageString);
-    const fix = nonBreakingChanges.filter(m => m.type === 'fix').map(getMessageString);
-    const perf = nonBreakingChanges.filter(m => m.type === 'perf').map(getMessageString);
-    const refactor = nonBreakingChanges.filter(m => m.type === 'refactor').map(getMessageString);
-    const revert = nonBreakingChanges.filter(m => m.type === 'revert').map(getMessageString);
-    const dep = pkg[nsp].relatedMessages.map(getRelatedMessageString);
+module.exports = nsp => pkg =>
+  new Promise((resolve, reject) => {
+    console.log('writeChangelog', pkg.name, pkg[nsp].relatedMessages);
+    if (
+      pkg[nsp].determinedIncrementLevel > -1 &&
+      pkg[nsp].messages.length + pkg[nsp].relatedMessages.length > 0
+    ) {
+      const breakingChanges = pkg[nsp].messages
+        .filter(m => m.level === 2)
+        .map(getMessageString);
+      const nonBreakingChanges = pkg[nsp].messages.filter(m => m.level !== 2);
+      const feat = nonBreakingChanges
+        .filter(m => m.type === 'feat')
+        .map(getMessageString);
+      const fix = nonBreakingChanges
+        .filter(m => m.type === 'fix')
+        .map(getMessageString);
+      const perf = nonBreakingChanges
+        .filter(m => m.type === 'perf')
+        .map(getMessageString);
+      const refactor = nonBreakingChanges
+        .filter(m => m.type === 'refactor')
+        .map(getMessageString);
+      const revert = nonBreakingChanges
+        .filter(m => m.type === 'revert')
+        .map(getMessageString);
+      const dep = pkg[nsp].relatedMessages.map(getRelatedMessageString);
 
-    const content = `# Changelog ${pkg.name}
+      const content = `# Changelog ${pkg.name}
 
 ## Version ${pkg.version}
-${getSection(
-  'BREAKING CHANGES', breakingChanges
-)}${getSection(
-  'New Features', feat
-)}${getSection(
-  'Bug Fixes', fix
-)}${getSection(
-  'Performance Improvements', perf
-)}${getSection(
-  'Refactorings', refactor
-)}${getSection(
-  'Reverted Changes', revert
-)}${getSection(
-  'Dependency Updates', dep
-)}
+${getSection('🚀  BREAKING CHANGES', breakingChanges)}${getSection('🆕  New Features', feat)}${getSection('🐞 Bug Fixes', fix)}${getSection('🏃 Performance Improvements', perf)}${getSection('🔨 Refactorings', refactor)}${getSection('🔙 Reverted Changes', revert)}${getSection('🔄  Dependency Updates', dep)}
 
 `;
-
-    const changelogFile = path.resolve(pkg[nsp].dir, 'changelog.md');
-    fs.stat(changelogFile, (err, stats) => {
-      if (err) {
-        // file does not exist
-        fs.writeFile(changelogFile, content, err => {
-          if (err) {
-            reject(err);
-          } else {
-            resolve();
-          }
-        });
-      } else {
-        // file does exist
-        fs.readFile(changelogFile, {encodig: 'utf-8'}, (err, oldContent) => {
-          if (err) {
-            reject(err);
-          } else {
-            // removing the headline
-            const tail = R.drop(2, oldContent.toString().split('\n')).join('\n');
-            fs.writeFile(changelogFile, content + tail, err => {
+      const changelogFile = path.resolve(pkg[nsp].dir, 'changelog.md');
+      fs.stat(changelogFile, (err, stats) => {
+        if (err) {
+          // file does not exist
+          fs.writeFile(changelogFile, content, err => {
+            if (err) {
+              reject(err);
+            } else {
+              resolve();
+            }
+          });
+        } else {
+          // file does exist
+          fs.readFile(
+            changelogFile,
+            { encodig: 'utf-8' },
+            (err, oldContent) => {
               if (err) {
                 reject(err);
               } else {
-                resolve();
+                // removing the headline
+                const tail = R.drop(2, oldContent.toString().split('\n')).join(
+                  '\n'
+                );
+                fs.writeFile(changelogFile, content + tail, err => {
+                  if (err) {
+                    reject(err);
+                  } else {
+                    resolve();
+                  }
+                });
               }
-            });
-          }
-        });
-      }
-    });
-  } else {
-    resolve();
-  }
-});
+            }
+          );
+        }
+      });
+    } else {
+      resolve();
+    }
+  });
