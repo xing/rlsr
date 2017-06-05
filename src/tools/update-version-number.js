@@ -1,37 +1,68 @@
 const semver = require('./semver');
 
-const RLSR_LATEST_DECLARATION = 'rlsr-latest';
+module.exports = (env, packages) => pkg => {
+  const nsp = env.nsp;
+  const RLSR_LATEST_DECLARATION = env.rlsrLatest;
+  const exactRelations = env.exactRelations;
+  const getNewRange = (newVersion, oldRange) => {
+    if (oldRange === RLSR_LATEST_DECLARATION) {
+      return `^${newVersion}`;
+    }
+    return semver.adjustRange(newVersion, oldRange);
+  };
 
-function getNewRange (newVersion, oldRange) {
-  if (oldRange === RLSR_LATEST_DECLARATION) {
-    return `^${newVersion}`;
-  }
+  const addDependencyToPackage = (p, dependency) => {
+    const addMessages = () => {
+      p[nsp].relatedMessages = p[nsp].relatedMessages
+        .concat(
+          dependency[nsp].messages.map(m =>
+            Object.assign({}, m, {
+              package: dependency.name,
+              version: dependency.version
+            })
+          )
+        )
+        .concat(
+          dependency[nsp].relatedMessages.map(m =>
+            Object.assign({}, m, { source: dependency.name })
+          )
+        );
+    };
 
-  return semver.adjustRange(newVersion, oldRange);
-}
+    if (exactRelations) {
+      p.dependencies[dependency.name] = RLSR_LATEST_DECLARATION;
+      p[nsp].relations &&
+        p[nsp].relations.forEach(rel =>
+          addDependencyToPackage(packages[rel], p)
+        );
+      if (p[nsp].determinedIncrementLevel === -1) {
+        p[nsp].determinedIncrementLevel = 0;
+      }
+      addMessages();
+    } else {
+      const oldRange = p.dependencies[dependency.name];
+      const newRange = getNewRange(dependency.version, oldRange);
+      p.dependencies[pkg.name] = newRange;
+      if (oldRange !== newRange) {
+        addMessages();
+      }
+    }
+  };
 
-module.exports = (nsp, packages) => pkg => {
-  const incrementLevelsThroughMessages = pkg[nsp].messages.map(msg => msg.level);
+  const incrementLevelsThroughMessages = pkg[nsp].messages.map(
+    msg => msg.level
+  );
 
-  pkg[nsp].determinedIncrementLevel = Math.max.apply(null, [pkg[nsp].determinedIncrementLevel, ...incrementLevelsThroughMessages]);
+  pkg[nsp].determinedIncrementLevel = Math.max.apply(null, [
+    pkg[nsp].determinedIncrementLevel,
+    ...incrementLevelsThroughMessages
+  ]);
 
   if (pkg[nsp].determinedIncrementLevel > -1) {
     pkg.version = semver.bump(pkg.version, pkg[nsp].determinedIncrementLevel);
     pkg[nsp].hasBump = true;
-    pkg[nsp].relations.forEach(rel => {
-      const relatedPackage = packages[rel];
-      const oldRange = relatedPackage.dependencies[pkg.name];
-      const newRange = getNewRange(pkg.version, oldRange);
-      relatedPackage.dependencies[pkg.name] = newRange;
-      if (oldRange !== newRange && relatedPackage[nsp].determinedIncrementLevel === -1) {
-        relatedPackage[nsp].relatedMessages = relatedPackage[nsp].relatedMessages.concat(
-          pkg[nsp].messages.map(m => Object.assign(
-            {},
-            m,
-            {package: pkg.name, version: pkg.version}
-          ))
-        );
-      }
-    });
+    pkg[nsp].relations.forEach(rel =>
+      addDependencyToPackage(packages[rel], pkg)
+    );
   }
 };
