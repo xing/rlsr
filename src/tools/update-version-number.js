@@ -47,8 +47,6 @@ module.exports = (env, packages) => pkg => {
         addMessages();
       }
     }
-
-    console.log('updateVersionNumber', p.name, p[nsp].relatedMessages);
   };
 
   const incrementLevelsThroughMessages = pkg[nsp].messages.map(

@@ -60,11 +60,6 @@ module.exports = env => {
       R.values(packages).forEach(addRelations(env.nsp, packages));
       return packages;
     })
-    // assign messages to related packages (always as patch level)
-    // .then(packages => {
-    //   R.values(packages).forEach(assignRelatedMessages(env.nsp, packages));
-    //   return packages;
-    // })
     // update version numbers
     .then(packages => {
       R.values(packages).forEach(updateVersionNumber(env, packages, env));

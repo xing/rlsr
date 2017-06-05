@@ -13,7 +13,6 @@ module.exports = (log, dbg) => {
 
   return {
     commitChanges: (env, packages) => {
-      console.log(env);
       const files = R.flatten(
         packages.map(p => [
           path.join(env.appRoot, env.packagePath, p, 'changelog.md'),
