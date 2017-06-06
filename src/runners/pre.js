@@ -9,6 +9,7 @@ const updateRelatedVersionNumber = require('../tools/update-related-version-numb
 const updateVersionNumber = require('../tools/update-version-number');
 const addDependeciesToRlsrLatest = require('../tools/add-dependencies-to-rlsr-latest');
 const writeChangelog = require('../tools/write-changelog');
+const writeCentralChangelog = require('../tools/write-central-changelog');
 const cleanPackage = require('../tools/clean-package');
 const writePackageJson = require('../tools/write-package-json');
 const writeMainPackageJson = require('../tools/write-main-package-json');
@@ -69,7 +70,11 @@ module.exports = env => {
     })
     // write main package.json
     .then(packages => {
-      return writeMainPackageJson(R.values(packages), env).then(() => packages);
+      return writeMainPackageJson(R.values(packages), env)
+        .then(newMainVersion =>
+          writeCentralChangelog(env, newMainVersion, packages)
+        )
+        .then(() => packages);
     })
     // write changelogs
     .then(packages => {
