@@ -29,7 +29,6 @@ ${items.join('\n')}`;
 
 module.exports = nsp => pkg =>
   new Promise((resolve, reject) => {
-    console.log('writeChangelog', pkg.name, pkg[nsp].relatedMessages);
     if (
       pkg[nsp].determinedIncrementLevel > -1 &&
       pkg[nsp].messages.length + pkg[nsp].relatedMessages.length > 0

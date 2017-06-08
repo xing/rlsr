@@ -17,7 +17,8 @@ module.exports = (log, dbg) => {
         packages.map(p => [
           path.join(env.appRoot, env.packagePath, p, 'changelog.md'),
           packages.map(p => [
-            path.join(env.appRoot, env.packagePath, p, 'package.json')
+            path.join(env.appRoot, env.packagePath, p, 'package.json'),
+            path.join(env.appRoot, 'changelog.json')
           ])
         ])
       ).join(' ');
