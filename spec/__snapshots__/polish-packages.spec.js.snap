@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`polishPackages() turns packages into an indexed object 1`] = `
+Object {
+  "appRoot": "/",
+  "changelog": Object {},
+  "consts": Object {
+    "levels": Array [
+      "patch",
+      "minor",
+      "major",
+    ],
+    "nsp": "rlsr",
+    "rlsrLatest": "rlsr-latest",
+  },
+  "dbg": [Function],
+  "log": [Function],
+  "mainPackage": Object {
+    "rlsr": Object {},
+    "version": "1.2.3",
+  },
+  "messages": Array [],
+  "packages": Object {
+    "a": Object {
+      "name": "a",
+      "rlsr": Object {
+        "dependencies": Array [],
+        "determinedIncrementLevel": -1,
+        "messages": Array [],
+        "relatedMessages": Array [],
+        "relations": Array [],
+      },
+    },
+    "b": Object {
+      "name": "b",
+      "rlsr": Object {
+        "dependencies": Array [],
+        "determinedIncrementLevel": -1,
+        "messages": Array [],
+        "relatedMessages": Array [],
+        "relations": Array [],
+      },
+    },
+  },
+}
+`;

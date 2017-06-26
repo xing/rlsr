@@ -1,0 +1,942 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`large test: synchronized mode applies major message 1`] = `
+Object {
+  "appRoot": "/",
+  "changelog": Object {
+    "5.0.0": Object {
+      "changes": Object {
+        "five": Object {
+          "determinedIncrementLevel": "major",
+          "messages": Array [
+            Object {
+              "affected": Array [
+                "one",
+              ],
+              "body": "BREAKING CHANGE: text ",
+              "source": Array [
+                "one",
+              ],
+              "subject": "dependency update: fix: baz",
+              "type": "dependency update",
+            },
+          ],
+          "version": "5.0.0",
+        },
+        "four": Object {
+          "determinedIncrementLevel": "major",
+          "messages": Array [
+            Object {
+              "affected": Array [
+                "one",
+              ],
+              "body": "BREAKING CHANGE: text ",
+              "source": Array [
+                "one",
+              ],
+              "subject": "dependency update: fix: baz",
+              "type": "dependency update",
+            },
+          ],
+          "version": "5.0.0",
+        },
+        "one": Object {
+          "determinedIncrementLevel": "major",
+          "messages": Array [
+            Object {
+              "affected": Array [
+                "one",
+              ],
+              "body": "BREAKING CHANGE: text ",
+              "subject": "baz",
+              "type": "fix",
+            },
+          ],
+          "version": "5.0.0",
+        },
+        "three": Object {
+          "determinedIncrementLevel": "major",
+          "messages": Array [
+            Object {
+              "affected": Array [
+                "one",
+              ],
+              "body": "BREAKING CHANGE: text ",
+              "source": Array [
+                "one",
+              ],
+              "subject": "dependency update: fix: baz",
+              "type": "dependency update",
+            },
+          ],
+          "version": "5.0.0",
+        },
+        "two": Object {
+          "determinedIncrementLevel": "major",
+          "messages": Array [
+            Object {
+              "affected": Array [
+                "one",
+              ],
+              "body": "BREAKING CHANGE: text ",
+              "source": Array [
+                "one",
+              ],
+              "subject": "dependency update: fix: baz",
+              "type": "dependency update",
+            },
+          ],
+          "version": "5.0.0",
+        },
+      },
+      "date": "Thu Jan 01 1970 01:00:00 GMT+0100 (CET)",
+    },
+  },
+  "config": Object {
+    "mode": "synchronized",
+  },
+  "consts": Object {
+    "levels": Array [
+      "patch",
+      "minor",
+      "major",
+    ],
+    "nsp": "rlsr",
+    "rlsrLatest": "rlsr-latest",
+  },
+  "dbg": [Function],
+  "log": [Function],
+  "mainPackage": Object {
+    "rlsr": Object {
+      "determinedIncrementLevel": 2,
+    },
+    "version": "5.0.0",
+  },
+  "messages": Array [],
+  "packageNames": Array [
+    "one",
+    "two",
+    "three",
+    "four",
+    "five",
+  ],
+  "packages": Array [
+    Object {
+      "dependencies": Object {
+        "five": "5.0.0",
+        "four": "5.0.0",
+      },
+      "name": "one",
+      "version": "5.0.0",
+    },
+    Object {
+      "dependencies": Object {
+        "three": "5.0.0",
+      },
+      "name": "two",
+      "version": "5.0.0",
+    },
+    Object {
+      "dependencies": Object {
+        "four": "5.0.0",
+      },
+      "name": "three",
+      "version": "5.0.0",
+    },
+    Object {
+      "name": "four",
+      "version": "5.0.0",
+    },
+    Object {
+      "name": "five",
+      "version": "5.0.0",
+    },
+  ],
+}
+`;
+
+exports[`large test: synchronized mode applies messages with multiple affected packages 1`] = `
+Object {
+  "appRoot": "/",
+  "changelog": Object {
+    "4.6.0": Object {
+      "changes": Object {
+        "five": Object {
+          "determinedIncrementLevel": "minor",
+          "messages": Array [
+            Object {
+              "affected": Array [
+                "one",
+              ],
+              "body": "",
+              "source": Array [
+                "one",
+              ],
+              "subject": "dependency update: feat: waz",
+              "type": "dependency update",
+            },
+            Object {
+              "affected": Array [
+                "two",
+                "three",
+              ],
+              "body": "
+",
+              "source": Array [
+                "two",
+                "three",
+              ],
+              "subject": "dependency update: fix: tar",
+              "type": "dependency update",
+            },
+          ],
+          "version": "4.6.0",
+        },
+        "four": Object {
+          "determinedIncrementLevel": "minor",
+          "messages": Array [
+            Object {
+              "affected": Array [
+                "one",
+              ],
+              "body": "",
+              "source": Array [
+                "one",
+              ],
+              "subject": "dependency update: feat: waz",
+              "type": "dependency update",
+            },
+            Object {
+              "affected": Array [
+                "two",
+                "three",
+              ],
+              "body": "
+",
+              "source": Array [
+                "two",
+                "three",
+              ],
+              "subject": "dependency update: fix: tar",
+              "type": "dependency update",
+            },
+          ],
+          "version": "4.6.0",
+        },
+        "one": Object {
+          "determinedIncrementLevel": "minor",
+          "messages": Array [
+            Object {
+              "affected": Array [
+                "one",
+              ],
+              "body": "",
+              "subject": "waz",
+              "type": "feat",
+            },
+            Object {
+              "affected": Array [
+                "two",
+                "three",
+              ],
+              "body": "
+",
+              "source": Array [
+                "two",
+                "three",
+              ],
+              "subject": "dependency update: fix: tar",
+              "type": "dependency update",
+            },
+          ],
+          "version": "4.6.0",
+        },
+        "three": Object {
+          "determinedIncrementLevel": "minor",
+          "messages": Array [
+            Object {
+              "affected": Array [
+                "two",
+                "three",
+              ],
+              "body": "
+",
+              "subject": "tar",
+              "type": "fix",
+            },
+            Object {
+              "affected": Array [
+                "one",
+              ],
+              "body": "",
+              "source": Array [
+                "one",
+              ],
+              "subject": "dependency update: feat: waz",
+              "type": "dependency update",
+            },
+          ],
+          "version": "4.6.0",
+        },
+        "two": Object {
+          "determinedIncrementLevel": "minor",
+          "messages": Array [
+            Object {
+              "affected": Array [
+                "two",
+                "three",
+              ],
+              "body": "
+",
+              "subject": "tar",
+              "type": "fix",
+            },
+            Object {
+              "affected": Array [
+                "one",
+              ],
+              "body": "",
+              "source": Array [
+                "one",
+              ],
+              "subject": "dependency update: feat: waz",
+              "type": "dependency update",
+            },
+          ],
+          "version": "4.6.0",
+        },
+      },
+      "date": "Thu Jan 01 1970 01:00:00 GMT+0100 (CET)",
+    },
+  },
+  "config": Object {
+    "mode": "synchronized",
+  },
+  "consts": Object {
+    "levels": Array [
+      "patch",
+      "minor",
+      "major",
+    ],
+    "nsp": "rlsr",
+    "rlsrLatest": "rlsr-latest",
+  },
+  "dbg": [Function],
+  "log": [Function],
+  "mainPackage": Object {
+    "rlsr": Object {
+      "determinedIncrementLevel": 1,
+    },
+    "version": "4.6.0",
+  },
+  "messages": Array [],
+  "packageNames": Array [
+    "one",
+    "two",
+    "three",
+    "four",
+    "five",
+  ],
+  "packages": Array [
+    Object {
+      "dependencies": Object {
+        "five": "4.6.0",
+        "four": "4.6.0",
+      },
+      "name": "one",
+      "version": "4.6.0",
+    },
+    Object {
+      "dependencies": Object {
+        "three": "4.6.0",
+      },
+      "name": "two",
+      "version": "4.6.0",
+    },
+    Object {
+      "dependencies": Object {
+        "four": "4.6.0",
+      },
+      "name": "three",
+      "version": "4.6.0",
+    },
+    Object {
+      "name": "four",
+      "version": "4.6.0",
+    },
+    Object {
+      "name": "five",
+      "version": "4.6.0",
+    },
+  ],
+}
+`;
+
+exports[`large test: synchronized mode applies minor message 1`] = `
+Object {
+  "appRoot": "/",
+  "changelog": Object {
+    "4.6.0": Object {
+      "changes": Object {
+        "five": Object {
+          "determinedIncrementLevel": "minor",
+          "messages": Array [
+            Object {
+              "affected": Array [
+                "one",
+              ],
+              "body": "",
+              "source": Array [
+                "one",
+              ],
+              "subject": "dependency update: feat: bar",
+              "type": "dependency update",
+            },
+          ],
+          "version": "4.6.0",
+        },
+        "four": Object {
+          "determinedIncrementLevel": "minor",
+          "messages": Array [
+            Object {
+              "affected": Array [
+                "one",
+              ],
+              "body": "",
+              "source": Array [
+                "one",
+              ],
+              "subject": "dependency update: feat: bar",
+              "type": "dependency update",
+            },
+          ],
+          "version": "4.6.0",
+        },
+        "one": Object {
+          "determinedIncrementLevel": "minor",
+          "messages": Array [
+            Object {
+              "affected": Array [
+                "one",
+              ],
+              "body": "",
+              "subject": "bar",
+              "type": "feat",
+            },
+          ],
+          "version": "4.6.0",
+        },
+        "three": Object {
+          "determinedIncrementLevel": "minor",
+          "messages": Array [
+            Object {
+              "affected": Array [
+                "one",
+              ],
+              "body": "",
+              "source": Array [
+                "one",
+              ],
+              "subject": "dependency update: feat: bar",
+              "type": "dependency update",
+            },
+          ],
+          "version": "4.6.0",
+        },
+        "two": Object {
+          "determinedIncrementLevel": "minor",
+          "messages": Array [
+            Object {
+              "affected": Array [
+                "one",
+              ],
+              "body": "",
+              "source": Array [
+                "one",
+              ],
+              "subject": "dependency update: feat: bar",
+              "type": "dependency update",
+            },
+          ],
+          "version": "4.6.0",
+        },
+      },
+      "date": "Thu Jan 01 1970 01:00:00 GMT+0100 (CET)",
+    },
+  },
+  "config": Object {
+    "mode": "synchronized",
+  },
+  "consts": Object {
+    "levels": Array [
+      "patch",
+      "minor",
+      "major",
+    ],
+    "nsp": "rlsr",
+    "rlsrLatest": "rlsr-latest",
+  },
+  "dbg": [Function],
+  "log": [Function],
+  "mainPackage": Object {
+    "rlsr": Object {
+      "determinedIncrementLevel": 1,
+    },
+    "version": "4.6.0",
+  },
+  "messages": Array [],
+  "packageNames": Array [
+    "one",
+    "two",
+    "three",
+    "four",
+    "five",
+  ],
+  "packages": Array [
+    Object {
+      "dependencies": Object {
+        "five": "4.6.0",
+        "four": "4.6.0",
+      },
+      "name": "one",
+      "version": "4.6.0",
+    },
+    Object {
+      "dependencies": Object {
+        "three": "4.6.0",
+      },
+      "name": "two",
+      "version": "4.6.0",
+    },
+    Object {
+      "dependencies": Object {
+        "four": "4.6.0",
+      },
+      "name": "three",
+      "version": "4.6.0",
+    },
+    Object {
+      "name": "four",
+      "version": "4.6.0",
+    },
+    Object {
+      "name": "five",
+      "version": "4.6.0",
+    },
+  ],
+}
+`;
+
+exports[`large test: synchronized mode applies patch message 1`] = `
+Object {
+  "appRoot": "/",
+  "changelog": Object {
+    "4.5.7": Object {
+      "changes": Object {
+        "five": Object {
+          "determinedIncrementLevel": "patch",
+          "messages": Array [
+            Object {
+              "affected": Array [
+                "one",
+              ],
+              "body": "",
+              "source": Array [
+                "one",
+              ],
+              "subject": "dependency update: fix: foo",
+              "type": "dependency update",
+            },
+          ],
+          "version": "4.5.7",
+        },
+        "four": Object {
+          "determinedIncrementLevel": "patch",
+          "messages": Array [
+            Object {
+              "affected": Array [
+                "one",
+              ],
+              "body": "",
+              "source": Array [
+                "one",
+              ],
+              "subject": "dependency update: fix: foo",
+              "type": "dependency update",
+            },
+          ],
+          "version": "4.5.7",
+        },
+        "one": Object {
+          "determinedIncrementLevel": "patch",
+          "messages": Array [
+            Object {
+              "affected": Array [
+                "one",
+              ],
+              "body": "",
+              "subject": "foo",
+              "type": "fix",
+            },
+          ],
+          "version": "4.5.7",
+        },
+        "three": Object {
+          "determinedIncrementLevel": "patch",
+          "messages": Array [
+            Object {
+              "affected": Array [
+                "one",
+              ],
+              "body": "",
+              "source": Array [
+                "one",
+              ],
+              "subject": "dependency update: fix: foo",
+              "type": "dependency update",
+            },
+          ],
+          "version": "4.5.7",
+        },
+        "two": Object {
+          "determinedIncrementLevel": "patch",
+          "messages": Array [
+            Object {
+              "affected": Array [
+                "one",
+              ],
+              "body": "",
+              "source": Array [
+                "one",
+              ],
+              "subject": "dependency update: fix: foo",
+              "type": "dependency update",
+            },
+          ],
+          "version": "4.5.7",
+        },
+      },
+      "date": "Thu Jan 01 1970 01:00:00 GMT+0100 (CET)",
+    },
+  },
+  "config": Object {
+    "mode": "synchronized",
+  },
+  "consts": Object {
+    "levels": Array [
+      "patch",
+      "minor",
+      "major",
+    ],
+    "nsp": "rlsr",
+    "rlsrLatest": "rlsr-latest",
+  },
+  "dbg": [Function],
+  "log": [Function],
+  "mainPackage": Object {
+    "rlsr": Object {
+      "determinedIncrementLevel": 0,
+    },
+    "version": "4.5.7",
+  },
+  "messages": Array [],
+  "packageNames": Array [
+    "one",
+    "two",
+    "three",
+    "four",
+    "five",
+  ],
+  "packages": Array [
+    Object {
+      "dependencies": Object {
+        "five": "4.5.7",
+        "four": "4.5.7",
+      },
+      "name": "one",
+      "version": "4.5.7",
+    },
+    Object {
+      "dependencies": Object {
+        "three": "4.5.7",
+      },
+      "name": "two",
+      "version": "4.5.7",
+    },
+    Object {
+      "dependencies": Object {
+        "four": "4.5.7",
+      },
+      "name": "three",
+      "version": "4.5.7",
+    },
+    Object {
+      "name": "four",
+      "version": "4.5.7",
+    },
+    Object {
+      "name": "five",
+      "version": "4.5.7",
+    },
+  ],
+}
+`;
+
+exports[`large test: synchronized mode applies several messages 1`] = `
+Object {
+  "appRoot": "/",
+  "changelog": Object {
+    "4.6.0": Object {
+      "changes": Object {
+        "five": Object {
+          "determinedIncrementLevel": "minor",
+          "messages": Array [
+            Object {
+              "affected": Array [
+                "one",
+              ],
+              "body": "",
+              "source": Array [
+                "one",
+              ],
+              "subject": "dependency update: feat: taz",
+              "type": "dependency update",
+            },
+            Object {
+              "affected": Array [
+                "one",
+              ],
+              "body": "",
+              "source": Array [
+                "one",
+              ],
+              "subject": "dependency update: fix: raz",
+              "type": "dependency update",
+            },
+            Object {
+              "affected": Array [
+                "three",
+              ],
+              "body": "",
+              "source": Array [
+                "three",
+              ],
+              "subject": "dependency update: fix: roo",
+              "type": "dependency update",
+            },
+          ],
+          "version": "4.6.0",
+        },
+        "four": Object {
+          "determinedIncrementLevel": "minor",
+          "messages": Array [
+            Object {
+              "affected": Array [
+                "one",
+              ],
+              "body": "",
+              "source": Array [
+                "one",
+              ],
+              "subject": "dependency update: feat: taz",
+              "type": "dependency update",
+            },
+            Object {
+              "affected": Array [
+                "one",
+              ],
+              "body": "",
+              "source": Array [
+                "one",
+              ],
+              "subject": "dependency update: fix: raz",
+              "type": "dependency update",
+            },
+            Object {
+              "affected": Array [
+                "three",
+              ],
+              "body": "",
+              "source": Array [
+                "three",
+              ],
+              "subject": "dependency update: fix: roo",
+              "type": "dependency update",
+            },
+          ],
+          "version": "4.6.0",
+        },
+        "one": Object {
+          "determinedIncrementLevel": "minor",
+          "messages": Array [
+            Object {
+              "affected": Array [
+                "one",
+              ],
+              "body": "",
+              "subject": "taz",
+              "type": "feat",
+            },
+            Object {
+              "affected": Array [
+                "one",
+              ],
+              "body": "",
+              "subject": "raz",
+              "type": "fix",
+            },
+            Object {
+              "affected": Array [
+                "three",
+              ],
+              "body": "",
+              "source": Array [
+                "three",
+              ],
+              "subject": "dependency update: fix: roo",
+              "type": "dependency update",
+            },
+          ],
+          "version": "4.6.0",
+        },
+        "three": Object {
+          "determinedIncrementLevel": "minor",
+          "messages": Array [
+            Object {
+              "affected": Array [
+                "three",
+              ],
+              "body": "",
+              "subject": "roo",
+              "type": "fix",
+            },
+            Object {
+              "affected": Array [
+                "one",
+              ],
+              "body": "",
+              "source": Array [
+                "one",
+              ],
+              "subject": "dependency update: feat: taz",
+              "type": "dependency update",
+            },
+            Object {
+              "affected": Array [
+                "one",
+              ],
+              "body": "",
+              "source": Array [
+                "one",
+              ],
+              "subject": "dependency update: fix: raz",
+              "type": "dependency update",
+            },
+          ],
+          "version": "4.6.0",
+        },
+        "two": Object {
+          "determinedIncrementLevel": "minor",
+          "messages": Array [
+            Object {
+              "affected": Array [
+                "one",
+              ],
+              "body": "",
+              "source": Array [
+                "one",
+              ],
+              "subject": "dependency update: feat: taz",
+              "type": "dependency update",
+            },
+            Object {
+              "affected": Array [
+                "one",
+              ],
+              "body": "",
+              "source": Array [
+                "one",
+              ],
+              "subject": "dependency update: fix: raz",
+              "type": "dependency update",
+            },
+            Object {
+              "affected": Array [
+                "three",
+              ],
+              "body": "",
+              "source": Array [
+                "three",
+              ],
+              "subject": "dependency update: fix: roo",
+              "type": "dependency update",
+            },
+          ],
+          "version": "4.6.0",
+        },
+      },
+      "date": "Thu Jan 01 1970 01:00:00 GMT+0100 (CET)",
+    },
+  },
+  "config": Object {
+    "mode": "synchronized",
+  },
+  "consts": Object {
+    "levels": Array [
+      "patch",
+      "minor",
+      "major",
+    ],
+    "nsp": "rlsr",
+    "rlsrLatest": "rlsr-latest",
+  },
+  "dbg": [Function],
+  "log": [Function],
+  "mainPackage": Object {
+    "rlsr": Object {
+      "determinedIncrementLevel": 1,
+    },
+    "version": "4.6.0",
+  },
+  "messages": Array [],
+  "packageNames": Array [
+    "one",
+    "two",
+    "three",
+    "four",
+    "five",
+  ],
+  "packages": Array [
+    Object {
+      "dependencies": Object {
+        "five": "4.6.0",
+        "four": "4.6.0",
+      },
+      "name": "one",
+      "version": "4.6.0",
+    },
+    Object {
+      "dependencies": Object {
+        "three": "4.6.0",
+      },
+      "name": "two",
+      "version": "4.6.0",
+    },
+    Object {
+      "dependencies": Object {
+        "four": "4.6.0",
+      },
+      "name": "three",
+      "version": "4.6.0",
+    },
+    Object {
+      "name": "four",
+      "version": "4.6.0",
+    },
+    Object {
+      "name": "five",
+      "version": "4.6.0",
+    },
+  ],
+}
+`;
