@@ -8,7 +8,7 @@ module.exports = env => {
     if (message.affected.length > 0) {
       const indirectlyRelatedPackages = R.without(
         message.affected,
-        env.packageNames
+        Object.keys(env.packages)
       );
       const transferredMessage = Object.assign({}, message, {
         type: 'dependency update',

@@ -40,4 +40,6 @@ module.exports = env => {
     };
     p[key][nsp] = pData;
   });
+
+  return modifyPackages(p, env);
 };

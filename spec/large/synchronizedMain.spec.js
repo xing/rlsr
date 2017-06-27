@@ -1,9 +1,8 @@
 /* eslint-env node, jest */
 const R = require('ramda');
-const transform = require('../../src/tools/transform');
+const transform = require('../../src/transform');
 const getEnv = require('../fixtures/env-large.fixture');
 const getMessage = require('../fixtures/message-large.fixture');
-const diff = require('recursive-diff').getDiff;
 
 const applyMainScope = R.assoc('scope', 'four');
 const applyMinorLevel = R.assoc('type', 'feat');
@@ -91,8 +90,6 @@ describe('large test: exact mode', () => {
     exp1.packages = R.values(exp1.packages);
 
     const exp2 = transform(exp1);
-
-    console.log('main', JSON.stringify(diff(exp1, exp2), null, 1));
 
     expect(exp2).toMatchSnapshot();
   });

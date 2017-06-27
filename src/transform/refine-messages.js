@@ -98,7 +98,7 @@ module.exports = env => {
     .filter(isRelevant)
     .map(addLevel)
     .map(addBreaking)
-    .map(m => parseMessage(m, env.packageNames));
+    .map(m => parseMessage(m, Object.keys(env.packages)));
 
   env.log(`Relevant commit messages: ${messages.length}`);
   return Object.assign({}, env, {

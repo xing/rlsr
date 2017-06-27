@@ -1,6 +1,6 @@
 /* eslint-env node, jest */
 const R = require('ramda');
-const transform = require('../../src/tools/transform');
+const transform = require('../../src/transform');
 const getEnv = require('../fixtures/env-large.fixture');
 const getMessage = require('../fixtures/message-large.fixture');
 

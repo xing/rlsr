@@ -1,12 +1,12 @@
 /* eslint-env node, jest */
 
-const polishPackages = require('../src/tools/polish-packages');
+const polishPackages = require('../src/transform/polish-packages');
 const getEnv = require('./fixtures/env-small.fixture');
 
 describe('polishPackages()', () => {
-  it('turns packages into an indexed object', () => {
+  it('enriches packages with base data', () => {
     expect(
-      polishPackages(getEnv([{ name: 'a' }, { name: 'b' }], []))
+      polishPackages(getEnv({ a: { name: 'a' }, b: { name: 'b' } }, []))
     ).toMatchSnapshot();
   });
 });

@@ -1,7 +1,7 @@
 /* eslint-env node, jest */
 const R = require('ramda');
 
-const calculateMainChangelogEntries = require('../src/tools/calculate-main-changelog-entries');
+const calculateMainChangelogEntries = require('../src/transform/calculate-main-changelog-entries');
 
 const getEnv = require('./fixtures/env-small.fixture');
 const getMessage = require('./fixtures/message-small.fixture');

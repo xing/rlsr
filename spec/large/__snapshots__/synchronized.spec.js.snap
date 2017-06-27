@@ -113,32 +113,25 @@ Object {
     "version": "5.0.0",
   },
   "messages": Array [],
-  "packageNames": Array [
-    "one",
-    "two",
-    "three",
-    "four",
-    "five",
-  ],
   "packages": Array [
     Object {
       "dependencies": Object {
-        "five": "5.0.0",
-        "four": "5.0.0",
+        "five": "^4.5.0",
+        "four": "^4.5.0",
       },
       "name": "one",
       "version": "5.0.0",
     },
     Object {
       "dependencies": Object {
-        "three": "5.0.0",
+        "three": "2.3.4 - 3",
       },
       "name": "two",
       "version": "5.0.0",
     },
     Object {
       "dependencies": Object {
-        "four": "5.0.0",
+        "four": "4.0.0 - 4.5.6",
       },
       "name": "three",
       "version": "5.0.0",
@@ -330,32 +323,25 @@ Object {
     "version": "4.6.0",
   },
   "messages": Array [],
-  "packageNames": Array [
-    "one",
-    "two",
-    "three",
-    "four",
-    "five",
-  ],
   "packages": Array [
     Object {
       "dependencies": Object {
-        "five": "4.6.0",
-        "four": "4.6.0",
+        "five": "^4.5.0",
+        "four": "^4.5.0",
       },
       "name": "one",
       "version": "4.6.0",
     },
     Object {
       "dependencies": Object {
-        "three": "4.6.0",
+        "three": "2.3.4 - 3",
       },
       "name": "two",
       "version": "4.6.0",
     },
     Object {
       "dependencies": Object {
-        "four": "4.6.0",
+        "four": "4.0.0 - 4.5.6",
       },
       "name": "three",
       "version": "4.6.0",
@@ -485,32 +471,25 @@ Object {
     "version": "4.6.0",
   },
   "messages": Array [],
-  "packageNames": Array [
-    "one",
-    "two",
-    "three",
-    "four",
-    "five",
-  ],
   "packages": Array [
     Object {
       "dependencies": Object {
-        "five": "4.6.0",
-        "four": "4.6.0",
+        "five": "^4.5.0",
+        "four": "^4.5.0",
       },
       "name": "one",
       "version": "4.6.0",
     },
     Object {
       "dependencies": Object {
-        "three": "4.6.0",
+        "three": "2.3.4 - 3",
       },
       "name": "two",
       "version": "4.6.0",
     },
     Object {
       "dependencies": Object {
-        "four": "4.6.0",
+        "four": "4.0.0 - 4.5.6",
       },
       "name": "three",
       "version": "4.6.0",
@@ -640,32 +619,25 @@ Object {
     "version": "4.5.7",
   },
   "messages": Array [],
-  "packageNames": Array [
-    "one",
-    "two",
-    "three",
-    "four",
-    "five",
-  ],
   "packages": Array [
     Object {
       "dependencies": Object {
-        "five": "4.5.7",
-        "four": "4.5.7",
+        "five": "^4.5.0",
+        "four": "^4.5.0",
       },
       "name": "one",
       "version": "4.5.7",
     },
     Object {
       "dependencies": Object {
-        "three": "4.5.7",
+        "three": "2.3.4 - 3",
       },
       "name": "two",
       "version": "4.5.7",
     },
     Object {
       "dependencies": Object {
-        "four": "4.5.7",
+        "four": "4.0.0 - 4.5.6",
       },
       "name": "three",
       "version": "4.5.7",
@@ -899,32 +871,25 @@ Object {
     "version": "4.6.0",
   },
   "messages": Array [],
-  "packageNames": Array [
-    "one",
-    "two",
-    "three",
-    "four",
-    "five",
-  ],
   "packages": Array [
     Object {
       "dependencies": Object {
-        "five": "4.6.0",
-        "four": "4.6.0",
+        "five": "^4.5.0",
+        "four": "^4.5.0",
       },
       "name": "one",
       "version": "4.6.0",
     },
     Object {
       "dependencies": Object {
-        "three": "4.6.0",
+        "three": "2.3.4 - 3",
       },
       "name": "two",
       "version": "4.6.0",
     },
     Object {
       "dependencies": Object {
-        "four": "4.6.0",
+        "four": "4.0.0 - 4.5.6",
       },
       "name": "three",
       "version": "4.6.0",

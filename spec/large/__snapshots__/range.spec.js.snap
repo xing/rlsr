@@ -20,36 +20,6 @@ Object {
           ],
           "version": "5.0.0",
         },
-        "one": Object {
-          "determinedIncrementLevel": "patch",
-          "messages": Array [
-            Object {
-              "affected": Array [
-                "four",
-              ],
-              "body": "BREAKING CHANGE: text ",
-              "source": undefined,
-              "subject": "fix: baz",
-              "type": "dependency update",
-            },
-          ],
-          "version": "1.2.4",
-        },
-        "three": Object {
-          "determinedIncrementLevel": "patch",
-          "messages": Array [
-            Object {
-              "affected": Array [
-                "four",
-              ],
-              "body": "BREAKING CHANGE: text ",
-              "source": undefined,
-              "subject": "fix: baz",
-              "type": "dependency update",
-            },
-          ],
-          "version": "3.4.6",
-        },
       },
       "date": "Thu Jan 01 1970 01:00:00 GMT+0100 (CET)",
     },
@@ -75,21 +45,14 @@ Object {
     "version": "2.0.0",
   },
   "messages": Array [],
-  "packageNames": Array [
-    "one",
-    "two",
-    "three",
-    "four",
-    "five",
-  ],
   "packages": Array [
     Object {
       "dependencies": Object {
         "five": "^4.5.0",
-        "four": "4.5.0 - 5",
+        "four": "^4.5.0",
       },
       "name": "one",
-      "version": "1.2.4",
+      "version": "1.2.3",
     },
     Object {
       "dependencies": Object {
@@ -100,10 +63,10 @@ Object {
     },
     Object {
       "dependencies": Object {
-        "four": "4.0.0 - 5",
+        "four": "4.0.0 - 4.5.6",
       },
       "name": "three",
-      "version": "3.4.6",
+      "version": "3.4.5",
     },
     Object {
       "name": "four",
@@ -162,13 +125,6 @@ Object {
     "version": "2.0.0",
   },
   "messages": Array [],
-  "packageNames": Array [
-    "one",
-    "two",
-    "three",
-    "four",
-    "five",
-  ],
   "packages": Array [
     Object {
       "dependencies": Object {
@@ -227,25 +183,6 @@ Object {
       },
       "date": "Thu Jan 01 1970 01:00:00 GMT+0100 (CET)",
     },
-    "2.1.0": Object {
-      "changes": Object {
-        "three": Object {
-          "determinedIncrementLevel": "minor",
-          "messages": Array [
-            Object {
-              "affected": Array [
-                "three",
-              ],
-              "body": "",
-              "subject": "rar",
-              "type": "feat",
-            },
-          ],
-          "version": "3.5.0",
-        },
-      },
-      "date": "Thu Jan 01 1970 01:00:00 GMT+0100 (CET)",
-    },
   },
   "config": Object {
     "mode": "range",
@@ -263,18 +200,11 @@ Object {
   "log": [Function],
   "mainPackage": Object {
     "rlsr": Object {
-      "determinedIncrementLevel": 1,
+      "determinedIncrementLevel": -1,
     },
-    "version": "2.1.0",
+    "version": "2.0.0",
   },
   "messages": Array [],
-  "packageNames": Array [
-    "one",
-    "two",
-    "three",
-    "four",
-    "five",
-  ],
   "packages": Array [
     Object {
       "dependencies": Object {
@@ -296,7 +226,7 @@ Object {
         "four": "4.0.0 - 4.5.6",
       },
       "name": "three",
-      "version": "3.5.0",
+      "version": "3.4.5",
     },
     Object {
       "name": "four",
@@ -387,13 +317,6 @@ Object {
     "version": "1.9.0",
   },
   "messages": Array [],
-  "packageNames": Array [
-    "one",
-    "two",
-    "three",
-    "four",
-    "five",
-  ],
   "packages": Array [
     Object {
       "dependencies": Object {
@@ -449,21 +372,6 @@ Object {
           ],
           "version": "4.6.0",
         },
-        "three": Object {
-          "determinedIncrementLevel": "patch",
-          "messages": Array [
-            Object {
-              "affected": Array [
-                "four",
-              ],
-              "body": "",
-              "source": undefined,
-              "subject": "feat: bar",
-              "type": "dependency update",
-            },
-          ],
-          "version": "3.4.6",
-        },
       },
       "date": "Thu Jan 01 1970 01:00:00 GMT+0100 (CET)",
     },
@@ -489,13 +397,6 @@ Object {
     "version": "1.9.0",
   },
   "messages": Array [],
-  "packageNames": Array [
-    "one",
-    "two",
-    "three",
-    "four",
-    "five",
-  ],
   "packages": Array [
     Object {
       "dependencies": Object {
@@ -514,10 +415,10 @@ Object {
     },
     Object {
       "dependencies": Object {
-        "four": "4.0.0 - 4",
+        "four": "4.0.0 - 4.5.6",
       },
       "name": "three",
-      "version": "3.4.6",
+      "version": "3.4.5",
     },
     Object {
       "name": "four",
@@ -576,13 +477,6 @@ Object {
     "version": "1.9.0",
   },
   "messages": Array [],
-  "packageNames": Array [
-    "one",
-    "two",
-    "three",
-    "four",
-    "five",
-  ],
   "packages": Array [
     Object {
       "dependencies": Object {
@@ -641,40 +535,6 @@ Object {
       },
       "date": "Thu Jan 01 1970 01:00:00 GMT+0100 (CET)",
     },
-    "2.0.0": Object {
-      "changes": Object {
-        "three": Object {
-          "determinedIncrementLevel": "major",
-          "messages": Array [
-            Object {
-              "affected": Array [
-                "three",
-              ],
-              "body": "BREAKING CHANGE: text ",
-              "subject": "rar",
-              "type": "fix",
-            },
-          ],
-          "version": "4.0.0",
-        },
-        "two": Object {
-          "determinedIncrementLevel": "patch",
-          "messages": Array [
-            Object {
-              "affected": Array [
-                "three",
-              ],
-              "body": "BREAKING CHANGE: text ",
-              "source": undefined,
-              "subject": "fix: rar",
-              "type": "dependency update",
-            },
-          ],
-          "version": "2.3.5",
-        },
-      },
-      "date": "Thu Jan 01 1970 01:00:00 GMT+0100 (CET)",
-    },
   },
   "config": Object {
     "mode": "range",
@@ -692,18 +552,11 @@ Object {
   "log": [Function],
   "mainPackage": Object {
     "rlsr": Object {
-      "determinedIncrementLevel": 2,
+      "determinedIncrementLevel": -1,
     },
-    "version": "2.0.0",
+    "version": "1.9.0",
   },
   "messages": Array [],
-  "packageNames": Array [
-    "one",
-    "two",
-    "three",
-    "four",
-    "five",
-  ],
   "packages": Array [
     Object {
       "dependencies": Object {
@@ -715,17 +568,17 @@ Object {
     },
     Object {
       "dependencies": Object {
-        "three": "2.3.4 - 4",
+        "three": "2.3.4 - 3",
       },
       "name": "two",
-      "version": "2.3.5",
+      "version": "2.3.4",
     },
     Object {
       "dependencies": Object {
         "four": "4.0.0 - 4.5.6",
       },
       "name": "three",
-      "version": "4.0.0",
+      "version": "3.4.5",
     },
     Object {
       "name": "four",
@@ -759,21 +612,6 @@ Object {
           ],
           "version": "4.5.7",
         },
-        "three": Object {
-          "determinedIncrementLevel": "patch",
-          "messages": Array [
-            Object {
-              "affected": Array [
-                "four",
-              ],
-              "body": "",
-              "source": undefined,
-              "subject": "fix: foo",
-              "type": "dependency update",
-            },
-          ],
-          "version": "3.4.6",
-        },
       },
       "date": "Thu Jan 01 1970 01:00:00 GMT+0100 (CET)",
     },
@@ -799,13 +637,6 @@ Object {
     "version": "1.8.6",
   },
   "messages": Array [],
-  "packageNames": Array [
-    "one",
-    "two",
-    "three",
-    "four",
-    "five",
-  ],
   "packages": Array [
     Object {
       "dependencies": Object {
@@ -824,10 +655,10 @@ Object {
     },
     Object {
       "dependencies": Object {
-        "four": "4.0.0 - 4",
+        "four": "4.0.0 - 4.5.6",
       },
       "name": "three",
-      "version": "3.4.6",
+      "version": "3.4.5",
     },
     Object {
       "name": "four",
@@ -886,15 +717,6 @@ Object {
               "subject": "roo",
               "type": "fix",
             },
-            Object {
-              "affected": Array [
-                "four",
-              ],
-              "body": "",
-              "source": undefined,
-              "subject": "feat: taz",
-              "type": "dependency update",
-            },
           ],
           "version": "3.4.6",
         },
@@ -923,13 +745,6 @@ Object {
     "version": "1.9.0",
   },
   "messages": Array [],
-  "packageNames": Array [
-    "one",
-    "two",
-    "three",
-    "four",
-    "five",
-  ],
   "packages": Array [
     Object {
       "dependencies": Object {
@@ -948,7 +763,7 @@ Object {
     },
     Object {
       "dependencies": Object {
-        "four": "4.0.0 - 4",
+        "four": "4.0.0 - 4.5.6",
       },
       "name": "three",
       "version": "3.4.6",

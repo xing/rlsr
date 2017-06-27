@@ -1,6 +1,6 @@
 /* eslint-env node, jest */
 
-const modifyPackages = require('../src/tools/modify-packages');
+const modifyPackages = require('../src/transform/modify-packages');
 
 describe('modifyPackages()', () => {
   it('replaces the packages in env with a new version', () => {

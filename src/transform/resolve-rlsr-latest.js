@@ -9,7 +9,7 @@ module.exports = env => {
       Object.keys(pkg.dependencies).forEach(name => {
         if (
           pkg.dependencies[name] === env.consts.rlsrLatest &&
-          env.packageNames.indexOf(name) > -1
+          Object.keys(env.packages).indexOf(name) > -1
         ) {
           const version = packages[name].version;
           const isExact =

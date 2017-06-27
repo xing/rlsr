@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`polishPackages() turns packages into an indexed object 1`] = `
+exports[`polishPackages() enriches packages with base data 1`] = `
 Object {
   "appRoot": "/",
   "changelog": Object {},
@@ -26,7 +26,11 @@ Object {
       "rlsr": Object {
         "dependencies": Array [],
         "determinedIncrementLevel": -1,
+        "devDependencies": Array [],
+        "devRelations": Array [],
         "messages": Array [],
+        "peerDependencies": Array [],
+        "peerRelations": Array [],
         "relatedMessages": Array [],
         "relations": Array [],
       },
@@ -36,7 +40,11 @@ Object {
       "rlsr": Object {
         "dependencies": Array [],
         "determinedIncrementLevel": -1,
+        "devDependencies": Array [],
+        "devRelations": Array [],
         "messages": Array [],
+        "peerDependencies": Array [],
+        "peerRelations": Array [],
         "relatedMessages": Array [],
         "relations": Array [],
       },

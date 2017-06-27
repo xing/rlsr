@@ -1,5 +1,5 @@
 /* eslint-env node, jest */
-const calculateOverallIncrement = require('../src/tools/calculate-overall-increment');
+const calculateOverallIncrement = require('../src/transform/calculate-overall-increment');
 const getEnv = require('./fixtures/env-small.fixture')({});
 
 const messageL = { subject: 'l', level: 2, affected: ['a'] };

@@ -16,8 +16,8 @@ const env = {
   config: {
     mode: 'synchronized'
   },
-  packages: [
-    {
+  packages: {
+    one: {
       name: 'one',
       version: '1.2.3',
       dependencies: {
@@ -25,29 +25,29 @@ const env = {
         five: '^4.5.0'
       }
     },
-    {
+    two: {
       name: 'two',
       version: '2.3.4',
       dependencies: {
         three: '2.3.4 - 3'
       }
     },
-    {
+    three: {
       name: 'three',
       version: '3.4.5',
       dependencies: {
         four: '4.0.0 - 4.5.6'
       }
     },
-    {
+    four: {
       name: 'four',
       version: '4.5.6'
     },
-    {
+    five: {
       name: 'five',
       version: '4.5.6'
     }
-  ],
+  },
   changelog: {}
 };
 

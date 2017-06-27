@@ -1,30 +1,38 @@
 /* eslint-env node, jest */
 
-const addRelationsToPackages = require('../src/tools/add-relations-to-packages');
+const addRelationsToPackages = require('../src/transform/add-relations-to-packages');
 const getEnv = require('./fixtures/env-small.fixture');
 
 const packages = {
   one: {
     rlsr: {
       dependencies: [],
+      devDependencies: [],
+      peerDependencies: [],
       relations: []
     }
   },
   two: {
     rlsr: {
       dependencies: ['three'],
+      devDependencies: [],
+      peerDependencies: [],
       relations: []
     }
   },
   three: {
     rlsr: {
       dependencies: ['four'],
+      devDependencies: [],
+      peerDependencies: [],
       relations: []
     }
   },
   four: {
     rlsr: {
       dependencies: [],
+      devDependencies: [],
+      peerDependencies: [],
       relations: []
     }
   }

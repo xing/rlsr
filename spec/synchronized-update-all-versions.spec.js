@@ -17,7 +17,7 @@ const getEnv = require('./fixtures/env-small.fixture')({
   }
 });
 
-const synchronizedUpdateAllVersions = require('../src/tools/synchronized-update-all-versions');
+const synchronizedUpdateAllVersions = require('../src/transform/synchronized-update-all-versions');
 
 describe('synchronizedUpdateAllVersions()', () => {
   it('updates vesions with patch level message in synchronized mode', () => {

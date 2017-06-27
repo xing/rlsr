@@ -1,6 +1,6 @@
 /* eslint-env node, jest */
 
-const refineMessages = require('../src/tools/refine-messages');
+const refineMessages = require('../src/transform/refine-messages');
 const getEnv = require('./fixtures/env-small.fixture');
 
 const getMessage = () => ({
@@ -23,60 +23,58 @@ const getIrrelevantMessage = () =>
 
 describe('refineMessages()', () => {
   it('detects a patch message', () => {
-    const env = getEnv({}, [getPatchMessage()]);
-    env.packageNames = ['a', 'b'];
+    const env = getEnv({ a: {}, b: {} }, [getPatchMessage()]);
     const exp = refineMessages(env);
 
     expect(exp.messages[0].level).toBe(0);
   });
 
   it('detects a minor message', () => {
-    const env = getEnv({}, [getMinorMessage()]);
-    env.packageNames = ['a', 'b', 'c'];
+    const env = getEnv({ a: {}, b: {}, c: {} }, [getMinorMessage()]);
     const exp = refineMessages(env);
 
     expect(exp.messages[0].level).toBe(1);
   });
 
   it('detects a major message', () => {
-    const env = getEnv({}, [getMajorMessage()]);
-    env.packageNames = ['a', 'b', 'c'];
+    const env = getEnv({ a: {}, b: {}, c: {} }, [getMajorMessage()]);
     const exp = refineMessages(env);
 
     expect(exp.messages[0].level).toBe(2);
   });
 
   it('can work with several messages', () => {
-    const env = getEnv({}, [getMinorMessage(), getPatchMessage()]);
-    env.packageNames = ['a', 'b', 'c'];
+    const env = getEnv({ a: {}, b: {}, c: {} }, [
+      getMinorMessage(),
+      getPatchMessage()
+    ]);
     const exp = refineMessages(env);
 
     expect(exp.messages).toHaveLength(2);
   });
 
   it('filters irrelevant messages', () => {
-    const env = getEnv({}, [
+    const env = getEnv({ a: {}, b: {}, c: {} }, [
       getMinorMessage(),
       getPatchMessage(),
       getIrrelevantMessage()
     ]);
-    env.packageNames = ['a', 'b', 'c'];
     const exp = refineMessages(env);
 
     expect(exp.messages).toHaveLength(2);
   });
 
   it('parses affected packages', () => {
-    const env = getEnv({}, [getMinorMessage()]);
-    env.packageNames = ['a', 'b', 'c'];
+    const env = getEnv({ a: {}, b: {}, c: {} }, [getMinorMessage()]);
     const exp = refineMessages(env);
 
     expect(exp.messages[0].affected).toEqual(['a', 'b', 'c']);
   });
 
   it('parses single affected packages', () => {
-    const env = getEnv({}, [getMessageWithSinglePackage()]);
-    env.packageNames = ['a', 'b', 'c'];
+    const env = getEnv({ a: {}, b: {}, c: {} }, [
+      getMessageWithSinglePackage()
+    ]);
     const exp = refineMessages(env);
 
     expect(exp.messages[0].affected).toEqual(['a']);
