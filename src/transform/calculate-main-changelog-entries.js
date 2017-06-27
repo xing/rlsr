@@ -2,7 +2,7 @@ const R = require('ramda');
 
 module.exports = env => {
   const newChangelogEntry = {};
-  newChangelogEntry.date = new Date(Date.now()).toString();
+  newChangelogEntry.date = new Date(Date.now()).toUTCString();
 
   newChangelogEntry.changes = R.values(env.packages)
     .filter(p => p.rlsr.hasBump)

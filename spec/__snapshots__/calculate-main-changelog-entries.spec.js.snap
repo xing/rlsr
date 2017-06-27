@@ -19,7 +19,7 @@ Object {
         "version": "1.2.3",
       },
     },
-    "date": "Thu Jan 01 1970 01:00:00 GMT+0100 (CET)",
+    "date": "Thu, 01 Jan 1970 00:00:00 GMT",
   },
 }
 `;
@@ -44,7 +44,7 @@ Object {
         "version": "1.2.3",
       },
     },
-    "date": "Thu Jan 01 1970 01:00:00 GMT+0100 (CET)",
+    "date": "Thu, 01 Jan 1970 00:00:00 GMT",
   },
 }
 `;
