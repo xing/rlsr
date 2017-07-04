@@ -1,5 +1,6 @@
 /* eslint-env node, jest */
 const R = require('ramda');
+const diff = require('recursive-diff').getDiff;
 const transform = require('../../src/transform');
 const getEnv = require('../fixtures/env-large.fixture');
 const getMessage = require('../fixtures/message-large.fixture');
@@ -18,21 +19,21 @@ describe('large test: synchronized mode', () => {
     const env = getEnv([getMessage('foo')]);
     const exp = transform(env);
 
-    expect(exp).toMatchSnapshot();
+    expect(diff(env, exp)).toMatchSnapshot();
   });
 
   it('applies minor message', () => {
     const env = getEnv([applyMinorLevel(getMessage('bar'))]);
     const exp = transform(env);
 
-    expect(exp).toMatchSnapshot();
+    expect(diff(env, exp)).toMatchSnapshot();
   });
 
   it('applies major message', () => {
     const env = getEnv([applyMajorLevel(getMessage('baz'))]);
     const exp = transform(env);
 
-    expect(exp).toMatchSnapshot();
+    expect(diff(env, exp)).toMatchSnapshot();
   });
 
   it('applies several messages', () => {
@@ -44,7 +45,7 @@ describe('large test: synchronized mode', () => {
 
     const exp = transform(env);
 
-    expect(exp).toMatchSnapshot();
+    expect(diff(env, exp)).toMatchSnapshot();
   });
 
   it('applies messages with multiple affected packages', () => {
@@ -54,6 +55,6 @@ describe('large test: synchronized mode', () => {
     ]);
     const exp = transform(env);
 
-    expect(exp).toMatchSnapshot();
+    expect(diff(env, exp)).toMatchSnapshot();
   });
 });

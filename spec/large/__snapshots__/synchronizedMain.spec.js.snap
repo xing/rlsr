@@ -2,9 +2,9 @@
 
 exports[`large test: exact mode applies major message and bumps all 1`] = `
 Object {
-  "appRoot": "/",
-  "changelog": Object {
-    "5.0.0": Object {
+  "/changelog/5.0.0": Object {
+    "operation": "add",
+    "value": Object {
       "changes": Object {
         "five": Object {
           "determinedIncrementLevel": "major",
@@ -92,67 +92,61 @@ Object {
       "date": "Thu, 01 Jan 1970 00:00:00 GMT",
     },
   },
-  "config": Object {
-    "mode": "synchronizedMain",
+  "/mainPackage/rlsr/determinedIncrementLevel": Object {
+    "operation": "add",
+    "value": 2,
   },
-  "consts": Object {
-    "levels": Array [
-      "patch",
-      "minor",
-      "major",
-    ],
-    "nsp": "rlsr",
-    "rlsrLatest": "rlsr-latest",
+  "/mainPackage/version": Object {
+    "operation": "update",
+    "value": "5.0.0",
   },
-  "dbg": [Function],
-  "log": [Function],
-  "mainPackage": Object {
-    "rlsr": Object {
-      "determinedIncrementLevel": 2,
-    },
-    "version": "5.0.0",
+  "/messages/0": Object {
+    "operation": "delete",
   },
-  "messages": Array [],
-  "packages": Array [
-    Object {
-      "dependencies": Object {
-        "five": "^4.5.0",
-        "four": "^4.5.0",
-      },
-      "name": "one",
-      "version": "5.0.0",
-    },
-    Object {
-      "dependencies": Object {
-        "three": "2.3.4 - 3",
-      },
-      "name": "two",
-      "version": "5.0.0",
-    },
-    Object {
-      "dependencies": Object {
-        "four": "4.0.0 - 4.5.6",
-      },
-      "name": "three",
-      "version": "5.0.0",
-    },
-    Object {
-      "name": "four",
-      "version": "5.0.0",
-    },
-    Object {
-      "name": "five",
-      "version": "5.0.0",
-    },
-  ],
+  "/packages/five/version": Object {
+    "operation": "update",
+    "value": "5.0.0",
+  },
+  "/packages/four/version": Object {
+    "operation": "update",
+    "value": "5.0.0",
+  },
+  "/packages/one/dependencies/five": Object {
+    "operation": "update",
+    "value": "^5.0.0",
+  },
+  "/packages/one/dependencies/four": Object {
+    "operation": "update",
+    "value": "^5.0.0",
+  },
+  "/packages/one/version": Object {
+    "operation": "update",
+    "value": "5.0.0",
+  },
+  "/packages/three/dependencies/four": Object {
+    "operation": "update",
+    "value": "^5.0.0",
+  },
+  "/packages/three/version": Object {
+    "operation": "update",
+    "value": "5.0.0",
+  },
+  "/packages/two/dependencies/three": Object {
+    "operation": "update",
+    "value": "^5.0.0",
+  },
+  "/packages/two/version": Object {
+    "operation": "update",
+    "value": "5.0.0",
+  },
 }
 `;
 
 exports[`large test: exact mode applies major then minor 1`] = `
 Object {
-  "appRoot": "/",
-  "changelog": Object {
-    "5.0.0": Object {
+  "/changelog/5.0.0": Object {
+    "operation": "add",
+    "value": Object {
       "changes": Object {
         "five": Object {
           "determinedIncrementLevel": "major",
@@ -240,215 +234,108 @@ Object {
       "date": "Thu, 01 Jan 1970 00:00:00 GMT",
     },
   },
-  "config": Object {
-    "mode": "synchronizedMain",
+  "/mainPackage/rlsr/determinedIncrementLevel": Object {
+    "operation": "add",
+    "value": 2,
   },
-  "consts": Object {
-    "levels": Array [
-      "patch",
-      "minor",
-      "major",
-    ],
-    "nsp": "rlsr",
-    "rlsrLatest": "rlsr-latest",
+  "/mainPackage/version": Object {
+    "operation": "update",
+    "value": "5.0.0",
   },
-  "dbg": [Function],
-  "log": [Function],
-  "mainPackage": Object {
-    "rlsr": Object {
-      "determinedIncrementLevel": 2,
-    },
-    "version": "5.0.0",
+  "/messages/0": Object {
+    "operation": "delete",
   },
-  "messages": Array [],
-  "packages": Array [
-    Object {
-      "dependencies": Object {
-        "five": "^4.5.0",
-        "four": "^4.5.0",
-      },
-      "name": "one",
-      "version": "5.0.0",
-    },
-    Object {
-      "dependencies": Object {
-        "three": "2.3.4 - 3",
-      },
-      "name": "two",
-      "version": "5.0.0",
-    },
-    Object {
-      "dependencies": Object {
-        "four": "4.0.0 - 4.5.6",
-      },
-      "name": "three",
-      "version": "5.0.0",
-    },
-    Object {
-      "name": "four",
-      "version": "5.0.0",
-    },
-    Object {
-      "name": "five",
-      "version": "5.0.0",
-    },
-  ],
+  "/packages/five/version": Object {
+    "operation": "update",
+    "value": "5.0.0",
+  },
+  "/packages/four/version": Object {
+    "operation": "update",
+    "value": "5.0.0",
+  },
+  "/packages/one/dependencies/five": Object {
+    "operation": "update",
+    "value": "^5.0.0",
+  },
+  "/packages/one/dependencies/four": Object {
+    "operation": "update",
+    "value": "^5.0.0",
+  },
+  "/packages/one/version": Object {
+    "operation": "update",
+    "value": "5.0.0",
+  },
+  "/packages/three/dependencies/four": Object {
+    "operation": "update",
+    "value": "^5.0.0",
+  },
+  "/packages/three/version": Object {
+    "operation": "update",
+    "value": "5.0.0",
+  },
+  "/packages/two/dependencies/three": Object {
+    "operation": "update",
+    "value": "^5.0.0",
+  },
+  "/packages/two/version": Object {
+    "operation": "update",
+    "value": "5.0.0",
+  },
 }
 `;
 
 exports[`large test: exact mode applies major then minor 2`] = `
 Object {
-  "appRoot": "/",
-  "changelog": Object {
-    "5.0.0": Object {
-      "changes": Object {
-        "five": Object {
-          "determinedIncrementLevel": "major",
-          "messages": Array [
-            Object {
-              "affected": Array [
-                "one",
-              ],
-              "body": "BREAKING CHANGE: text ",
-              "source": Array [
-                "one",
-              ],
-              "subject": "dependency update: fix: raz",
-              "type": "dependency update",
-            },
-          ],
-          "version": "5.0.0",
+  "/mainPackage/rlsr/determinedIncrementLevel": Object {
+    "operation": "update",
+    "value": -1,
+  },
+  "/messages/0": Object {
+    "operation": "delete",
+  },
+  "/packages": Object {
+    "operation": "update",
+    "value": Object {
+      "0": Object {
+        "dependencies": Object {
+          "five": "^5.0.0",
+          "four": "^5.0.0",
         },
-        "four": Object {
-          "determinedIncrementLevel": "major",
-          "messages": Array [
-            Object {
-              "affected": Array [
-                "one",
-              ],
-              "body": "BREAKING CHANGE: text ",
-              "source": Array [
-                "one",
-              ],
-              "subject": "dependency update: fix: raz",
-              "type": "dependency update",
-            },
-          ],
-          "version": "5.0.0",
-        },
-        "one": Object {
-          "determinedIncrementLevel": "major",
-          "messages": Array [
-            Object {
-              "affected": Array [
-                "one",
-              ],
-              "body": "BREAKING CHANGE: text ",
-              "subject": "raz",
-              "type": "fix",
-            },
-          ],
-          "version": "5.0.0",
-        },
-        "three": Object {
-          "determinedIncrementLevel": "major",
-          "messages": Array [
-            Object {
-              "affected": Array [
-                "one",
-              ],
-              "body": "BREAKING CHANGE: text ",
-              "source": Array [
-                "one",
-              ],
-              "subject": "dependency update: fix: raz",
-              "type": "dependency update",
-            },
-          ],
-          "version": "5.0.0",
-        },
-        "two": Object {
-          "determinedIncrementLevel": "major",
-          "messages": Array [
-            Object {
-              "affected": Array [
-                "one",
-              ],
-              "body": "BREAKING CHANGE: text ",
-              "source": Array [
-                "one",
-              ],
-              "subject": "dependency update: fix: raz",
-              "type": "dependency update",
-            },
-          ],
-          "version": "5.0.0",
-        },
+        "name": "one",
+        "version": "5.0.0",
       },
-      "date": "Thu, 01 Jan 1970 00:00:00 GMT",
+      "1": Object {
+        "dependencies": Object {
+          "three": "^5.0.0",
+        },
+        "name": "two",
+        "version": "5.0.0",
+      },
+      "2": Object {
+        "dependencies": Object {
+          "four": "^5.0.0",
+        },
+        "name": "three",
+        "version": "5.0.0",
+      },
+      "3": Object {
+        "name": "four",
+        "version": "5.0.0",
+      },
+      "4": Object {
+        "name": "five",
+        "version": "5.0.0",
+      },
     },
   },
-  "config": Object {
-    "mode": "synchronizedMain",
-  },
-  "consts": Object {
-    "levels": Array [
-      "patch",
-      "minor",
-      "major",
-    ],
-    "nsp": "rlsr",
-    "rlsrLatest": "rlsr-latest",
-  },
-  "dbg": [Function],
-  "log": [Function],
-  "mainPackage": Object {
-    "rlsr": Object {
-      "determinedIncrementLevel": -1,
-    },
-    "version": "5.0.0",
-  },
-  "messages": Array [],
-  "packages": Array [
-    Object {
-      "dependencies": Object {
-        "five": "^4.5.0",
-        "four": "^4.5.0",
-      },
-      "name": "one",
-      "version": "5.0.0",
-    },
-    Object {
-      "dependencies": Object {
-        "three": "2.3.4 - 3",
-      },
-      "name": "two",
-      "version": "5.0.0",
-    },
-    Object {
-      "dependencies": Object {
-        "four": "4.0.0 - 4.5.6",
-      },
-      "name": "three",
-      "version": "5.0.0",
-    },
-    Object {
-      "name": "four",
-      "version": "5.0.0",
-    },
-    Object {
-      "name": "five",
-      "version": "5.0.0",
-    },
-  ],
 }
 `;
 
 exports[`large test: exact mode applies messages with multiple affected packages 1`] = `
 Object {
-  "appRoot": "/",
-  "changelog": Object {
-    "1.9.0": Object {
+  "/changelog/1.9.0": Object {
+    "operation": "add",
+    "value": Object {
       "changes": Object {
         "one": Object {
           "determinedIncrementLevel": "minor",
@@ -500,67 +387,40 @@ Object {
       "date": "Thu, 01 Jan 1970 00:00:00 GMT",
     },
   },
-  "config": Object {
-    "mode": "synchronizedMain",
+  "/mainPackage/rlsr/determinedIncrementLevel": Object {
+    "operation": "add",
+    "value": 1,
   },
-  "consts": Object {
-    "levels": Array [
-      "patch",
-      "minor",
-      "major",
-    ],
-    "nsp": "rlsr",
-    "rlsrLatest": "rlsr-latest",
+  "/mainPackage/version": Object {
+    "operation": "update",
+    "value": "1.9.0",
   },
-  "dbg": [Function],
-  "log": [Function],
-  "mainPackage": Object {
-    "rlsr": Object {
-      "determinedIncrementLevel": 1,
-    },
-    "version": "1.9.0",
+  "/messages/0": Object {
+    "operation": "delete",
   },
-  "messages": Array [],
-  "packages": Array [
-    Object {
-      "dependencies": Object {
-        "five": "^4.5.0",
-        "four": "^4.5.0",
-      },
-      "name": "one",
-      "version": "1.3.0",
-    },
-    Object {
-      "dependencies": Object {
-        "three": "2.3.4 - 3",
-      },
-      "name": "two",
-      "version": "2.3.5",
-    },
-    Object {
-      "dependencies": Object {
-        "four": "4.0.0 - 4.5.6",
-      },
-      "name": "three",
-      "version": "3.4.6",
-    },
-    Object {
-      "name": "four",
-      "version": "4.5.6",
-    },
-    Object {
-      "name": "five",
-      "version": "4.5.6",
-    },
-  ],
+  "/messages/1": Object {
+    "operation": "delete",
+  },
+  "/packages/one/version": Object {
+    "operation": "update",
+    "value": "1.3.0",
+  },
+  "/packages/three/version": Object {
+    "operation": "update",
+    "value": "3.4.6",
+  },
+  "/packages/two/version": Object {
+    "operation": "update",
+    "value": "2.3.5",
+  },
 }
 `;
 
 exports[`large test: exact mode applies minor message 1`] = `
 Object {
-  "appRoot": "/",
-  "changelog": Object {
-    "1.9.0": Object {
+  "/changelog/1.9.0": Object {
+    "operation": "add",
+    "value": Object {
       "changes": Object {
         "four": Object {
           "determinedIncrementLevel": "minor",
@@ -576,71 +436,56 @@ Object {
           ],
           "version": "4.6.0",
         },
+        "three": Object {
+          "determinedIncrementLevel": "patch",
+          "messages": Array [
+            Object {
+              "affected": Array [
+                "four",
+              ],
+              "body": "",
+              "source": undefined,
+              "subject": "feat: bar",
+              "type": "dependency update",
+            },
+          ],
+          "version": "3.4.6",
+        },
       },
       "date": "Thu, 01 Jan 1970 00:00:00 GMT",
     },
   },
-  "config": Object {
-    "mode": "synchronizedMain",
+  "/mainPackage/rlsr/determinedIncrementLevel": Object {
+    "operation": "add",
+    "value": 1,
   },
-  "consts": Object {
-    "levels": Array [
-      "patch",
-      "minor",
-      "major",
-    ],
-    "nsp": "rlsr",
-    "rlsrLatest": "rlsr-latest",
+  "/mainPackage/version": Object {
+    "operation": "update",
+    "value": "1.9.0",
   },
-  "dbg": [Function],
-  "log": [Function],
-  "mainPackage": Object {
-    "rlsr": Object {
-      "determinedIncrementLevel": 1,
-    },
-    "version": "1.9.0",
+  "/messages/0": Object {
+    "operation": "delete",
   },
-  "messages": Array [],
-  "packages": Array [
-    Object {
-      "dependencies": Object {
-        "five": "^4.5.0",
-        "four": "^4.5.0",
-      },
-      "name": "one",
-      "version": "1.2.3",
-    },
-    Object {
-      "dependencies": Object {
-        "three": "2.3.4 - 3",
-      },
-      "name": "two",
-      "version": "2.3.4",
-    },
-    Object {
-      "dependencies": Object {
-        "four": "4.0.0 - 4.5.6",
-      },
-      "name": "three",
-      "version": "3.4.5",
-    },
-    Object {
-      "name": "four",
-      "version": "4.6.0",
-    },
-    Object {
-      "name": "five",
-      "version": "4.5.6",
-    },
-  ],
+  "/packages/four/version": Object {
+    "operation": "update",
+    "value": "4.6.0",
+  },
+  "/packages/three/dependencies/four": Object {
+    "operation": "update",
+    "value": "4.0.0 - 4",
+  },
+  "/packages/three/version": Object {
+    "operation": "update",
+    "value": "3.4.6",
+  },
 }
 `;
 
 exports[`large test: exact mode applies minor then major 1`] = `
 Object {
-  "appRoot": "/",
-  "changelog": Object {
-    "1.9.0": Object {
+  "/changelog/1.9.0": Object {
+    "operation": "add",
+    "value": Object {
       "changes": Object {
         "one": Object {
           "determinedIncrementLevel": "minor",
@@ -660,147 +505,76 @@ Object {
       "date": "Thu, 01 Jan 1970 00:00:00 GMT",
     },
   },
-  "config": Object {
-    "mode": "synchronizedMain",
+  "/mainPackage/rlsr/determinedIncrementLevel": Object {
+    "operation": "add",
+    "value": 1,
   },
-  "consts": Object {
-    "levels": Array [
-      "patch",
-      "minor",
-      "major",
-    ],
-    "nsp": "rlsr",
-    "rlsrLatest": "rlsr-latest",
+  "/mainPackage/version": Object {
+    "operation": "update",
+    "value": "1.9.0",
   },
-  "dbg": [Function],
-  "log": [Function],
-  "mainPackage": Object {
-    "rlsr": Object {
-      "determinedIncrementLevel": 1,
-    },
-    "version": "1.9.0",
+  "/messages/0": Object {
+    "operation": "delete",
   },
-  "messages": Array [],
-  "packages": Array [
-    Object {
-      "dependencies": Object {
-        "five": "^4.5.0",
-        "four": "^4.5.0",
-      },
-      "name": "one",
-      "version": "1.3.0",
-    },
-    Object {
-      "dependencies": Object {
-        "three": "2.3.4 - 3",
-      },
-      "name": "two",
-      "version": "2.3.4",
-    },
-    Object {
-      "dependencies": Object {
-        "four": "4.0.0 - 4.5.6",
-      },
-      "name": "three",
-      "version": "3.4.5",
-    },
-    Object {
-      "name": "four",
-      "version": "4.5.6",
-    },
-    Object {
-      "name": "five",
-      "version": "4.5.6",
-    },
-  ],
+  "/packages/one/version": Object {
+    "operation": "update",
+    "value": "1.3.0",
+  },
 }
 `;
 
 exports[`large test: exact mode applies minor then major 2`] = `
 Object {
-  "appRoot": "/",
-  "changelog": Object {
-    "1.9.0": Object {
-      "changes": Object {
-        "one": Object {
-          "determinedIncrementLevel": "minor",
-          "messages": Array [
-            Object {
-              "affected": Array [
-                "one",
-              ],
-              "body": "",
-              "subject": "raz",
-              "type": "feat",
-            },
-          ],
-          "version": "1.3.0",
+  "/mainPackage/rlsr/determinedIncrementLevel": Object {
+    "operation": "update",
+    "value": -1,
+  },
+  "/messages/0": Object {
+    "operation": "delete",
+  },
+  "/packages": Object {
+    "operation": "update",
+    "value": Object {
+      "0": Object {
+        "dependencies": Object {
+          "five": "^4.5.0",
+          "four": "^4.5.0",
         },
+        "name": "one",
+        "version": "1.3.0",
       },
-      "date": "Thu, 01 Jan 1970 00:00:00 GMT",
+      "1": Object {
+        "dependencies": Object {
+          "three": "2.3.4 - 3",
+        },
+        "name": "two",
+        "version": "2.3.4",
+      },
+      "2": Object {
+        "dependencies": Object {
+          "four": "4.0.0 - 4.5.6",
+        },
+        "name": "three",
+        "version": "3.4.5",
+      },
+      "3": Object {
+        "name": "four",
+        "version": "4.5.6",
+      },
+      "4": Object {
+        "name": "five",
+        "version": "4.5.6",
+      },
     },
   },
-  "config": Object {
-    "mode": "synchronizedMain",
-  },
-  "consts": Object {
-    "levels": Array [
-      "patch",
-      "minor",
-      "major",
-    ],
-    "nsp": "rlsr",
-    "rlsrLatest": "rlsr-latest",
-  },
-  "dbg": [Function],
-  "log": [Function],
-  "mainPackage": Object {
-    "rlsr": Object {
-      "determinedIncrementLevel": -1,
-    },
-    "version": "1.9.0",
-  },
-  "messages": Array [],
-  "packages": Array [
-    Object {
-      "dependencies": Object {
-        "five": "^4.5.0",
-        "four": "^4.5.0",
-      },
-      "name": "one",
-      "version": "1.3.0",
-    },
-    Object {
-      "dependencies": Object {
-        "three": "2.3.4 - 3",
-      },
-      "name": "two",
-      "version": "2.3.4",
-    },
-    Object {
-      "dependencies": Object {
-        "four": "4.0.0 - 4.5.6",
-      },
-      "name": "three",
-      "version": "3.4.5",
-    },
-    Object {
-      "name": "four",
-      "version": "4.5.6",
-    },
-    Object {
-      "name": "five",
-      "version": "4.5.6",
-    },
-  ],
 }
 `;
 
 exports[`large test: exact mode applies patch message 1`] = `
 Object {
-  "appRoot": "/",
-  "changelog": Object {
-    "1.8.6": Object {
+  "/changelog/1.8.6": Object {
+    "operation": "add",
+    "value": Object {
       "changes": Object {
         "four": Object {
           "determinedIncrementLevel": "patch",
@@ -816,71 +590,56 @@ Object {
           ],
           "version": "4.5.7",
         },
+        "three": Object {
+          "determinedIncrementLevel": "patch",
+          "messages": Array [
+            Object {
+              "affected": Array [
+                "four",
+              ],
+              "body": "",
+              "source": undefined,
+              "subject": "fix: foo",
+              "type": "dependency update",
+            },
+          ],
+          "version": "3.4.6",
+        },
       },
       "date": "Thu, 01 Jan 1970 00:00:00 GMT",
     },
   },
-  "config": Object {
-    "mode": "synchronizedMain",
+  "/mainPackage/rlsr/determinedIncrementLevel": Object {
+    "operation": "add",
+    "value": 0,
   },
-  "consts": Object {
-    "levels": Array [
-      "patch",
-      "minor",
-      "major",
-    ],
-    "nsp": "rlsr",
-    "rlsrLatest": "rlsr-latest",
+  "/mainPackage/version": Object {
+    "operation": "update",
+    "value": "1.8.6",
   },
-  "dbg": [Function],
-  "log": [Function],
-  "mainPackage": Object {
-    "rlsr": Object {
-      "determinedIncrementLevel": 0,
-    },
-    "version": "1.8.6",
+  "/messages/0": Object {
+    "operation": "delete",
   },
-  "messages": Array [],
-  "packages": Array [
-    Object {
-      "dependencies": Object {
-        "five": "^4.5.0",
-        "four": "^4.5.0",
-      },
-      "name": "one",
-      "version": "1.2.3",
-    },
-    Object {
-      "dependencies": Object {
-        "three": "2.3.4 - 3",
-      },
-      "name": "two",
-      "version": "2.3.4",
-    },
-    Object {
-      "dependencies": Object {
-        "four": "4.0.0 - 4.5.6",
-      },
-      "name": "three",
-      "version": "3.4.5",
-    },
-    Object {
-      "name": "four",
-      "version": "4.5.7",
-    },
-    Object {
-      "name": "five",
-      "version": "4.5.6",
-    },
-  ],
+  "/packages/four/version": Object {
+    "operation": "update",
+    "value": "4.5.7",
+  },
+  "/packages/three/dependencies/four": Object {
+    "operation": "update",
+    "value": "4.0.0 - 4",
+  },
+  "/packages/three/version": Object {
+    "operation": "update",
+    "value": "3.4.6",
+  },
 }
 `;
 
 exports[`large test: exact mode applies several messages with one breaking change 1`] = `
 Object {
-  "appRoot": "/",
-  "changelog": Object {
-    "5.0.0": Object {
+  "/changelog/5.0.0": Object {
+    "operation": "add",
+    "value": Object {
       "changes": Object {
         "five": Object {
           "determinedIncrementLevel": "major",
@@ -984,58 +743,58 @@ Object {
       "date": "Thu, 01 Jan 1970 00:00:00 GMT",
     },
   },
-  "config": Object {
-    "mode": "synchronizedMain",
+  "/mainPackage/rlsr/determinedIncrementLevel": Object {
+    "operation": "add",
+    "value": 2,
   },
-  "consts": Object {
-    "levels": Array [
-      "patch",
-      "minor",
-      "major",
-    ],
-    "nsp": "rlsr",
-    "rlsrLatest": "rlsr-latest",
+  "/mainPackage/version": Object {
+    "operation": "update",
+    "value": "5.0.0",
   },
-  "dbg": [Function],
-  "log": [Function],
-  "mainPackage": Object {
-    "rlsr": Object {
-      "determinedIncrementLevel": 2,
-    },
-    "version": "5.0.0",
+  "/messages/0": Object {
+    "operation": "delete",
   },
-  "messages": Array [],
-  "packages": Array [
-    Object {
-      "dependencies": Object {
-        "five": "^4.5.0",
-        "four": "^4.5.0",
-      },
-      "name": "one",
-      "version": "5.0.0",
-    },
-    Object {
-      "dependencies": Object {
-        "three": "2.3.4 - 3",
-      },
-      "name": "two",
-      "version": "5.0.0",
-    },
-    Object {
-      "dependencies": Object {
-        "four": "4.0.0 - 4.5.6",
-      },
-      "name": "three",
-      "version": "5.0.0",
-    },
-    Object {
-      "name": "four",
-      "version": "5.0.0",
-    },
-    Object {
-      "name": "five",
-      "version": "5.0.0",
-    },
-  ],
+  "/messages/1": Object {
+    "operation": "delete",
+  },
+  "/messages/2": Object {
+    "operation": "delete",
+  },
+  "/packages/five/version": Object {
+    "operation": "update",
+    "value": "5.0.0",
+  },
+  "/packages/four/version": Object {
+    "operation": "update",
+    "value": "5.0.0",
+  },
+  "/packages/one/dependencies/five": Object {
+    "operation": "update",
+    "value": "^5.0.0",
+  },
+  "/packages/one/dependencies/four": Object {
+    "operation": "update",
+    "value": "^5.0.0",
+  },
+  "/packages/one/version": Object {
+    "operation": "update",
+    "value": "5.0.0",
+  },
+  "/packages/three/dependencies/four": Object {
+    "operation": "update",
+    "value": "^5.0.0",
+  },
+  "/packages/three/version": Object {
+    "operation": "update",
+    "value": "5.0.0",
+  },
+  "/packages/two/dependencies/three": Object {
+    "operation": "update",
+    "value": "^5.0.0",
+  },
+  "/packages/two/version": Object {
+    "operation": "update",
+    "value": "5.0.0",
+  },
 }
 `;

@@ -1,5 +1,6 @@
 /* eslint-env node, jest */
 const R = require('ramda');
+const diff = require('recursive-diff').getDiff;
 const transform = require('../../src/transform');
 const getEnv = require('../fixtures/env-large.fixture');
 const getMessage = require('../fixtures/message-large.fixture');
@@ -21,7 +22,14 @@ describe('large test: exact mode', () => {
 
     const exp = transform(env);
 
-    expect(exp).toMatchSnapshot();
+    expect(exp.packages.one.dependencies.four).toBe('^4.5.0'); // not changed
+    expect(exp.packages.one.version).toBe('1.2.3');
+    expect(exp.packages.three.dependencies.four).toBe('4.0.0 - 4');
+    expect(exp.packages.three.version).toBe('3.4.6');
+    expect(exp.packages.two.dependencies.three).toBe('2.3.4 - 3'); // also in range
+    expect(exp.packages.two.version).toBe('2.3.4');
+
+    expect(diff(env, exp)).toMatchSnapshot();
   });
 
   it('applies minor message', () => {
@@ -29,7 +37,14 @@ describe('large test: exact mode', () => {
     env.config.mode = 'range';
     const exp = transform(env);
 
-    expect(exp).toMatchSnapshot();
+    expect(exp.packages.one.dependencies.four).toBe('^4.5.0'); // not changed
+    expect(exp.packages.one.version).toBe('1.2.3');
+    expect(exp.packages.three.dependencies.four).toBe('4.0.0 - 4');
+    expect(exp.packages.three.version).toBe('3.4.6');
+    expect(exp.packages.two.dependencies.three).toBe('2.3.4 - 3'); // also in range
+    expect(exp.packages.two.version).toBe('2.3.4');
+
+    expect(diff(env, exp)).toMatchSnapshot();
   });
 
   it('applies major message', () => {
@@ -37,46 +52,64 @@ describe('large test: exact mode', () => {
     env.config.mode = 'range';
     const exp = transform(env);
 
-    expect(exp).toMatchSnapshot();
+    expect(exp.packages.one.dependencies.four).toBe('4.5.0 - 5'); // changed
+    expect(exp.packages.one.version).toBe('1.2.4');
+    expect(exp.packages.three.dependencies.four).toBe('4.0.0 - 5');
+    expect(exp.packages.three.version).toBe('3.4.6');
+    expect(exp.packages.two.dependencies.three).toBe('2.3.4 - 3'); // in range
+    expect(exp.packages.two.version).toBe('2.3.4');
+
+    expect(diff(env, exp)).toMatchSnapshot();
   });
 
   it('applies several messages', () => {
     const env = getEnv([
-      applyMinorLevel(applyMainScope(getMessage('taz'))),
-      getMessage('raz'),
-      applyOtherScope(getMessage('roo'))
+      applyMinorLevel(applyMainScope(getMessage('taz'))), // four 4.6.0
+      getMessage('raz'), // one 1.2.4
+      applyOtherScope(getMessage('roo')) // three 3.4.6
     ]);
     env.config.mode = 'range';
 
     const exp = transform(env);
 
-    expect(exp).toMatchSnapshot();
+    expect(exp.packages.one.dependencies.four).toBe('^4.5.0'); // in range
+    expect(exp.packages.one.version).toBe('1.2.4');
+    expect(exp.packages.three.dependencies.four).toBe('4.0.0 - 4');
+    expect(exp.packages.three.version).toBe('3.4.6');
+    expect(exp.packages.two.dependencies.three).toBe('2.3.4 - 3'); // in range
+    expect(exp.packages.two.version).toBe('2.3.4');
+
+    expect(diff(env, exp)).toMatchSnapshot();
   });
 
   it('applies messages with multiple affected packages', () => {
     const env = getEnv([
-      applyMinorLevel(getMessage('waz')),
-      applyMultiScope(getMessage('tar'))
+      applyMinorLevel(getMessage('waz')), // one 1.3.0
+      applyMultiScope(getMessage('tar')) // two 2.3.5 three 3.4.6
     ]);
     env.config.mode = 'range';
 
     const exp = transform(env);
 
-    expect(exp).toMatchSnapshot();
+    expect(exp.packages.one.version).toBe('1.3.0');
+    expect(exp.packages.three.version).toBe('3.4.6');
+    expect(exp.packages.two.dependencies.three).toBe('2.3.4 - 3');
+    expect(exp.packages.two.version).toBe('2.3.5');
+
+    expect(diff(env, exp)).toMatchSnapshot();
   });
 
   it('applies minor then major', () => {
-    const env = getEnv([applyMinorLevel(getMessage('raz'))]);
+    const env = getEnv([applyMinorLevel(getMessage('raz'))]); // one 1.3.0
     env.config.mode = 'range';
 
     const exp1 = transform(env);
-    expect(exp1).toMatchSnapshot();
+    expect(diff(env, exp1)).toMatchSnapshot();
 
-    exp1.messages = [applyOtherScope(applyMajorLevel(getMessage('rar')))];
-    exp1.packages = R.values(exp1.packages);
+    exp1.messages = [applyOtherScope(applyMajorLevel(getMessage('rar')))]; // three 4.0.0
 
     const exp2 = transform(exp1);
-    expect(exp2).toMatchSnapshot();
+    expect(diff(exp1, exp2)).toMatchSnapshot();
   });
 
   it('applies major then minor', () => {
@@ -84,12 +117,11 @@ describe('large test: exact mode', () => {
     env.config.mode = 'range';
 
     const exp1 = transform(env);
-    expect(exp1).toMatchSnapshot();
+    expect(diff(env, exp1)).toMatchSnapshot();
 
     exp1.messages = [applyOtherScope(applyMinorLevel(getMessage('rar')))];
-    exp1.packages = R.values(exp1.packages);
 
     const exp2 = transform(exp1);
-    expect(exp2).toMatchSnapshot();
+    expect(diff(exp1, exp2)).toMatchSnapshot();
   });
 });

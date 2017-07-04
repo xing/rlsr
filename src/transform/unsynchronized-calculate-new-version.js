@@ -17,14 +17,15 @@ module.exports = env => {
   };
 
   R.values(packages).forEach(pkg => {
-    const addDependencyToPackage = (p, dependency) => {
+    const addDependencyToPackage = (p, dependency, type) => {
       const addMessages = () => {
         p[nsp].relatedMessages = p[nsp].relatedMessages
           .concat(
             dependency[nsp].messages.map(m =>
               Object.assign({}, m, {
                 package: dependency.name,
-                version: dependency.version
+                version: dependency.version,
+                dependencyType: type
               })
             )
           )
@@ -36,37 +37,40 @@ module.exports = env => {
       };
 
       if (env.config.mode === 'exact') {
-        p.dependencies[dependency.name] = latest;
+        p[type][dependency.name] = latest;
         addMessages();
         p[nsp].relations &&
           p[nsp].relations.forEach(rel =>
-            addDependencyToPackage(packages[rel], p)
+            addDependencyToPackage(packages[rel], p, type)
           );
         if (p[nsp].determinedIncrementLevel < 0) {
           p[nsp].determinedIncrementLevel = 0;
         }
       } else {
-        const oldRange = p.dependencies[dependency.name];
+        const oldRange = p[type][dependency.name];
         const newRange = getNewRange(dependency.version, oldRange);
-        p.dependencies[pkg.name] = newRange;
+        p[type][pkg.name] = newRange;
         if (oldRange !== newRange) {
           addMessages();
         }
       }
     };
 
-    pkg[env.consts.nsp].determinedIncrementLevel = max(
-      pkg[env.consts.nsp].messages.map(m => m.level).concat([-1])
+    pkg[nsp].determinedIncrementLevel = max(
+      pkg[nsp].messages.map(m => m.level).concat([-1])
     );
 
-    if (pkg[env.consts.nsp].determinedIncrementLevel > -1) {
-      pkg.version = semver.bump(
-        pkg.version,
-        pkg[env.consts.nsp].determinedIncrementLevel
+    if (pkg[nsp].determinedIncrementLevel > -1) {
+      pkg.version = semver.bump(pkg.version, pkg[nsp].determinedIncrementLevel);
+      pkg[nsp].hasBump = true;
+      pkg[nsp].relations.forEach(rel =>
+        addDependencyToPackage(packages[rel], pkg, 'dependencies')
       );
-      pkg[env.consts.nsp].hasBump = true;
-      pkg[env.consts.nsp].relations.forEach(rel =>
-        addDependencyToPackage(packages[rel], pkg)
+      pkg[nsp].devRelations.forEach(rel =>
+        addDependencyToPackage(packages[rel], pkg, 'devDependencies')
+      );
+      pkg[nsp].peerRelations.forEach(rel =>
+        addDependencyToPackage(packages[rel], pkg, 'peerDependencies')
       );
     }
   });

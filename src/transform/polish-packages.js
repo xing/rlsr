@@ -22,20 +22,20 @@ module.exports = env => {
       devRelations: [],
       peerRelations: [],
       determinedIncrementLevel: -1,
-      dependencies: p.dependencies
-        ? Object.keys(p.dependencies).filter(depName =>
-          R.contains(depName, packageNames)
-        )
+      dependencies: p[key].dependencies
+        ? Object.keys(p[key].dependencies).filter(depName =>
+            R.contains(depName, packageNames)
+          )
         : [],
-      devDependencies: p.devDependencies
-        ? Object.keys(p.devDependencies).filter(depName =>
-          R.contains(depName, packageNames)
-        )
+      devDependencies: p[key].devDependencies
+        ? Object.keys(p[key].devDependencies).filter(depName =>
+            R.contains(depName, packageNames)
+          )
         : [],
-      peerDependencies: p.peerDependencies
-        ? Object.keys(p.peerDependencies).filter(depName =>
-          R.contains(depName, packageNames)
-        )
+      peerDependencies: p[key].peerDependencies
+        ? Object.keys(p[key].peerDependencies).filter(depName =>
+            R.contains(depName, packageNames)
+          )
         : []
     };
     p[key][nsp] = pData;

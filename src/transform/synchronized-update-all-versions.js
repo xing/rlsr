@@ -33,6 +33,14 @@ module.exports = env => {
       p[env.consts.nsp].dependencies.forEach(
         dep => (p.dependencies[dep] = determinedDependencyRange)
       );
+    p[env.consts.nsp].devDependencies &&
+      p[env.consts.nsp].devDependencies.forEach(
+        dep => (p.devDependencies[dep] = determinedDependencyRange)
+      );
+    p[env.consts.nsp].peerDependencies &&
+      p[env.consts.nsp].peerDependencies.forEach(
+        dep => (p.peerDependencies[dep] = determinedDependencyRange)
+      );
   });
   const res = modifyPackages(packages, env);
   res.mainPackage.version = determinedNewVersion;

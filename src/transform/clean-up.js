@@ -3,8 +3,8 @@ const R = require('ramda');
 module.exports = env => {
   const res = R.clone(env);
   res.messages = [];
-  res.packages = R.values(res.packages).map(pkg =>
-    R.omit([env.consts.nsp], pkg)
+  Object.keys(res.packages).forEach(
+    key => (res.packages[key] = R.omit([env.consts.nsp], res.packages[key]))
   );
 
   return res;

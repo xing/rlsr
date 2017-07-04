@@ -1,5 +1,6 @@
 /* eslint-env node, jest */
 const R = require('ramda');
+const diff = require('recursive-diff').getDiff;
 const transform = require('../../src/transform');
 const getEnv = require('../fixtures/env-large.fixture');
 const getMessage = require('../fixtures/message-large.fixture');
@@ -21,7 +22,7 @@ describe('large test: exact mode', () => {
 
     const exp = transform(env);
 
-    expect(exp).toMatchSnapshot();
+    expect(diff(env, exp)).toMatchSnapshot();
   });
 
   it('applies minor message', () => {
@@ -29,7 +30,7 @@ describe('large test: exact mode', () => {
     env.config.mode = 'synchronizedMain';
     const exp = transform(env);
 
-    expect(exp).toMatchSnapshot();
+    expect(diff(env, exp)).toMatchSnapshot();
   });
 
   it('applies major message and bumps all', () => {
@@ -37,7 +38,7 @@ describe('large test: exact mode', () => {
     env.config.mode = 'synchronizedMain';
     const exp = transform(env);
 
-    expect(exp).toMatchSnapshot();
+    expect(diff(env, exp)).toMatchSnapshot();
   });
 
   it('applies several messages with one breaking change', () => {
@@ -50,7 +51,7 @@ describe('large test: exact mode', () => {
 
     const exp = transform(env);
 
-    expect(exp).toMatchSnapshot();
+    expect(diff(env, exp)).toMatchSnapshot();
   });
 
   it('applies messages with multiple affected packages', () => {
@@ -62,7 +63,7 @@ describe('large test: exact mode', () => {
 
     const exp = transform(env);
 
-    expect(exp).toMatchSnapshot();
+    expect(diff(env, exp)).toMatchSnapshot();
   });
 
   it('applies minor then major', () => {
@@ -70,13 +71,13 @@ describe('large test: exact mode', () => {
     env.config.mode = 'synchronizedMain';
 
     const exp1 = transform(env);
-    expect(exp1).toMatchSnapshot();
+    expect(diff(env, exp1)).toMatchSnapshot();
 
     exp1.messages = [applyOtherScope(applyMinorLevel(getMessage('rar')))];
     exp1.packages = R.values(exp1.packages);
 
     const exp2 = transform(exp1);
-    expect(exp2).toMatchSnapshot();
+    expect(diff(exp1, exp2)).toMatchSnapshot();
   });
 
   it('applies major then minor', () => {
@@ -84,13 +85,13 @@ describe('large test: exact mode', () => {
     env.config.mode = 'synchronizedMain';
 
     const exp1 = transform(env);
-    expect(exp1).toMatchSnapshot();
+    expect(diff(env, exp1)).toMatchSnapshot();
 
     exp1.messages = [applyOtherScope(applyMinorLevel(getMessage('rar')))];
     exp1.packages = R.values(exp1.packages);
 
     const exp2 = transform(exp1);
 
-    expect(exp2).toMatchSnapshot();
+    expect(diff(exp1, exp2)).toMatchSnapshot();
   });
 });
