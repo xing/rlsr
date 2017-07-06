@@ -14,7 +14,7 @@ const COMMANDS = ['pre', 'perform'];
 // task runner
 const run = cmd => {
   if (COMMANDS.indexOf(cmd) === -1) {
-    err('rlsr', 'Please run one of the following commands');
+    err(NAME, 'Please run one of the following commands');
     COMMANDS.forEach(c => err(NAME, `* ${c}`));
     process.exit(1);
   }
@@ -27,26 +27,27 @@ const run = cmd => {
   }
 
   inf('rlsr')(`command <${cmd}>`);
-  runner(
-    Object.assign(
+  runner({
+    dbg: dbg(`${NAME} ${cmd}`),
+    err: err(`${NAME} ${cmd}`),
+    log: inf(`${NAME} ${cmd}`),
+    appRoot: process.cwd(),
+    mainPackage: pkg,
+    consts: {
+      nsp: NAME,
+      rlsrLatest: RLSR_LATEST,
+      levels: ['patch', 'minor', 'major']
+    },
+    config: Object.assign(
       {
         remote: 'origin',
         branch: 'master',
         packagePath: './packages',
-        exactRelations: false
+        mode: 'range'
       },
-      pkg[NAME],
-      {
-        dbg: dbg(`${NAME} ${cmd}`),
-        err: err(`${NAME} ${cmd}`),
-        log: inf(`${NAME} ${cmd}`),
-        nsp: NAME,
-        rlsrLatest: RLSR_LATEST,
-        version: pkg.version,
-        appRoot: process.cwd()
-      }
+      pkg[NAME]
     )
-  );
+  });
 };
 
 module.exports = run;

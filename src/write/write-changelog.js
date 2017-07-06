@@ -8,12 +8,14 @@ const getMessageString = msg => {
     .map(item => '\n' + item)
     .join('')
     .replace(/\n/g, '\n> ');
-  let ret = `**${msg.subject}**${content}
+  let ret = `→ **${msg.subject}**${content}
 `;
   return ret;
 };
 
-const getRelatedMessageString = msg => `- ${msg.source ? 'indirect dependency from *' + msg.source + '*: ' : ''}${msg.type} in *${msg.package}@${msg.version}*: **${msg.subject}**
+const getRelatedMessageString = msg => `- ${msg.source
+  ? '→ indirect dependency from *' + msg.source + '*: '
+  : ''}${msg.type} in *${msg.package}@${msg.version}*: **${msg.subject}**
 `;
 
 const getSection = (title, items) => {
@@ -27,8 +29,9 @@ ${items.join('\n')}`;
   }
 };
 
-module.exports = nsp => pkg =>
+module.exports = env => pkg =>
   new Promise((resolve, reject) => {
+    const nsp = env.consts.nsp;
     if (
       pkg[nsp].determinedIncrementLevel > -1 &&
       pkg[nsp].messages.length + pkg[nsp].relatedMessages.length > 0
@@ -57,7 +60,16 @@ module.exports = nsp => pkg =>
       const content = `# Changelog ${pkg.name}
 
 ## Version ${pkg.version}
-${getSection('🚀  BREAKING CHANGES', breakingChanges)}${getSection('🆕  New Features', feat)}${getSection('🐞 Bug Fixes', fix)}${getSection('🏃 Performance Improvements', perf)}${getSection('🔨 Refactorings', refactor)}${getSection('🔙 Reverted Changes', revert)}${getSection('🔄  Dependency Updates', dep)}
+${getSection('🚀  BREAKING CHANGES', breakingChanges)}${getSection(
+        '🆕  New Features',
+        feat
+      )}${getSection('🐞 Bug Fixes', fix)}${getSection(
+        '🏃 Performance Improvements',
+        perf
+      )}${getSection('🔨 Refactorings', refactor)}${getSection(
+        '🔙 Reverted Changes',
+        revert
+      )}${getSection('🔄  Dependency Updates', dep)}
 
 `;
       const changelogFile = path.resolve(pkg[nsp].dir, 'changelog.md');

@@ -12,6 +12,11 @@ module.exports = env => {
   env.dbg(`detected overall increment level: ${env.consts.levels[increment]}`);
   const versionBefore = env.mainPackage.version;
   env = R.assocPath(
+    ['mainPackage', env.consts.nsp, 'previouslyUnreleased'],
+    R.values(env.packages).filter(p => p[env.consts.nsp].determinedIncrementLevel > -1).map(p => p.name),
+    env
+  );
+  env = R.assocPath(
     ['mainPackage', env.consts.nsp, 'determinedIncrementLevel'],
     increment,
     env
