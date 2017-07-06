@@ -20,6 +20,6 @@ module.exports = env => {
     })
     .then(([messages, p]) => {
       env.log(`<${p.length}> packages`);
-      return Object.assign({}, env, { messages, packaged: indexedPackages(p) });
+      return Object.assign({}, env, { messages, packages: indexedPackages(p) });
     });
 };
