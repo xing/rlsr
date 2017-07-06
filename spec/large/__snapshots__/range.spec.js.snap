@@ -58,6 +58,10 @@ Object {
     "operation": "add",
     "value": 2,
   },
+  "/mainPackage/rlsr/previouslyUnreleased": Object {
+    "operation": "add",
+    "value": Array [],
+  },
   "/mainPackage/version": Object {
     "operation": "update",
     "value": "2.0.0",
@@ -115,6 +119,10 @@ Object {
   "/mainPackage/rlsr/determinedIncrementLevel": Object {
     "operation": "add",
     "value": 2,
+  },
+  "/mainPackage/rlsr/previouslyUnreleased": Object {
+    "operation": "add",
+    "value": Array [],
   },
   "/mainPackage/version": Object {
     "operation": "update",
@@ -232,6 +240,10 @@ Object {
     "operation": "add",
     "value": 1,
   },
+  "/mainPackage/rlsr/previouslyUnreleased": Object {
+    "operation": "add",
+    "value": Array [],
+  },
   "/mainPackage/version": Object {
     "operation": "update",
     "value": "1.9.0",
@@ -300,6 +312,10 @@ Object {
     "operation": "add",
     "value": 1,
   },
+  "/mainPackage/rlsr/previouslyUnreleased": Object {
+    "operation": "add",
+    "value": Array [],
+  },
   "/mainPackage/version": Object {
     "operation": "update",
     "value": "1.9.0",
@@ -349,6 +365,10 @@ Object {
   "/mainPackage/rlsr/determinedIncrementLevel": Object {
     "operation": "add",
     "value": 1,
+  },
+  "/mainPackage/rlsr/previouslyUnreleased": Object {
+    "operation": "add",
+    "value": Array [],
   },
   "/mainPackage/version": Object {
     "operation": "update",
@@ -472,6 +492,10 @@ Object {
     "operation": "add",
     "value": 0,
   },
+  "/mainPackage/rlsr/previouslyUnreleased": Object {
+    "operation": "add",
+    "value": Array [],
+  },
   "/mainPackage/version": Object {
     "operation": "update",
     "value": "1.8.6",
@@ -558,6 +582,10 @@ Object {
   "/mainPackage/rlsr/determinedIncrementLevel": Object {
     "operation": "add",
     "value": 1,
+  },
+  "/mainPackage/rlsr/previouslyUnreleased": Object {
+    "operation": "add",
+    "value": Array [],
   },
   "/mainPackage/version": Object {
     "operation": "update",
