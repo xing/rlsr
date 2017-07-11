@@ -8,14 +8,17 @@ const indexedPackages = R.indexBy(R.prop('name'));
 
 module.exports = env => {
   env.log('running step PRE PUBLISH');
-  env.log(`mode ${env.exactRelations ? 'EXACT' : 'RANGE'}`);
+  env.log(`mode ${env.config.mode.toUpperCase()}`);
 
   return getLatestSemverTag
     .then(tag => {
       env.log(`last semver tag <${tag}>`);
       return Promise.all([
         getParsedCommitMessages(tag),
-        getPackages(path.join(env.appRoot, env.config.packagePath), env.nsp)
+        getPackages(
+          path.join(env.appRoot, env.config.packagePath),
+          env.consts.nsp
+        )
       ]);
     })
     .then(([messages, p]) => {

@@ -10,7 +10,6 @@ const modifyPackages = require('./modify-packages');
  * calculated and also added as a fields
  */
 module.exports = env => {
-  console.log(env);
   const p = R.clone(env.packages);
   const packageNames = Object.keys(p);
   const nsp = env.consts.nsp;
@@ -39,7 +38,7 @@ module.exports = env => {
           )
         : []
     };
-    p[key][nsp] = pData;
+    p[key][nsp] = Object.assign({}, p[key][nsp], pData);
   });
 
   return modifyPackages(p, env);

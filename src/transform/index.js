@@ -10,6 +10,7 @@ const unsynchronizedCalculateNewVersion = require('./unsynchronized-calculate-ne
 const unsynchronizedUpdateRelations = require('./unsynchronized-update-relations');
 const calculateMainChangelogEntries = require('./calculate-main-changelog-entries');
 const resolveRlsrLatest = require('./resolve-rlsr-latest');
+const addPreviouslyUnreleased = require('./addPreviouslyUnreleased');
 const cleanUp = require('./clean-up');
 
 const isRangeMode = env =>
@@ -42,5 +43,6 @@ module.exports = R.pipe(
   ),
   resolveRlsrLatest,
   calculateMainChangelogEntries,
+  addPreviouslyUnreleased,
   cleanUp
 );

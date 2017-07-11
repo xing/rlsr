@@ -13,10 +13,25 @@ const getMessageString = msg => {
   return ret;
 };
 
-const getRelatedMessageString = msg => `- ${msg.source
-  ? '→ indirect dependency from *' + msg.source + '*: '
-  : ''}${msg.type} in *${msg.package}@${msg.version}*: **${msg.subject}**
+const getRelatedMessageString = msg => {
+  if (msg.source) {
+    return `→ indirect dependency from *${msg.source}* → ${msg.type} in *${msg.affected.join(
+      ', '
+    )}*: **${msg.subject}**
 `;
+  } else if (msg.synchronizedSource) {
+    return `→ synchronized dependency from *${msg.synchronizedSource.join(
+      ', '
+    )}* → ${msg.type}: **${msg.subject}**
+`;
+  } else if (msg.package) {
+    return `→ ${msg.type} in ${msg.package}@${msg.version}: **${msg.subject}**
+`;
+  } else {
+    return `→ ${msg.type}: **${msg.subject}**
+`;
+  }
+};
 
 const getSection = (title, items) => {
   if (items.length > 0) {

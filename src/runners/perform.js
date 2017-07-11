@@ -1,8 +1,9 @@
 const path = require('path');
 const R = require('ramda');
-const packages = require('../tools/get-packages');
-const writeCleanedPackageJson = require('../tools/write-cleaned-main-package-json');
-const commandsFactory = require('../tools/commands');
+const packages = require('../read/getPackages');
+const writeCleanedPackageJson = require('../perform/write-cleaned-main-package-json');
+const commandsFactory = require('../perform/commands');
+
 module.exports = env => {
   env.log('running step PERFORM PUBLISH');
 

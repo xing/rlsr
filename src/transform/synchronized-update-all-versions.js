@@ -19,9 +19,10 @@ module.exports = env => {
     .sort()
     .pop();
 
-  const determinedDependencyRange = env.config.mode === 'synchronizedMain'
-    ? `^${determinedNewVersion}`
-    : determinedNewVersion;
+  const determinedDependencyRange =
+    env.config.mode === 'synchronizedMain'
+      ? `^${determinedNewVersion}`
+      : determinedNewVersion;
 
   const packages = R.clone(env.packages);
   R.values(packages).forEach(p => {

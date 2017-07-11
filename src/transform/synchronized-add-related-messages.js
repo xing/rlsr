@@ -11,9 +11,7 @@ module.exports = env => {
         Object.keys(env.packages)
       );
       const transferredMessage = Object.assign({}, message, {
-        type: 'dependency update',
-        subject: `${message.type}: ${message.subject}`,
-        source: message.affected
+        synchronizedSource: message.affected
       });
       indirectlyRelatedPackages.forEach(
         packageName =>

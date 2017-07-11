@@ -25,7 +25,13 @@ describe('unsynchronizedCalculateNewVersion()', () => {
         dependencies: [],
         devDependencies: [],
         peerDependencies: [],
-        rlsr: { messages: [], relatedMessages: [], relations: [] }
+        rlsr: {
+          messages: [],
+          relatedMessages: [],
+          relations: [],
+          devRelations: [],
+          peerRelations: []
+        }
       }
     },
     []
@@ -80,7 +86,8 @@ describe('unsynchronizedCalculateNewVersion()', () => {
     expect(exp.packages.two.dependencies.one).toBe('1.2.3 - 2');
     expect(exp.packages.two.devDependencies.one).toBe('1.2.3 - 2');
     expect(exp.packages.two.peerDependencies.one).toBe('1.2.3 - 2');
-    expect(exp.packages.two.rlsr.relatedMessages).toHaveLength(3);
+    // identical messages appear only once
+    expect(exp.packages.two.rlsr.relatedMessages).toHaveLength(1);
   });
 
   it('doesnt spread the message in range mode if the range is sufficient', () => {
@@ -111,7 +118,7 @@ describe('unsynchronizedCalculateNewVersion()', () => {
 
     expect(exp.packages.one.rlsr.determinedIncrementLevel).toBe(2);
     expect(exp.packages.one.version).toBe('2.0.0');
-    expect(exp.packages.two.dependencies.one).toBe('rlsr-latest');
+    expect(exp.packages.two.dependencies.one).toBe('2.0.0');
     expect(exp.packages.two.rlsr.relatedMessages).toHaveLength(1);
   });
 });

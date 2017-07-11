@@ -21,6 +21,6 @@ describe('synchronizedAddRelatedMessages()', () => {
 
     expect(exp.packages.one.rlsr.relatedMessages).toHaveLength(0);
     expect(exp.packages.two.rlsr.relatedMessages).toHaveLength(1);
-    expect(exp.packages.two.rlsr.relatedMessages[0].subject).toBe('fix: foo');
+    expect(exp.packages.two.rlsr.relatedMessages[0].subject).toBe('foo');
   });
 });
