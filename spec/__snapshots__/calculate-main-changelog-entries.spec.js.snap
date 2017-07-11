@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`calculateMainChangelogEntries() adds a fresh changelog if nothing was available before 1`] = `
+Object {
+  "2.3.4": Object {
+    "changes": Object {
+      "one": Object {
+        "determinedIncrementLevel": "patch",
+        "messages": Array [
+          Object {
+            "affected": Array [
+              "one",
+            ],
+            "body": undefined,
+            "subject": "foo",
+            "type": "fix",
+          },
+        ],
+        "version": "1.2.3",
+      },
+    },
+    "date": "Thu, 01 Jan 1970 00:00:00 GMT",
+  },
+}
+`;
+
+exports[`calculateMainChangelogEntries() adds an entry to an existing changelog 1`] = `
+Object {
+  "1.2.3": "foo",
+  "2.3.4": Object {
+    "changes": Object {
+      "one": Object {
+        "determinedIncrementLevel": "patch",
+        "messages": Array [
+          Object {
+            "affected": Array [
+              "one",
+            ],
+            "body": undefined,
+            "subject": "foo",
+            "type": "fix",
+          },
+        ],
+        "version": "1.2.3",
+      },
+    },
+    "date": "Thu, 01 Jan 1970 00:00:00 GMT",
+  },
+}
+`;
