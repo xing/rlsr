@@ -43,7 +43,8 @@ const run = cmd => {
         remote: 'origin',
         branch: 'master',
         packagePath: './packages',
-        mode: 'range'
+        mode: 'range',
+        tag: 'latest'
       },
       pkg[NAME]
     )

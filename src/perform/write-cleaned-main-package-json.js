@@ -7,9 +7,10 @@ module.exports = env =>
     const pkgPath = path.join(env.appRoot, 'package.json');
     const mainPkg = require(pkgPath);
 
-    delete mainPkg[env.nsp].previouslyUnreleased;
-    if (R.isEmpty(mainPkg[env.nsp])) {
-      delete mainPkg[env.nsp];
+    delete mainPkg[env.consts.nsp].previouslyUnreleased;
+    delete mainPkg[env.consts.nsp].determinedIncrementLevel;
+    if (R.isEmpty(mainPkg[env.consts.nsp])) {
+      delete mainPkg[env.consts.nsp];
     }
 
     fs.writeFile(pkgPath, JSON.stringify(mainPkg, null, 2), err => {

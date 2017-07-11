@@ -7,23 +7,26 @@ const commandsFactory = require('../perform/commands');
 module.exports = env => {
   env.log('running step PERFORM PUBLISH');
 
-  if (env.previouslyUnreleased) {
-    env.log(
-      `Previously unreleased packages: <${env.previouslyUnreleased.length}>`
-    );
+  const previouslyUnreleased =
+    env.mainPackage[env.consts.nsp].previouslyUnreleased;
+
+  if (previouslyUnreleased) {
+    env.log(`Previously unreleased packages: <${previouslyUnreleased.length}>`);
     const commands = commandsFactory(env.log, env.dbg);
 
     commands
-      .commitChanges(env, env.previouslyUnreleased)
+      .commitChanges(env, previouslyUnreleased)
       // fetch packages
-      .then(() => packages(path.join(env.appRoot, env.packagePath), env.nsp))
+      .then(() =>
+        packages(path.join(env.appRoot, env.config.packagePath), env.consts.nsp)
+      )
       .then(flatPackages => {
         return R.indexBy(R.prop('name'), flatPackages);
       })
       // filter unreleased
       // for manual manipulation, we filter stuff that doesn't match any real package (#5)
       .then(packages => {
-        return env.previouslyUnreleased
+        return previouslyUnreleased
           .map(packageName => packages[packageName])
           .filter(p => !!p);
       })
@@ -36,16 +39,25 @@ module.exports = env => {
       // clean up main package.json
       .then(packages => writeCleanedPackageJson(env).then(() => packages))
       // commit main package.json
-      .then(packages => commands.commitMain(env.version).then(() => packages))
-      .then(packages => commands.tagMain(env.version).then(() => packages))
       .then(packages =>
-        commands.push(env.remote, env.branch).then(() => packages)
+        commands.commitMain(env.mainPackage.version).then(() => packages)
+      )
+      .then(packages =>
+        commands.tagMain(env.mainPackage.version).then(() => packages)
+      )
+      .then(packages =>
+        commands.push(env.config.remote, env.config.branch).then(() => packages)
       )
       // npm publish all packages
       .then(packages =>
         Promise.all(
           packages.map(p =>
-            commands.publishPackage(p.name, p.version, p[env.nsp].dir)
+            commands.publishPackage(
+              p.name,
+              p.version,
+              p[env.consts.nsp].dir,
+              env.config.tag
+            )
           )
         )
       )
