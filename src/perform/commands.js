@@ -15,16 +15,17 @@ module.exports = (log, dbg) => {
     commitChanges: (env, packages) => {
       const files = R.flatten(
         packages.map(p => [
-          path.join(env.appRoot, env.packagePath, p, 'changelog.md'),
+          path.join(env.appRoot, env.config.packagePath, p, 'changelog.md'),
           packages.map(p => [
-            path.join(env.appRoot, env.packagePath, p, 'package.json'),
+            path.join(env.appRoot, env.config.packagePath, p, 'package.json'),
             path.join(env.appRoot, 'changelog.json')
           ])
         ])
       ).join(' ');
       return run(
-        `git add ${files} && git commit -m "chore: release ${env.version}"`,
-        `committing changelogs for version <${env.version}>`
+        `git add ${files} && git commit -m "chore: release ${env.mainPackage
+          .version}"`,
+        `committing changelogs for version <${env.mainPackage.version}>`
       );
     },
     tagPackage: (name, version) =>
@@ -32,8 +33,12 @@ module.exports = (log, dbg) => {
         `git tag -a -m 'chore: tagged ${name}@${version}' ${name}@${version}`,
         `adding git tag for <${name}@${version}>`
       ),
-    publishPackage: (name, version, dir) =>
-      runInDir(dir, `npm publish -ddd`, `publishing <${name}@${version}>`),
+    publishPackage: (name, version, dir, tag) =>
+      runInDir(
+        dir,
+        `npm publish -ddd -tag ${tag}`,
+        `publishing <${name}@${version}> with tag <${tag}>`
+      ),
     commitMain: version =>
       run(
         `git add package.json && git commit -m "chore: update main package ${version}"`,
