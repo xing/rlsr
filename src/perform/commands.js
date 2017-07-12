@@ -14,13 +14,12 @@ module.exports = (log, dbg) => {
   return {
     commitChanges: (env, packages) => {
       const files = R.flatten(
-        packages.map(p => [
-          path.join(env.appRoot, env.config.packagePath, p, 'changelog.md'),
-          packages.map(p => [
-            path.join(env.appRoot, env.config.packagePath, p, 'package.json'),
-            path.join(env.appRoot, 'changelog.json')
+        packages
+          .map(p => [
+            path.join(env.appRoot, env.config.packagePath, p, 'changelog.md'),
+            path.join(env.appRoot, env.config.packagePath, p, 'package.json')
           ])
-        ])
+          .concat([path.join(env.appRoot, 'changelog.json')])
       ).join(' ');
       return run(
         `git add ${files} && git commit -m "chore: release ${env.mainPackage
