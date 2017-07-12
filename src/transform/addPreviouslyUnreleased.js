@@ -14,6 +14,9 @@ module.exports = env => {
       return iteratedPackage[nsp].hasBump;
     })
     .map(iteratedPackage => iteratedPackage.name);
+  env.mainPackage[nsp].shouldBeCommitted = R.values(env.packages)
+    .filter(iteratedPackage => iteratedPackage[nsp].shouldBeCommitted)
+    .map(iteratedPackage => iteratedPackage.name);
 
   return env;
 };

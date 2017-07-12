@@ -13,6 +13,7 @@ module.exports = env => {
             pkg[type][name] === env.consts.rlsrLatest &&
             Object.keys(env.packages).indexOf(name) > -1
           ) {
+            pkg[env.consts.nsp].shouldBeCommitted = true;
             const version = packages[name].version;
             const isExact =
               env.config.mode === 'exact' || env.config.mode === 'synchronized';
