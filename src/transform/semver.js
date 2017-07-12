@@ -5,7 +5,8 @@ const parseVersion = s => s.split('.').map(n => parseInt(n));
 
 const parseComparator = comp => {
   switch (comp.operator) {
-    case '>': return [comp.semver.major, comp.semver.minor, comp.semver.patch + 1];
+    case '>':
+      return [comp.semver.major, comp.semver.minor, comp.semver.patch + 1];
     case '<':
       const res = [comp.semver.major, comp.semver.minor, comp.semver.patch - 1];
       if (res[2] < 0) {
@@ -17,11 +18,12 @@ const parseComparator = comp => {
         }
       }
       return res;
-    default: return [comp.semver.major, comp.semver.minor, comp.semver.patch];
+    default:
+      return [comp.semver.major, comp.semver.minor, comp.semver.patch];
   }
 };
 
-const getDependencyAst = module.exports.getDependencyAst = range => {
+const getDependencyAst = (module.exports.getDependencyAst = range => {
   const rawRange = new semver.Range(range).set[0];
   const parsedRange = rawRange.map(parseComparator);
   if (parsedRange.length === 1 && !rawRange[0].operator) {
@@ -31,17 +33,21 @@ const getDependencyAst = module.exports.getDependencyAst = range => {
     from: parsedRange[0],
     to: parsedRange[1]
   };
-};
+});
 
-const satisfies = module.exports.satisfies = semver.satisfies;
+const satisfies = (module.exports.satisfies = semver.satisfies);
 
-const ast2string = ast => ast.from.filter(v => v !== null).join('.') + ' - ' + ast.to.filter(v => !!v).join('.');
+const ast2string = ast =>
+  ast.from.filter(v => v !== null).join('.') +
+  ' - ' +
+  ast.to.filter(v => !!v).join('.');
 
 module.exports.adjustRange = (version, oldDep) => {
   if (satisfies(version, oldDep)) {
     return oldDep;
   }
   const newMajor = parseVersion(version)[0];
+
   const ret = getDependencyAst(oldDep);
   ret.to = [newMajor, null, null];
   return ast2string(ret);

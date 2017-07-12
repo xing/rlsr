@@ -64,7 +64,17 @@ module.exports = env => {
         updatedPackage.version = semver.bump(updatedPackage.version, 0);
       }
       updatedPackage[nsp].relations.forEach(rel =>
-        addDependencyToPackage(packages[rel], updatedPackage, type)
+        addDependencyToPackage(packages[rel], updatedPackage, 'dependencies')
+      );
+      updatedPackage[nsp].devRelations.forEach(rel =>
+        addDependencyToPackage(packages[rel], updatedPackage, 'devDependencies')
+      );
+      updatedPackage[nsp].peerRelations.forEach(rel =>
+        addDependencyToPackage(
+          packages[rel],
+          updatedPackage,
+          'peerDependencies'
+        )
       );
     }
     // out of range - bump relation und add dependency erneut aufrufen fuer alle relations
