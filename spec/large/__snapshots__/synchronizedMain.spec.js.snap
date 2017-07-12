@@ -98,6 +98,10 @@ Object {
       "five",
     ],
   },
+  "/mainPackage/rlsr/shouldBeCommitted": Object {
+    "operation": "add",
+    "value": Array [],
+  },
   "/mainPackage/version": Object {
     "operation": "update",
     "value": "5.0.0",
@@ -397,6 +401,10 @@ Object {
       "four",
       "five",
     ],
+  },
+  "/mainPackage/rlsr/shouldBeCommitted": Object {
+    "operation": "add",
+    "value": Array [],
   },
   "/mainPackage/version": Object {
     "operation": "update",
@@ -775,6 +783,10 @@ Object {
       "three",
     ],
   },
+  "/mainPackage/rlsr/shouldBeCommitted": Object {
+    "operation": "add",
+    "value": Array [],
+  },
   "/mainPackage/version": Object {
     "operation": "update",
     "value": "1.9.0",
@@ -974,6 +986,10 @@ Object {
       "four",
     ],
   },
+  "/mainPackage/rlsr/shouldBeCommitted": Object {
+    "operation": "add",
+    "value": Array [],
+  },
   "/mainPackage/version": Object {
     "operation": "update",
     "value": "1.9.0",
@@ -1140,6 +1156,10 @@ Object {
     "value": Array [
       "one",
     ],
+  },
+  "/mainPackage/rlsr/shouldBeCommitted": Object {
+    "operation": "add",
+    "value": Array [],
   },
   "/mainPackage/version": Object {
     "operation": "update",
@@ -1404,6 +1424,10 @@ Object {
       "four",
     ],
   },
+  "/mainPackage/rlsr/shouldBeCommitted": Object {
+    "operation": "add",
+    "value": Array [],
+  },
   "/mainPackage/version": Object {
     "operation": "update",
     "value": "1.8.6",
@@ -1650,6 +1674,10 @@ Object {
       "four",
       "five",
     ],
+  },
+  "/mainPackage/rlsr/shouldBeCommitted": Object {
+    "operation": "add",
+    "value": Array [],
   },
   "/mainPackage/version": Object {
     "operation": "update",

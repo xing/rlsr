@@ -9,13 +9,21 @@ module.exports = env => {
 
   const previouslyUnreleased =
     env.mainPackage[env.consts.nsp].previouslyUnreleased;
+  const shouldBeCommitted = R.difference(
+    env.mainPackage[env.consts.nsp].shouldBeCommitted,
+    previouslyUnreleased
+  );
 
+  // should be committed is not as important as previouslyUnreleased
+  // so we only proceed, if something really must be released
+  // shouldBeCommitted can then run in the next iteration again
   if (previouslyUnreleased) {
     env.log(`Previously unreleased packages: <${previouslyUnreleased.length}>`);
+    env.log(`Files that should be committed: <${shouldBeCommitted.length}>`);
     const commands = commandsFactory(env.log, env.dbg);
 
     commands
-      .commitChanges(env, previouslyUnreleased)
+      .commitChanges(env, previouslyUnreleased, shouldBeCommitted)
       // fetch packages
       .then(() =>
         packages(path.join(env.appRoot, env.config.packagePath), env.consts.nsp)

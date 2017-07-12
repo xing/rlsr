@@ -12,13 +12,18 @@ module.exports = (log, dbg) => {
   const run = runInDir(null);
 
   return {
-    commitChanges: (env, packages) => {
+    commitChanges: (env, packages, additionalPackages) => {
       const files = R.flatten(
         packages
           .map(p => [
             path.join(env.appRoot, env.config.packagePath, p, 'changelog.md'),
             path.join(env.appRoot, env.config.packagePath, p, 'package.json')
           ])
+          .concat(
+            additionalPackages.map(p =>
+              path.join(env.appRoot, env.config.packagePath, p, 'package.json')
+            )
+          )
           .concat([path.join(env.appRoot, 'changelog.json')])
       ).join(' ');
       return run(
