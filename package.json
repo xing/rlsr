@@ -1,6 +1,6 @@
 {
   "name": "rlsr",
-  "version": "1.0.0-beta.3",
+  "version": "1.0.0",
   "description": "create npm releses and changelogs from a multi repo",
   "main": "src/index.js",
   "bin": {
@@ -19,12 +19,7 @@
     "type": "git",
     "url": "https://github.com/matthias-reis/rlsr.git"
   },
-  "keywords": [
-    "npm",
-    "release",
-    "changelog",
-    "conventional-changelog"
-  ],
+  "keywords": ["npm", "release", "changelog", "conventional-changelog"],
   "author": "Matthias Reis",
   "license": "MIT",
   "devDependencies": {
