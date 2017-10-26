@@ -76,15 +76,15 @@ module.exports = env => pkg =>
 
 ## Version ${pkg.version}
 ${getSection('🚀  BREAKING CHANGES', breakingChanges)}${getSection(
-        '🆕  New Features',
-        feat
-      )}${getSection('🐞 Bug Fixes', fix)}${getSection(
-        '🏃 Performance Improvements',
-        perf
-      )}${getSection('🔨 Refactorings', refactor)}${getSection(
-        '🔙 Reverted Changes',
-        revert
-      )}${getSection('🔄  Dependency Updates', dep)}
+  '🆕  New Features',
+  feat
+)}${getSection('🐞 Bug Fixes', fix)}${getSection(
+  '🏃 Performance Improvements',
+  perf
+)}${getSection('🔨 Refactorings', refactor)}${getSection(
+  '🔙 Reverted Changes',
+  revert
+)}${getSection('🔄  Dependency Updates', dep)}
 
 `;
       const changelogFile = path.resolve(pkg[nsp].dir, 'changelog.md');
