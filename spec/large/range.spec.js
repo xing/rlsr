@@ -24,7 +24,7 @@ describe('large test: exact mode', () => {
 
     expect(exp.packages.one.dependencies.four).toBe('^4.5.0'); // not changed
     expect(exp.packages.one.version).toBe('1.2.3');
-    expect(exp.packages.three.dependencies.four).toBe('4.0.0 - 4');
+    expect(exp.packages.three.dependencies.four).toBe('^4');
     expect(exp.packages.three.version).toBe('3.4.6');
     expect(exp.packages.two.dependencies.three).toBe('2.3.4 - 3'); // also in range
     expect(exp.packages.two.version).toBe('2.3.4');
@@ -39,7 +39,7 @@ describe('large test: exact mode', () => {
 
     expect(exp.packages.one.dependencies.four).toBe('^4.5.0'); // not changed
     expect(exp.packages.one.version).toBe('1.2.3');
-    expect(exp.packages.three.dependencies.four).toBe('4.0.0 - 4');
+    expect(exp.packages.three.dependencies.four).toBe('^4');
     expect(exp.packages.three.version).toBe('3.4.6');
     expect(exp.packages.two.dependencies.three).toBe('2.3.4 - 3'); // also in range
     expect(exp.packages.two.version).toBe('2.3.4');
@@ -52,9 +52,9 @@ describe('large test: exact mode', () => {
     env.config.mode = 'range';
     const exp = transform(env);
 
-    expect(exp.packages.one.dependencies.four).toBe('4.5.0 - 5'); // changed
+    expect(exp.packages.one.dependencies.four).toBe('^5'); // changed
     expect(exp.packages.one.version).toBe('1.2.4');
-    expect(exp.packages.three.dependencies.four).toBe('4.0.0 - 5');
+    expect(exp.packages.three.dependencies.four).toBe('^5');
     expect(exp.packages.three.version).toBe('3.4.6');
     expect(exp.packages.two.dependencies.three).toBe('2.3.4 - 3'); // in range
     expect(exp.packages.two.version).toBe('2.3.4');
@@ -74,7 +74,7 @@ describe('large test: exact mode', () => {
 
     expect(exp.packages.one.dependencies.four).toBe('^4.5.0'); // in range
     expect(exp.packages.one.version).toBe('1.2.4');
-    expect(exp.packages.three.dependencies.four).toBe('4.0.0 - 4');
+    expect(exp.packages.three.dependencies.four).toBe('^4');
     expect(exp.packages.three.version).toBe('3.4.6');
     expect(exp.packages.two.dependencies.three).toBe('2.3.4 - 3'); // in range
     expect(exp.packages.two.version).toBe('2.3.4');

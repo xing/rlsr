@@ -128,7 +128,7 @@ Object {
   },
   "/packages/one/dependencies/four": Object {
     "operation": "update",
-    "value": "4.5.0 - 5",
+    "value": "^5",
   },
   "/packages/one/rlsr": Object {
     "operation": "add",
@@ -168,7 +168,7 @@ Object {
   },
   "/packages/three/dependencies/four": Object {
     "operation": "update",
-    "value": "4.0.0 - 5",
+    "value": "^5",
   },
   "/packages/three/rlsr": Object {
     "operation": "add",
@@ -803,7 +803,7 @@ Object {
   },
   "/packages/three/dependencies/four": Object {
     "operation": "update",
-    "value": "4.0.0 - 4",
+    "value": "^4",
   },
   "/packages/three/rlsr": Object {
     "operation": "add",
@@ -1106,7 +1106,7 @@ Object {
   },
   "/packages/two/dependencies/three": Object {
     "operation": "update",
-    "value": "2.3.4 - 4",
+    "value": "^4",
   },
   "/packages/two/rlsr/determinedIncrementLevel": Object {
     "operation": "update",
@@ -1268,7 +1268,7 @@ Object {
   },
   "/packages/three/dependencies/four": Object {
     "operation": "update",
-    "value": "4.0.0 - 4",
+    "value": "^4",
   },
   "/packages/three/rlsr": Object {
     "operation": "add",
@@ -1500,7 +1500,7 @@ Object {
   },
   "/packages/three/dependencies/four": Object {
     "operation": "update",
-    "value": "4.0.0 - 4",
+    "value": "^4",
   },
   "/packages/three/rlsr": Object {
     "operation": "add",
