@@ -83,9 +83,9 @@ describe('unsynchronizedCalculateNewVersion()', () => {
 
     expect(exp.packages.one.rlsr.determinedIncrementLevel).toBe(2);
     expect(exp.packages.one.version).toBe('2.0.0');
-    expect(exp.packages.two.dependencies.one).toBe('1.2.3 - 2');
-    expect(exp.packages.two.devDependencies.one).toBe('1.2.3 - 2');
-    expect(exp.packages.two.peerDependencies.one).toBe('1.2.3 - 2');
+    expect(exp.packages.two.dependencies.one).toBe('^2');
+    expect(exp.packages.two.devDependencies.one).toBe('^2');
+    expect(exp.packages.two.peerDependencies.one).toBe('^2');
     // identical messages appear only once
     expect(exp.packages.two.rlsr.relatedMessages).toHaveLength(1);
   });

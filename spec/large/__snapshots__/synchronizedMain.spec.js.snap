@@ -1065,7 +1065,7 @@ Object {
   },
   "/packages/three/dependencies/four": Object {
     "operation": "update",
-    "value": "4.0.0 - 4",
+    "value": "^4",
   },
   "/packages/three/rlsr": Object {
     "operation": "add",
@@ -1503,7 +1503,7 @@ Object {
   },
   "/packages/three/dependencies/four": Object {
     "operation": "update",
-    "value": "4.0.0 - 4",
+    "value": "^4",
   },
   "/packages/three/rlsr": Object {
     "operation": "add",
