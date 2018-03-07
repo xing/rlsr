@@ -18,7 +18,17 @@ const addBreaking = msg => {
   });
 };
 
-module.exports = tag =>
+const scopeToName = map => msg => {
+  if (map[msg.scope]) {
+    return Object.assign({}, msg, {
+      scope: map[msg.scope]
+    });
+  }
+
+  return msg;
+};
+
+module.exports = (tag, scopeToNameMap) =>
   new Promise((resolve, reject) => {
     const commitMessages = [];
 
@@ -30,7 +40,11 @@ module.exports = tag =>
       .on('error', err => reject(err))
       .on('end', () => {
         resolve(
-          commitMessages.filter(isRelevant).map(addLevel).map(addBreaking)
+          commitMessages
+            .filter(isRelevant)
+            .map(scopeToName(scopeToNameMap))
+            .map(addLevel)
+            .map(addBreaking)
         );
       });
   });
