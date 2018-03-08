@@ -92,6 +92,9 @@ RLSR has some config values, that you can set inside your package.json in a
   (defaults to `./packages`)
 * `exactRelations` (boolean): use the exact paradigm for related versions
   (defaults to false)
+* `scopeToNameMap` (object): map commit message scopes to a different package
+  names. For example to use a shorter name in scopes or to handle renaming of
+  packages.
 
 ## rlsr-latest
 

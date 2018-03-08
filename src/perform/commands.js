@@ -1,6 +1,7 @@
 const path = require('path');
 const R = require('ramda');
 const exec = require('./exec');
+const getPackages = require('../read/getPackages');
 
 const command = R.curry((log, dbg, dir, cmd, description) => {
   log(`exec command: ${description}`);
@@ -13,24 +14,32 @@ module.exports = (log, dbg) => {
 
   return {
     commitChanges: (env, packages, additionalPackages) => {
-      const files = R.flatten(
-        packages
-          .map(p => [
-            path.join(env.appRoot, env.config.packagePath, p, 'changelog.md'),
-            path.join(env.appRoot, env.config.packagePath, p, 'package.json')
-          ])
-          .concat(
-            additionalPackages.map(p =>
-              path.join(env.appRoot, env.config.packagePath, p, 'package.json')
+      return getPackages(
+        path.join(env.appRoot, env.config.packagePath),
+        env.consts.nsp
+      ).then(allPackages => {
+        const nameToDir = name => allPackages.find(p => p.name === name)[env.consts.nsp].dir;
+
+        return R.flatten(
+          packages
+            .map(nameToDir)
+            .map(dir => [
+              path.join(dir, 'changelog.md'),
+              path.join(dir, 'package.json')
+            ])
+            .concat(
+              additionalPackages
+                .map(nameToDir)
+                .map(dir =>
+                  path.join(dir, 'package.json')
+                )
             )
-          )
-          .concat([path.join(env.appRoot, 'changelog.json')])
-      ).join(' ');
-      return run(
-        `git add ${files} && git commit -m "chore: release ${env.mainPackage
-          .version}"`,
+            .concat([path.join(env.appRoot, 'changelog.json')])
+        ).join(' ');
+      }).then((files) => run(
+        `git add ${files} && git commit -m "chore: release ${env.mainPackage.version}"`,
         `committing changelogs for version <${env.mainPackage.version}>`
-      );
+      ));
     },
     tagPackage: (name, version) =>
       run(

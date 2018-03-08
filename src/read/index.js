@@ -14,7 +14,7 @@ module.exports = env => {
     .then(tag => {
       env.log(`last semver tag <${tag}>`);
       return Promise.all([
-        getParsedCommitMessages(tag),
+        getParsedCommitMessages(tag, env.config.scopeToNameMap || {}),
         getPackages(
           path.join(env.appRoot, env.config.packagePath),
           env.consts.nsp
