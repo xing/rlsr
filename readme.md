@@ -64,8 +64,8 @@ and after that add it to your package.json
 
 ## usage
 
-Finally, you can use it for a dry run (without any persistence) `npm run
-prepublish` (or `rlsr pre`) and check what it has created.
+Finally, you can use it for a dry run (without any persistence)
+`npm run prepublish` (or `rlsr pre`) and check what it has created.
 
 For the full power you can persist these changes with git commits and tags as
 well as the npm publish using `npm run release` (or `rlsr pre && rlsr perform`).
@@ -95,6 +95,9 @@ RLSR has some config values, that you can set inside your package.json in a
 * `scopeToNameMap` (object): map commit message scopes to a different package
   names. For example to use a shorter name in scopes or to handle renaming of
   packages.
+* `additionalReleaseScope` (string): An npm scope (or orga) to use for double
+  publication under `package-name` and `@scope/package-name`. Has to start with
+  an `@`
 
 ## rlsr-latest
 

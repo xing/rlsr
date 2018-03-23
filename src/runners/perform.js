@@ -1,4 +1,5 @@
 const path = require('path');
+const fs = require('fs');
 const R = require('ramda');
 const packages = require('../read/getPackages');
 const writeCleanedPackageJson = require('../perform/write-cleaned-main-package-json');
@@ -9,6 +10,9 @@ module.exports = env => {
 
   const previouslyUnreleased =
     env.mainPackage[env.consts.nsp].previouslyUnreleased;
+  const additionalReleaseScope =
+    env.mainPackage[env.consts.nsp].additionalReleaseScope;
+  const hasAdditionalReleaseScope = !!additionalReleaseScope;
   const shouldBeCommitted = R.difference(
     env.mainPackage[env.consts.nsp].shouldBeCommitted,
     previouslyUnreleased
@@ -59,14 +63,38 @@ module.exports = env => {
       // npm publish all packages
       .then(packages =>
         Promise.all(
-          packages.map(p =>
-            commands.publishPackage(
-              p.name,
-              p.version,
-              p[env.consts.nsp].dir,
-              env.config.tag
-            )
-          )
+          packages.map(p => {
+            return commands
+              .publishPackage(
+                p.name,
+                p.version,
+                p[env.consts.nsp].dir,
+                env.config.tag
+              )
+              .then(
+                () =>
+                  new Promise((resolve, reject) => {
+                    if (hasAdditionalReleaseScope) {
+                      const dest = p[env.consts.nsp].file;
+                      p.name = `${additionalReleaseScope}/${p.name}`;
+                      try {
+                        fs.writeFileSync(dest, JSON.stringify(p, null, 2));
+                        // second publication under a given scope (@myscope/foo-bar)
+                        return commands.publishPackage(
+                          p.name,
+                          p.version,
+                          p[env.consts.nsp].dir,
+                          env.config.tag
+                        );
+                      } catch (e) {
+                        reject(e);
+                      }
+                    } else {
+                      resolve();
+                    }
+                  })
+              );
+          })
         )
       )
       // npm publish every changed component
