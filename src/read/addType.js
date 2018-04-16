@@ -1,8 +1,7 @@
 // adding type manually because commitizen cant handle '@' and '/'
 
 module.exports = msg => {
-  // eslint-disable-next-line no-useless-escape
-  const headerRegex = /^(\w*)(?:\(([\w@\/\$\.\-\*]*)\))?\: (.*)$/;
+  const headerRegex = /^(\w*)(?:\(([\w@/$.\-*]*)\))?: (.*)$/;
   const matches = msg.header.match(headerRegex);
   if (!matches) return msg;
   return Object.assign({}, msg, {
