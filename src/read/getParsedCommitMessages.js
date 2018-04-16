@@ -1,6 +1,7 @@
 const commits = require('git-raw-commits');
 const parser = require('conventional-commits-parser');
 const R = require('ramda');
+const addType = require('./addType');
 
 const BREAKING_REGEXP = /BREAKING/;
 const PATCH_TYPES = ['fix', 'refactor', 'perf', 'revert'];
@@ -8,8 +9,10 @@ const MINOR_TYPES = ['feat'];
 
 const isRelevant = msg =>
   R.contains(msg.type, R.concat(PATCH_TYPES, MINOR_TYPES));
+
 const addLevel = msg =>
   Object.assign({}, msg, { level: R.contains(msg.type, MINOR_TYPES) ? 1 : 0 });
+
 const addBreaking = msg => {
   return Object.assign({}, msg, {
     level: (msg.subject + msg.body + msg.footer).match(BREAKING_REGEXP)
@@ -41,6 +44,8 @@ module.exports = (tag, scopeToNameMap) =>
       .on('end', () => {
         resolve(
           commitMessages
+            // adding type manually because commitizen cant handle '@' and '/'
+            .map(addType)
             .filter(isRelevant)
             .map(scopeToName(scopeToNameMap))
             .map(addLevel)
