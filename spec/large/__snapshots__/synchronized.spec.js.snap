@@ -1,10 +1,328 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`large test: synchronized mode applies major message 1`] = `
-Object {
-  "/changelog/5.0.0": Object {
-    "operation": "add",
-    "value": Object {
+Array [
+  Object {
+    "op": "update",
+    "path": Array [
+      "mainPackage",
+      "version",
+    ],
+    "val": "5.0.0",
+  },
+  Object {
+    "op": "add",
+    "path": Array [
+      "mainPackage",
+      "rlsr",
+      "previouslyUnreleased",
+    ],
+    "val": Array [
+      "one",
+      "two",
+      "three",
+      "four",
+      "five",
+    ],
+  },
+  Object {
+    "op": "add",
+    "path": Array [
+      "mainPackage",
+      "rlsr",
+      "determinedIncrementLevel",
+    ],
+    "val": 2,
+  },
+  Object {
+    "op": "add",
+    "path": Array [
+      "mainPackage",
+      "rlsr",
+      "shouldBeCommitted",
+    ],
+    "val": Array [],
+  },
+  Object {
+    "op": "delete",
+    "path": Array [
+      "messages",
+      0,
+    ],
+  },
+  Object {
+    "op": "update",
+    "path": Array [
+      "packages",
+      "one",
+      "version",
+    ],
+    "val": "5.0.0",
+  },
+  Object {
+    "op": "update",
+    "path": Array [
+      "packages",
+      "one",
+      "dependencies",
+      "four",
+    ],
+    "val": "5.0.0",
+  },
+  Object {
+    "op": "update",
+    "path": Array [
+      "packages",
+      "one",
+      "dependencies",
+      "five",
+    ],
+    "val": "5.0.0",
+  },
+  Object {
+    "op": "add",
+    "path": Array [
+      "packages",
+      "one",
+      "rlsr",
+    ],
+    "val": Object {
+      "dependencies": Array [
+        "four",
+        "five",
+      ],
+      "determinedIncrementLevel": 2,
+      "devDependencies": Array [],
+      "devRelations": Array [],
+      "hasBump": true,
+      "messages": Array [
+        Object {
+          "affected": Array [
+            "one",
+          ],
+          "body": "BREAKING CHANGE: text ",
+          "level": 2,
+          "scope": "one",
+          "subject": "baz",
+          "type": "fix",
+        },
+      ],
+      "peerDependencies": Array [],
+      "peerRelations": Array [],
+      "relatedMessages": Array [],
+      "relations": Array [],
+    },
+  },
+  Object {
+    "op": "update",
+    "path": Array [
+      "packages",
+      "two",
+      "version",
+    ],
+    "val": "5.0.0",
+  },
+  Object {
+    "op": "update",
+    "path": Array [
+      "packages",
+      "two",
+      "dependencies",
+      "three",
+    ],
+    "val": "5.0.0",
+  },
+  Object {
+    "op": "add",
+    "path": Array [
+      "packages",
+      "two",
+      "rlsr",
+    ],
+    "val": Object {
+      "dependencies": Array [
+        "three",
+      ],
+      "determinedIncrementLevel": 2,
+      "devDependencies": Array [],
+      "devRelations": Array [],
+      "hasBump": true,
+      "messages": Array [],
+      "peerDependencies": Array [],
+      "peerRelations": Array [],
+      "relatedMessages": Array [
+        Object {
+          "affected": Array [
+            "one",
+          ],
+          "body": "BREAKING CHANGE: text ",
+          "level": 2,
+          "scope": "one",
+          "subject": "baz",
+          "synchronizedSource": Array [
+            "one",
+          ],
+          "type": "fix",
+        },
+      ],
+      "relations": Array [],
+    },
+  },
+  Object {
+    "op": "update",
+    "path": Array [
+      "packages",
+      "three",
+      "version",
+    ],
+    "val": "5.0.0",
+  },
+  Object {
+    "op": "update",
+    "path": Array [
+      "packages",
+      "three",
+      "dependencies",
+      "four",
+    ],
+    "val": "5.0.0",
+  },
+  Object {
+    "op": "add",
+    "path": Array [
+      "packages",
+      "three",
+      "rlsr",
+    ],
+    "val": Object {
+      "dependencies": Array [
+        "four",
+      ],
+      "determinedIncrementLevel": 2,
+      "devDependencies": Array [],
+      "devRelations": Array [],
+      "hasBump": true,
+      "messages": Array [],
+      "peerDependencies": Array [],
+      "peerRelations": Array [],
+      "relatedMessages": Array [
+        Object {
+          "affected": Array [
+            "one",
+          ],
+          "body": "BREAKING CHANGE: text ",
+          "level": 2,
+          "scope": "one",
+          "subject": "baz",
+          "synchronizedSource": Array [
+            "one",
+          ],
+          "type": "fix",
+        },
+      ],
+      "relations": Array [
+        "two",
+      ],
+    },
+  },
+  Object {
+    "op": "update",
+    "path": Array [
+      "packages",
+      "four",
+      "version",
+    ],
+    "val": "5.0.0",
+  },
+  Object {
+    "op": "add",
+    "path": Array [
+      "packages",
+      "four",
+      "rlsr",
+    ],
+    "val": Object {
+      "dependencies": Array [],
+      "determinedIncrementLevel": 2,
+      "devDependencies": Array [],
+      "devRelations": Array [],
+      "hasBump": true,
+      "messages": Array [],
+      "peerDependencies": Array [],
+      "peerRelations": Array [],
+      "relatedMessages": Array [
+        Object {
+          "affected": Array [
+            "one",
+          ],
+          "body": "BREAKING CHANGE: text ",
+          "level": 2,
+          "scope": "one",
+          "subject": "baz",
+          "synchronizedSource": Array [
+            "one",
+          ],
+          "type": "fix",
+        },
+      ],
+      "relations": Array [
+        "one",
+        "three",
+      ],
+    },
+  },
+  Object {
+    "op": "update",
+    "path": Array [
+      "packages",
+      "five",
+      "version",
+    ],
+    "val": "5.0.0",
+  },
+  Object {
+    "op": "add",
+    "path": Array [
+      "packages",
+      "five",
+      "rlsr",
+    ],
+    "val": Object {
+      "dependencies": Array [],
+      "determinedIncrementLevel": 2,
+      "devDependencies": Array [],
+      "devRelations": Array [],
+      "hasBump": true,
+      "messages": Array [],
+      "peerDependencies": Array [],
+      "peerRelations": Array [],
+      "relatedMessages": Array [
+        Object {
+          "affected": Array [
+            "one",
+          ],
+          "body": "BREAKING CHANGE: text ",
+          "level": 2,
+          "scope": "one",
+          "subject": "baz",
+          "synchronizedSource": Array [
+            "one",
+          ],
+          "type": "fix",
+        },
+      ],
+      "relations": Array [
+        "one",
+      ],
+    },
+  },
+  Object {
+    "op": "add",
+    "path": Array [
+      "changelog",
+      "5.0.0",
+    ],
+    "val": Object {
       "changes": Object {
         "five": Object {
           "determinedIncrementLevel": "major",
@@ -84,13 +402,27 @@ Object {
       "date": "Thu, 01 Jan 1970 00:00:00 GMT",
     },
   },
-  "/mainPackage/rlsr/determinedIncrementLevel": Object {
-    "operation": "add",
-    "value": 2,
+]
+`;
+
+exports[`large test: synchronized mode applies messages with multiple affected packages 1`] = `
+Array [
+  Object {
+    "op": "update",
+    "path": Array [
+      "mainPackage",
+      "version",
+    ],
+    "val": "4.6.0",
   },
-  "/mainPackage/rlsr/previouslyUnreleased": Object {
-    "operation": "add",
-    "value": Array [
+  Object {
+    "op": "add",
+    "path": Array [
+      "mainPackage",
+      "rlsr",
+      "previouslyUnreleased",
+    ],
+    "val": Array [
       "one",
       "two",
       "three",
@@ -98,104 +430,80 @@ Object {
       "five",
     ],
   },
-  "/mainPackage/rlsr/shouldBeCommitted": Object {
-    "operation": "add",
-    "value": Array [],
+  Object {
+    "op": "add",
+    "path": Array [
+      "mainPackage",
+      "rlsr",
+      "determinedIncrementLevel",
+    ],
+    "val": 1,
   },
-  "/mainPackage/version": Object {
-    "operation": "update",
-    "value": "5.0.0",
+  Object {
+    "op": "add",
+    "path": Array [
+      "mainPackage",
+      "rlsr",
+      "shouldBeCommitted",
+    ],
+    "val": Array [],
   },
-  "/messages/0": Object {
-    "operation": "delete",
+  Object {
+    "op": "delete",
+    "path": Array [
+      "messages",
+      0,
+    ],
   },
-  "/packages/five/rlsr": Object {
-    "operation": "add",
-    "value": Object {
-      "dependencies": Array [],
-      "determinedIncrementLevel": 2,
-      "devDependencies": Array [],
-      "devRelations": Array [],
-      "hasBump": true,
-      "messages": Array [],
-      "peerDependencies": Array [],
-      "peerRelations": Array [],
-      "relatedMessages": Array [
-        Object {
-          "affected": Array [
-            "one",
-          ],
-          "body": "BREAKING CHANGE: text ",
-          "level": 2,
-          "scope": "one",
-          "subject": "baz",
-          "synchronizedSource": Array [
-            "one",
-          ],
-          "type": "fix",
-        },
-      ],
-      "relations": Array [
-        "one",
-      ],
-    },
+  Object {
+    "op": "delete",
+    "path": Array [
+      "messages",
+      1,
+    ],
   },
-  "/packages/five/version": Object {
-    "operation": "update",
-    "value": "5.0.0",
+  Object {
+    "op": "update",
+    "path": Array [
+      "packages",
+      "one",
+      "version",
+    ],
+    "val": "4.6.0",
   },
-  "/packages/four/rlsr": Object {
-    "operation": "add",
-    "value": Object {
-      "dependencies": Array [],
-      "determinedIncrementLevel": 2,
-      "devDependencies": Array [],
-      "devRelations": Array [],
-      "hasBump": true,
-      "messages": Array [],
-      "peerDependencies": Array [],
-      "peerRelations": Array [],
-      "relatedMessages": Array [
-        Object {
-          "affected": Array [
-            "one",
-          ],
-          "body": "BREAKING CHANGE: text ",
-          "level": 2,
-          "scope": "one",
-          "subject": "baz",
-          "synchronizedSource": Array [
-            "one",
-          ],
-          "type": "fix",
-        },
-      ],
-      "relations": Array [
-        "one",
-        "three",
-      ],
-    },
+  Object {
+    "op": "update",
+    "path": Array [
+      "packages",
+      "one",
+      "dependencies",
+      "four",
+    ],
+    "val": "4.6.0",
   },
-  "/packages/four/version": Object {
-    "operation": "update",
-    "value": "5.0.0",
+  Object {
+    "op": "update",
+    "path": Array [
+      "packages",
+      "one",
+      "dependencies",
+      "five",
+    ],
+    "val": "4.6.0",
   },
-  "/packages/one/dependencies/five": Object {
-    "operation": "update",
-    "value": "5.0.0",
-  },
-  "/packages/one/dependencies/four": Object {
-    "operation": "update",
-    "value": "5.0.0",
-  },
-  "/packages/one/rlsr": Object {
-    "operation": "add",
-    "value": Object {
+  Object {
+    "op": "add",
+    "path": Array [
+      "packages",
+      "one",
+      "rlsr",
+    ],
+    "val": Object {
       "dependencies": Array [
         "four",
         "five",
       ],
-      "determinedIncrementLevel": 2,
+      "determinedIncrementLevel": 1,
       "devDependencies": Array [],
       "devRelations": Array [],
       "hasBump": true,
@@ -204,38 +512,84 @@ Object {
           "affected": Array [
             "one",
           ],
-          "body": "BREAKING CHANGE: text ",
-          "level": 2,
+          "body": "",
+          "level": 1,
           "scope": "one",
-          "subject": "baz",
-          "type": "fix",
+          "subject": "waz",
+          "type": "feat",
         },
       ],
       "peerDependencies": Array [],
       "peerRelations": Array [],
-      "relatedMessages": Array [],
+      "relatedMessages": Array [
+        Object {
+          "affected": Array [
+            "two",
+            "three",
+          ],
+          "body": "
+",
+          "level": 0,
+          "scope": "one",
+          "subject": "tar",
+          "synchronizedSource": Array [
+            "two",
+            "three",
+          ],
+          "type": "fix",
+        },
+      ],
       "relations": Array [],
     },
   },
-  "/packages/one/version": Object {
-    "operation": "update",
-    "value": "5.0.0",
+  Object {
+    "op": "update",
+    "path": Array [
+      "packages",
+      "two",
+      "version",
+    ],
+    "val": "4.6.0",
   },
-  "/packages/three/dependencies/four": Object {
-    "operation": "update",
-    "value": "5.0.0",
+  Object {
+    "op": "update",
+    "path": Array [
+      "packages",
+      "two",
+      "dependencies",
+      "three",
+    ],
+    "val": "4.6.0",
   },
-  "/packages/three/rlsr": Object {
-    "operation": "add",
-    "value": Object {
+  Object {
+    "op": "add",
+    "path": Array [
+      "packages",
+      "two",
+      "rlsr",
+    ],
+    "val": Object {
       "dependencies": Array [
-        "four",
+        "three",
       ],
-      "determinedIncrementLevel": 2,
+      "determinedIncrementLevel": 1,
       "devDependencies": Array [],
       "devRelations": Array [],
       "hasBump": true,
-      "messages": Array [],
+      "messages": Array [
+        Object {
+          "affected": Array [
+            "two",
+            "three",
+          ],
+          "body": "
+",
+          "level": 0,
+          "scope": "one",
+          "subject": "tar",
+          "type": "fix",
+        },
+      ],
       "peerDependencies": Array [],
       "peerRelations": Array [],
       "relatedMessages": Array [
@@ -243,14 +597,82 @@ Object {
           "affected": Array [
             "one",
           ],
-          "body": "BREAKING CHANGE: text ",
-          "level": 2,
+          "body": "",
+          "level": 1,
           "scope": "one",
-          "subject": "baz",
+          "subject": "waz",
           "synchronizedSource": Array [
             "one",
           ],
+          "type": "feat",
+        },
+      ],
+      "relations": Array [],
+    },
+  },
+  Object {
+    "op": "update",
+    "path": Array [
+      "packages",
+      "three",
+      "version",
+    ],
+    "val": "4.6.0",
+  },
+  Object {
+    "op": "update",
+    "path": Array [
+      "packages",
+      "three",
+      "dependencies",
+      "four",
+    ],
+    "val": "4.6.0",
+  },
+  Object {
+    "op": "add",
+    "path": Array [
+      "packages",
+      "three",
+      "rlsr",
+    ],
+    "val": Object {
+      "dependencies": Array [
+        "four",
+      ],
+      "determinedIncrementLevel": 1,
+      "devDependencies": Array [],
+      "devRelations": Array [],
+      "hasBump": true,
+      "messages": Array [
+        Object {
+          "affected": Array [
+            "two",
+            "three",
+          ],
+          "body": "
+",
+          "level": 0,
+          "scope": "one",
+          "subject": "tar",
           "type": "fix",
+        },
+      ],
+      "peerDependencies": Array [],
+      "peerRelations": Array [],
+      "relatedMessages": Array [
+        Object {
+          "affected": Array [
+            "one",
+          ],
+          "body": "",
+          "level": 1,
+          "scope": "one",
+          "subject": "waz",
+          "synchronizedSource": Array [
+            "one",
+          ],
+          "type": "feat",
         },
       ],
       "relations": Array [
@@ -258,21 +680,25 @@ Object {
       ],
     },
   },
-  "/packages/three/version": Object {
-    "operation": "update",
-    "value": "5.0.0",
+  Object {
+    "op": "update",
+    "path": Array [
+      "packages",
+      "four",
+      "version",
+    ],
+    "val": "4.6.0",
   },
-  "/packages/two/dependencies/three": Object {
-    "operation": "update",
-    "value": "5.0.0",
-  },
-  "/packages/two/rlsr": Object {
-    "operation": "add",
-    "value": Object {
-      "dependencies": Array [
-        "three",
-      ],
-      "determinedIncrementLevel": 2,
+  Object {
+    "op": "add",
+    "path": Array [
+      "packages",
+      "four",
+      "rlsr",
+    ],
+    "val": Object {
+      "dependencies": Array [],
+      "determinedIncrementLevel": 1,
       "devDependencies": Array [],
       "devRelations": Array [],
       "hasBump": true,
@@ -284,31 +710,106 @@ Object {
           "affected": Array [
             "one",
           ],
-          "body": "BREAKING CHANGE: text ",
-          "level": 2,
+          "body": "",
+          "level": 1,
           "scope": "one",
-          "subject": "baz",
+          "subject": "waz",
           "synchronizedSource": Array [
             "one",
+          ],
+          "type": "feat",
+        },
+        Object {
+          "affected": Array [
+            "two",
+            "three",
+          ],
+          "body": "
+",
+          "level": 0,
+          "scope": "one",
+          "subject": "tar",
+          "synchronizedSource": Array [
+            "two",
+            "three",
           ],
           "type": "fix",
         },
       ],
-      "relations": Array [],
+      "relations": Array [
+        "one",
+        "three",
+      ],
     },
   },
-  "/packages/two/version": Object {
-    "operation": "update",
-    "value": "5.0.0",
+  Object {
+    "op": "update",
+    "path": Array [
+      "packages",
+      "five",
+      "version",
+    ],
+    "val": "4.6.0",
   },
-}
-`;
-
-exports[`large test: synchronized mode applies messages with multiple affected packages 1`] = `
-Object {
-  "/changelog/4.6.0": Object {
-    "operation": "add",
-    "value": Object {
+  Object {
+    "op": "add",
+    "path": Array [
+      "packages",
+      "five",
+      "rlsr",
+    ],
+    "val": Object {
+      "dependencies": Array [],
+      "determinedIncrementLevel": 1,
+      "devDependencies": Array [],
+      "devRelations": Array [],
+      "hasBump": true,
+      "messages": Array [],
+      "peerDependencies": Array [],
+      "peerRelations": Array [],
+      "relatedMessages": Array [
+        Object {
+          "affected": Array [
+            "one",
+          ],
+          "body": "",
+          "level": 1,
+          "scope": "one",
+          "subject": "waz",
+          "synchronizedSource": Array [
+            "one",
+          ],
+          "type": "feat",
+        },
+        Object {
+          "affected": Array [
+            "two",
+            "three",
+          ],
+          "body": "
+",
+          "level": 0,
+          "scope": "one",
+          "subject": "tar",
+          "synchronizedSource": Array [
+            "two",
+            "three",
+          ],
+          "type": "fix",
+        },
+      ],
+      "relations": Array [
+        "one",
+      ],
+    },
+  },
+  Object {
+    "op": "add",
+    "path": Array [
+      "changelog",
+      "4.6.0",
+    ],
+    "val": Object {
       "changes": Object {
         "five": Object {
           "determinedIncrementLevel": "minor",
@@ -441,13 +942,27 @@ Object {
       "date": "Thu, 01 Jan 1970 00:00:00 GMT",
     },
   },
-  "/mainPackage/rlsr/determinedIncrementLevel": Object {
-    "operation": "add",
-    "value": 1,
+]
+`;
+
+exports[`large test: synchronized mode applies minor message 1`] = `
+Array [
+  Object {
+    "op": "update",
+    "path": Array [
+      "mainPackage",
+      "version",
+    ],
+    "val": "4.6.0",
   },
-  "/mainPackage/rlsr/previouslyUnreleased": Object {
-    "operation": "add",
-    "value": Array [
+  Object {
+    "op": "add",
+    "path": Array [
+      "mainPackage",
+      "rlsr",
+      "previouslyUnreleased",
+    ],
+    "val": Array [
       "one",
       "two",
       "three",
@@ -455,134 +970,68 @@ Object {
       "five",
     ],
   },
-  "/mainPackage/rlsr/shouldBeCommitted": Object {
-    "operation": "add",
-    "value": Array [],
+  Object {
+    "op": "add",
+    "path": Array [
+      "mainPackage",
+      "rlsr",
+      "determinedIncrementLevel",
+    ],
+    "val": 1,
   },
-  "/mainPackage/version": Object {
-    "operation": "update",
-    "value": "4.6.0",
+  Object {
+    "op": "add",
+    "path": Array [
+      "mainPackage",
+      "rlsr",
+      "shouldBeCommitted",
+    ],
+    "val": Array [],
   },
-  "/messages/0": Object {
-    "operation": "delete",
+  Object {
+    "op": "delete",
+    "path": Array [
+      "messages",
+      0,
+    ],
   },
-  "/messages/1": Object {
-    "operation": "delete",
+  Object {
+    "op": "update",
+    "path": Array [
+      "packages",
+      "one",
+      "version",
+    ],
+    "val": "4.6.0",
   },
-  "/packages/five/rlsr": Object {
-    "operation": "add",
-    "value": Object {
-      "dependencies": Array [],
-      "determinedIncrementLevel": 1,
-      "devDependencies": Array [],
-      "devRelations": Array [],
-      "hasBump": true,
-      "messages": Array [],
-      "peerDependencies": Array [],
-      "peerRelations": Array [],
-      "relatedMessages": Array [
-        Object {
-          "affected": Array [
-            "one",
-          ],
-          "body": "",
-          "level": 1,
-          "scope": "one",
-          "subject": "waz",
-          "synchronizedSource": Array [
-            "one",
-          ],
-          "type": "feat",
-        },
-        Object {
-          "affected": Array [
-            "two",
-            "three",
-          ],
-          "body": "
-",
-          "level": 0,
-          "scope": "one",
-          "subject": "tar",
-          "synchronizedSource": Array [
-            "two",
-            "three",
-          ],
-          "type": "fix",
-        },
-      ],
-      "relations": Array [
-        "one",
-      ],
-    },
+  Object {
+    "op": "update",
+    "path": Array [
+      "packages",
+      "one",
+      "dependencies",
+      "four",
+    ],
+    "val": "4.6.0",
   },
-  "/packages/five/version": Object {
-    "operation": "update",
-    "value": "4.6.0",
+  Object {
+    "op": "update",
+    "path": Array [
+      "packages",
+      "one",
+      "dependencies",
+      "five",
+    ],
+    "val": "4.6.0",
   },
-  "/packages/four/rlsr": Object {
-    "operation": "add",
-    "value": Object {
-      "dependencies": Array [],
-      "determinedIncrementLevel": 1,
-      "devDependencies": Array [],
-      "devRelations": Array [],
-      "hasBump": true,
-      "messages": Array [],
-      "peerDependencies": Array [],
-      "peerRelations": Array [],
-      "relatedMessages": Array [
-        Object {
-          "affected": Array [
-            "one",
-          ],
-          "body": "",
-          "level": 1,
-          "scope": "one",
-          "subject": "waz",
-          "synchronizedSource": Array [
-            "one",
-          ],
-          "type": "feat",
-        },
-        Object {
-          "affected": Array [
-            "two",
-            "three",
-          ],
-          "body": "
-",
-          "level": 0,
-          "scope": "one",
-          "subject": "tar",
-          "synchronizedSource": Array [
-            "two",
-            "three",
-          ],
-          "type": "fix",
-        },
-      ],
-      "relations": Array [
-        "one",
-        "three",
-      ],
-    },
-  },
-  "/packages/four/version": Object {
-    "operation": "update",
-    "value": "4.6.0",
-  },
-  "/packages/one/dependencies/five": Object {
-    "operation": "update",
-    "value": "4.6.0",
-  },
-  "/packages/one/dependencies/four": Object {
-    "operation": "update",
-    "value": "4.6.0",
-  },
-  "/packages/one/rlsr": Object {
-    "operation": "add",
-    "value": Object {
+  Object {
+    "op": "add",
+    "path": Array [
+      "packages",
+      "one",
+      "rlsr",
+    ],
+    "val": Object {
       "dependencies": Array [
         "four",
         "five",
@@ -599,65 +1048,51 @@ Object {
           "body": "",
           "level": 1,
           "scope": "one",
-          "subject": "waz",
+          "subject": "bar",
           "type": "feat",
         },
       ],
       "peerDependencies": Array [],
       "peerRelations": Array [],
-      "relatedMessages": Array [
-        Object {
-          "affected": Array [
-            "two",
-            "three",
-          ],
-          "body": "
-",
-          "level": 0,
-          "scope": "one",
-          "subject": "tar",
-          "synchronizedSource": Array [
-            "two",
-            "three",
-          ],
-          "type": "fix",
-        },
-      ],
+      "relatedMessages": Array [],
       "relations": Array [],
     },
   },
-  "/packages/one/version": Object {
-    "operation": "update",
-    "value": "4.6.0",
+  Object {
+    "op": "update",
+    "path": Array [
+      "packages",
+      "two",
+      "version",
+    ],
+    "val": "4.6.0",
   },
-  "/packages/three/dependencies/four": Object {
-    "operation": "update",
-    "value": "4.6.0",
+  Object {
+    "op": "update",
+    "path": Array [
+      "packages",
+      "two",
+      "dependencies",
+      "three",
+    ],
+    "val": "4.6.0",
   },
-  "/packages/three/rlsr": Object {
-    "operation": "add",
-    "value": Object {
+  Object {
+    "op": "add",
+    "path": Array [
+      "packages",
+      "two",
+      "rlsr",
+    ],
+    "val": Object {
       "dependencies": Array [
-        "four",
+        "three",
       ],
       "determinedIncrementLevel": 1,
       "devDependencies": Array [],
       "devRelations": Array [],
       "hasBump": true,
-      "messages": Array [
-        Object {
-          "affected": Array [
-            "two",
-            "three",
-          ],
-          "body": "
-",
-          "level": 0,
-          "scope": "one",
-          "subject": "tar",
-          "type": "fix",
-        },
-      ],
+      "messages": Array [],
       "peerDependencies": Array [],
       "peerRelations": Array [],
       "relatedMessages": Array [
@@ -668,7 +1103,62 @@ Object {
           "body": "",
           "level": 1,
           "scope": "one",
-          "subject": "waz",
+          "subject": "bar",
+          "synchronizedSource": Array [
+            "one",
+          ],
+          "type": "feat",
+        },
+      ],
+      "relations": Array [],
+    },
+  },
+  Object {
+    "op": "update",
+    "path": Array [
+      "packages",
+      "three",
+      "version",
+    ],
+    "val": "4.6.0",
+  },
+  Object {
+    "op": "update",
+    "path": Array [
+      "packages",
+      "three",
+      "dependencies",
+      "four",
+    ],
+    "val": "4.6.0",
+  },
+  Object {
+    "op": "add",
+    "path": Array [
+      "packages",
+      "three",
+      "rlsr",
+    ],
+    "val": Object {
+      "dependencies": Array [
+        "four",
+      ],
+      "determinedIncrementLevel": 1,
+      "devDependencies": Array [],
+      "devRelations": Array [],
+      "hasBump": true,
+      "messages": Array [],
+      "peerDependencies": Array [],
+      "peerRelations": Array [],
+      "relatedMessages": Array [
+        Object {
+          "affected": Array [
+            "one",
+          ],
+          "body": "",
+          "level": 1,
+          "scope": "one",
+          "subject": "bar",
           "synchronizedSource": Array [
             "one",
           ],
@@ -680,38 +1170,29 @@ Object {
       ],
     },
   },
-  "/packages/three/version": Object {
-    "operation": "update",
-    "value": "4.6.0",
+  Object {
+    "op": "update",
+    "path": Array [
+      "packages",
+      "four",
+      "version",
+    ],
+    "val": "4.6.0",
   },
-  "/packages/two/dependencies/three": Object {
-    "operation": "update",
-    "value": "4.6.0",
-  },
-  "/packages/two/rlsr": Object {
-    "operation": "add",
-    "value": Object {
-      "dependencies": Array [
-        "three",
-      ],
+  Object {
+    "op": "add",
+    "path": Array [
+      "packages",
+      "four",
+      "rlsr",
+    ],
+    "val": Object {
+      "dependencies": Array [],
       "determinedIncrementLevel": 1,
       "devDependencies": Array [],
       "devRelations": Array [],
       "hasBump": true,
-      "messages": Array [
-        Object {
-          "affected": Array [
-            "two",
-            "three",
-          ],
-          "body": "
-",
-          "level": 0,
-          "scope": "one",
-          "subject": "tar",
-          "type": "fix",
-        },
-      ],
+      "messages": Array [],
       "peerDependencies": Array [],
       "peerRelations": Array [],
       "relatedMessages": Array [
@@ -722,28 +1203,71 @@ Object {
           "body": "",
           "level": 1,
           "scope": "one",
-          "subject": "waz",
+          "subject": "bar",
           "synchronizedSource": Array [
             "one",
           ],
           "type": "feat",
         },
       ],
-      "relations": Array [],
+      "relations": Array [
+        "one",
+        "three",
+      ],
     },
   },
-  "/packages/two/version": Object {
-    "operation": "update",
-    "value": "4.6.0",
+  Object {
+    "op": "update",
+    "path": Array [
+      "packages",
+      "five",
+      "version",
+    ],
+    "val": "4.6.0",
   },
-}
-`;
-
-exports[`large test: synchronized mode applies minor message 1`] = `
-Object {
-  "/changelog/4.6.0": Object {
-    "operation": "add",
-    "value": Object {
+  Object {
+    "op": "add",
+    "path": Array [
+      "packages",
+      "five",
+      "rlsr",
+    ],
+    "val": Object {
+      "dependencies": Array [],
+      "determinedIncrementLevel": 1,
+      "devDependencies": Array [],
+      "devRelations": Array [],
+      "hasBump": true,
+      "messages": Array [],
+      "peerDependencies": Array [],
+      "peerRelations": Array [],
+      "relatedMessages": Array [
+        Object {
+          "affected": Array [
+            "one",
+          ],
+          "body": "",
+          "level": 1,
+          "scope": "one",
+          "subject": "bar",
+          "synchronizedSource": Array [
+            "one",
+          ],
+          "type": "feat",
+        },
+      ],
+      "relations": Array [
+        "one",
+      ],
+    },
+  },
+  Object {
+    "op": "add",
+    "path": Array [
+      "changelog",
+      "4.6.0",
+    ],
+    "val": Object {
       "changes": Object {
         "five": Object {
           "determinedIncrementLevel": "minor",
@@ -823,13 +1347,27 @@ Object {
       "date": "Thu, 01 Jan 1970 00:00:00 GMT",
     },
   },
-  "/mainPackage/rlsr/determinedIncrementLevel": Object {
-    "operation": "add",
-    "value": 1,
+]
+`;
+
+exports[`large test: synchronized mode applies patch message 1`] = `
+Array [
+  Object {
+    "op": "update",
+    "path": Array [
+      "mainPackage",
+      "version",
+    ],
+    "val": "4.5.7",
   },
-  "/mainPackage/rlsr/previouslyUnreleased": Object {
-    "operation": "add",
-    "value": Array [
+  Object {
+    "op": "add",
+    "path": Array [
+      "mainPackage",
+      "rlsr",
+      "previouslyUnreleased",
+    ],
+    "val": Array [
       "one",
       "two",
       "three",
@@ -837,104 +1375,73 @@ Object {
       "five",
     ],
   },
-  "/mainPackage/rlsr/shouldBeCommitted": Object {
-    "operation": "add",
-    "value": Array [],
+  Object {
+    "op": "add",
+    "path": Array [
+      "mainPackage",
+      "rlsr",
+      "determinedIncrementLevel",
+    ],
+    "val": 0,
   },
-  "/mainPackage/version": Object {
-    "operation": "update",
-    "value": "4.6.0",
+  Object {
+    "op": "add",
+    "path": Array [
+      "mainPackage",
+      "rlsr",
+      "shouldBeCommitted",
+    ],
+    "val": Array [],
   },
-  "/messages/0": Object {
-    "operation": "delete",
+  Object {
+    "op": "delete",
+    "path": Array [
+      "messages",
+      0,
+    ],
   },
-  "/packages/five/rlsr": Object {
-    "operation": "add",
-    "value": Object {
-      "dependencies": Array [],
-      "determinedIncrementLevel": 1,
-      "devDependencies": Array [],
-      "devRelations": Array [],
-      "hasBump": true,
-      "messages": Array [],
-      "peerDependencies": Array [],
-      "peerRelations": Array [],
-      "relatedMessages": Array [
-        Object {
-          "affected": Array [
-            "one",
-          ],
-          "body": "",
-          "level": 1,
-          "scope": "one",
-          "subject": "bar",
-          "synchronizedSource": Array [
-            "one",
-          ],
-          "type": "feat",
-        },
-      ],
-      "relations": Array [
-        "one",
-      ],
-    },
+  Object {
+    "op": "update",
+    "path": Array [
+      "packages",
+      "one",
+      "version",
+    ],
+    "val": "4.5.7",
   },
-  "/packages/five/version": Object {
-    "operation": "update",
-    "value": "4.6.0",
+  Object {
+    "op": "update",
+    "path": Array [
+      "packages",
+      "one",
+      "dependencies",
+      "four",
+    ],
+    "val": "4.5.7",
   },
-  "/packages/four/rlsr": Object {
-    "operation": "add",
-    "value": Object {
-      "dependencies": Array [],
-      "determinedIncrementLevel": 1,
-      "devDependencies": Array [],
-      "devRelations": Array [],
-      "hasBump": true,
-      "messages": Array [],
-      "peerDependencies": Array [],
-      "peerRelations": Array [],
-      "relatedMessages": Array [
-        Object {
-          "affected": Array [
-            "one",
-          ],
-          "body": "",
-          "level": 1,
-          "scope": "one",
-          "subject": "bar",
-          "synchronizedSource": Array [
-            "one",
-          ],
-          "type": "feat",
-        },
-      ],
-      "relations": Array [
-        "one",
-        "three",
-      ],
-    },
+  Object {
+    "op": "update",
+    "path": Array [
+      "packages",
+      "one",
+      "dependencies",
+      "five",
+    ],
+    "val": "4.5.7",
   },
-  "/packages/four/version": Object {
-    "operation": "update",
-    "value": "4.6.0",
-  },
-  "/packages/one/dependencies/five": Object {
-    "operation": "update",
-    "value": "4.6.0",
-  },
-  "/packages/one/dependencies/four": Object {
-    "operation": "update",
-    "value": "4.6.0",
-  },
-  "/packages/one/rlsr": Object {
-    "operation": "add",
-    "value": Object {
+  Object {
+    "op": "add",
+    "path": Array [
+      "packages",
+      "one",
+      "rlsr",
+    ],
+    "val": Object {
       "dependencies": Array [
         "four",
         "five",
       ],
-      "determinedIncrementLevel": 1,
+      "determinedIncrementLevel": 0,
       "devDependencies": Array [],
       "devRelations": Array [],
       "hasBump": true,
@@ -944,10 +1451,10 @@ Object {
             "one",
           ],
           "body": "",
-          "level": 1,
+          "level": 0,
           "scope": "one",
-          "subject": "bar",
-          "type": "feat",
+          "subject": "foo",
+          "type": "fix",
         },
       ],
       "peerDependencies": Array [],
@@ -956,21 +1463,37 @@ Object {
       "relations": Array [],
     },
   },
-  "/packages/one/version": Object {
-    "operation": "update",
-    "value": "4.6.0",
+  Object {
+    "op": "update",
+    "path": Array [
+      "packages",
+      "two",
+      "version",
+    ],
+    "val": "4.5.7",
   },
-  "/packages/three/dependencies/four": Object {
-    "operation": "update",
-    "value": "4.6.0",
+  Object {
+    "op": "update",
+    "path": Array [
+      "packages",
+      "two",
+      "dependencies",
+      "three",
+    ],
+    "val": "4.5.7",
   },
-  "/packages/three/rlsr": Object {
-    "operation": "add",
-    "value": Object {
+  Object {
+    "op": "add",
+    "path": Array [
+      "packages",
+      "two",
+      "rlsr",
+    ],
+    "val": Object {
       "dependencies": Array [
-        "four",
+        "three",
       ],
-      "determinedIncrementLevel": 1,
+      "determinedIncrementLevel": 0,
       "devDependencies": Array [],
       "devRelations": Array [],
       "hasBump": true,
@@ -983,13 +1506,68 @@ Object {
             "one",
           ],
           "body": "",
-          "level": 1,
+          "level": 0,
           "scope": "one",
-          "subject": "bar",
+          "subject": "foo",
           "synchronizedSource": Array [
             "one",
           ],
-          "type": "feat",
+          "type": "fix",
+        },
+      ],
+      "relations": Array [],
+    },
+  },
+  Object {
+    "op": "update",
+    "path": Array [
+      "packages",
+      "three",
+      "version",
+    ],
+    "val": "4.5.7",
+  },
+  Object {
+    "op": "update",
+    "path": Array [
+      "packages",
+      "three",
+      "dependencies",
+      "four",
+    ],
+    "val": "4.5.7",
+  },
+  Object {
+    "op": "add",
+    "path": Array [
+      "packages",
+      "three",
+      "rlsr",
+    ],
+    "val": Object {
+      "dependencies": Array [
+        "four",
+      ],
+      "determinedIncrementLevel": 0,
+      "devDependencies": Array [],
+      "devRelations": Array [],
+      "hasBump": true,
+      "messages": Array [],
+      "peerDependencies": Array [],
+      "peerRelations": Array [],
+      "relatedMessages": Array [
+        Object {
+          "affected": Array [
+            "one",
+          ],
+          "body": "",
+          "level": 0,
+          "scope": "one",
+          "subject": "foo",
+          "synchronizedSource": Array [
+            "one",
+          ],
+          "type": "fix",
         },
       ],
       "relations": Array [
@@ -997,21 +1575,25 @@ Object {
       ],
     },
   },
-  "/packages/three/version": Object {
-    "operation": "update",
-    "value": "4.6.0",
+  Object {
+    "op": "update",
+    "path": Array [
+      "packages",
+      "four",
+      "version",
+    ],
+    "val": "4.5.7",
   },
-  "/packages/two/dependencies/three": Object {
-    "operation": "update",
-    "value": "4.6.0",
-  },
-  "/packages/two/rlsr": Object {
-    "operation": "add",
-    "value": Object {
-      "dependencies": Array [
-        "three",
-      ],
-      "determinedIncrementLevel": 1,
+  Object {
+    "op": "add",
+    "path": Array [
+      "packages",
+      "four",
+      "rlsr",
+    ],
+    "val": Object {
+      "dependencies": Array [],
+      "determinedIncrementLevel": 0,
       "devDependencies": Array [],
       "devRelations": Array [],
       "hasBump": true,
@@ -1024,30 +1606,73 @@ Object {
             "one",
           ],
           "body": "",
-          "level": 1,
+          "level": 0,
           "scope": "one",
-          "subject": "bar",
+          "subject": "foo",
           "synchronizedSource": Array [
             "one",
           ],
-          "type": "feat",
+          "type": "fix",
         },
       ],
-      "relations": Array [],
+      "relations": Array [
+        "one",
+        "three",
+      ],
     },
   },
-  "/packages/two/version": Object {
-    "operation": "update",
-    "value": "4.6.0",
+  Object {
+    "op": "update",
+    "path": Array [
+      "packages",
+      "five",
+      "version",
+    ],
+    "val": "4.5.7",
   },
-}
-`;
-
-exports[`large test: synchronized mode applies patch message 1`] = `
-Object {
-  "/changelog/4.5.7": Object {
-    "operation": "add",
-    "value": Object {
+  Object {
+    "op": "add",
+    "path": Array [
+      "packages",
+      "five",
+      "rlsr",
+    ],
+    "val": Object {
+      "dependencies": Array [],
+      "determinedIncrementLevel": 0,
+      "devDependencies": Array [],
+      "devRelations": Array [],
+      "hasBump": true,
+      "messages": Array [],
+      "peerDependencies": Array [],
+      "peerRelations": Array [],
+      "relatedMessages": Array [
+        Object {
+          "affected": Array [
+            "one",
+          ],
+          "body": "",
+          "level": 0,
+          "scope": "one",
+          "subject": "foo",
+          "synchronizedSource": Array [
+            "one",
+          ],
+          "type": "fix",
+        },
+      ],
+      "relations": Array [
+        "one",
+      ],
+    },
+  },
+  Object {
+    "op": "add",
+    "path": Array [
+      "changelog",
+      "4.5.7",
+    ],
+    "val": Object {
       "changes": Object {
         "five": Object {
           "determinedIncrementLevel": "patch",
@@ -1127,13 +1752,27 @@ Object {
       "date": "Thu, 01 Jan 1970 00:00:00 GMT",
     },
   },
-  "/mainPackage/rlsr/determinedIncrementLevel": Object {
-    "operation": "add",
-    "value": 0,
+]
+`;
+
+exports[`large test: synchronized mode applies several messages 1`] = `
+Array [
+  Object {
+    "op": "update",
+    "path": Array [
+      "mainPackage",
+      "version",
+    ],
+    "val": "4.6.0",
   },
-  "/mainPackage/rlsr/previouslyUnreleased": Object {
-    "operation": "add",
-    "value": Array [
+  Object {
+    "op": "add",
+    "path": Array [
+      "mainPackage",
+      "rlsr",
+      "previouslyUnreleased",
+    ],
+    "val": Array [
       "one",
       "two",
       "three",
@@ -1141,104 +1780,87 @@ Object {
       "five",
     ],
   },
-  "/mainPackage/rlsr/shouldBeCommitted": Object {
-    "operation": "add",
-    "value": Array [],
+  Object {
+    "op": "add",
+    "path": Array [
+      "mainPackage",
+      "rlsr",
+      "determinedIncrementLevel",
+    ],
+    "val": 1,
   },
-  "/mainPackage/version": Object {
-    "operation": "update",
-    "value": "4.5.7",
+  Object {
+    "op": "add",
+    "path": Array [
+      "mainPackage",
+      "rlsr",
+      "shouldBeCommitted",
+    ],
+    "val": Array [],
   },
-  "/messages/0": Object {
-    "operation": "delete",
+  Object {
+    "op": "delete",
+    "path": Array [
+      "messages",
+      0,
+    ],
   },
-  "/packages/five/rlsr": Object {
-    "operation": "add",
-    "value": Object {
-      "dependencies": Array [],
-      "determinedIncrementLevel": 0,
-      "devDependencies": Array [],
-      "devRelations": Array [],
-      "hasBump": true,
-      "messages": Array [],
-      "peerDependencies": Array [],
-      "peerRelations": Array [],
-      "relatedMessages": Array [
-        Object {
-          "affected": Array [
-            "one",
-          ],
-          "body": "",
-          "level": 0,
-          "scope": "one",
-          "subject": "foo",
-          "synchronizedSource": Array [
-            "one",
-          ],
-          "type": "fix",
-        },
-      ],
-      "relations": Array [
-        "one",
-      ],
-    },
+  Object {
+    "op": "delete",
+    "path": Array [
+      "messages",
+      1,
+    ],
   },
-  "/packages/five/version": Object {
-    "operation": "update",
-    "value": "4.5.7",
+  Object {
+    "op": "delete",
+    "path": Array [
+      "messages",
+      2,
+    ],
   },
-  "/packages/four/rlsr": Object {
-    "operation": "add",
-    "value": Object {
-      "dependencies": Array [],
-      "determinedIncrementLevel": 0,
-      "devDependencies": Array [],
-      "devRelations": Array [],
-      "hasBump": true,
-      "messages": Array [],
-      "peerDependencies": Array [],
-      "peerRelations": Array [],
-      "relatedMessages": Array [
-        Object {
-          "affected": Array [
-            "one",
-          ],
-          "body": "",
-          "level": 0,
-          "scope": "one",
-          "subject": "foo",
-          "synchronizedSource": Array [
-            "one",
-          ],
-          "type": "fix",
-        },
-      ],
-      "relations": Array [
-        "one",
-        "three",
-      ],
-    },
+  Object {
+    "op": "update",
+    "path": Array [
+      "packages",
+      "one",
+      "version",
+    ],
+    "val": "4.6.0",
   },
-  "/packages/four/version": Object {
-    "operation": "update",
-    "value": "4.5.7",
+  Object {
+    "op": "update",
+    "path": Array [
+      "packages",
+      "one",
+      "dependencies",
+      "four",
+    ],
+    "val": "4.6.0",
   },
-  "/packages/one/dependencies/five": Object {
-    "operation": "update",
-    "value": "4.5.7",
+  Object {
+    "op": "update",
+    "path": Array [
+      "packages",
+      "one",
+      "dependencies",
+      "five",
+    ],
+    "val": "4.6.0",
   },
-  "/packages/one/dependencies/four": Object {
-    "operation": "update",
-    "value": "4.5.7",
-  },
-  "/packages/one/rlsr": Object {
-    "operation": "add",
-    "value": Object {
+  Object {
+    "op": "add",
+    "path": Array [
+      "packages",
+      "one",
+      "rlsr",
+    ],
+    "val": Object {
       "dependencies": Array [
         "four",
         "five",
       ],
-      "determinedIncrementLevel": 0,
+      "determinedIncrementLevel": 1,
       "devDependencies": Array [],
       "devRelations": Array [],
       "hasBump": true,
@@ -1248,33 +1870,73 @@ Object {
             "one",
           ],
           "body": "",
+          "level": 1,
+          "scope": "one",
+          "subject": "taz",
+          "type": "feat",
+        },
+        Object {
+          "affected": Array [
+            "one",
+          ],
+          "body": "",
           "level": 0,
           "scope": "one",
-          "subject": "foo",
+          "subject": "raz",
           "type": "fix",
         },
       ],
       "peerDependencies": Array [],
       "peerRelations": Array [],
-      "relatedMessages": Array [],
+      "relatedMessages": Array [
+        Object {
+          "affected": Array [
+            "three",
+          ],
+          "body": "",
+          "level": 0,
+          "scope": "three",
+          "subject": "roo",
+          "synchronizedSource": Array [
+            "three",
+          ],
+          "type": "fix",
+        },
+      ],
       "relations": Array [],
     },
   },
-  "/packages/one/version": Object {
-    "operation": "update",
-    "value": "4.5.7",
+  Object {
+    "op": "update",
+    "path": Array [
+      "packages",
+      "two",
+      "version",
+    ],
+    "val": "4.6.0",
   },
-  "/packages/three/dependencies/four": Object {
-    "operation": "update",
-    "value": "4.5.7",
+  Object {
+    "op": "update",
+    "path": Array [
+      "packages",
+      "two",
+      "dependencies",
+      "three",
+    ],
+    "val": "4.6.0",
   },
-  "/packages/three/rlsr": Object {
-    "operation": "add",
-    "value": Object {
+  Object {
+    "op": "add",
+    "path": Array [
+      "packages",
+      "two",
+      "rlsr",
+    ],
+    "val": Object {
       "dependencies": Array [
-        "four",
+        "three",
       ],
-      "determinedIncrementLevel": 0,
+      "determinedIncrementLevel": 1,
       "devDependencies": Array [],
       "devRelations": Array [],
       "hasBump": true,
@@ -1287,9 +1949,114 @@ Object {
             "one",
           ],
           "body": "",
+          "level": 1,
+          "scope": "one",
+          "subject": "taz",
+          "synchronizedSource": Array [
+            "one",
+          ],
+          "type": "feat",
+        },
+        Object {
+          "affected": Array [
+            "one",
+          ],
+          "body": "",
           "level": 0,
           "scope": "one",
-          "subject": "foo",
+          "subject": "raz",
+          "synchronizedSource": Array [
+            "one",
+          ],
+          "type": "fix",
+        },
+        Object {
+          "affected": Array [
+            "three",
+          ],
+          "body": "",
+          "level": 0,
+          "scope": "three",
+          "subject": "roo",
+          "synchronizedSource": Array [
+            "three",
+          ],
+          "type": "fix",
+        },
+      ],
+      "relations": Array [],
+    },
+  },
+  Object {
+    "op": "update",
+    "path": Array [
+      "packages",
+      "three",
+      "version",
+    ],
+    "val": "4.6.0",
+  },
+  Object {
+    "op": "update",
+    "path": Array [
+      "packages",
+      "three",
+      "dependencies",
+      "four",
+    ],
+    "val": "4.6.0",
+  },
+  Object {
+    "op": "add",
+    "path": Array [
+      "packages",
+      "three",
+      "rlsr",
+    ],
+    "val": Object {
+      "dependencies": Array [
+        "four",
+      ],
+      "determinedIncrementLevel": 1,
+      "devDependencies": Array [],
+      "devRelations": Array [],
+      "hasBump": true,
+      "messages": Array [
+        Object {
+          "affected": Array [
+            "three",
+          ],
+          "body": "",
+          "level": 0,
+          "scope": "three",
+          "subject": "roo",
+          "type": "fix",
+        },
+      ],
+      "peerDependencies": Array [],
+      "peerRelations": Array [],
+      "relatedMessages": Array [
+        Object {
+          "affected": Array [
+            "one",
+          ],
+          "body": "",
+          "level": 1,
+          "scope": "one",
+          "subject": "taz",
+          "synchronizedSource": Array [
+            "one",
+          ],
+          "type": "feat",
+        },
+        Object {
+          "affected": Array [
+            "one",
+          ],
+          "body": "",
+          "level": 0,
+          "scope": "one",
+          "subject": "raz",
           "synchronizedSource": Array [
             "one",
           ],
@@ -1301,21 +2068,25 @@ Object {
       ],
     },
   },
-  "/packages/three/version": Object {
-    "operation": "update",
-    "value": "4.5.7",
+  Object {
+    "op": "update",
+    "path": Array [
+      "packages",
+      "four",
+      "version",
+    ],
+    "val": "4.6.0",
   },
-  "/packages/two/dependencies/three": Object {
-    "operation": "update",
-    "value": "4.5.7",
-  },
-  "/packages/two/rlsr": Object {
-    "operation": "add",
-    "value": Object {
-      "dependencies": Array [
-        "three",
-      ],
-      "determinedIncrementLevel": 0,
+  Object {
+    "op": "add",
+    "path": Array [
+      "packages",
+      "four",
+      "rlsr",
+    ],
+    "val": Object {
+      "dependencies": Array [],
+      "determinedIncrementLevel": 1,
       "devDependencies": Array [],
       "devRelations": Array [],
       "hasBump": true,
@@ -1328,30 +2099,125 @@ Object {
             "one",
           ],
           "body": "",
+          "level": 1,
+          "scope": "one",
+          "subject": "taz",
+          "synchronizedSource": Array [
+            "one",
+          ],
+          "type": "feat",
+        },
+        Object {
+          "affected": Array [
+            "one",
+          ],
+          "body": "",
           "level": 0,
           "scope": "one",
-          "subject": "foo",
+          "subject": "raz",
           "synchronizedSource": Array [
             "one",
           ],
           "type": "fix",
         },
+        Object {
+          "affected": Array [
+            "three",
+          ],
+          "body": "",
+          "level": 0,
+          "scope": "three",
+          "subject": "roo",
+          "synchronizedSource": Array [
+            "three",
+          ],
+          "type": "fix",
+        },
       ],
-      "relations": Array [],
+      "relations": Array [
+        "one",
+        "three",
+      ],
     },
   },
-  "/packages/two/version": Object {
-    "operation": "update",
-    "value": "4.5.7",
+  Object {
+    "op": "update",
+    "path": Array [
+      "packages",
+      "five",
+      "version",
+    ],
+    "val": "4.6.0",
   },
-}
-`;
-
-exports[`large test: synchronized mode applies several messages 1`] = `
-Object {
-  "/changelog/4.6.0": Object {
-    "operation": "add",
-    "value": Object {
+  Object {
+    "op": "add",
+    "path": Array [
+      "packages",
+      "five",
+      "rlsr",
+    ],
+    "val": Object {
+      "dependencies": Array [],
+      "determinedIncrementLevel": 1,
+      "devDependencies": Array [],
+      "devRelations": Array [],
+      "hasBump": true,
+      "messages": Array [],
+      "peerDependencies": Array [],
+      "peerRelations": Array [],
+      "relatedMessages": Array [
+        Object {
+          "affected": Array [
+            "one",
+          ],
+          "body": "",
+          "level": 1,
+          "scope": "one",
+          "subject": "taz",
+          "synchronizedSource": Array [
+            "one",
+          ],
+          "type": "feat",
+        },
+        Object {
+          "affected": Array [
+            "one",
+          ],
+          "body": "",
+          "level": 0,
+          "scope": "one",
+          "subject": "raz",
+          "synchronizedSource": Array [
+            "one",
+          ],
+          "type": "fix",
+        },
+        Object {
+          "affected": Array [
+            "three",
+          ],
+          "body": "",
+          "level": 0,
+          "scope": "three",
+          "subject": "roo",
+          "synchronizedSource": Array [
+            "three",
+          ],
+          "type": "fix",
+        },
+      ],
+      "relations": Array [
+        "one",
+      ],
+    },
+  },
+  Object {
+    "op": "add",
+    "path": Array [
+      "changelog",
+      "4.6.0",
+    ],
+    "val": Object {
       "changes": Object {
         "five": Object {
           "determinedIncrementLevel": "minor",
@@ -1519,354 +2385,5 @@ Object {
       "date": "Thu, 01 Jan 1970 00:00:00 GMT",
     },
   },
-  "/mainPackage/rlsr/determinedIncrementLevel": Object {
-    "operation": "add",
-    "value": 1,
-  },
-  "/mainPackage/rlsr/previouslyUnreleased": Object {
-    "operation": "add",
-    "value": Array [
-      "one",
-      "two",
-      "three",
-      "four",
-      "five",
-    ],
-  },
-  "/mainPackage/rlsr/shouldBeCommitted": Object {
-    "operation": "add",
-    "value": Array [],
-  },
-  "/mainPackage/version": Object {
-    "operation": "update",
-    "value": "4.6.0",
-  },
-  "/messages/0": Object {
-    "operation": "delete",
-  },
-  "/messages/1": Object {
-    "operation": "delete",
-  },
-  "/messages/2": Object {
-    "operation": "delete",
-  },
-  "/packages/five/rlsr": Object {
-    "operation": "add",
-    "value": Object {
-      "dependencies": Array [],
-      "determinedIncrementLevel": 1,
-      "devDependencies": Array [],
-      "devRelations": Array [],
-      "hasBump": true,
-      "messages": Array [],
-      "peerDependencies": Array [],
-      "peerRelations": Array [],
-      "relatedMessages": Array [
-        Object {
-          "affected": Array [
-            "one",
-          ],
-          "body": "",
-          "level": 1,
-          "scope": "one",
-          "subject": "taz",
-          "synchronizedSource": Array [
-            "one",
-          ],
-          "type": "feat",
-        },
-        Object {
-          "affected": Array [
-            "one",
-          ],
-          "body": "",
-          "level": 0,
-          "scope": "one",
-          "subject": "raz",
-          "synchronizedSource": Array [
-            "one",
-          ],
-          "type": "fix",
-        },
-        Object {
-          "affected": Array [
-            "three",
-          ],
-          "body": "",
-          "level": 0,
-          "scope": "three",
-          "subject": "roo",
-          "synchronizedSource": Array [
-            "three",
-          ],
-          "type": "fix",
-        },
-      ],
-      "relations": Array [
-        "one",
-      ],
-    },
-  },
-  "/packages/five/version": Object {
-    "operation": "update",
-    "value": "4.6.0",
-  },
-  "/packages/four/rlsr": Object {
-    "operation": "add",
-    "value": Object {
-      "dependencies": Array [],
-      "determinedIncrementLevel": 1,
-      "devDependencies": Array [],
-      "devRelations": Array [],
-      "hasBump": true,
-      "messages": Array [],
-      "peerDependencies": Array [],
-      "peerRelations": Array [],
-      "relatedMessages": Array [
-        Object {
-          "affected": Array [
-            "one",
-          ],
-          "body": "",
-          "level": 1,
-          "scope": "one",
-          "subject": "taz",
-          "synchronizedSource": Array [
-            "one",
-          ],
-          "type": "feat",
-        },
-        Object {
-          "affected": Array [
-            "one",
-          ],
-          "body": "",
-          "level": 0,
-          "scope": "one",
-          "subject": "raz",
-          "synchronizedSource": Array [
-            "one",
-          ],
-          "type": "fix",
-        },
-        Object {
-          "affected": Array [
-            "three",
-          ],
-          "body": "",
-          "level": 0,
-          "scope": "three",
-          "subject": "roo",
-          "synchronizedSource": Array [
-            "three",
-          ],
-          "type": "fix",
-        },
-      ],
-      "relations": Array [
-        "one",
-        "three",
-      ],
-    },
-  },
-  "/packages/four/version": Object {
-    "operation": "update",
-    "value": "4.6.0",
-  },
-  "/packages/one/dependencies/five": Object {
-    "operation": "update",
-    "value": "4.6.0",
-  },
-  "/packages/one/dependencies/four": Object {
-    "operation": "update",
-    "value": "4.6.0",
-  },
-  "/packages/one/rlsr": Object {
-    "operation": "add",
-    "value": Object {
-      "dependencies": Array [
-        "four",
-        "five",
-      ],
-      "determinedIncrementLevel": 1,
-      "devDependencies": Array [],
-      "devRelations": Array [],
-      "hasBump": true,
-      "messages": Array [
-        Object {
-          "affected": Array [
-            "one",
-          ],
-          "body": "",
-          "level": 1,
-          "scope": "one",
-          "subject": "taz",
-          "type": "feat",
-        },
-        Object {
-          "affected": Array [
-            "one",
-          ],
-          "body": "",
-          "level": 0,
-          "scope": "one",
-          "subject": "raz",
-          "type": "fix",
-        },
-      ],
-      "peerDependencies": Array [],
-      "peerRelations": Array [],
-      "relatedMessages": Array [
-        Object {
-          "affected": Array [
-            "three",
-          ],
-          "body": "",
-          "level": 0,
-          "scope": "three",
-          "subject": "roo",
-          "synchronizedSource": Array [
-            "three",
-          ],
-          "type": "fix",
-        },
-      ],
-      "relations": Array [],
-    },
-  },
-  "/packages/one/version": Object {
-    "operation": "update",
-    "value": "4.6.0",
-  },
-  "/packages/three/dependencies/four": Object {
-    "operation": "update",
-    "value": "4.6.0",
-  },
-  "/packages/three/rlsr": Object {
-    "operation": "add",
-    "value": Object {
-      "dependencies": Array [
-        "four",
-      ],
-      "determinedIncrementLevel": 1,
-      "devDependencies": Array [],
-      "devRelations": Array [],
-      "hasBump": true,
-      "messages": Array [
-        Object {
-          "affected": Array [
-            "three",
-          ],
-          "body": "",
-          "level": 0,
-          "scope": "three",
-          "subject": "roo",
-          "type": "fix",
-        },
-      ],
-      "peerDependencies": Array [],
-      "peerRelations": Array [],
-      "relatedMessages": Array [
-        Object {
-          "affected": Array [
-            "one",
-          ],
-          "body": "",
-          "level": 1,
-          "scope": "one",
-          "subject": "taz",
-          "synchronizedSource": Array [
-            "one",
-          ],
-          "type": "feat",
-        },
-        Object {
-          "affected": Array [
-            "one",
-          ],
-          "body": "",
-          "level": 0,
-          "scope": "one",
-          "subject": "raz",
-          "synchronizedSource": Array [
-            "one",
-          ],
-          "type": "fix",
-        },
-      ],
-      "relations": Array [
-        "two",
-      ],
-    },
-  },
-  "/packages/three/version": Object {
-    "operation": "update",
-    "value": "4.6.0",
-  },
-  "/packages/two/dependencies/three": Object {
-    "operation": "update",
-    "value": "4.6.0",
-  },
-  "/packages/two/rlsr": Object {
-    "operation": "add",
-    "value": Object {
-      "dependencies": Array [
-        "three",
-      ],
-      "determinedIncrementLevel": 1,
-      "devDependencies": Array [],
-      "devRelations": Array [],
-      "hasBump": true,
-      "messages": Array [],
-      "peerDependencies": Array [],
-      "peerRelations": Array [],
-      "relatedMessages": Array [
-        Object {
-          "affected": Array [
-            "one",
-          ],
-          "body": "",
-          "level": 1,
-          "scope": "one",
-          "subject": "taz",
-          "synchronizedSource": Array [
-            "one",
-          ],
-          "type": "feat",
-        },
-        Object {
-          "affected": Array [
-            "one",
-          ],
-          "body": "",
-          "level": 0,
-          "scope": "one",
-          "subject": "raz",
-          "synchronizedSource": Array [
-            "one",
-          ],
-          "type": "fix",
-        },
-        Object {
-          "affected": Array [
-            "three",
-          ],
-          "body": "",
-          "level": 0,
-          "scope": "three",
-          "subject": "roo",
-          "synchronizedSource": Array [
-            "three",
-          ],
-          "type": "fix",
-        },
-      ],
-      "relations": Array [],
-    },
-  },
-  "/packages/two/version": Object {
-    "operation": "update",
-    "value": "4.6.0",
-  },
-}
+]
 `;

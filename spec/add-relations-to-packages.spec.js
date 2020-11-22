@@ -39,7 +39,7 @@ const packages = {
 };
 
 describe('addRelationsToPackages()', () => {
-  it(`converts dependencies into relations`, () => {
+  it('converts dependencies into relations', () => {
     const env = getEnv(packages, []);
     const exp = addRelationsToPackages(env);
 

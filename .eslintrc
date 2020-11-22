@@ -1,3 +1,4 @@
 {
-    "extends": "semistandard"
+    "extends": ["eslint-config-semistandard"],
+    "plugins": ["prettier"]
 }

@@ -17,7 +17,7 @@ describe('<read> addType()', () => {
       expect(parsed.subject).toBe(subject);
     })
   );
-  it(`overrides existing type`, () => {
+  it('overrides existing type', () => {
     const parsed = addType({ header: 'foo: bar', type: 'baz' });
 
     expect(parsed.type).toBe('foo');

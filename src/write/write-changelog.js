@@ -3,12 +3,12 @@ const fs = require('fs');
 const R = require('ramda');
 
 const getMessageString = msg => {
-  let content = [msg.body, msg.footer]
+  const content = [msg.body, msg.footer]
     .filter(item => !!item)
     .map(item => '\n' + item)
     .join('')
     .replace(/\n/g, '\n> ');
-  let ret = `→ **${msg.subject}**${content}
+  const ret = `→ **${msg.subject}**${content}
 `;
   return ret;
 };

@@ -63,6 +63,6 @@ module.exports = (log, dbg) => {
         `adding general git tag <${version}>`
       ),
     push: (remote, branch) =>
-      run(`git push ${remote} ${branch} --follow-tags`, `pushing to remote`)
+      run(`git push ${remote} ${branch} --follow-tags`, 'pushing to remote')
   };
 };

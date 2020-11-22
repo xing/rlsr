@@ -7,6 +7,6 @@ module.exports = env =>
     .then(transform)
     .then(write)
     .then(res => {
-      env.log(`step PREPUBLISH finished successfully`);
+      env.log('step PREPUBLISH finished successfully');
     })
     .catch(env.err);
