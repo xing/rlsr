@@ -8,9 +8,9 @@ yargs(hideBin(process.argv))
   .command(['canary', 'c'], 'releases a canary version', opt, run('canary'))
   .command(['beta', 'b'], 'releases a beta version', opt, run('beta'))
   .command(
-    ['latest', '$0'],
+    ['production', '$0'],
     'releases a production version',
     opt,
-    run('latest')
+    run('production')
   )
   .help().argv;

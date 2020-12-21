@@ -1,3 +1,5 @@
+// MIGRATION: done
+
 const path = require('path');
 const R = require('ramda');
 const npmlog = require('npmlog');
@@ -12,10 +14,10 @@ const RLSR_LATEST = 'rlsr-latest';
 const COMMANDS = ['pre', 'perform'];
 
 // task runner
-const run = cmd => {
+const run = (cmd) => {
   if (COMMANDS.indexOf(cmd) === -1) {
     err(NAME, 'Please run one of the following commands');
-    COMMANDS.forEach(c => err(NAME, `* ${c}`));
+    COMMANDS.forEach((c) => err(NAME, `* ${c}`));
     process.exit(1);
   }
   const runner = require(`./runners/${cmd}`);
@@ -27,6 +29,7 @@ const run = cmd => {
   }
 
   inf('rlsr')(`command <${cmd}>`);
+
   runner({
     dbg: dbg(`${NAME} ${cmd}`),
     err: err(`${NAME} ${cmd}`),
@@ -36,18 +39,18 @@ const run = cmd => {
     consts: {
       nsp: NAME,
       rlsrLatest: RLSR_LATEST,
-      levels: ['patch', 'minor', 'major']
+      levels: ['patch', 'minor', 'major'],
     },
     config: Object.assign(
       {
         remote: 'origin',
         branch: 'master',
         packagePath: './packages',
-        mode: 'range',
-        tag: 'latest'
+        mode: 'synchronize',
+        tag: 'latest',
       },
       pkg[NAME]
-    )
+    ),
   });
 };
 

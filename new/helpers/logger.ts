@@ -1,4 +1,11 @@
 import { red, yellow, dim, green } from 'chalk';
+import { noop } from 'lodash/fp';
+
+let debug = false;
+
+export const setDebug = (isDebug: boolean) => {
+  debug = isDebug;
+};
 
 const levels = {
   debug: dim('dbg'),
@@ -14,7 +21,7 @@ const log = (level: 'debug' | 'log' | 'warn' | 'error', section: string) => (
 };
 
 export const logger = (section: string) => ({
-  debug: log('debug', section),
+  debug: debug ? log('debug', section) : noop,
   log: log('log', section),
   warn: log('warn', section),
   error: log('error', section),
