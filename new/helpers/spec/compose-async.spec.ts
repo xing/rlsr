@@ -1,13 +1,7 @@
+import { basicEnv } from '../../fixtures/env';
 import { Env, Module } from '../../types';
 import { composeAsync } from '../compose-async';
 import { wait } from '../wait-module';
-
-const env: Env = {
-  stage: 'beta',
-  dryrun: true,
-  verify: false,
-  appRoot: '/',
-};
 
 /* eslint-env node, jest */
 describe('compose async', () => {
@@ -18,7 +12,7 @@ describe('compose async', () => {
     const s2: Module = (env: Env) => {
       return { ...env, appRoot: '/foo' };
     };
-    const resultEnv: Env = await composeAsync(s1, s2)(env);
+    const resultEnv: Env = await composeAsync(s1, s2)(basicEnv);
 
     expect(resultEnv.stage).toBe('production');
     expect(resultEnv.appRoot).toBe('/foo');
@@ -30,7 +24,7 @@ describe('compose async', () => {
     const s2: Module = (env: Env) => {
       return Promise.resolve({ ...env, appRoot: '/foo' });
     };
-    const resultEnv: Env = await composeAsync(s1, s2)(env);
+    const resultEnv: Env = await composeAsync(s1, s2)(basicEnv);
 
     expect(resultEnv.appRoot).toBe('/foo');
     done();
@@ -40,7 +34,7 @@ describe('compose async', () => {
     const s2: Module = (env: Env) => {
       return { ...env, appRoot: '/foo' };
     };
-    const resultEnv: Env = await composeAsync(s1, s2)(env);
+    const resultEnv: Env = await composeAsync(s1, s2)(basicEnv);
 
     expect(resultEnv.appRoot).toBe('/foo');
     done();

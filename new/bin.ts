@@ -13,6 +13,11 @@ const opt = (y: yargs.Argv<{}>) =>
       alias: 'v',
       description:
         'only analyses the changes in the current state and outputs potential results',
+    })
+    .option('force', {
+      alias: 'f',
+      description:
+        'forces all packages to be released at least as a patch version',
     });
 
 yargs(hideBin(process.argv))

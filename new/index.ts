@@ -13,13 +13,15 @@ import { version } from '../package.json';
 export const run = (stage: Stage) => ({
   dryrun,
   verify,
-}: Arguments<{ dryrun: boolean; verify: boolean }>) => {
+  force,
+}: Arguments<{ dryrun: boolean; verify: boolean; force: boolean }>) => {
   // env is initially filled with yargs output
   const env: Env = {
     stage,
     //verify overrides dryrun - so adding `-v` is enough
     dryrun: dryrun || verify,
     verify,
+    force,
     appRoot: process.cwd(),
   };
 

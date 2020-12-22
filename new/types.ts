@@ -40,6 +40,8 @@ export type Env = {
   dryrun: boolean;
   /** verify only analyses the current status and prints out results */
   verify: boolean;
+  /** forces release of all packages */
+  force: boolean;
   /** root of the project */
   appRoot: string;
   /** main package.json */

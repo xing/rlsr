@@ -1,18 +1,10 @@
-import { Env } from '../../types';
 import { config } from '../config';
-import { resolve } from 'path';
-
-const env: Env = {
-  stage: 'beta',
-  dryrun: true,
-  verify: false,
-  appRoot: resolve(__dirname, '../../../'),
-};
+import { basicEnv } from '../../fixtures/env';
 
 /* eslint-env node, jest */
 describe('config module', () => {
   it('reads the current config from package.json adds config defaults to env', async (done) => {
-    const resultEnv = await config(env);
+    const resultEnv = await config(basicEnv);
 
     expect(resultEnv.config).toBeDefined();
     // a default value
