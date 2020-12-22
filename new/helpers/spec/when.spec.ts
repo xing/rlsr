@@ -4,6 +4,7 @@ import { when, whenNotDryrun } from '../when';
 const env: Env = {
   stage: 'beta',
   dryrun: true,
+  verify: false,
   appRoot: '/',
 };
 

@@ -2,11 +2,14 @@ import { CoreProperties as PackageJson } from '@schemastore/package';
 
 export type Stage = 'canary' | 'beta' | 'production';
 
-export type Mode =
-  | 'range'
-  | 'synchronized'
-  | 'synchronizedMain'
-  | 'synchronizedGroups';
+/**
+ * Possible modes:
+ * - `range`: publishes all packages separately
+ * - `synchronized`: publishes all packages with the same determined version
+ * - `synchronizedMain`: assures all packages have the same major version
+ * - `grouped`: publishes packages in synchronised groups based on folder names
+ */
+export type Mode = 'range' | 'synchronized' | 'synchronizedMain' | 'grouped';
 
 export type Config = {
   debug: boolean;
@@ -21,7 +24,6 @@ export type Config = {
   changelogPath: string;
   /** path to the metadata file */
   metadataPath: string;
-  /** path to the metadata file */
   mode: Mode;
   /** tag used to publish packages - usually `latest` */
   tag: string;
@@ -32,8 +34,10 @@ export type Config = {
 export type Env = {
   /** The stage as demanded by the command line - canary, beta or production */
   stage: Stage;
-  /** dry run leaves out the last step to verify the outcome */
+  /** dry run leaves out the persisting steps to check the outcome and changed files */
   dryrun: boolean;
+  /** verify only analyses the current status and prints out results */
+  verify: boolean;
   /** root of the project */
   appRoot: string;
   /** main package.json */

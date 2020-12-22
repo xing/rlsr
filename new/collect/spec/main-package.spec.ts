@@ -5,6 +5,7 @@ import { resolve } from 'path';
 const env: Env = {
   stage: 'beta',
   dryrun: true,
+  verify: false,
   appRoot: resolve(__dirname, '../../../'),
 };
 

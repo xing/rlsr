@@ -5,6 +5,7 @@ import { wait } from '../wait-module';
 const env: Env = {
   stage: 'beta',
   dryrun: true,
+  verify: false,
   appRoot: '/',
 };
 

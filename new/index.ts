@@ -12,9 +12,16 @@ import { version } from '../package.json';
 
 export const run = (stage: Stage) => ({
   dryrun,
-}: Arguments<{ dryrun: boolean }>) => {
+  verify,
+}: Arguments<{ dryrun: boolean; verify: boolean }>) => {
   // env is initially filled with yargs output
-  const env: Env = { stage, dryrun, appRoot: process.cwd() };
+  const env: Env = {
+    stage,
+    //verify overrides dryrun - so adding `-v` is enough
+    dryrun: dryrun || verify,
+    verify,
+    appRoot: process.cwd(),
+  };
 
   // Three phases are
   // collect: gather data and add it to the env

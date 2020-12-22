@@ -12,7 +12,7 @@
   },
   "scripts": {
     "c": "git-cz",
-    "rlsr4": "node ./build/bin",
+    "rlsr4": "node ./bin/rlsr4",
     "test": "npm run unittest && npm run lint",
     "unittest": "jest",
     "lint": "eslint .",

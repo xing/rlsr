@@ -9,7 +9,8 @@ const l = logger('report');
  */
 export const startReport: Module = (env) => {
   l.log(`Running in stage ${bold(yellow(env.stage))}`);
-  env.dryrun && l.log(`dry run only!`);
+  env.verify && l.log(`verifying status only!`);
+  !env.verify && env.dryrun && l.log(`dryrun only!`);
   l.log(`project: ${yellow(env.pkg?.name ?? 'unknown')}`);
   l.debug(`root folder: ${yellow(env.appRoot)}`);
   return env;

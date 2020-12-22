@@ -1,3 +1,3 @@
 #! /usr/bin/env node
 
-console.log('hallo');
+require('../build/new/bin');
