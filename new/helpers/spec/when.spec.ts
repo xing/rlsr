@@ -1,5 +1,5 @@
 import { Env, Module } from '../../types';
-import { when, whenNotDryrun } from '../when';
+import { when, whenNotDryrun, whenNotVerify } from '../when';
 
 const env: Env = {
   stage: 'beta',
@@ -52,6 +52,20 @@ describe('when', () => {
     it('is called when not dry run', async (done) => {
       const localEnv = { ...env, dryrun: false };
       await whenNotDryrun(spy, localEnv);
+      expect(spy).toHaveBeenCalledTimes(1);
+      done();
+    });
+  });
+
+  describe('whenNotVerify()', () => {
+    it('is not called when dry run', async (done) => {
+      const localEnv = { ...env, verify: true };
+      await whenNotVerify(spy, localEnv);
+      expect(spy).not.toHaveBeenCalled();
+      done();
+    });
+    it('is called when not dry run', async (done) => {
+      await whenNotVerify(spy, env);
       expect(spy).toHaveBeenCalledTimes(1);
       done();
     });

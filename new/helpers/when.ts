@@ -7,3 +7,4 @@ export const when = curry(
 );
 
 export const whenNotDryrun = when((env) => !env.dryrun);
+export const whenNotVerify = when((env) => !env.verify);

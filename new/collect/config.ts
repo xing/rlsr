@@ -15,6 +15,7 @@ export const config: Module = (env) => {
     packagePath: './packages',
     changelogPath: './changelogs',
     metadataPath: './',
+    registry: 'https://registry.npmjs.org/',
     mode: '',
     debug: false,
     tag: 'latest',

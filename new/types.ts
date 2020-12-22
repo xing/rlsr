@@ -24,6 +24,8 @@ export type Config = {
   changelogPath: string;
   /** path to the metadata file */
   metadataPath: string;
+  /** registry to talk to. Defaults to npmjs */
+  registry: string;
   mode: Mode;
   /** tag used to publish packages - usually `latest` */
   tag: string;

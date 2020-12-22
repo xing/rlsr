@@ -74,7 +74,8 @@
     }
   },
   "rlsr": {
-    "debug": true
+    "debug": true,
+    "registry": "https://nexus.dc.xing.com/repository/npm-publish/"
   },
   "jest": {
     "preset": "ts-jest",
