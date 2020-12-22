@@ -5,7 +5,10 @@ import { collect } from './collect';
 import { change } from './change';
 import { commit } from './commit';
 import { Env, Stage } from './types';
-import { ifNotDryrun } from './helpers/if-not-dryrun';
+import { whenNotDryrun } from './helpers/when';
+import { log } from './helpers/log-module';
+
+import { version } from '../package.json';
 
 export const run = (stage: Stage) => ({
   dryrun,
@@ -17,5 +20,11 @@ export const run = (stage: Stage) => ({
   // collect: gather data and add it to the env
   // change: modify files
   // commit: publish everything (github and npm)
-  composeAsync(collect, change, ifNotDryrun(commit))(env);
+  composeAsync(
+    log('👋 Welcome to RLSR ...'),
+    log(`Script version ${version}`),
+    collect,
+    change,
+    whenNotDryrun(commit)
+  )(env);
 };

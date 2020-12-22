@@ -1,5 +1,4 @@
-import { curry } from 'lodash/fp';
-import type { Env, Module } from '..';
+import type { Env, Module } from '../types';
 
 type WaitModule = (t: number) => Module;
 
