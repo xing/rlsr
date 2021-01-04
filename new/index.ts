@@ -5,7 +5,7 @@ import { collect } from './collect';
 import { change } from './change';
 import { commit } from './commit';
 import { Env, Stage } from './types';
-import { whenNotDryrun } from './helpers/when';
+import { whenNotDryrun, whenNotVerify } from './helpers/when';
 import { log } from './helpers/log-module';
 
 import { version } from '../package.json';
@@ -33,7 +33,7 @@ export const run = (stage: Stage) => ({
     log('👋 Welcome to RLSR ...'),
     log(`Script version ${version}`),
     collect,
-    change,
+    whenNotVerify(change),
     whenNotDryrun(commit)
   )(env);
 };

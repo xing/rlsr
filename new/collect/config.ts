@@ -2,6 +2,19 @@ import { Config, Module } from '../types';
 import { cosmiconfigSync } from 'cosmiconfig';
 import { setDebug } from '../helpers/logger';
 
+export const defaultConfig: Config = {
+  remote: 'origin',
+  branch: 'master',
+  packagePath: './packages',
+  changelogPath: './changelogs',
+  metadataPath: './',
+  registry: 'https://registry.npmjs.org/',
+  mode: 'grouped',
+  debug: false,
+  tag: 'latest',
+  betaBranch: 'master',
+  productionBranch: 'master',
+};
 /**
  * Reads the current configuration with cosmic conf
  * `.rlsrrc`, package.json > rlsr and other formats allowed
@@ -10,15 +23,7 @@ export const config: Module = (env) => {
   const cosmic = cosmiconfigSync('rlsr').search();
 
   const config: Config = {
-    remote: 'origin',
-    branch: 'master',
-    packagePath: './packages',
-    changelogPath: './changelogs',
-    metadataPath: './',
-    registry: 'https://registry.npmjs.org/',
-    mode: '',
-    debug: false,
-    tag: 'latest',
+    ...defaultConfig,
     // adding config from package.json
     ...(cosmic?.config ?? {}),
   };

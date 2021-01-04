@@ -29,8 +29,12 @@ export type Config = {
   mode: Mode;
   /** tag used to publish packages - usually `latest` */
   tag: string;
+  /** releases are only alowed on a dedicated branch */
+  productionBranch: string;
   /** tag used to publish beta versionspackages - usually `beta` */
   betaTag: string;
+  /** beta releases are only alowed on a dedicated branch */
+  betaBranch: string;
 };
 
 export type Env = {
@@ -48,6 +52,14 @@ export type Env = {
   pkg?: PackageJson;
   /** all config values */
   config?: Config;
+  /** the detected current git branch */
+  currentBranch?: string;
+  /** files that are not committed yet */
+  uncommittedFiles?: string[];
+  /** all github tags */
+  allTags?: string[];
+  /** tags in order from current commit hash downwards */
+  tahsInTree?: string[];
 };
 
 export type Module = (env: Env) => Promise<Env> | Env;
