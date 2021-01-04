@@ -24,7 +24,7 @@ export enum exitCodes {
 /**
  * checks if user is on the right branch and has everything committed
  */
-export const checkGitStatus: Module = async (env) => {
+export const checkGitStatus: Module = async (env: Env) => {
   // exit if there are still files to commit (unless in verify mode)
   if (!isVerify(env) && (env.uncommittedFiles?.length ?? 0) > 0) {
     error(

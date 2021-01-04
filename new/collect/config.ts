@@ -1,4 +1,4 @@
-import { Config, Module } from '../types';
+import { Config, Env, Module } from '../types';
 import { cosmiconfigSync } from 'cosmiconfig';
 import { setDebug } from '../helpers/logger';
 
@@ -21,7 +21,7 @@ export const defaultConfig: Config = {
  * Reads the current configuration with cosmic conf
  * `.rlsrrc`, package.json > rlsr and other formats allowed
  */
-export const config: Module = (env) => {
+export const config: Module = (env: Env) => {
   const cosmic = cosmiconfigSync('rlsr').search();
 
   const config: Config = {

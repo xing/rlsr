@@ -10,6 +10,7 @@ import { addGitStatus } from './add-git-status';
 import { checkGitStatus } from './check-git-status';
 import { readStatusFile } from './read-status-file';
 import { addLastReleaseHash } from './add-last-release-hash';
+import { addRawCommitMessages } from './add-raw-commit-messages';
 
 export const collect = composeAsync(
   log('PHASE 1: collecting data'),
@@ -26,9 +27,6 @@ export const collect = composeAsync(
   // add the top level package.json to the environment for later use
   mainPackage,
 
-  // add the rlsr.json to the environment if available. If not, it creates one
-  // rlsrFile
-
   // prints some useful status messages on which more it is running in
   startReport,
 
@@ -43,13 +41,12 @@ export const collect = composeAsync(
   addLastReleaseHash,
 
   // retrieve all commit messages since the last hash
-  // getParsedCommitMessages,
+  addRawCommitMessages,
+  //parseCommitMessages,
+  //addFilesToCommitMessages,
 
   //read all package jsons and add them to the env for later use
-  // getAllPackageJsons,
+  // addAllPackageJsons,
 
-  // read commit messages since last release or since tag or since beginning
-  // read all package.jsons
-  //
   wait(1000)
 );

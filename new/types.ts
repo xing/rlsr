@@ -46,6 +46,13 @@ export type Status = {
   versions: Record<string, string>;
 };
 
+export type Message = {
+  hash: string;
+  date: string;
+  message: string;
+  body: string;
+};
+
 export type Env = {
   /** The stage as demanded by the command line - canary, beta or production */
   stage: Stage;
@@ -77,6 +84,8 @@ export type Env = {
   lastReleaseHash?: string;
   /** previous rlsr.json available? */
   hasStatusFile?: boolean;
+  /** affected messages */
+  commitMessages?: Message[];
 };
 
 export type Module = (env: Env) => Promise<Env> | Env;

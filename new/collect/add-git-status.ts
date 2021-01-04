@@ -1,17 +1,15 @@
 import simpleGit, { SimpleGit } from 'simple-git';
 import { sortSemver } from '../helpers/sort-semver';
-import { Module } from '../types';
+import { Env, Module } from '../types';
 
 /**
  * add git information to env by using simple-git package
  */
-export const addGitStatus: Module = async (env) => {
+export const addGitStatus: Module = async (env: Env) => {
   const git: SimpleGit = simpleGit();
-  const {
-    current: currentBranch,
-    files: uncommittedFiles,
-  } = await git.status();
+  const { current: currentBranch, files } = await git.status();
 
+  const uncommittedFiles = files.map((f) => f.path);
   const currentHash = (await git.log()).latest?.hash;
 
   const allTags = (await git.tags()).all.reverse();
@@ -37,5 +35,5 @@ export const addGitStatus: Module = async (env) => {
     allTags,
     tagsInTree,
     currentHash,
-  };
+  } as Env;
 };

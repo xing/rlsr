@@ -1,6 +1,6 @@
 import { yellow } from 'chalk';
 import { logger } from '../helpers/logger';
-import { Module } from '../types';
+import { Env, Module } from '../types';
 
 const { log } = logger('prev hash');
 
@@ -18,7 +18,7 @@ export const findLastProductionTag = (tags: string[]) => {
 /**
  * Determin the git commit hash from where the last release has happened
  */
-export const addLastReleaseHash: Module = async (env) => {
+export const addLastReleaseHash: Module = async (env: Env) => {
   // we usually write the last hash into the rlsr.json file
   let lastReleaseHash: string = env.status?.lastReleaseHash ?? '';
 
