@@ -12,8 +12,10 @@ export const defaultConfig: Config = {
   mode: 'grouped',
   debug: false,
   tag: 'latest',
+  betaTag: 'beta',
   betaBranch: 'master',
   productionBranch: 'master',
+  mainBranch: 'master',
 };
 /**
  * Reads the current configuration with cosmic conf

@@ -1,20 +1,22 @@
-import git from 'simple-git/promise';
+import simpleGit, { SimpleGit } from 'simple-git';
 import { sortSemver } from '../helpers/sort-semver';
-
 import { Module } from '../types';
 
 /**
  * add git information to env by using simple-git package
  */
 export const addGitStatus: Module = async (env) => {
+  const git: SimpleGit = simpleGit();
   const {
     current: currentBranch,
     files: uncommittedFiles,
-  } = await git().status();
+  } = await git.status();
 
-  const allTags = await git().tags();
+  const currentHash = (await git.log()).latest?.hash;
 
-  const tagsInTree = (await git().tag({ '--merged': true }))
+  const allTags = (await git.tags()).all.reverse();
+
+  const tagsInTree = (await git.tag(['--merged']))
     .split('\n')
     .filter(
       (t: string) =>
@@ -28,5 +30,12 @@ export const addGitStatus: Module = async (env) => {
     .sort(sortSemver)
     .filter(Boolean);
 
-  return { ...env, currentBranch, uncommittedFiles, allTags, tagsInTree };
+  return {
+    ...env,
+    currentBranch,
+    uncommittedFiles,
+    allTags,
+    tagsInTree,
+    currentHash,
+  };
 };

@@ -18,8 +18,8 @@ export type Config = {
   /** git branch */
   branch: string;
   /** path to published packages - if you need more, use `packagePaths` */
-  packagePath: string;
-  packagePaths: string[];
+  packagePath?: string;
+  packagePaths?: string[];
   /** path to a folder that will contain the changelog files */
   changelogPath: string;
   /** path to the metadata file */
@@ -31,10 +31,19 @@ export type Config = {
   tag: string;
   /** releases are only alowed on a dedicated branch */
   productionBranch: string;
-  /** tag used to publish beta versionspackages - usually `beta` */
-  betaTag: string;
   /** beta releases are only alowed on a dedicated branch */
   betaBranch: string;
+  /** the branch all the code is merged to (usually master) */
+  mainBranch: string;
+  /** tag used to publish beta versionspackages - usually `beta` */
+  betaTag: string;
+};
+
+export type Status = {
+  /** commit Hash of last release */
+  lastReleaseHash: string;
+  /** list of all packages including their version number */
+  versions: Record<string, string>;
 };
 
 export type Env = {
@@ -59,7 +68,15 @@ export type Env = {
   /** all github tags */
   allTags?: string[];
   /** tags in order from current commit hash downwards */
-  tahsInTree?: string[];
+  tagsInTree?: string[];
+  /** Status from previous runs */
+  status?: Status;
+  /** Hash of the last commit */
+  currentHash?: string;
+  /** Hash of the last release */
+  lastReleaseHash?: string;
+  /** previous rlsr.json available? */
+  hasStatusFile?: boolean;
 };
 
 export type Module = (env: Env) => Promise<Env> | Env;

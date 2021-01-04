@@ -8,6 +8,8 @@ import { whenNotDryrun, whenNotStage } from '../helpers/when';
 import { checkNpmPing, checkNpmLogin } from './check-npm';
 import { addGitStatus } from './add-git-status';
 import { checkGitStatus } from './check-git-status';
+import { readStatusFile } from './read-status-file';
+import { addLastReleaseHash } from './add-last-release-hash';
 
 export const collect = composeAsync(
   log('PHASE 1: collecting data'),
@@ -34,8 +36,11 @@ export const collect = composeAsync(
   addGitStatus,
   whenNotStage('canary')(checkGitStatus),
 
+  // status data from rlsr.json
+  readStatusFile,
+
   // retrieve the last released hash to calculate diffs from
-  // getLastReleaseHash,
+  addLastReleaseHash,
 
   // retrieve all commit messages since the last hash
   // getParsedCommitMessages,

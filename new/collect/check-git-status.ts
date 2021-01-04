@@ -2,7 +2,7 @@ import { red, bold } from 'chalk';
 import { Env, Module } from '../types';
 
 import { logger } from '../helpers/logger';
-import { isStage, isVerify } from '../helpers/when';
+import { isVerify } from '../helpers/when';
 
 const { log, error } = logger('git status');
 
