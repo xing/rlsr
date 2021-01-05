@@ -715,6 +715,13 @@
   dependencies:
     chalk "*"
 
+"@types/conventional-commits-parser@^3.0.1":
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/@types/conventional-commits-parser/-/conventional-commits-parser-3.0.1.tgz#1a4796a0ae2bf33b41ea49f55e27ccbdb29cce5e"
+  integrity sha512-xkKomW6PqJS0rzFPPQSzKwbKIRqAGjYa1aWWkoT14YYodXyEpG4ok4H1US3olqGBxejz7EeBfT3fTJ3hUOiUkQ==
+  dependencies:
+    "@types/node" "*"
+
 "@types/cosmiconfig@^6.0.0":
   version "6.0.0"
   resolved "https://registry.yarnpkg.com/@types/cosmiconfig/-/cosmiconfig-6.0.0.tgz#ffb5494a91feab3088985caeb089a9ff851795a2"
