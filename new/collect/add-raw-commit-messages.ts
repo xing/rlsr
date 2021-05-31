@@ -18,11 +18,11 @@ export const addRawCommitMessages: Module = async (env: Env) => {
   });
 
   // parsing and enriching
-  const commitMessages = data.all.map(
+  const rawCommitMessages = data.all.map(
     pick(['hash', 'date', 'message', 'body'])
   );
 
-  log(`${yellow(commitMessages.length)} overall affected commits`);
+  log(`${yellow(rawCommitMessages.length)} overall affected commits`);
 
-  return { ...env, commitMessages } as Env;
+  return { ...env, rawCommitMessages } as Env;
 };

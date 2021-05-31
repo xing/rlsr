@@ -1,5 +1,11 @@
 import { CoreProperties as PackageJson } from '@schemastore/package';
 
+/**
+ * Possible stages:
+ * - `canary`: publishes affected packages as a canary version named after the git branch
+ * - `beta`: publishes affected packages as beta - used on the master branch
+ * - `production`: the default. Publishes as latest - used on the production branch
+ */
 export type Stage = 'canary' | 'beta' | 'production';
 
 /**
@@ -7,9 +13,16 @@ export type Stage = 'canary' | 'beta' | 'production';
  * - `range`: publishes all packages separately
  * - `synchronized`: publishes all packages with the same determined version
  * - `synchronizedMain`: assures all packages have the same major version
- * - `grouped`: publishes packages in synchronised groups based on folder names
  */
-export type Mode = 'range' | 'synchronized' | 'synchronizedMain' | 'grouped';
+export type Mode = 'independent' | 'synchronized' | 'synchronizedMain';
+
+/**
+ * Possible impacts:
+ * - `full`: changes are persisted to git, packages are published
+ * - `dryrun`: changes are made in local files for inspections, no publish
+ * - `verify`: only checks are running and a report about the potential impact is printed
+ */
+export type Impact = 'full' | 'dryrun' | 'verify';
 
 export type Config = {
   debug: boolean;
@@ -27,6 +40,7 @@ export type Config = {
   /** registry to talk to. Defaults to npmjs */
   registry: string;
   mode: Mode;
+  impact: Impact;
   /** tag used to publish packages - usually `latest` */
   tag: string;
   /** releases are only alowed on a dedicated branch */
@@ -51,17 +65,20 @@ export type Message = {
   date: string;
   message: string;
   body: string;
+  text?: string;
+  type?: string | null;
+  scope?: string | null;
+  subject?: string | null;
+  level: 'major' | 'minor' | 'patch' | 'misc';
 };
 
 export type Env = {
   /** The stage as demanded by the command line - canary, beta or production */
   stage: Stage;
-  /** dry run leaves out the persisting steps to check the outcome and changed files */
-  dryrun: boolean;
-  /** verify only analyses the current status and prints out results */
-  verify: boolean;
   /** forces release of all packages */
   force: boolean;
+  dryrun?: boolean;
+  verify?: boolean;
   /** root of the project */
   appRoot: string;
   /** main package.json */
@@ -85,6 +102,7 @@ export type Env = {
   /** previous rlsr.json available? */
   hasStatusFile?: boolean;
   /** affected messages */
+  rawCommitMessages?: Message[];
   commitMessages?: Message[];
 };
 

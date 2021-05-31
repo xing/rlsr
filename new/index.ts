@@ -3,7 +3,8 @@ import type { Arguments } from 'yargs';
 import { composeAsync } from './helpers/compose-async';
 import { collect } from './collect';
 import { change } from './change';
-import { commit } from './commit';
+import { analyse } from './analyse';
+import { persist } from './persist';
 import { Env, Stage } from './types';
 import { whenNotDryrun, whenNotVerify } from './helpers/when';
 import { log } from './helpers/log-module';
@@ -19,21 +20,24 @@ export const run = (stage: Stage) => ({
   const env: Env = {
     stage,
     //verify overrides dryrun - so adding `-v` is enough
-    dryrun: dryrun || verify,
+    dryrun,
     verify,
     force,
     appRoot: process.cwd(),
   };
 
-  // Three phases are
+  // Four phases are
   // collect: gather data and add it to the env
-  // change: modify files
-  // commit: publish everything (github and npm)
+  // analyse: draw conclusions and alter the data
+  // change: modify files and write to disk
+  // persist: publish everything (github and npm)
   composeAsync(
     log('👋 Welcome to RLSR ...'),
     log(`Script version ${version}`),
+
     collect,
+    analyse,
     whenNotVerify(change),
-    whenNotDryrun(commit)
+    whenNotDryrun(persist)
   )(env);
 };
