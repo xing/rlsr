@@ -5,14 +5,14 @@ import { log } from '../helpers/log-module';
 export const analyse = composeAsync(
   log('ANALYSE PHASE: Looking at what needs to be changed'),
 
+  // See refine-messages.js
+  // add metadata to the messages by parsing
+  // refineMessages
+
   // See polish-packages.js
   // prefill package data with empty defaults
   // and add all dependencies (default, dev and peer)
   // addDependencies
-
-  // See refine-messages.js
-  // add metadata to the messages by parsing
-  // refineMessages
 
   // See add-relations-to-packages.js
   // this creates a tree of dependencies - directly connects the files to each other

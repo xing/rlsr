@@ -55,12 +55,16 @@ export const collect = composeAsync(
   parseCommitMessages,
 
   // analyse the committed files and add them to the data sink
+  // we have that already in the brewery release script (it makes
+  // sense to have all projects open at the same time - brewery release,
+  // this, the demo repo - I have them in one VSC workspace)
   // addFilesToCommitMessages,
 
   // read all package jsons and add them to the env for later use
   // addAllPackageJsons,
 
   // add all release-notes.md files and add them to the env for later use
+  // we also have that code in brewery release
   // addMainNotes,
 
   wait(1000)
