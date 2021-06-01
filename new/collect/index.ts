@@ -1,29 +1,31 @@
-import { composeAsync } from '../helpers/compose-async';
-import { wait } from '../helpers/wait-module';
-import { log } from '../helpers/log-module';
-import { config } from './config';
-import { mainPackage } from './main-package';
-import { startReport } from './start-report';
-import { whenNotDryrun, whenNotStage } from '../helpers/when';
-import { checkNpmPing, checkNpmLogin } from './check-npm';
-import { addGitStatus } from './add-git-status';
-import { checkGitStatus } from './check-git-status';
-import { readStatusFile } from './read-status-file';
-import { addLastReleaseHash } from './add-last-release-hash';
-import { addRawCommitMessages } from './add-raw-commit-messages';
-import { parseCommitMessages } from './parse-commit-messages';
+import { composeAsync } from "../helpers/compose-async";
+import { wait } from "../helpers/wait-module";
+import { log } from "../helpers/log-module";
+import { config } from "./config";
+import { mainPackage } from "./main-package";
+import { startReport } from "./start-report";
+import { whenNotDryrun, whenNotStage } from "../helpers/when";
+import { checkNpmPing, checkNpmLogin } from "./check-npm";
+import { addGitStatus } from "./add-git-status";
+import { checkGitStatus } from "./check-git-status";
+import { readStatusFile } from "./read-status-file";
+import { addLastReleaseHash } from "./add-last-release-hash";
+import { addRawCommitMessages } from "./add-raw-commit-messages";
+import { parseCommitMessages } from "./parse-commit-messages";
 
 export const collect = composeAsync(
-  log('COLLECT PHASE: gathering all data'),
+  log("COLLECT PHASE: gathering all data"),
 
   // #tested
   // reading the config and adding sane defaults
   config,
 
+  // #tested
   // ping the npm registry to determine if it's available
   // will fail if it's not in the VPN for example
   whenNotDryrun(checkNpmPing),
 
+  // #tested
   // checks if the user is logged in to the registry
   whenNotDryrun(checkNpmLogin),
 
@@ -39,7 +41,7 @@ export const collect = composeAsync(
 
   // #tested
   // checks for uncommitted files and correct branch and stops if something is wrong
-  whenNotStage('canary')(checkGitStatus),
+  whenNotStage("canary")(checkGitStatus),
 
   // status data from rlsr.json
   readStatusFile,
