@@ -33,6 +33,7 @@ export const collect = composeAsync(
   // add the top level package.json to the environment for later use
   mainPackage,
 
+  // #tested
   // prints some useful status messages on which more it is running in
   startReport,
 
