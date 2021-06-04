@@ -37,6 +37,7 @@ export const collect = composeAsync(
   // prints some useful status messages on which more it is running in
   startReport,
 
+  // #tested
   // adds all available git information (branch, tags etc to the ENV)
   addGitStatus,
 
