@@ -45,6 +45,7 @@ export const collect = composeAsync(
   // checks for uncommitted files and correct branch and stops if something is wrong
   whenNotStage("canary")(checkGitStatus),
 
+  // #tested
   // status data from rlsr.json
   readStatusFile,
 
