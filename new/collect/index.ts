@@ -53,6 +53,7 @@ export const collect = composeAsync(
   // retrieve the last released commit hash to calculate diffs from
   addLastReleaseHash,
 
+  // #tested
   // retrieve all commit messages since the last hash
   addRawCommitMessages,
 
