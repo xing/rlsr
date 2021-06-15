@@ -57,6 +57,7 @@ export const collect = composeAsync(
   // retrieve all commit messages since the last hash
   addRawCommitMessages,
 
+  // #tested
   // use commitizen to properly parse the messages
   parseCommitMessages,
 
