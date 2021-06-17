@@ -24,6 +24,7 @@ describe.each`
     const mockSimpleGit = jest.fn();
     const mockStatus = jest.fn();
     const mockLog = jest.fn();
+    const mockRaw = jest.fn(() => "7ec3f9525cf2c2cd9c63836b7a71fb0092c02657\n");
     const mockTags = jest.fn();
     const mockTag = jest.fn();
 
@@ -47,6 +48,7 @@ describe.each`
       mockSimpleGit.mockImplementation(() => ({
         status: mockStatus,
         log: mockLog,
+        raw: mockRaw,
         tags: mockTags,
         tag: mockTag,
       }));
@@ -73,6 +75,15 @@ describe.each`
 
     it("uses singleGit's log() method", () => {
       expect(mockLog).toHaveBeenCalledTimes(1);
+    });
+
+    it("uses singleGit's raw() method to fetch initial hash", () => {
+      expect(mockRaw).toHaveBeenCalledTimes(1);
+      expect(mockRaw).toHaveBeenCalledWith(
+        "rev-list",
+        "--max-parents=0",
+        "HEAD"
+      );
     });
 
     it("uses singleGit's tags() method", () => {

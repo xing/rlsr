@@ -20,6 +20,9 @@ export const addGitStatus: Module = async (env: Env) => {
 
   const uncommittedFiles = files.map((f) => f.path);
   const currentHash = (await git.log()).latest?.hash;
+  const initialHash = (
+    await git.raw("rev-list", "--max-parents=0", "HEAD")
+  ).trim();
 
   const allTags = Array.from((await git.tags()).all).reverse();
 
@@ -34,6 +37,7 @@ export const addGitStatus: Module = async (env: Env) => {
     allTags,
     currentBranch,
     currentHash,
+    initialHash,
     tagsInTree,
     uncommittedFiles,
   } as Env;
