@@ -1,37 +1,40 @@
-import { yellow } from 'chalk';
-import { logger } from '../helpers/logger';
-import { Env, Module } from '../types';
+import { yellow } from "chalk";
+import { logger } from "../helpers/logger";
+import { Env, Module } from "../types";
 
-const { log } = logger('prev hash');
+const { error, log } = logger("prev hash");
 
-export const findLastReleaseTag = (tags: string[]) => {
-  const relevant = tags.filter((t) => t.startsWith('release@'));
-  return relevant[0] || '';
-};
-
-export const findLastProductionTag = (tags: string[]) => {
-  // all that is not an RC tag
-  const relevant = tags.filter((t) => t.indexOf('rc') === -1);
+export const findLastReleaseTag = (tags: string[], releaseTag: string) => {
+  const relevant = tags.filter((t) => t.startsWith(releaseTag));
   return relevant[0];
 };
 
 /**
- * Determin the git commit hash from where the last release has happened
+ * Identify the git commit hash of the last released version.
+ * This is used to determine the commits to be released.
  */
 export const addLastReleaseHash: Module = async (env: Env) => {
-  // we usually write the last hash into the rlsr.json file
-  let lastReleaseHash: string = env.status?.lastReleaseHash ?? '';
-
-  if (!lastReleaseHash && env.currentBranch === env.config?.mainBranch) {
-    // on the production branch, we'd also allow semver tags
-    lastReleaseHash = findLastReleaseTag(env.allTags || []);
+  if (env.status === undefined) {
+    error("Missing rlsr.json config file");
+    throw new Error("Missing rlsr.json config file");
   }
 
-  if (!lastReleaseHash) {
-    lastReleaseHash = findLastProductionTag(env.allTags || []);
+  let { lastReleaseHash } = env.status;
+
+  // Grab the last release's hash from rlsr.json file (where it's usually stored)
+  if (lastReleaseHash) {
+    lastReleaseHash = lastReleaseHash;
+  } else if (env.tagsInTree && env.tagsInTree.length > 0) {
+    lastReleaseHash = findLastReleaseTag(env.tagsInTree, env.status.releaseTag);
   }
 
-  log(`using ${yellow(lastReleaseHash)} as previous commit hash or tag`);
+  lastReleaseHash
+    ? log(`using ${yellow(lastReleaseHash)} as previous release's commit hash`)
+    : log(
+        `previous release hash cannot be determined. Assuming project's ${yellow(
+          "initial release"
+        )}`
+      );
 
   return { ...env, lastReleaseHash };
 };

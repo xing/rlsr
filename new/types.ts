@@ -55,7 +55,9 @@ export type Config = {
 
 export type Status = {
   /** commit Hash of last release */
-  lastReleaseHash: string;
+  lastReleaseHash?: string;
+  /** customizable release tag to be used by rlsr script (e.g.: "release") */
+  releaseTag: string;
   /** list of all packages including their version number */
   versions: Record<string, string>;
 };
@@ -102,7 +104,9 @@ export type Env = {
   status?: Status;
   /** Hash of the last commit */
   currentHash?: string;
-  /** Hash of the last release */
+  /** Hash of the initial commit */
+  initialHash?: string;
+  /** Hash or tag of the last release */
   lastReleaseHash?: string;
   /** previous rlsr.json available? */
   hasStatusFile?: boolean;
