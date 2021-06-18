@@ -1,5 +1,5 @@
 /* eslint-env node, jest */
-import type { Env, Module } from "../../types";
+import type { Env, MessageRaw, Module } from "../../types";
 
 type buildPromiseType = <Type>(result: Type) => Promise<Type>;
 const buildPromise: buildPromiseType = (result) =>
@@ -10,12 +10,11 @@ const mockYellow = jest.fn((message) => `yellow(${message})`);
 jest.mock("chalk", () => ({ yellow: mockYellow }));
 
 // lodash/fp pick mocks
-const messageFactory = (id: number) => ({
+const messageFactory: (id: number) => MessageRaw = (id: number) => ({
   hash: `mockHash ${id}`,
   date: `mockDate ${id}`,
   message: `mockMessage ${id}`,
   body: `mockBody ${id}`,
-  level: `patch ${id}`,
 });
 const mockPicker = jest.fn(messageFactory);
 const mockPick = jest.fn(() => mockPicker);
