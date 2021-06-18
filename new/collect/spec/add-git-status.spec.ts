@@ -2,8 +2,8 @@ import type { Env, Module } from "../../types";
 
 const mockEnv: Env = { stage: "canary", force: false, appRoot: "/" };
 
-type buildPRomiseType = <Type>(result: Type) => Promise<Type>;
-const buildPromise: buildPRomiseType = (result) =>
+type buildPromiseType = <Type>(result: Type) => Promise<Type>;
+const buildPromise: buildPromiseType = (result) =>
   new Promise((resolve) => resolve(result));
 
 const mockedFilesPaths = ["/", "/package.json"];
