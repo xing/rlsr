@@ -12,6 +12,7 @@ import { readStatusFile } from "./read-status-file";
 import { addLastReleaseHash } from "./add-last-release-hash";
 import { addRawCommitMessages } from "./add-raw-commit-messages";
 import { parseCommitMessages } from "./parse-commit-messages";
+import { addFilesToCommitMessages } from "./add-files-to-commit-messages";
 
 export const collect = composeAsync(
   log("COLLECT PHASE: gathering all data"),
@@ -65,7 +66,7 @@ export const collect = composeAsync(
   // we have that already in the brewery release script (it makes
   // sense to have all projects open at the same time - brewery release,
   // this, the demo repo - I have them in one VSC workspace)
-  // addFilesToCommitMessages,
+  addFilesToCommitMessages,
 
   // read all package jsons and add them to the env for later use
   // addAllPackageJsons,

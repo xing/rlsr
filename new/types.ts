@@ -77,6 +77,7 @@ export type MessageConventionalCommit = MessageRaw & {
 
 export type Message = MessageConventionalCommit & {
   level: "major" | "minor" | "patch" | "misc";
+  committedFiles?: string[];
 };
 
 export type Env = {
