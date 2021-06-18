@@ -50,12 +50,6 @@ describe("addLastReleaseHash Module", () => {
     expect(mockError).toHaveBeenCalledWith("Missing rlsr.json config file");
   });
 
-  test("rejects to octopus", async () => {
-    await expect(Promise.reject(new Error("octopus"))).rejects.toThrow(
-      "octopus"
-    );
-  });
-
   describe.each`
     scenario                             | rlsrConfig                    | tagsInTree                               | currentBranch   | expectation
     ${"hash on rlsr.json file"}          | ${mockRlsrConfig}             | ${["release@3.0", "2.0.0", "1.0.0"]}     | ${"master"}     | ${mockHash}
