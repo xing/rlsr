@@ -13,6 +13,7 @@ import { addLastReleaseHash } from "./add-last-release-hash";
 import { addRawCommitMessages } from "./add-raw-commit-messages";
 import { parseCommitMessages } from "./parse-commit-messages";
 import { addFilesToCommitMessages } from "./add-files-to-commit-messages";
+import { addAllPackageJsons } from "./add-all-package-jsons";
 
 export const collect = composeAsync(
   log("COLLECT PHASE: gathering all data"),
@@ -69,7 +70,8 @@ export const collect = composeAsync(
   addFilesToCommitMessages,
 
   // read all package jsons and add them to the env for later use
-  // addAllPackageJsons,
+  // #tested
+  addAllPackageJsons,
 
   // add all release-notes.md files and add them to the env for later use
   // we also have that code in brewery release
