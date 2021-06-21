@@ -1,57 +1,78 @@
-import { envWithConfig } from '../../fixtures/env';
-import { Env } from '../../types';
-import { addLastReleaseHash } from '../add-last-release-hash';
-
 /* eslint-env node, jest */
-describe('addLastReleaseHash Module', () => {
-  beforeEach(() => {
-    //removing log output for sanity reasons
-    jest.spyOn(console, 'log').mockImplementation();
+import type { Env, Module } from "../../types";
+
+// mock Chalk
+const mockYellow = jest.fn((text) => `yellow(${text})`);
+jest.mock("chalk", () => ({ yellow: mockYellow }));
+
+// mock Logger
+const mockError = jest.fn();
+const mockLog = jest.fn();
+const mockLogger = jest.fn(() => ({
+  error: mockError,
+  log: mockLog,
+}));
+jest.mock("../../helpers/logger", () => ({
+  logger: mockLogger,
+}));
+
+const { envWithConfig } = require("../../fixtures/env");
+const mockHash = "7ec3f9525cf2c2cd9c63836b7a71fb0092c02657";
+const mockRlsrConfig = {
+  versions: {},
+  lastReleaseHash: mockHash,
+  releaseTag: "release",
+};
+const mockRlsrConfigFirstRelease = {
+  versions: {},
+  releaseTag: "release",
+};
+
+describe("addLastReleaseHash Module", () => {
+  let addLastReleaseHash: Module;
+
+  beforeAll(() => {
+    addLastReleaseHash = require("../add-last-release-hash").addLastReleaseHash;
   });
 
-  it('uses the hash from the rlsr.json when it is there', async (done) => {
-    const env: Env = {
+  it("throws an exception when no rlsr.json config file is present", async () => {
+    const mockEnv = {
       ...envWithConfig,
-      status: { versions: {}, lastReleaseHash: 'foo' },
+      currentBranch: "master",
+      tagsInTree: [],
+      status: undefined,
     };
-    expect((await addLastReleaseHash(env)).lastReleaseHash).toBe('foo');
-    done();
+
+    await expect(addLastReleaseHash(mockEnv)).rejects.toThrow(
+      "Missing rlsr.json config file"
+    );
+    expect(mockError).toHaveBeenCalledTimes(1);
+    expect(mockError).toHaveBeenCalledWith("Missing rlsr.json config file");
   });
 
-  type TestData = [string, string[], string, string];
-  [
-    [
-      'release tag on master',
-      ['release@3.0', '2.0.0', '1.0.0'],
-      'master',
-      'release@3.0',
-    ] as TestData,
-    [
-      'release tag on master, not latest',
-      ['2.0.0', 'release@3.0', '1.0.0'],
-      'master',
-      'release@3.0',
-    ] as TestData,
-    [
-      'release tag not on master',
-      ['2.0.0', 'release@3.0', '1.0.0'],
-      'production',
-      '2.0.0',
-    ] as TestData,
-    [
-      'skipping release tags',
-      ['3.0.0-rc.1', '2.0.0', 'release@3.0'],
-      'production',
-      '2.0.0',
-    ] as TestData,
-  ].forEach(([text, allTags, currentBranch, expectation]: TestData) => {
-    it(`uses the correct tag for case <${text}>`, async (done) => {
-      const env: Env = {
+  describe.each`
+    scenario                             | rlsrConfig                    | tagsInTree                               | currentBranch   | expectation
+    ${"hash on rlsr.json file"}          | ${mockRlsrConfig}             | ${["release@3.0", "2.0.0", "1.0.0"]}     | ${"master"}     | ${mockHash}
+    ${"first project's release"}         | ${mockRlsrConfigFirstRelease} | ${[]}                                    | ${"production"} | ${undefined}
+    ${"release tag on release tree"}     | ${mockRlsrConfigFirstRelease} | ${["release@3.0", "2.0.0", "1.0.0"]}     | ${"master"}     | ${"release@3.0"}
+    ${"release tag not on release tree"} | ${mockRlsrConfigFirstRelease} | ${["2.0.0", "publicacion@3.0", "1.0.0"]} | ${"master"}     | ${undefined}
+  `("$scenario", ({ rlsrConfig, tagsInTree, currentBranch, expectation }) => {
+    let mockEnv: Env;
+    let result: Env;
+    beforeEach(async () => {
+      mockEnv = {
         ...envWithConfig,
         currentBranch,
-        allTags,
+        tagsInTree,
+        status: rlsrConfig,
       };
-      expect((await addLastReleaseHash(env)).lastReleaseHash).toBe(expectation);
+      result = await addLastReleaseHash(mockEnv);
+    });
+    it(`returns an Env object with its "lastReleaseHash" = ${expectation}`, async (done) => {
+      expect(result).toEqual({
+        ...mockEnv,
+        lastReleaseHash: expectation,
+      });
       done();
     });
   });

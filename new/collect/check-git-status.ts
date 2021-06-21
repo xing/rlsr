@@ -1,18 +1,18 @@
-import { red, bold } from 'chalk';
-import { Env, Module } from '../types';
+import { red, bold } from "chalk";
+import { Env, Module } from "../types";
 
-import { logger } from '../helpers/logger';
-import { isVerify } from '../helpers/when';
+import { logger } from "../helpers/logger";
+import { isVerify } from "../helpers/when";
 
-const { log, error } = logger('git status');
+const { log, error } = logger("git status");
 
 const isCorrectBranch = (env: Env) => {
   switch (env.stage) {
-    case 'canary':
+    case "canary":
       return true;
-    case 'beta':
+    case "beta":
       return env.currentBranch === env.config?.betaBranch;
-    case 'production':
+    case "production":
       return env.currentBranch === env.config?.productionBranch;
   }
 };
@@ -25,25 +25,29 @@ export enum exitCodes {
  * checks if user is on the right branch and has everything committed
  */
 export const checkGitStatus: Module = async (env: Env) => {
-  // exit if there are still files to commit (unless in verify mode)
-  if (!isVerify(env) && (env.uncommittedFiles?.length ?? 0) > 0) {
+  log(`running on branch ${bold(env.currentBranch)}`);
+
+  // Notify the user if there are still files to commit
+  if (env.uncommittedFiles && env.uncommittedFiles.length > 0) {
     error(
       `You have uncommitted changes. ${red(
-        '' + env.uncommittedFiles?.length
+        env.uncommittedFiles.length
       )} files affected.`
     );
-    process.exit(exitCodes.UNCOMMITTED);
+
+    // Terminate the process if not on Verify mode
+    !isVerify(env) && process.exit(exitCodes.UNCOMMITTED);
   }
 
-  // for a production release you have to be on a release branch
+  // Notify the user if the current branch is not correct for a production release
   if (!isCorrectBranch(env)) {
     error(
       `Production releases must be started on a release branch (release/11.22)`
     );
-    process.exit(exitCodes.WRONG_BRANCH);
-  }
 
-  log(`running on branch ${bold(env.currentBranch)}`);
+    // Terminate the process if not on Verify mode
+    !isVerify(env) && process.exit(exitCodes.WRONG_BRANCH);
+  }
 
   return env;
 };
