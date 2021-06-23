@@ -119,3 +119,8 @@ export type Env = {
 };
 
 export type Module = (env: Env) => Promise<Env> | Env;
+
+export type ReleaseNote = {
+  package: string;
+  releaseNoteMd: string;
+};

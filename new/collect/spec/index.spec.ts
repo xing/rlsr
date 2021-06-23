@@ -23,6 +23,7 @@ const mockAddRawCommitMessages = jest.fn();
 const mockParseCommitMessages = jest.fn();
 const mockAddFilesToCommitMessages = jest.fn();
 const mockAddAllPackageJsons = jest.fn();
+const mockAddMainNotes = jest.fn();
 
 jest.mock("../../helpers/compose-async", () => ({
   composeAsync: mockComposeAsync,
@@ -61,6 +62,9 @@ jest.mock("../add-files-to-commit-messages", () => ({
 }));
 jest.mock("../add-all-package-jsons", () => ({
   addAllPackageJsons: mockAddAllPackageJsons,
+}));
+jest.mock("../add-main-notes", () => ({
+  addMainNotes: mockAddMainNotes,
 }));
 
 describe("collect's Index", () => {
@@ -152,9 +156,13 @@ describe("collect's Index", () => {
     // @ts-ignore
     expect(mockComposeAsync.mock.calls[0][13]).toBe(mockAddAllPackageJsons);
   });
-  test("14. waits for a second", () => {
+  test("15. adds main release notes to Env config file", () => {
     // @ts-ignore
-    expect(mockComposeAsync.mock.calls[0][14]).toBe(mockWaitResult);
+    expect(mockComposeAsync.mock.calls[0][14]).toBe(mockAddMainNotes);
+  });
+  test("16. waits for a second", () => {
+    // @ts-ignore
+    expect(mockComposeAsync.mock.calls[0][15]).toBe(mockWaitResult);
   });
 
   // Aditional tests
