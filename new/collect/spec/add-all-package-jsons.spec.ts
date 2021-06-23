@@ -3,11 +3,6 @@
 import type { Env, Module } from "../../types";
 import { envWithConfig } from "../../fixtures/env";
 
-// mock global process
-const mockRootDirectory = "path/to/root";
-const mockCwd = jest.spyOn(process, "cwd");
-mockCwd.mockImplementation(() => mockRootDirectory);
-
 // mock chalk
 const mockYellow = jest.fn((text) => `yellow(${text})`);
 jest.doMock("chalk", () => ({ yellow: mockYellow }));
@@ -50,11 +45,9 @@ describe("addAllPackageJsons Module", () => {
     });
 
     it("uses the right golb pattern for package.json", () => {
-      expect(mockCwd).toHaveBeenCalledTimes(1);
-
       expect(mockSync).toHaveBeenCalledTimes(1);
       expect(mockSync).toHaveBeenCalledWith(
-        `${mockRootDirectory}/!(node_modules)/**/package.json`
+        `${envWithConfig.appRoot}/!(node_modules)/**/package.json`
       );
     });
 

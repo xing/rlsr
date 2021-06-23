@@ -3,11 +3,6 @@
 import type { Env, Module } from "../../types";
 import { envWithConfig } from "../../fixtures/env";
 
-// mock global process
-const mockRootDirectory = "path/to/root";
-const mockCwd = jest.spyOn(process, "cwd");
-mockCwd.mockImplementation(() => mockRootDirectory);
-
 const mockFilesBuilder = (id: number) => ({
   id,
   path: `path/to/package_${id}`,
@@ -70,11 +65,9 @@ describe("addMainNotes Module", () => {
     });
 
     it("uses the right golb pattern for release-notes.md", () => {
-      expect(mockCwd).toHaveBeenCalledTimes(1);
-
       expect(mockSync).toHaveBeenCalledTimes(1);
       expect(mockSync).toHaveBeenCalledWith(
-        `${mockRootDirectory}/!(node_modules)/**/release-notes.md`
+        `${envWithConfig.appRoot}/!(node_modules)/**/release-notes.md`
       );
     });
 
@@ -126,7 +119,10 @@ describe("addMainNotes Module", () => {
         ...envWithConfig,
         releaseNotes: mockFiles.map((file) => ({
           package: file.pkg.name,
-          releaseNoteMd: file.releaseNoteMd,
+          releaseNote: {
+            path: `${file.path}/release-notes.md`,
+            content: file.releaseNoteMd,
+          },
         })),
       };
       expect(result).toEqual(expected);

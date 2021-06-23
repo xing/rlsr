@@ -122,5 +122,8 @@ export type Module = (env: Env) => Promise<Env> | Env;
 
 export type ReleaseNote = {
   package: string;
-  releaseNoteMd: string;
+  releaseNote: {
+    path: string;
+    content: string;
+  };
 };

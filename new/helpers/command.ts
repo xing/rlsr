@@ -68,7 +68,7 @@ export const command: Command = (topic, cmd, stdout, stderr) => (env) =>
           )}`
         );
         reject();
-        process.exit(code || undefined);
+        process.exit(code || 1);
       }
     });
   });

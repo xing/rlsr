@@ -6,13 +6,11 @@ import { logger } from "../helpers/logger";
 
 const { log } = logger("add all package.json");
 
-const ROOT = process.cwd();
-
 export const addAllPackageJsons: Module = (env) => {
   log("Search for all package.json");
   // Fetch all packageJson' paths
   const packageJsonPaths: string[] = glob(
-    `${ROOT}/!(node_modules)/**/package.json`
+    `${env.appRoot}/!(node_modules)/**/package.json`
   );
 
   log(`${yellow(packageJsonPaths.length)} package.json found`);
