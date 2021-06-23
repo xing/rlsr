@@ -1,6 +1,7 @@
 import { envWithConfig } from "../../fixtures/env";
-import { Env } from "../../types";
+import { Config, Env } from "../../types";
 import { checkGitStatus, exitCodes } from "../check-git-status";
+import { defaultConfig as collectConfig } from "../config";
 
 /* eslint-env node, jest */
 describe("checkGitStatus Module", () => {
@@ -26,13 +27,11 @@ describe("checkGitStatus Module", () => {
   });
 
   describe("on Verify", () => {
+    const config: Config = { ...collectConfig, impact: "verify" };
     const env: Env = {
       ...envWithConfig,
       uncommittedFiles: ["foo"],
-      config: {
-        ...envWithConfig.config,
-        impact: "verify",
-      },
+      config,
     };
     let result: Env;
     beforeAll(async () => {
