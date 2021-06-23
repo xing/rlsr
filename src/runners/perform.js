@@ -5,7 +5,7 @@ const packages = require('../read/getPackages');
 const writeCleanedPackageJson = require('../perform/write-cleaned-main-package-json');
 const commandsFactory = require('../perform/commands');
 
-module.exports = env => {
+module.exports = (env) => {
   env.log('running step PERFORM PUBLISH');
 
   const previouslyUnreleased =
@@ -32,38 +32,38 @@ module.exports = env => {
       .then(() =>
         packages(path.join(env.appRoot, env.config.packagePath), env.consts.nsp)
       )
-      .then(flatPackages => {
+      .then((flatPackages) => {
         return R.indexBy(R.prop('name'), flatPackages);
       })
       // filter unreleased
       // for manual manipulation, we filter stuff that doesn't match any real package (#5)
-      .then(packages => {
+      .then((packages) => {
         return previouslyUnreleased
-          .map(packageName => packages[packageName])
-          .filter(p => !!p);
+          .map((packageName) => packages[packageName])
+          .filter((p) => !!p);
       })
       // add tag for every changed component
-      .then(packages =>
+      .then((packages) =>
         Promise.all(
-          packages.map(p => commands.tagPackage(p.name, p.version))
+          packages.map((p) => commands.tagPackage(p.name, p.version))
         ).then(() => packages)
       )
       // clean up main package.json
-      .then(packages => writeCleanedPackageJson(env).then(() => packages))
+      .then((packages) => writeCleanedPackageJson(env).then(() => packages))
       // commit main package.json
-      .then(packages =>
+      .then((packages) =>
         commands.commitMain(env.mainPackage.version).then(() => packages)
       )
-      .then(packages =>
+      .then((packages) =>
         commands.tagMain(env.mainPackage.version).then(() => packages)
       )
-      .then(packages =>
+      .then((packages) =>
         commands.push(env.config.remote, env.config.branch).then(() => packages)
       )
       // npm publish all packages
-      .then(packages =>
+      .then((packages) =>
         Promise.all(
-          packages.map(p => {
+          packages.map((p) => {
             return commands
               .publishPackage(
                 p.name,
@@ -98,7 +98,7 @@ module.exports = env => {
         )
       )
       // npm publish every changed component
-      .catch(e => {
+      .catch((e) => {
         env.err(e);
         process.exit(1);
       });

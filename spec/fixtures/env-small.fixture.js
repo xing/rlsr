@@ -6,16 +6,16 @@ const env = {
   appRoot: '/',
   mainPackage: {
     version: '1.2.3',
-    rlsr: {}
+    rlsr: {},
   },
   consts: {
     nsp: 'rlsr',
     rlsrLatest: 'rlsr-latest',
-    levels: ['patch', 'minor', 'major']
+    levels: ['patch', 'minor', 'major'],
   },
   messages: [],
   packages: {},
-  changelog: {}
+  changelog: {},
 };
 
 module.exports = R.curry((packages, messages) =>

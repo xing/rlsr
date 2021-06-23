@@ -1,52 +1,52 @@
-import { Env, Message, Module } from "../../../types";
+import { Env, Message, Module } from '../../../types';
 
 // Helper
 const buildMessageMock = (
   quantity: number,
-  level: Message["level"]
+  level: Message['level']
 ): Message[] =>
   new Array(quantity).fill({
     level,
-    hash: "hash",
-    date: "date",
-    message: "message",
-    body: "body",
+    hash: 'hash',
+    date: 'date',
+    message: 'message',
+    body: 'body',
   });
 
 // mock chalk
 const mockYellow = jest.fn((text) => `yellow(${text})`);
-jest.mock("chalk", () => ({ yellow: mockYellow }));
+jest.mock('chalk', () => ({ yellow: mockYellow }));
 
 // mock lodash/fp
 const mockMessageTransform = jest.fn((element) => element);
 const mockPipe = jest.fn(() => mockMessageTransform);
-jest.mock("lodash/fp", () => ({ pipe: mockPipe }));
+jest.mock('lodash/fp', () => ({ pipe: mockPipe }));
 
 // mock logger
 const mockLog = jest.fn();
 const mockLogger = jest.fn(() => ({ log: mockLog }));
-jest.mock("../../../helpers/logger", () => ({ logger: mockLogger }));
+jest.mock('../../../helpers/logger', () => ({ logger: mockLogger }));
 
 // mock parse helpers
 const mockParse = jest.fn();
 const mockRefineType = jest.fn();
 const mockAddLevel = jest.fn();
 
-jest.mock("../parse", () => ({ parse: mockParse }));
-jest.mock("../refine-type", () => ({ refineType: mockRefineType }));
-jest.mock("../add-level", () => ({ addLevel: mockAddLevel }));
+jest.mock('../parse', () => ({ parse: mockParse }));
+jest.mock('../refine-type', () => ({ refineType: mockRefineType }));
+jest.mock('../add-level', () => ({ addLevel: mockAddLevel }));
 
-describe("parse-commit-messages", () => {
+describe('parse-commit-messages', () => {
   let parseCommitMessages: Module;
 
   beforeAll(() => {
-    parseCommitMessages = require("../index").parseCommitMessages;
+    parseCommitMessages = require('../index').parseCommitMessages;
   });
   test('creates "git messages" logger', () => {
     expect(mockLogger).toHaveBeenCalledTimes(1);
-    expect(mockLogger).toHaveBeenCalledWith("git messages");
+    expect(mockLogger).toHaveBeenCalledWith('git messages');
   });
-  test("chain parsers (parse, refineType and addLevel) to parse messages", () => {
+  test('chain parsers (parse, refineType and addLevel) to parse messages', () => {
     expect(mockPipe).toHaveBeenCalledTimes(1);
     expect(mockPipe).toHaveBeenCalledWith(
       mockParse,
@@ -63,17 +63,17 @@ describe("parse-commit-messages", () => {
     ${0}  | ${0}  | ${3}  | ${3}
     ${1}  | ${2}  | ${3}  | ${4}
   `(
-    "on $major major, $minor minor, $patch patch, $misc misc",
+    'on $major major, $minor minor, $patch patch, $misc misc',
     ({ major, minor, patch, misc }) => {
       const mockEnv: Env = {
-        stage: "canary",
+        stage: 'canary',
         force: false,
-        appRoot: "/",
+        appRoot: '/',
         rawCommitMessages: [
-          ...buildMessageMock(major, "major"),
-          ...buildMessageMock(minor, "minor"),
-          ...buildMessageMock(patch, "patch"),
-          ...buildMessageMock(misc, "misc"),
+          ...buildMessageMock(major, 'major'),
+          ...buildMessageMock(minor, 'minor'),
+          ...buildMessageMock(patch, 'patch'),
+          ...buildMessageMock(misc, 'misc'),
         ],
       };
       let result: Env;
@@ -102,9 +102,9 @@ describe("parse-commit-messages", () => {
         expect(result).toEqual({
           ...mockEnv,
           commitMessages: [
-            ...buildMessageMock(major, "major"),
-            ...buildMessageMock(minor, "minor"),
-            ...buildMessageMock(patch, "patch"),
+            ...buildMessageMock(major, 'major'),
+            ...buildMessageMock(minor, 'minor'),
+            ...buildMessageMock(patch, 'patch'),
           ],
         });
       });

@@ -1,4 +1,4 @@
-const R = require("ramda");
+const R = require('ramda');
 
 /*
 TYPICAL MESSAGE FORMAT
@@ -37,8 +37,8 @@ OUTPUT FORMAT
 
 const BREAKING_REGEXP = /BREAKING/i;
 const AFFECTED_REGEXP = /affects:/i;
-const PATCH_TYPES = ["fix", "refactor", "perf", "revert"];
-const MINOR_TYPES = ["feat"];
+const PATCH_TYPES = ['fix', 'refactor', 'perf', 'revert'];
+const MINOR_TYPES = ['feat'];
 
 const isRelevant = (msg) =>
   R.contains(msg.type, R.concat(PATCH_TYPES, MINOR_TYPES));
@@ -54,7 +54,7 @@ const addBreaking = (msg) =>
   });
 
 const parseMessageBody = (s) => {
-  const lines = s.split("\n");
+  const lines = s.split('\n');
   let matchedLine;
   const body = lines
     .filter((line) => {
@@ -65,26 +65,26 @@ const parseMessageBody = (s) => {
         return true;
       }
     })
-    .join("\n");
+    .join('\n');
 
   return {
     body,
     affected:
       matchedLine &&
       matchedLine
-        .replace("affects:", "")
-        .split(",")
+        .replace('affects:', '')
+        .split(',')
         .map((s) => s.trim()),
   };
 };
 
 const parseMessage = (m, packageNames) => {
   const message = Object.assign(
-    R.pick(["type", "scope", "subject", "level"], m),
+    R.pick(['type', 'scope', 'subject', 'level'], m),
     parseMessageBody(
       m.body || m.footer
-        ? `${m.body ? m.body + "\n\n" : ""}${m.footer || ""}`
-        : ""
+        ? `${m.body ? m.body + '\n\n' : ''}${m.footer || ''}`
+        : ''
     )
   );
   if (!message.affected) {

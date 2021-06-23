@@ -1,36 +1,36 @@
 /* eslint-env node, jest */
-import type { Env, Module } from "../../types";
+import type { Env, Module } from '../../types';
 
-const mockEnvBase: Env = { stage: "canary", force: false, appRoot: "/" };
+const mockEnvBase: Env = { stage: 'canary', force: false, appRoot: '/' };
 const mockEnvWithRegistry: Env = {
   ...mockEnvBase,
   config: {
     debug: false,
-    remote: "",
-    branch: "",
-    changelogPath: "/",
-    metadataPath: "/",
-    registry: "https://registry.npmjs.org",
-    mode: "independent",
-    impact: "full",
-    tag: "latest",
-    productionBranch: "production",
-    betaBranch: "beta",
-    mainBranch: "main",
-    betaTag: "beta",
+    remote: '',
+    branch: '',
+    changelogPath: '/',
+    metadataPath: '/',
+    registry: 'https://registry.npmjs.org',
+    mode: 'independent',
+    impact: 'full',
+    tag: 'latest',
+    productionBranch: 'production',
+    betaBranch: 'beta',
+    mainBranch: 'main',
+    betaTag: 'beta',
   },
 };
 
-describe("checkNpmPing", () => {
+describe('checkNpmPing', () => {
   const mockModule = jest.fn();
   const commandMock = jest.fn(() => mockModule);
   let checkNpmPing: Module;
 
   beforeAll(() => {
-    jest.mock("../../helpers/command", () => ({
+    jest.mock('../../helpers/command', () => ({
       command: commandMock,
     }));
-    checkNpmPing = require("../check-npm-ping").checkNpmPing;
+    checkNpmPing = require('../check-npm-ping').checkNpmPing;
   });
   afterAll(() => {
     jest.clearAllMocks();
@@ -50,31 +50,31 @@ describe("checkNpmPing", () => {
       //@ts-ignore
       [topic, cmd, stdOut, stdErr] = commandMock.mock.calls[0];
     });
-    it("runs on import", () => {
+    it('runs on import', () => {
       expect(commandMock).toBeCalled();
     });
 
-    it("sets the right topic", () => {
-      expect(topic).toEqual("check npm ping");
+    it('sets the right topic', () => {
+      expect(topic).toEqual('check npm ping');
     });
-    describe("command", () => {
-      it("is a function", () => {
+    describe('command', () => {
+      it('is a function', () => {
         expect(cmd).toBeInstanceOf(Function);
       });
-      it("returns the command with registry as a string when config is present", () => {
+      it('returns the command with registry as a string when config is present', () => {
         expect(cmd(mockEnvWithRegistry)).toEqual(
-          "npm ping --registry=https://registry.npmjs.org"
+          'npm ping --registry=https://registry.npmjs.org'
         );
       });
-      it("returns the command with empty registry as a string when config is not present", () => {
-        expect(cmd(mockEnvBase)).toEqual("npm ping");
+      it('returns the command with empty registry as a string when config is not present', () => {
+        expect(cmd(mockEnvBase)).toEqual('npm ping');
       });
     });
     it('sets the stdOut to "silent"', () => {
-      expect(stdOut).toEqual("silent");
+      expect(stdOut).toEqual('silent');
     });
     it('sets the stdErr to "inf"', () => {
-      expect(stdErr).toEqual("inf");
+      expect(stdErr).toEqual('inf');
     });
   });
 });

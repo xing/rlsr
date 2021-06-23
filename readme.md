@@ -25,20 +25,20 @@ BREAKING CHANGE: description of breaking stuff
 
 Taking these commit messages, the tool automatically
 
-* creates **changelogs**
-* updates **package.jsons** of the modules
-* updates package.jsons of the **related modules**
-* creates all needed **git tags**
-* persists everything as **git commit**s
-* finally **publish**es the relevant packages to npm
+- creates **changelogs**
+- updates **package.jsons** of the modules
+- updates package.jsons of the **related modules**
+- creates all needed **git tags**
+- persists everything as **git commit**s
+- finally **publish**es the relevant packages to npm
 
 For this the following rules apply:
 
-* The type `feat` triggers a **minor** release
-* The types `fix`, `refactor`, `perf`, `revert`trigger a **patch** release
-* The word `BREAKING` somewhere in the message (subject or body) converts this
+- The type `feat` triggers a **minor** release
+- The types `fix`, `refactor`, `perf`, `revert`trigger a **patch** release
+- The word `BREAKING` somewhere in the message (subject or body) converts this
   to a **major** release
-* The scope (sitting in brackets next to the type) is the most important part.
+- The scope (sitting in brackets next to the type) is the most important part.
   It determines which package is tackled with the commit
 
 ## installation
@@ -75,10 +75,10 @@ well as the npm publish using `npm run release` (or `rlsr pre && rlsr perform`).
 _rlsr_ understands two paradigms for handling dependencies from one monorepo
 package to another.
 
-* _exact_: The versions of dependencies are handled exact and recursively. A
+- _exact_: The versions of dependencies are handled exact and recursively. A
   major bump for example leads to a patch bump of the related package and a
   dependency like `5.0.0`.
-* _range_: The versions of dependencies are handled as a maximum range. A
+- _range_: The versions of dependencies are handled as a maximum range. A
   related package is only bumped when the range exceeds. In this case the range
   will be extended like `3.2.1 - 5`
 
@@ -87,15 +87,15 @@ package to another.
 RLSR has some config values, that you can set inside your package.json in a
 `rlsr` section.
 
-* `verbose` (boolean): `true` creates a lot more output for debugging purposes.
-* `packagePath` (string): tells the system where the multi repo packages live
+- `verbose` (boolean): `true` creates a lot more output for debugging purposes.
+- `packagePath` (string): tells the system where the multi repo packages live
   (defaults to `./packages`)
-* `exactRelations` (boolean): use the exact paradigm for related versions
+- `exactRelations` (boolean): use the exact paradigm for related versions
   (defaults to false)
-* `scopeToNameMap` (object): map commit message scopes to a different package
+- `scopeToNameMap` (object): map commit message scopes to a different package
   names. For example to use a shorter name in scopes or to handle renaming of
   packages.
-* `additionalReleaseScope` (string): An npm scope (or orga) to use for double
+- `additionalReleaseScope` (string): An npm scope (or orga) to use for double
   publication under `package-name` and `@scope/package-name`. Has to start with
   an `@`
 
@@ -120,9 +120,9 @@ in it's dependencies.
 
 There are currently two criteria:
 
-* The commit message type would itself trigger at least a patch release (`feat`,
+- The commit message type would itself trigger at least a patch release (`feat`,
   `fix`, `refactor`, `perf`, `revert`)
-* AND the message subject ot the message body contains at least the term
+- AND the message subject ot the message body contains at least the term
   `BREAKING` in uppercase
 
 The easiest way to achieve this is by using `commitizen` and enter something

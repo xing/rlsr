@@ -2,9 +2,9 @@ const R = require('ramda');
 const bump = require('./semver').bump;
 const max = R.apply(Math.max);
 
-module.exports = env => {
+module.exports = (env) => {
   let increment = max(
-    env.messages.filter(m => m.affected.length > 0).map(m => m.level)
+    env.messages.filter((m) => m.affected.length > 0).map((m) => m.level)
   );
   if (increment === -Infinity) {
     increment = -1;
@@ -13,7 +13,9 @@ module.exports = env => {
   const versionBefore = env.mainPackage.version;
   env = R.assocPath(
     ['mainPackage', env.consts.nsp, 'previouslyUnreleased'],
-    R.values(env.packages).filter(p => p[env.consts.nsp].determinedIncrementLevel > -1).map(p => p.name),
+    R.values(env.packages)
+      .filter((p) => p[env.consts.nsp].determinedIncrementLevel > -1)
+      .map((p) => p.name),
     env
   );
   env = R.assocPath(
@@ -27,8 +29,7 @@ module.exports = env => {
     env
   );
   env.log(
-    `Bumping main package from <${versionBefore}> to <${env.mainPackage
-      .version}>`
+    `Bumping main package from <${versionBefore}> to <${env.mainPackage.version}>`
   );
 
   return env;

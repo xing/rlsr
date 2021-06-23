@@ -9,7 +9,7 @@ const getMessage = () => ({
   subject: 'short desc',
   header: 'feat(scope): short desc',
   body: 'affects: a, b, c\n\nBody\nBody Line 2',
-  footer: 'BREAKING CHANGE:\nDescription\n\nISSUES CLOSED: #45'
+  footer: 'BREAKING CHANGE:\nDescription\n\nISSUES CLOSED: #45',
 });
 
 const getMajorMessage = getMessage;
@@ -46,7 +46,7 @@ describe('refineMessages()', () => {
   it('can work with several messages', () => {
     const env = getEnv({ a: {}, b: {}, c: {} }, [
       getMinorMessage(),
-      getPatchMessage()
+      getPatchMessage(),
     ]);
     const exp = refineMessages(env);
 
@@ -57,7 +57,7 @@ describe('refineMessages()', () => {
     const env = getEnv({ a: {}, b: {}, c: {} }, [
       getMinorMessage(),
       getPatchMessage(),
-      getIrrelevantMessage()
+      getIrrelevantMessage(),
     ]);
     const exp = refineMessages(env);
 
@@ -73,7 +73,7 @@ describe('refineMessages()', () => {
 
   it('parses single affected packages', () => {
     const env = getEnv({ a: {}, b: {}, c: {} }, [
-      getMessageWithSinglePackage()
+      getMessageWithSinglePackage(),
     ]);
     const exp = refineMessages(env);
 

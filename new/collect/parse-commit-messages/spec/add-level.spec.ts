@@ -1,30 +1,30 @@
 /* eslint-env node, jest */
-import type { MessageConventionalCommit } from "../../../types";
+import type { MessageConventionalCommit } from '../../../types';
 
 const buildMockedMessage = (
-  type: MessageConventionalCommit["type"],
+  type: MessageConventionalCommit['type'],
   breaking: boolean
 ): MessageConventionalCommit => ({
   type,
-  text: `${type}: mock feature commit message ${breaking && "BREAKING"}`,
-  hash: "d1eb6c0bde101c77205bdc42a1ea5513d61da0d9",
-  date: "Sat Jun 5 13:33:23 2021 -0300",
+  text: `${type}: mock feature commit message ${breaking && 'BREAKING'}`,
+  hash: 'd1eb6c0bde101c77205bdc42a1ea5513d61da0d9',
+  date: 'Sat Jun 5 13:33:23 2021 -0300',
   message: `mock ${type} commit message`,
   body: `mock ${type} commit body message`,
 });
 
-import { addLevel } from "../add-level";
+import { addLevel } from '../add-level';
 
 describe.each`
   type       | breaking | expectedLevel
-  ${"chore"} | ${false} | ${"misc"}
-  ${"chore"} | ${true}  | ${"major"}
-  ${"fix"}   | ${false} | ${"patch"}
-  ${"style"} | ${false} | ${"patch"}
-  ${"fix"}   | ${true}  | ${"major"}
-  ${"style"} | ${true}  | ${"major"}
-  ${"feat"}  | ${false} | ${"minor"}
-  ${"feat"}  | ${true}  | ${"major"}
+  ${'chore'} | ${false} | ${'misc'}
+  ${'chore'} | ${true}  | ${'major'}
+  ${'fix'}   | ${false} | ${'patch'}
+  ${'style'} | ${false} | ${'patch'}
+  ${'fix'}   | ${true}  | ${'major'}
+  ${'style'} | ${true}  | ${'major'}
+  ${'feat'}  | ${false} | ${'minor'}
+  ${'feat'}  | ${true}  | ${'major'}
 `(
   'add-level helper: type: "$type", (Breaking: $breaking)',
   ({ type, breaking, expectedLevel }) => {

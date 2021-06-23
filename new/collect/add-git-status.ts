@@ -1,6 +1,6 @@
-import simpleGit, { SimpleGit } from "simple-git";
-import { sortSemver } from "../helpers/sort-semver";
-import { Env, Module } from "../types";
+import simpleGit, { SimpleGit } from 'simple-git';
+import { sortSemver } from '../helpers/sort-semver';
+import { Env, Module } from '../types';
 
 // @TODO: Allow users to specify their own tags format
 const verifyTag = (tag: string) =>
@@ -21,13 +21,13 @@ export const addGitStatus: Module = async (env: Env) => {
   const uncommittedFiles = files.map((f) => f.path);
   const currentHash = (await git.log()).latest?.hash;
   const initialHash = (
-    await git.raw("rev-list", "--max-parents=0", "HEAD")
+    await git.raw('rev-list', '--max-parents=0', 'HEAD')
   ).trim();
 
   const allTags = Array.from((await git.tags()).all).reverse();
 
-  const tagsInTree = (await git.tag(["--merged"]))
-    .split("\n")
+  const tagsInTree = (await git.tag(['--merged']))
+    .split('\n')
     .filter(verifyTag)
     .sort(sortSemver)
     .filter(Boolean);

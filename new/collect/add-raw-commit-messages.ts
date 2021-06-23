@@ -1,10 +1,10 @@
-import { pick } from "lodash/fp";
-import { yellow } from "chalk";
-import simpleGit, { SimpleGit } from "simple-git";
-import { logger } from "../helpers/logger";
-import { Module, Env } from "../types";
+import { pick } from 'lodash/fp';
+import { yellow } from 'chalk';
+import simpleGit, { SimpleGit } from 'simple-git';
+import { logger } from '../helpers/logger';
+import { Module, Env } from '../types';
 
-const { log } = logger("git messages");
+const { log } = logger('git messages');
 
 /**
  * Get all commit messages between the last hash and now
@@ -24,7 +24,7 @@ export const addRawCommitMessages: Module = async (env: Env) => {
 
   // parsing and enriching
   const rawCommitMessages = data.all.map(
-    pick(["hash", "date", "message", "body"])
+    pick(['hash', 'date', 'message', 'body'])
   );
 
   log(`${yellow(rawCommitMessages.length)} overall affected commits`);

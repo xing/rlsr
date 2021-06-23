@@ -1,6 +1,6 @@
 const semver = require('semver');
 
-const parseVersion = s => s.split('.').map(n => parseInt(n));
+const parseVersion = (s) => s.split('.').map((n) => parseInt(n));
 
 const satisfies = (module.exports.satisfies = semver.satisfies);
 

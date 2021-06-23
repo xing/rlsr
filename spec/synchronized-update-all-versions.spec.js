@@ -7,14 +7,14 @@ const getEnv = require('./fixtures/env-small.fixture')({
     version: '1.2.3',
     rlsr: {},
     dependencies: {
-      two: '3.2.1'
-    }
+      two: '3.2.1',
+    },
   },
   two: {
     name: 'two',
     version: '3.4.5',
-    rlsr: {}
-  }
+    rlsr: {},
+  },
 });
 
 const synchronizedUpdateAllVersions = require('../src/transform/synchronized-update-all-versions');

@@ -7,24 +7,24 @@ const BREAKING_REGEXP = /BREAKING/;
 const PATCH_TYPES = ['fix', 'refactor', 'perf', 'revert'];
 const MINOR_TYPES = ['feat'];
 
-const isRelevant = msg =>
+const isRelevant = (msg) =>
   R.contains(msg.type, R.concat(PATCH_TYPES, MINOR_TYPES));
 
-const addLevel = msg =>
+const addLevel = (msg) =>
   Object.assign({}, msg, { level: R.contains(msg.type, MINOR_TYPES) ? 1 : 0 });
 
-const addBreaking = msg => {
+const addBreaking = (msg) => {
   return Object.assign({}, msg, {
     level: (msg.subject + msg.body + msg.footer).match(BREAKING_REGEXP)
       ? 2
-      : msg.level
+      : msg.level,
   });
 };
 
-const scopeToName = map => msg => {
+const scopeToName = (map) => (msg) => {
   if (map[msg.scope]) {
     return Object.assign({}, msg, {
-      scope: map[msg.scope]
+      scope: map[msg.scope],
     });
   }
 
@@ -37,10 +37,10 @@ module.exports = (tag, scopeToNameMap) =>
 
     commits({ from: tag })
       .pipe(parser())
-      .on('data', chunk => {
+      .on('data', (chunk) => {
         commitMessages.push(chunk);
       })
-      .on('error', err => reject(err))
+      .on('error', (err) => reject(err))
       .on('end', () => {
         resolve(
           commitMessages

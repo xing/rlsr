@@ -1,21 +1,21 @@
-import type { Env, Module } from "../../types";
+import type { Env, Module } from '../../types';
 
-const mockEnv: Env = { stage: "canary", force: false, appRoot: "/" };
+const mockEnv: Env = { stage: 'canary', force: false, appRoot: '/' };
 
 type buildPromiseType = <Type>(result: Type) => Promise<Type>;
 const buildPromise: buildPromiseType = (result) =>
   new Promise((resolve) => resolve(result));
 
-const mockedFilesPaths = ["/", "/package.json"];
+const mockedFilesPaths = ['/', '/package.json'];
 // @TODO: Add Test cases for different tags
-const mockTag = ["v0.2.0", "v2.0.0", "v3.1.0"];
+const mockTag = ['v0.2.0', 'v2.0.0', 'v3.1.0'];
 
 describe.each`
   testCase | statusCurrent   | statusFilesPaths    | tags       | logHash
-  ${1}     | ${"production"} | ${mockedFilesPaths} | ${mockTag} | ${"a046014605018446ec2a77beb2024d283ac27447"}
-  ${2}     | ${"production"} | ${mockedFilesPaths} | ${mockTag} | ${undefined}
+  ${1}     | ${'production'} | ${mockedFilesPaths} | ${mockTag} | ${'a046014605018446ec2a77beb2024d283ac27447'}
+  ${2}     | ${'production'} | ${mockedFilesPaths} | ${mockTag} | ${undefined}
 `(
-  "add-git-status - test case $testCase",
+  'add-git-status - test case $testCase',
   ({ statusCurrent, statusFilesPaths, tags, logHash }) => {
     let addGitStatus: Module;
     let result: Env;
@@ -24,7 +24,7 @@ describe.each`
     const mockSimpleGit = jest.fn();
     const mockStatus = jest.fn();
     const mockLog = jest.fn();
-    const mockRaw = jest.fn(() => "7ec3f9525cf2c2cd9c63836b7a71fb0092c02657\n");
+    const mockRaw = jest.fn(() => '7ec3f9525cf2c2cd9c63836b7a71fb0092c02657\n');
     const mockTags = jest.fn();
     const mockTag = jest.fn();
 
@@ -42,7 +42,7 @@ describe.each`
       );
 
       mockTags.mockImplementation(() => buildPromise(semverSortedTags));
-      mockTag.mockImplementation(() => buildPromise(tags.join("\n")));
+      mockTag.mockImplementation(() => buildPromise(tags.join('\n')));
 
       const semverSortedTags = { all: tags };
       mockSimpleGit.mockImplementation(() => ({
@@ -52,15 +52,15 @@ describe.each`
         tags: mockTags,
         tag: mockTag,
       }));
-      jest.mock("simple-git", () => mockSimpleGit);
+      jest.mock('simple-git', () => mockSimpleGit);
 
       // sort-semver Mocks
       sortSemverSpy = jest.spyOn(
-        require("../../helpers/sort-semver"),
-        "sortSemver"
+        require('../../helpers/sort-semver'),
+        'sortSemver'
       );
 
-      addGitStatus = require("../add-git-status").addGitStatus;
+      addGitStatus = require('../add-git-status').addGitStatus;
       result = await addGitStatus(mockEnv);
     });
 
@@ -69,7 +69,7 @@ describe.each`
       jest.clearAllMocks();
     });
 
-    it("uses singleGit", () => {
+    it('uses singleGit', () => {
       expect(mockSimpleGit).toHaveBeenCalledTimes(1);
     });
 
@@ -80,9 +80,9 @@ describe.each`
     it("uses singleGit's raw() method to fetch initial hash", () => {
       expect(mockRaw).toHaveBeenCalledTimes(1);
       expect(mockRaw).toHaveBeenCalledWith(
-        "rev-list",
-        "--max-parents=0",
-        "HEAD"
+        'rev-list',
+        '--max-parents=0',
+        'HEAD'
       );
     });
 
@@ -92,14 +92,14 @@ describe.each`
 
     it("uses singleGit's tag() method", () => {
       expect(mockTag).toHaveBeenCalledTimes(1);
-      expect(mockTag).toHaveBeenCalledWith(["--merged"]);
+      expect(mockTag).toHaveBeenCalledWith(['--merged']);
     });
 
-    it("sorts tags", () => {
+    it('sorts tags', () => {
       expect(sortSemverSpy).toHaveBeenCalledTimes(tags.length - 1);
     });
 
-    describe("its Env return object", () => {
+    describe('its Env return object', () => {
       it("contains the orginal Env's attributes received as parameter", () => {
         expect(result).toMatchObject(mockEnv);
       });

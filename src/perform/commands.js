@@ -17,29 +17,32 @@ module.exports = (log, dbg) => {
       return getPackages(
         path.join(env.appRoot, env.config.packagePath),
         env.consts.nsp
-      ).then(allPackages => {
-        const nameToDir = name => allPackages.find(p => p.name === name)[env.consts.nsp].dir;
+      )
+        .then((allPackages) => {
+          const nameToDir = (name) =>
+            allPackages.find((p) => p.name === name)[env.consts.nsp].dir;
 
-        return R.flatten(
-          packages
-            .map(nameToDir)
-            .map(dir => [
-              path.join(dir, 'changelog.md'),
-              path.join(dir, 'package.json')
-            ])
-            .concat(
-              additionalPackages
-                .map(nameToDir)
-                .map(dir =>
-                  path.join(dir, 'package.json')
-                )
-            )
-            .concat([path.join(env.appRoot, 'changelog.json')])
-        ).join(' ');
-      }).then((files) => run(
-        `git add ${files} && git commit -m "chore: release ${env.mainPackage.version}"`,
-        `committing changelogs for version <${env.mainPackage.version}>`
-      ));
+          return R.flatten(
+            packages
+              .map(nameToDir)
+              .map((dir) => [
+                path.join(dir, 'changelog.md'),
+                path.join(dir, 'package.json'),
+              ])
+              .concat(
+                additionalPackages
+                  .map(nameToDir)
+                  .map((dir) => path.join(dir, 'package.json'))
+              )
+              .concat([path.join(env.appRoot, 'changelog.json')])
+          ).join(' ');
+        })
+        .then((files) =>
+          run(
+            `git add ${files} && git commit -m "chore: release ${env.mainPackage.version}"`,
+            `committing changelogs for version <${env.mainPackage.version}>`
+          )
+        );
     },
     tagPackage: (name, version) =>
       run(
@@ -52,17 +55,17 @@ module.exports = (log, dbg) => {
         `npm publish -ddd -tag ${tag}`,
         `publishing <${name}@${version}> with tag <${tag}>`
       ),
-    commitMain: version =>
+    commitMain: (version) =>
       run(
         `git add package.json && git commit -m "chore: update main package ${version}"`,
         `committing changes for <${version}>`
       ),
-    tagMain: version =>
+    tagMain: (version) =>
       run(
         `git tag -a -m 'chore: tagged main package @ ${version}' ${version}`,
         `adding general git tag <${version}>`
       ),
     push: (remote, branch) =>
-      run(`git push ${remote} ${branch} --follow-tags`, 'pushing to remote')
+      run(`git push ${remote} ${branch} --follow-tags`, 'pushing to remote'),
   };
 };

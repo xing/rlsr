@@ -1,2 +1,2 @@
-export { checkNpmLogin } from "./check-npm-login";
-export { checkNpmPing } from "./check-npm-ping";
+export { checkNpmLogin } from './check-npm-login';
+export { checkNpmPing } from './check-npm-ping';

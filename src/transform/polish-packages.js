@@ -9,12 +9,12 @@ const modifyPackages = require('./modify-packages');
  * Relevant dependencies (all the internal ones) are
  * calculated and also added as a fields
  */
-module.exports = env => {
+module.exports = (env) => {
   const p = R.clone(env.packages);
   const packageNames = Object.keys(p);
   const nsp = env.consts.nsp;
 
-  packageNames.forEach(key => {
+  packageNames.forEach((key) => {
     const pData = {
       messages: [],
       relatedMessages: [],
@@ -23,20 +23,20 @@ module.exports = env => {
       peerRelations: [],
       determinedIncrementLevel: -1,
       dependencies: p[key].dependencies
-        ? Object.keys(p[key].dependencies).filter(depName =>
+        ? Object.keys(p[key].dependencies).filter((depName) =>
             R.contains(depName, packageNames)
           )
         : [],
       devDependencies: p[key].devDependencies
-        ? Object.keys(p[key].devDependencies).filter(depName =>
+        ? Object.keys(p[key].devDependencies).filter((depName) =>
             R.contains(depName, packageNames)
           )
         : [],
       peerDependencies: p[key].peerDependencies
-        ? Object.keys(p[key].peerDependencies).filter(depName =>
+        ? Object.keys(p[key].peerDependencies).filter((depName) =>
             R.contains(depName, packageNames)
           )
-        : []
+        : [],
     };
     p[key][nsp] = Object.assign({}, p[key][nsp], pData);
   });

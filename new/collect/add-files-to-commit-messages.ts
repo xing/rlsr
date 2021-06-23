@@ -1,21 +1,21 @@
-import type { Env, Message, Module } from "../types";
-const simpleGit = require("simple-git");
+import type { Env, Message, Module } from '../types';
+const simpleGit = require('simple-git');
 
-import { logger } from "../helpers/logger";
+import { logger } from '../helpers/logger';
 
-const { error } = logger("add files to commits");
+const { error } = logger('add files to commits');
 
 const gitCommand: string[] = [
-  "diff-tree",
-  "--no-commit-id",
-  "--name-only",
-  "-r",
+  'diff-tree',
+  '--no-commit-id',
+  '--name-only',
+  '-r',
 ];
 
 const addFilesToCommitMessages: Module = async (env: Env) => {
   const { commitMessages: originalCommitMessages } = env;
   if (!originalCommitMessages) {
-    throw new Error("Cannot read commitMessages to extract committed files");
+    throw new Error('Cannot read commitMessages to extract committed files');
   }
 
   const committedFiles = await Promise.all(
@@ -24,7 +24,7 @@ const addFilesToCommitMessages: Module = async (env: Env) => {
         return await simpleGit().raw(...gitCommand, commitMessage.hash);
       } catch (e) {
         error(e);
-        throw new Error("Cannot extract committed files");
+        throw new Error('Cannot extract committed files');
       }
     })
   );

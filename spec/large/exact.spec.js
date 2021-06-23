@@ -66,7 +66,7 @@ describe('large test: exact mode', () => {
     const env = getEnv([
       applyMinorLevel(applyMainScope(getMessage('taz'))), // four 4.6.0
       getMessage('raz'), // one 1.2.4
-      applyOtherScope(getMessage('roo')) // three 3.4.6
+      applyOtherScope(getMessage('roo')), // three 3.4.6
     ]);
     env.config.mode = 'exact';
 
@@ -85,7 +85,7 @@ describe('large test: exact mode', () => {
   it('applies messages with multiple affected packages', () => {
     const env = getEnv([
       applyMinorLevel(getMessage('waz')), // one 1.3.0
-      applyMultiScope(getMessage('tar')) // two 2.3.5 three 3.4.6
+      applyMultiScope(getMessage('tar')), // two 2.3.5 three 3.4.6
     ]);
     env.config.mode = 'exact';
 

@@ -1,26 +1,26 @@
 const R = require('ramda');
 
-module.exports = env => {
+module.exports = (env) => {
   const newChangelogEntry = {};
   newChangelogEntry.date = new Date(Date.now()).toUTCString();
 
   newChangelogEntry.changes = R.values(env.packages)
-    .filter(p => p.rlsr.hasBump)
+    .filter((p) => p.rlsr.hasBump)
     .reduce((entry, p) => {
       const messages = p[env.consts.nsp].messages
-        .map(m => ({
+        .map((m) => ({
           type: m.type,
           affected: m.affected,
           subject: m.subject,
-          body: m.body
+          body: m.body,
         }))
         .concat(
-          p[env.consts.nsp].relatedMessages.map(m => ({
+          p[env.consts.nsp].relatedMessages.map((m) => ({
             type: 'dependency update',
             affected: m.affected,
             source: m.source,
             subject: m.type + ': ' + m.subject,
-            body: m.body
+            body: m.body,
           }))
         );
       return Object.assign({}, entry, {
@@ -28,8 +28,8 @@ module.exports = env => {
           version: p.version,
           determinedIncrementLevel:
             env.consts.levels[p[env.consts.nsp].determinedIncrementLevel],
-          messages
-        }
+          messages,
+        },
       });
     }, {});
   env.changelog = Object.assign(

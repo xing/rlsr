@@ -45,7 +45,7 @@ describe('large test: exact mode', () => {
     const env = getEnv([
       applyMajorLevel(applyMainScope(getMessage('taz'))),
       getMessage('raz'),
-      applyOtherScope(getMessage('roo'))
+      applyOtherScope(getMessage('roo')),
     ]);
     env.config.mode = 'synchronizedMain';
 
@@ -57,7 +57,7 @@ describe('large test: exact mode', () => {
   it('applies messages with multiple affected packages', () => {
     const env = getEnv([
       applyMinorLevel(getMessage('waz')),
-      applyMultiScope(getMessage('tar'))
+      applyMultiScope(getMessage('tar')),
     ]);
     env.config.mode = 'synchronizedMain';
 

@@ -6,7 +6,7 @@ describe('<read> addType()', () => {
     ['foo bar', undefined, undefined, undefined],
     ['feat: bar', 'feat', undefined, 'bar'],
     ['feat(foo): bar', 'feat', 'foo', 'bar'],
-    ['feat(@scope/foo): bar', 'feat', '@scope/foo', 'bar']
+    ['feat(@scope/foo): bar', 'feat', '@scope/foo', 'bar'],
   ].forEach(([header, type, scope, subject]) =>
     it(`can handle '${header}'`, () => {
       const parsed = addType({ header });
