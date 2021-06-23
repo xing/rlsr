@@ -1,4 +1,4 @@
-import type { Env, Message } from '../../types';
+import type { Env, Message } from "../../types";
 
 const messageFactory: (id: number) => Message = (id: number) => ({
   hash: `mockHash ${id}`,
@@ -6,7 +6,7 @@ const messageFactory: (id: number) => Message = (id: number) => ({
   message: `mockMessage ${id}`,
   body: `mockBody ${id}`,
   text: `text ${id}`,
-  level: 'patch',
+  level: "patch",
 });
 
 // mock Logger
@@ -36,12 +36,17 @@ describe("addFilesToCommitMessages Module", () => {
     done();
   });
 
-  it("throws an exeption when files cannot be extracted",, async (done) => {
-    const mockEnv: Env = {...envWithConfig, commitMessages: [{
-      hash: '7ec3f9525cf2c2cd9c63836b7a71fb0092c02657'
-    }]};
+  it("throws an exeption when files cannot be extracted", async (done) => {
+    const mockEnv: Env = {
+      ...envWithConfig,
+      commitMessages: [
+        {
+          hash: "7ec3f9525cf2c2cd9c63836b7a71fb0092c02657",
+        },
+      ],
+    };
 
-    const mockError = 'Mock simpleGit().raw exception';
+    const mockError = "Mock simpleGit().raw exception";
     mockRaw.mockRejectedValue(mockError);
     await expect(addFilesToCommitMessages(mockEnv)).rejects.toThrow(
       "Cannot extract committed files"
@@ -49,14 +54,19 @@ describe("addFilesToCommitMessages Module", () => {
     expect(mockLoggerError).toHaveBeenCalledTimes(1);
     expect(mockLoggerError).toHaveBeenCalledWith(mockError);
     done();
-
   });
 
-  describe('with a commitMessages collection', () => {
+  describe("with a commitMessages collection", () => {
     let result: Env;
     const mockCommitMessage = [messageFactory(1)];
-    const mockCommitMesages: string[] = ['/mock_path_to_file_1','/mock_path_to_file_2'];
-    const mockEnv: Env = {...envWithConfig, commitMessages: mockCommitMessage};
+    const mockCommitMesages: string[] = [
+      "/mock_path_to_file_1",
+      "/mock_path_to_file_2",
+    ];
+    const mockEnv: Env = {
+      ...envWithConfig,
+      commitMessages: mockCommitMessage,
+    };
 
     beforeAll(async () => {
       mockRaw.mockResolvedValue(mockCommitMesages);
@@ -64,10 +74,15 @@ describe("addFilesToCommitMessages Module", () => {
     });
 
     it("returns an Env object with files on its commitMessages collection", () => {
-      const expected: Env = {...mockEnv, commitMessages: [{
-        ...mockCommitMessage[0],
-        committedFiles: mockCommitMesages,
-      }]};
+      const expected: Env = {
+        ...mockEnv,
+        commitMessages: [
+          {
+            ...mockCommitMessage[0],
+            committedFiles: mockCommitMesages,
+          },
+        ],
+      };
       expect(result).toEqual(expected);
     });
   });

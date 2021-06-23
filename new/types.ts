@@ -114,6 +114,16 @@ export type Env = {
   /** affected messages */
   rawCommitMessages?: MessageRaw[];
   commitMessages?: Message[];
+  /** list of package.json files in the monorepo */
+  packageJsonPaths?: string[];
 };
 
 export type Module = (env: Env) => Promise<Env> | Env;
+
+export type ReleaseNote = {
+  package: string;
+  releaseNote: {
+    path: string;
+    content: string;
+  };
+};
