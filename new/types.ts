@@ -1,4 +1,4 @@
-import { CoreProperties as PackageJson } from "@schemastore/package";
+import { CoreProperties as PackageJson } from '@schemastore/package';
 
 /**
  * Possible stages:
@@ -6,7 +6,7 @@ import { CoreProperties as PackageJson } from "@schemastore/package";
  * - `beta`: publishes affected packages as beta - used on the master branch
  * - `production`: the default. Publishes as latest - used on the production branch
  */
-export type Stage = "canary" | "beta" | "production";
+export type Stage = 'canary' | 'beta' | 'production';
 
 /**
  * Possible modes:
@@ -14,7 +14,7 @@ export type Stage = "canary" | "beta" | "production";
  * - `synchronized`: publishes all packages with the same determined version
  * - `synchronizedMain`: assures all packages have the same major version
  */
-export type Mode = "independent" | "synchronized" | "synchronizedMain";
+export type Mode = 'independent' | 'synchronized' | 'synchronizedMain';
 
 /**
  * Possible impacts:
@@ -22,7 +22,7 @@ export type Mode = "independent" | "synchronized" | "synchronizedMain";
  * - `dryrun`: changes are made in local files for inspections, no publish
  * - `verify`: only checks are running and a report about the potential impact is printed
  */
-export type Impact = "full" | "dryrun" | "verify";
+export type Impact = 'full' | 'dryrun' | 'verify';
 
 export type Config = {
   debug: boolean;
@@ -61,11 +61,11 @@ export type Status = {
   /** list of all packages including their version number */
   versions: Record<string, string>;
 };
-import type { DefaultLogFields } from "simple-git";
+import type { DefaultLogFields } from 'simple-git';
 
 export type MessageRaw = Pick<
   DefaultLogFields,
-  "hash" | "date" | "message" | "body"
+  'hash' | 'date' | 'message' | 'body'
 >;
 
 export type MessageConventionalCommit = MessageRaw & {
@@ -76,7 +76,7 @@ export type MessageConventionalCommit = MessageRaw & {
 };
 
 export type Message = MessageConventionalCommit & {
-  level: "major" | "minor" | "patch" | "misc";
+  level: 'major' | 'minor' | 'patch' | 'misc';
   committedFiles?: string[];
 };
 

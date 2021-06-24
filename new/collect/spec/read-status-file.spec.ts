@@ -1,34 +1,34 @@
-import type { Env } from "../../types";
+import type { Env } from '../../types';
 
 // "path" mocks
-const mockJoin = jest.fn((...args) => args.join(""));
-jest.mock("path", () => ({
+const mockJoin = jest.fn((...args) => args.join(''));
+jest.mock('path', () => ({
   join: mockJoin,
 }));
 
-describe("read-status-file", () => {
-  const mockEnv: Env = { stage: "canary", force: false, appRoot: "/" };
-  const mockStatus = { name: "rlsr" };
+describe('read-status-file', () => {
+  const mockEnv: Env = { stage: 'canary', force: false, appRoot: '/' };
+  const mockStatus = { name: 'rlsr' };
   let result: Env;
 
-  describe("on success", () => {
+  describe('on success', () => {
     beforeAll(async () => {
       jest.mock(`${mockEnv.appRoot}rlsr.json`, () => mockStatus, {
         virtual: true,
       });
-      const readStatusFile = require("../read-status-file").readStatusFile;
+      const readStatusFile = require('../read-status-file').readStatusFile;
       result = await readStatusFile(mockEnv);
     });
     afterAll(() => {
       jest.unmock(`${mockEnv.appRoot}rlsr.json`);
     });
 
-    test("joins paths", () => {
+    test('joins paths', () => {
       expect(mockJoin).toHaveBeenCalledTimes(1);
-      expect(mockJoin).toHaveBeenCalledWith(mockEnv.appRoot, "rlsr.json");
+      expect(mockJoin).toHaveBeenCalledWith(mockEnv.appRoot, 'rlsr.json');
     });
 
-    test("returns an Env object with status", () => {
+    test('returns an Env object with status', () => {
       expect(result).toEqual({
         ...mockEnv,
         hasStatusFile: true,
@@ -37,9 +37,9 @@ describe("read-status-file", () => {
     });
   });
 
-  describe("on missing file", () => {
+  describe('on missing file', () => {
     beforeAll(async () => {
-      const readStatusFile = require("../read-status-file").readStatusFile;
+      const readStatusFile = require('../read-status-file').readStatusFile;
       result = await readStatusFile(mockEnv);
     });
     test('returns an Env object, with "hasStatusFile" set to false', () => {
@@ -47,9 +47,9 @@ describe("read-status-file", () => {
     });
   });
 
-  describe("on malformed file", () => {
+  describe('on malformed file', () => {
     beforeAll(async () => {
-      jest.mock(`${mockEnv.appRoot}rlsr.json`, () => "malformed Status file", {
+      jest.mock(`${mockEnv.appRoot}rlsr.json`, () => 'malformed Status file', {
         virtual: true,
       });
     });
@@ -58,7 +58,7 @@ describe("read-status-file", () => {
     });
 
     // @TODO: Figure this one out
-    test.todo("throws an error");
+    test.todo('throws an error');
     // test('throws an error', () => {
     //   expect(async () => {
     //     const readStatusFile = require("../read-status-file").readStatusFile;

@@ -1,10 +1,10 @@
-import type { Env } from "../../types";
+import type { Env } from '../../types';
 
 // Chalk Mocks
 const mockBold = jest.fn((text) => `bold(${text})`);
 const mockYellow = jest.fn((text) => `yellow(${text})`);
 
-jest.mock("chalk", () => ({
+jest.mock('chalk', () => ({
   bold: mockBold,
   yellow: mockYellow,
 }));
@@ -17,17 +17,17 @@ const mockLogger = jest.fn(() => ({
   log: mockLog,
 }));
 
-jest.mock("../../helpers/logger", () => ({
+jest.mock('../../helpers/logger', () => ({
   logger: mockLogger,
 }));
 
 describe.each`
   stage           | verify   | dryrun   | pkgName          | appRoot
-  ${"canary"}     | ${true}  | ${false} | ${undefined}     | ${"/"}
-  ${"beta"}       | ${false} | ${true}  | ${"testPackage"} | ${"/"}
-  ${"production"} | ${false} | ${false} | ${"testPackage"} | ${"/"}
+  ${'canary'}     | ${true}  | ${false} | ${undefined}     | ${'/'}
+  ${'beta'}       | ${false} | ${true}  | ${'testPackage'} | ${'/'}
+  ${'production'} | ${false} | ${false} | ${'testPackage'} | ${'/'}
 `(
-  "Start Report Module (stage: $stage, verify: $verify, dryrun: $dryrun, pkgName: $pkgName, appRoot: $appRoot)",
+  'Start Report Module (stage: $stage, verify: $verify, dryrun: $dryrun, pkgName: $pkgName, appRoot: $appRoot)',
   ({ stage, verify, dryrun, pkgName, appRoot }) => {
     let startReport;
     let result: Env;
@@ -41,7 +41,7 @@ describe.each`
         pkg: { name: pkgName },
         force: false,
       };
-      startReport = require("../start-report").startReport;
+      startReport = require('../start-report').startReport;
       result = startReport(mockEnv);
     });
     afterAll(() => {
@@ -49,12 +49,12 @@ describe.each`
       jest.clearAllMocks();
     });
 
-    it("sets up the right logger", () => {
+    it('sets up the right logger', () => {
       expect(mockLogger).toHaveBeenCalled();
-      expect(mockLogger).toHaveBeenNthCalledWith(1, "report");
+      expect(mockLogger).toHaveBeenNthCalledWith(1, 'report');
     });
 
-    it("logs a welcome message ", () => {
+    it('logs a welcome message ', () => {
       expect(mockYellow).toHaveBeenNthCalledWith(1, stage);
       expect(mockBold).toHaveBeenCalledTimes(1);
       expect(mockBold).toHaveBeenCalledWith(`yellow(${stage})`);
@@ -66,24 +66,24 @@ describe.each`
 
     if (verify) {
       it('logs a "verify" message', () => {
-        expect(mockLog).toHaveBeenNthCalledWith(2, "verifying status only!");
+        expect(mockLog).toHaveBeenNthCalledWith(2, 'verifying status only!');
       });
     } else if (dryrun) {
       it('logs "dryrun" message', () => {
-        expect(mockLog).toHaveBeenNthCalledWith(2, "dryrun only!");
+        expect(mockLog).toHaveBeenNthCalledWith(2, 'dryrun only!');
       });
     }
 
-    it(`logs project name "${pkgName ?? "unknown"}"`, () => {
+    it(`logs project name "${pkgName ?? 'unknown'}"`, () => {
       const logCount = !verify && !dryrun ? 2 : 3;
-      expect(mockYellow).toHaveBeenNthCalledWith(2, pkgName ?? "unknown");
+      expect(mockYellow).toHaveBeenNthCalledWith(2, pkgName ?? 'unknown');
       expect(mockLog).toHaveBeenNthCalledWith(
         logCount,
-        `project: yellow(${pkgName ?? "unknown"})`
+        `project: yellow(${pkgName ?? 'unknown'})`
       );
     });
 
-    it("debugs root folder", () => {
+    it('debugs root folder', () => {
       expect(mockYellow).toHaveBeenNthCalledWith(3, appRoot);
       expect(mockDebug).toHaveBeenNthCalledWith(
         1,
@@ -91,7 +91,7 @@ describe.each`
       );
     });
 
-    it("returns the env object back", () => {
+    it('returns the env object back', () => {
       expect(result).toBe(mockEnv);
     });
   }

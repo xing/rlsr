@@ -40,7 +40,7 @@ describe('large test: synchronized mode', () => {
     const env = getEnv([
       applyMinorLevel(getMessage('taz')),
       getMessage('raz'),
-      applyOtherScope(getMessage('roo'))
+      applyOtherScope(getMessage('roo')),
     ]);
 
     const exp = transform(env);
@@ -51,7 +51,7 @@ describe('large test: synchronized mode', () => {
   it('applies messages with multiple affected packages', () => {
     const env = getEnv([
       applyMinorLevel(getMessage('waz')),
-      applyMultiScope(getMessage('tar'))
+      applyMultiScope(getMessage('tar')),
     ]);
     const exp = transform(env);
 

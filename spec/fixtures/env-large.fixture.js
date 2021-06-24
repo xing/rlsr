@@ -5,16 +5,16 @@ const env = {
   appRoot: '/',
   mainPackage: {
     version: '1.8.5',
-    rlsr: {}
+    rlsr: {},
   },
   consts: {
     nsp: 'rlsr',
     rlsrLatest: 'rlsr-latest',
-    levels: ['patch', 'minor', 'major']
+    levels: ['patch', 'minor', 'major'],
   },
   messages: [],
   config: {
-    mode: 'synchronized'
+    mode: 'synchronized',
   },
   packages: {
     one: {
@@ -22,33 +22,34 @@ const env = {
       version: '1.2.3',
       dependencies: {
         four: '^4.5.0',
-        five: '^4.5.0'
-      }
+        five: '^4.5.0',
+      },
     },
     two: {
       name: 'two',
       version: '2.3.4',
       dependencies: {
-        three: '2.3.4 - 3'
-      }
+        three: '2.3.4 - 3',
+      },
     },
     three: {
       name: 'three',
       version: '3.4.5',
       dependencies: {
-        four: '4.0.0 - 4.5.6'
-      }
+        four: '4.0.0 - 4.5.6',
+      },
     },
     four: {
       name: 'four',
-      version: '4.5.6'
+      version: '4.5.6',
     },
     five: {
       name: 'five',
-      version: '4.5.6'
-    }
+      version: '4.5.6',
+    },
   },
-  changelog: {}
+  changelog: {},
 };
 
-module.exports = messages => R.clone(Object.assign(R.clone(env), { messages }));
+module.exports = (messages) =>
+  R.clone(Object.assign(R.clone(env), { messages }));

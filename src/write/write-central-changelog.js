@@ -1,7 +1,7 @@
 const path = require('path');
 const fs = require('fs');
 
-module.exports = env =>
+module.exports = (env) =>
   new Promise((resolve, reject) => {
     const changelogFile = path.join(env.appRoot, 'changelog.json');
     fs.stat(changelogFile, (err, stats) => {
@@ -10,7 +10,7 @@ module.exports = env =>
         fs.writeFile(
           changelogFile,
           JSON.stringify(env.changelog, null, 2),
-          err => {
+          (err) => {
             if (err) {
               reject(err);
             } else {
@@ -32,7 +32,7 @@ module.exports = env =>
             fs.writeFile(
               changelogFile,
               JSON.stringify(content, null, 2),
-              err => {
+              (err) => {
                 if (err) {
                   reject(err);
                 } else {

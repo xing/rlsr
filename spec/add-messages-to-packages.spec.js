@@ -9,7 +9,7 @@ const irrelevantMessage = R.assoc('affected', ['three']);
 
 const getEnv = getRawEnv({
   one: { rlsr: { messages: [] } },
-  two: { rlsr: { messages: [] } }
+  two: { rlsr: { messages: [] } },
 });
 
 describe('addMessagesToPackages()', () => {

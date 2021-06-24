@@ -10,8 +10,8 @@ module.exports = (rootDir, nsp) =>
         resolve(files);
       }
     });
-  }).then(files =>
-    files.map(file => {
+  }).then((files) =>
+    files.map((file) => {
       const pkg = require(file);
       const dir = path.dirname(file);
       pkg[nsp] = Object.assign({}, pkg[nsp], { file, dir });

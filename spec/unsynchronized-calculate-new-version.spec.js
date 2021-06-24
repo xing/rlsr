@@ -16,8 +16,8 @@ describe('unsynchronizedCalculateNewVersion()', () => {
           relatedMessages: [],
           relations: [],
           devRelations: [],
-          peerRelations: []
-        }
+          peerRelations: [],
+        },
       },
       two: {
         version: '2.3.4',
@@ -30,9 +30,9 @@ describe('unsynchronizedCalculateNewVersion()', () => {
           relatedMessages: [],
           relations: [],
           devRelations: [],
-          peerRelations: []
-        }
-      }
+          peerRelations: [],
+        },
+      },
     },
     []
   );
@@ -41,7 +41,7 @@ describe('unsynchronizedCalculateNewVersion()', () => {
     const env = R.clone(baseEnv);
 
     env.config = {
-      mode: 'synchronized'
+      mode: 'synchronized',
     };
 
     const exp = unsynchronizedCalculateNewVersion(env);
@@ -56,7 +56,7 @@ describe('unsynchronizedCalculateNewVersion()', () => {
     const message = R.assoc('level', 0, getMessage('bar'));
     env.packages.one.rlsr.messages.push(message);
     env.config = {
-      mode: 'synchronized'
+      mode: 'synchronized',
     };
 
     const exp = unsynchronizedCalculateNewVersion(env);
@@ -70,7 +70,7 @@ describe('unsynchronizedCalculateNewVersion()', () => {
     const env = R.clone(baseEnv);
 
     env.config = {
-      mode: 'range'
+      mode: 'range',
     };
     env.packages.one.rlsr.relations.push('two');
     env.packages.one.rlsr.devRelations.push('two');
@@ -94,7 +94,7 @@ describe('unsynchronizedCalculateNewVersion()', () => {
     const env = R.clone(baseEnv);
 
     env.config = {
-      mode: 'range'
+      mode: 'range',
     };
     env.packages.one.rlsr.relations.push('two');
     env.packages.two.dependencies.one = '1.2.3 - 2';
@@ -109,7 +109,7 @@ describe('unsynchronizedCalculateNewVersion()', () => {
     const env = R.clone(baseEnv);
 
     env.config = {
-      mode: 'exact'
+      mode: 'exact',
     };
     env.packages.one.rlsr.relations.push('two');
     env.packages.two.dependencies.one = '1.2.3';

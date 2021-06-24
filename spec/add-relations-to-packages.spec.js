@@ -9,33 +9,33 @@ const packages = {
       dependencies: [],
       devDependencies: [],
       peerDependencies: [],
-      relations: []
-    }
+      relations: [],
+    },
   },
   two: {
     rlsr: {
       dependencies: ['three'],
       devDependencies: [],
       peerDependencies: [],
-      relations: []
-    }
+      relations: [],
+    },
   },
   three: {
     rlsr: {
       dependencies: ['four'],
       devDependencies: [],
       peerDependencies: [],
-      relations: []
-    }
+      relations: [],
+    },
   },
   four: {
     rlsr: {
       dependencies: [],
       devDependencies: [],
       peerDependencies: [],
-      relations: []
-    }
-  }
+      relations: [],
+    },
+  },
 };
 
 describe('addRelationsToPackages()', () => {

@@ -40,24 +40,24 @@ const AFFECTED_REGEXP = /affects:/i;
 const PATCH_TYPES = ['fix', 'refactor', 'perf', 'revert'];
 const MINOR_TYPES = ['feat'];
 
-const isRelevant = msg =>
+const isRelevant = (msg) =>
   R.contains(msg.type, R.concat(PATCH_TYPES, MINOR_TYPES));
 
-const addLevel = msg =>
+const addLevel = (msg) =>
   Object.assign({}, msg, { level: R.contains(msg.type, MINOR_TYPES) ? 1 : 0 });
 
-const addBreaking = msg =>
+const addBreaking = (msg) =>
   Object.assign({}, msg, {
     level: (msg.subject + msg.body + msg.footer).match(BREAKING_REGEXP)
       ? 2
-      : msg.level
+      : msg.level,
   });
 
-const parseMessageBody = s => {
+const parseMessageBody = (s) => {
   const lines = s.split('\n');
   let matchedLine;
   const body = lines
-    .filter(line => {
+    .filter((line) => {
       if (line.match(AFFECTED_REGEXP)) {
         matchedLine = line;
         return false;
@@ -71,7 +71,10 @@ const parseMessageBody = s => {
     body,
     affected:
       matchedLine &&
-        matchedLine.replace('affects:', '').split(',').map(s => s.trim())
+      matchedLine
+        .replace('affects:', '')
+        .split(',')
+        .map((s) => s.trim()),
   };
 };
 
@@ -91,17 +94,17 @@ const parseMessage = (m, packageNames) => {
   return message;
 };
 
-module.exports = env => {
+module.exports = (env) => {
   env.log(`Analyzed commit messages: ${env.messages.length}`);
 
   const messages = env.messages
     .filter(isRelevant)
     .map(addLevel)
     .map(addBreaking)
-    .map(m => parseMessage(m, Object.keys(env.packages)));
+    .map((m) => parseMessage(m, Object.keys(env.packages)));
 
   env.log(`Relevant commit messages: ${messages.length}`);
   return Object.assign({}, env, {
-    messages
+    messages,
   });
 };

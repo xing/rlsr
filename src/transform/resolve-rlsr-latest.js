@@ -1,14 +1,14 @@
 const R = require('ramda');
 const modifyPackages = require('./modify-packages');
 
-module.exports = env => {
+module.exports = (env) => {
   const packages = R.clone(env.packages);
 
-  R.values(packages).forEach(pkg => {
+  R.values(packages).forEach((pkg) => {
     ['dependencies', 'devDependencies', 'peerDependencies'].forEach(
-      type =>
+      (type) =>
         pkg[type] &&
-        Object.keys(pkg[type]).forEach(name => {
+        Object.keys(pkg[type]).forEach((name) => {
           if (
             pkg[type][name] === env.consts.rlsrLatest &&
             Object.keys(env.packages).indexOf(name) > -1

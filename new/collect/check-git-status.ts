@@ -1,18 +1,18 @@
-import { red, bold } from "chalk";
-import { Env, Module } from "../types";
+import { red, bold } from 'chalk';
+import { Env, Module } from '../types';
 
-import { logger } from "../helpers/logger";
-import { isVerify } from "../helpers/when";
+import { logger } from '../helpers/logger';
+import { isVerify } from '../helpers/when';
 
-const { log, error } = logger("git status");
+const { log, error } = logger('git status');
 
 const isCorrectBranch = (env: Env) => {
   switch (env.stage) {
-    case "canary":
+    case 'canary':
       return true;
-    case "beta":
+    case 'beta':
       return env.currentBranch === env.config?.betaBranch;
-    case "production":
+    case 'production':
       return env.currentBranch === env.config?.productionBranch;
   }
 };

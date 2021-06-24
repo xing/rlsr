@@ -13,13 +13,13 @@ const resolveRlsrLatest = require('./resolve-rlsr-latest');
 const addPreviouslyUnreleased = require('./addPreviouslyUnreleased');
 const cleanUp = require('./clean-up');
 
-const isRangeMode = env =>
+const isRangeMode = (env) =>
   env.config.mode === 'range' ||
   (env.config.mode === 'synchronizedMain' &&
     R.path(['mainPackage', env.consts.nsp, 'determinedIncrementLevel'], env) <
       2);
-const isExactMode = env => env.config.mode === 'exact';
-const isSynchronizedMode = env =>
+const isExactMode = (env) => env.config.mode === 'exact';
+const isSynchronizedMode = (env) =>
   env.config.mode === 'synchronized' ||
   (env.config.mode === 'synchronizedMain' &&
     R.path(['mainPackage', env.consts.nsp, 'determinedIncrementLevel'], env) ===

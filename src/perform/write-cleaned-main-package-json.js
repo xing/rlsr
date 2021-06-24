@@ -2,7 +2,7 @@ const fs = require('fs');
 const R = require('ramda');
 const path = require('path');
 
-module.exports = env =>
+module.exports = (env) =>
   new Promise((resolve, reject) => {
     const pkgPath = path.join(env.appRoot, 'package.json');
     const mainPkg = require(pkgPath);
@@ -13,7 +13,7 @@ module.exports = env =>
       delete mainPkg[env.consts.nsp];
     }
 
-    fs.writeFile(pkgPath, JSON.stringify(mainPkg, null, 2), err => {
+    fs.writeFile(pkgPath, JSON.stringify(mainPkg, null, 2), (err) => {
       if (err) {
         reject(err);
       } else {

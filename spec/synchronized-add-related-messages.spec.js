@@ -9,12 +9,12 @@ describe('synchronizedAddRelatedMessages()', () => {
     const env = getEnv(
       {
         one: { name: 'one', rlsr: { relatedMessages: [] } },
-        two: { name: 'two', rlsr: { relatedMessages: [] } }
+        two: { name: 'two', rlsr: { relatedMessages: [] } },
       },
       [getMessage('foo')]
     );
     env.config = {
-      mode: 'synchronized'
+      mode: 'synchronized',
     };
 
     const exp = synchronizedAddRelatedMessages(env);

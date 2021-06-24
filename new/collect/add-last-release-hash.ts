@@ -1,8 +1,8 @@
-import { yellow } from "chalk";
-import { logger } from "../helpers/logger";
-import { Env, Module } from "../types";
+import { yellow } from 'chalk';
+import { logger } from '../helpers/logger';
+import { Env, Module } from '../types';
 
-const { error, log } = logger("prev hash");
+const { error, log } = logger('prev hash');
 
 export const findLastReleaseTag = (tags: string[], releaseTag: string) => {
   const relevant = tags.filter((t) => t.startsWith(releaseTag));
@@ -15,8 +15,8 @@ export const findLastReleaseTag = (tags: string[], releaseTag: string) => {
  */
 export const addLastReleaseHash: Module = async (env: Env) => {
   if (env.status === undefined) {
-    error("Missing rlsr.json config file");
-    throw new Error("Missing rlsr.json config file");
+    error('Missing rlsr.json config file');
+    throw new Error('Missing rlsr.json config file');
   }
 
   let { lastReleaseHash } = env.status;
@@ -32,7 +32,7 @@ export const addLastReleaseHash: Module = async (env: Env) => {
     ? log(`using ${yellow(lastReleaseHash)} as previous release's commit hash`)
     : log(
         `previous release hash cannot be determined. Assuming project's ${yellow(
-          "initial release"
+          'initial release'
         )}`
       );
 

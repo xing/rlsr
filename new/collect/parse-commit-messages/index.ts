@@ -1,17 +1,17 @@
-import type { Module, Env, Message } from "../../types";
+import type { Module, Env, Message } from '../../types';
 
-import { yellow } from "chalk";
-import { pipe } from "lodash/fp";
-import { logger } from "../../helpers/logger";
-import { parse } from "./parse";
-import { refineType } from "./refine-type";
-import { addLevel } from "./add-level";
+import { yellow } from 'chalk';
+import { pipe } from 'lodash/fp';
+import { logger } from '../../helpers/logger';
+import { parse } from './parse';
+import { refineType } from './refine-type';
+import { addLevel } from './add-level';
 
-const { log } = logger("git messages");
+const { log } = logger('git messages');
 
 const messageTransform = pipe(parse, refineType, addLevel);
 
-const isRelevant = (message: Message) => message.level !== "misc";
+const isRelevant = (message: Message) => message.level !== 'misc';
 
 /**
  * Parsing and find out major/minor/patch level
@@ -23,11 +23,11 @@ export const parseCommitMessages: Module = (env: Env) => {
 
   log(
     `${yellow(commitMessages.length)} relevant commits: ${
-      commitMessages.filter(({ level }) => level === "major").length
+      commitMessages.filter(({ level }) => level === 'major').length
     } major / ${
-      commitMessages.filter(({ level }) => level === "minor").length
+      commitMessages.filter(({ level }) => level === 'minor').length
     } minor / ${
-      commitMessages.filter(({ level }) => level === "patch").length
+      commitMessages.filter(({ level }) => level === 'patch').length
     } patch`
   );
 

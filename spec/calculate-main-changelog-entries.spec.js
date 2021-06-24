@@ -16,14 +16,14 @@ describe('calculateMainChangelogEntries()', () => {
           hasBump: true,
           determinedIncrementLevel: 0,
           messages: [getMessage('foo')],
-          relatedMessages: []
-        }
-      }
+          relatedMessages: [],
+        },
+      },
     },
     []
   );
   envProto.mainPackage = {
-    version: '2.3.4'
+    version: '2.3.4',
   };
 
   it('adds a fresh changelog if nothing was available before', () => {

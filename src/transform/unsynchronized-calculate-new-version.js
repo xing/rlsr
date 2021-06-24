@@ -4,7 +4,7 @@ const modifyPackages = require('./modify-packages');
 
 const max = R.apply(Math.max);
 
-module.exports = env => {
+module.exports = (env) => {
   const packages = R.clone(env.packages);
   const nsp = env.consts.nsp;
   const latest = env.consts.rlsrLatest;
@@ -19,9 +19,9 @@ module.exports = env => {
     return semver.adjustRange(newVersion, oldRange);
   };
 
-  R.values(packages).forEach(iteratedPackage => {
+  R.values(packages).forEach((iteratedPackage) => {
     iteratedPackage[nsp].determinedIncrementLevel = max(
-      iteratedPackage[nsp].messages.map(m => m.level).concat([-1])
+      iteratedPackage[nsp].messages.map((m) => m.level).concat([-1])
     );
 
     if (iteratedPackage[nsp].determinedIncrementLevel > -1) {
@@ -45,16 +45,16 @@ module.exports = env => {
 
       updatedPackage[nsp].relatedMessages = updatedPackage[nsp].relatedMessages
         .concat(
-          dependentPackage[nsp].messages.map(m =>
+          dependentPackage[nsp].messages.map((m) =>
             Object.assign({}, m, {
               package: dependentPackage.name,
               version: dependentPackage.version,
-              dependencyType: type
+              dependencyType: type,
             })
           )
         )
         .concat(
-          dependentPackage[nsp].relatedMessages.map(m =>
+          dependentPackage[nsp].relatedMessages.map((m) =>
             Object.assign({}, m, { source: dependentPackage.name })
           )
         );
@@ -63,13 +63,13 @@ module.exports = env => {
         updatedPackage[nsp].hasBump = true;
         updatedPackage.version = semver.bump(updatedPackage.version, 0);
       }
-      updatedPackage[nsp].relations.forEach(rel =>
+      updatedPackage[nsp].relations.forEach((rel) =>
         addDependencyToPackage(packages[rel], updatedPackage, 'dependencies')
       );
-      updatedPackage[nsp].devRelations.forEach(rel =>
+      updatedPackage[nsp].devRelations.forEach((rel) =>
         addDependencyToPackage(packages[rel], updatedPackage, 'devDependencies')
       );
-      updatedPackage[nsp].peerRelations.forEach(rel =>
+      updatedPackage[nsp].peerRelations.forEach((rel) =>
         addDependencyToPackage(
           packages[rel],
           updatedPackage,
@@ -80,19 +80,19 @@ module.exports = env => {
     // out of range - bump relation und add dependency erneut aufrufen fuer alle relations
   };
 
-  R.values(packages).forEach(iteratedPackage => {
+  R.values(packages).forEach((iteratedPackage) => {
     if (iteratedPackage[nsp].hasBump) {
-      iteratedPackage[nsp].relations.forEach(rel =>
+      iteratedPackage[nsp].relations.forEach((rel) =>
         addDependencyToPackage(packages[rel], iteratedPackage, 'dependencies')
       );
-      iteratedPackage[nsp].devRelations.forEach(rel =>
+      iteratedPackage[nsp].devRelations.forEach((rel) =>
         addDependencyToPackage(
           packages[rel],
           iteratedPackage,
           'devDependencies'
         )
       );
-      iteratedPackage[nsp].peerRelations.forEach(rel =>
+      iteratedPackage[nsp].peerRelations.forEach((rel) =>
         addDependencyToPackage(
           packages[rel],
           iteratedPackage,
@@ -103,9 +103,9 @@ module.exports = env => {
   });
 
   // make entries in related messages unique
-  R.values(packages).forEach(iteratedPackage => {
+  R.values(packages).forEach((iteratedPackage) => {
     const relatedMessages = {};
-    iteratedPackage[nsp].relatedMessages.forEach(msg => {
+    iteratedPackage[nsp].relatedMessages.forEach((msg) => {
       const key = msg.type + msg.subject + msg.affected.join();
       relatedMessages[key] = msg;
     });

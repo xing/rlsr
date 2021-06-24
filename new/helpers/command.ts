@@ -1,9 +1,9 @@
-import { spawn } from "child_process";
-import c from "chalk";
-import { Env, Module } from "../types";
-import { logger } from "./logger";
+import { spawn } from 'child_process';
+import c from 'chalk';
+import { Env, Module } from '../types';
+import { logger } from './logger';
 
-type Output = "silent" | "inf" | "err";
+type Output = 'silent' | 'inf' | 'err';
 
 type Command = (
   topic: string,
@@ -23,42 +23,42 @@ export const command: Command = (topic, cmd, stdout, stderr) => (env) =>
     const commandString = cmd(env);
     log(
       `running ${c.greenBright(
-        typeof commandString === "string"
+        typeof commandString === 'string'
           ? commandString
-          : commandString.join(" ")
+          : commandString.join(' ')
       )}`
     );
     const [main, ...other] =
-      typeof commandString === "string"
-        ? commandString.split(" ")
+      typeof commandString === 'string'
+        ? commandString.split(' ')
         : commandString;
     const publisher = spawn(main, other);
 
-    if (stdout !== "silent") {
-      const print = stdout === "inf" ? log : error;
-      publisher.stdout.on("data", (data) => {
+    if (stdout !== 'silent') {
+      const print = stdout === 'inf' ? log : error;
+      publisher.stdout.on('data', (data) => {
         data
           .toString()
-          .split("\n")
+          .split('\n')
           .map((line: string) => line.trim())
           .filter(Boolean)
-          .map((line: string) => print(`${c.dim("cmd>")} ${line}`));
+          .map((line: string) => print(`${c.dim('cmd>')} ${line}`));
       });
     }
 
-    if (stderr !== "silent") {
-      const print = stderr === "inf" ? log : error;
-      publisher.stderr.on("data", (data) => {
+    if (stderr !== 'silent') {
+      const print = stderr === 'inf' ? log : error;
+      publisher.stderr.on('data', (data) => {
         data
           .toString()
-          .split("\n")
+          .split('\n')
           .map((line: string) => line.trim())
           .filter(Boolean)
-          .map((line: string) => print(`${c.dim("cmd>")} ${line}`));
+          .map((line: string) => print(`${c.dim('cmd>')} ${line}`));
       });
     }
 
-    publisher.on("close", (code) => {
+    publisher.on('close', (code) => {
       if (code === 0) {
         resolve(env);
       } else {
