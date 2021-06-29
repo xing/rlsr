@@ -1,3 +1,8 @@
+/* eslint-env node, jest */
+// This prevents re-declaration warnings
+// @SEE: https://stackoverflow.com/questions/40900791/cannot-redeclare-block-scoped-variable-in-unrelated-files
+export {};
+
 const composeAsyncResult = 'Compose Async Result';
 const mockComposeAsync = jest.fn(() => composeAsyncResult);
 const mockWaitResult = 'mock Wait Result';
@@ -22,7 +27,7 @@ const mockAddLastReleaseHash = jest.fn();
 const mockAddRawCommitMessages = jest.fn();
 const mockParseCommitMessages = jest.fn();
 const mockAddFilesToCommitMessages = jest.fn();
-const mockAddAllPackageJsons = jest.fn();
+const mockAddAllPackages = jest.fn();
 const mockAddMainNotes = jest.fn();
 
 jest.mock('../../helpers/compose-async', () => ({
@@ -60,8 +65,8 @@ jest.mock('../parse-commit-messages', () => ({
 jest.mock('../add-files-to-commit-messages', () => ({
   addFilesToCommitMessages: mockAddFilesToCommitMessages,
 }));
-jest.mock('../add-all-package-jsons', () => ({
-  addAllPackageJsons: mockAddAllPackageJsons,
+jest.mock('../add-all-packages', () => ({
+  addAllPackages: mockAddAllPackages,
 }));
 jest.mock('../add-main-notes', () => ({
   addMainNotes: mockAddMainNotes,
@@ -154,7 +159,7 @@ describe("collect's Index", () => {
   });
   test('14. adds all package.json to Env config file', () => {
     // @ts-ignore
-    expect(mockComposeAsync.mock.calls[0][13]).toBe(mockAddAllPackageJsons);
+    expect(mockComposeAsync.mock.calls[0][13]).toBe(mockAddAllPackages);
   });
   test('15. adds main release notes to Env config file', () => {
     // @ts-ignore
