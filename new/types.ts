@@ -114,8 +114,40 @@ export type Env = {
   /** affected messages */
   rawCommitMessages?: MessageRaw[];
   commitMessages?: Message[];
-  /** list of package.json files in the monorepo */
-  packageJsonPaths?: string[];
+  /** collection of affected packages for this release */
+  packages?: Record<string, Package>;
+};
+
+export type RelatedPackages = {
+  dependencies: string[];
+  devDependencies: string[];
+  peerDependencies: string[];
+};
+
+export type Package = {
+  /** Commit Messages stating what changed on this package (strictly) */
+  messages: Message[];
+  /** Commit Messages to be used for each (internal) dependency being released */
+  relatedMessages: Message[];
+  /**
+   * Collection of other (internal) Packages that depends on this
+   * (this = independent)
+   */
+  dependingOnThis: RelatedPackages;
+  /**
+   * Collection of other (internal) Packages that this one depends on
+   * */
+  dependsOn: RelatedPackages;
+
+  /**
+   * This value indicates if a major, minor, patch or no release is needed.
+   * Its value is computed based on how big its dependencies are being released now
+   **/
+  determinedIncrementLevel: -1 | 0 | 1 | 2;
+  /** Package's path in the system */
+  path: string;
+  /** Content of this package's package.json file */
+  packageJson: PackageJson;
 };
 
 export type Module = (env: Env) => Promise<Env> | Env;
