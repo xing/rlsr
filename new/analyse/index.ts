@@ -2,17 +2,13 @@ import { composeAsync } from '../helpers/compose-async';
 import { wait } from '../helpers/wait-module';
 import { log } from '../helpers/log-module';
 
+import { addDependencies } from './add-dependencies';
+
 export const analyse = composeAsync(
   log('ANALYSE PHASE: Looking at what needs to be changed'),
 
-  // See refine-messages.js
-  // add metadata to the messages by parsing
-  // refineMessages
-
-  // See polish-packages.js
-  // prefill package data with empty defaults
-  // and add all dependencies (default, dev and peer)
-  // addDependencies
+  // adds all dependencies (default, dev and peer)
+  addDependencies,
 
   // See add-relations-to-packages.js
   // this creates a tree of dependencies - directly connects the files to each other
