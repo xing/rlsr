@@ -8,11 +8,16 @@ export const analyse = composeAsync(
   log('ANALYSE PHASE: Looking at what needs to be changed'),
 
   // adds all dependencies (default, dev and peer)
+  //
   // prefill package data with empty defaults
   // and add all dependencies (default, dev and peer)
   // be aware that usually this information comes from the `env.status` object
   // and not from the package.json (except on the first run)
   // if that is the case, you'll find a dependency range of `*`
+  //
+  // ADDITION: I guess we don't need dev dependencies here - it's enough when they have `*`
+  // so you can safely filter out dev deps and only concentrate on peer and default deps
+  // addDependencies
   addDependencies,
 
   // See add-relations-to-packages.js
