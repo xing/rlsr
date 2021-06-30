@@ -19,11 +19,10 @@ describe('checkGitStatus Module', () => {
     mockExit.mockReset();
   });
 
-  it('exists the process when there are uncommitted files', async (done) => {
+  it('exists the process when there are uncommitted files', async () => {
     const env: Env = { ...envWithConfig, uncommittedFiles: ['foo'] };
     await checkGitStatus(env);
     expect(mockExit).toHaveBeenCalledWith(exitCodes.UNCOMMITTED);
-    done();
   });
 
   describe('on Verify', () => {
@@ -45,13 +44,12 @@ describe('checkGitStatus Module', () => {
     });
   });
 
-  it('exit when not beta branch', async (done) => {
+  it('exit when not beta branch', async () => {
     const env: Env = { ...envWithConfig, stage: 'beta', currentBranch: 'foo' };
     await checkGitStatus(env);
     expect(mockExit).toHaveBeenCalledWith(exitCodes.WRONG_BRANCH);
-    done();
   });
-  it('does not exit when beta branch', async (done) => {
+  it('does not exit when beta branch', async () => {
     const env: Env = {
       ...envWithConfig,
       stage: 'beta',
@@ -59,9 +57,8 @@ describe('checkGitStatus Module', () => {
     };
     await checkGitStatus(env);
     expect(mockExit).not.toHaveBeenCalledWith(exitCodes.WRONG_BRANCH);
-    done();
   });
-  it('exit when not production branch', async (done) => {
+  it('exit when not production branch', async () => {
     const env: Env = {
       ...envWithConfig,
       stage: 'production',
@@ -69,9 +66,8 @@ describe('checkGitStatus Module', () => {
     };
     await checkGitStatus(env);
     expect(mockExit).toHaveBeenCalledWith(exitCodes.WRONG_BRANCH);
-    done();
   });
-  it('does not exit when production branch', async (done) => {
+  it('does not exit when production branch', async () => {
     const env: Env = {
       ...envWithConfig,
       stage: 'production',
@@ -79,6 +75,5 @@ describe('checkGitStatus Module', () => {
     };
     await checkGitStatus(env);
     expect(mockExit).not.toHaveBeenCalledWith(exitCodes.WRONG_BRANCH);
-    done();
   });
 });
