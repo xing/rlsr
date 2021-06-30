@@ -29,14 +29,13 @@ const { envWithConfig } = require('../../fixtures/env');
 const { addFilesToCommitMessages } = require('../add-files-to-commit-messages');
 
 describe('addFilesToCommitMessages Module', () => {
-  it('throws an exeption when no originalCommitMessages are present', async (done) => {
+  it('throws an exeption when no originalCommitMessages are present', async () => {
     await expect(addFilesToCommitMessages(envWithConfig)).rejects.toThrow(
       'Cannot read commitMessages to extract committed files'
     );
-    done();
   });
 
-  it('throws an exeption when files cannot be extracted', async (done) => {
+  it('throws an exeption when files cannot be extracted', async () => {
     const mockEnv: Env = {
       ...envWithConfig,
       commitMessages: [
@@ -53,7 +52,6 @@ describe('addFilesToCommitMessages Module', () => {
     );
     expect(mockLoggerError).toHaveBeenCalledTimes(1);
     expect(mockLoggerError).toHaveBeenCalledWith(mockError);
-    done();
   });
 
   describe('with a commitMessages collection', () => {

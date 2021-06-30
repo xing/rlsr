@@ -5,6 +5,21 @@ import { Env } from '../types';
 
 export const basicEnv: Env = {
   stage: 'beta',
+  config: {
+    impact: 'dryrun',
+    debug: false,
+    remote: 'foo',
+    branch: 'foo',
+    changelogPath: 'foo',
+    metadataPath: 'foo',
+    registry: 'foo',
+    mode: 'independent',
+    tag: 'foo',
+    productionBranch: 'foo',
+    betaBranch: 'foo',
+    mainBranch: 'foo',
+    betaTag: 'foo',
+  },
   dryrun: true,
   verify: false,
   force: false,

@@ -68,12 +68,11 @@ describe('addLastReleaseHash Module', () => {
       };
       result = await addLastReleaseHash(mockEnv);
     });
-    it(`returns an Env object with its "lastReleaseHash" = ${expectation}`, async (done) => {
+    it(`returns an Env object with its "lastReleaseHash" = ${expectation}`, async () => {
       expect(result).toEqual({
         ...mockEnv,
         lastReleaseHash: expectation,
       });
-      done();
     });
   });
 });

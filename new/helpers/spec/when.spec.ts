@@ -1,5 +1,5 @@
 import { basicEnv } from '../../fixtures/env';
-import { Module } from '../../types';
+import { Env, Module } from '../../types';
 import {
   when,
   whenNotDryrun,
@@ -19,13 +19,12 @@ describe('when', () => {
   });
 
   describe('when()', () => {
-    test('is called when condition meets', async (done) => {
+    test('is called when condition meets', async () => {
       await when((env) => env.stage === 'beta', spy, basicEnv);
       expect(spy).toHaveBeenCalledTimes(1);
-      done();
     });
 
-    test('is not called when condition fails', async (done) => {
+    test('is not called when condition fails', async () => {
       const envOutput = await when(
         (env) => env.stage === 'production',
         spy,
@@ -34,16 +33,14 @@ describe('when', () => {
 
       expect(spy).not.toHaveBeenCalled();
       expect(envOutput.stage).toBe('beta');
-      done();
     });
 
-    test('can be curried', async (done) => {
+    test('can be curried', async () => {
       const isProduction = when((env) => env.stage === 'production');
 
       const envOutput = await isProduction(spy, basicEnv);
       expect(spy).not.toHaveBeenCalled();
       expect(envOutput.stage).toBe('beta');
-      done();
     });
   });
   describe('dry run and verify', () => {
@@ -57,28 +54,27 @@ describe('when', () => {
       expect(isVerify(basicEnv)).toBeFalsy();
       expect(isVerify(withVerifyEnv)).toBeTruthy();
     });
-    test('whenNotDryrun() is not called when dry run', async (done) => {
+    test.only('whenNotDryrun() is not called when dry run', async () => {
       await whenNotDryrun(spy, basicEnv);
       expect(spy).not.toHaveBeenCalled();
-      done();
     });
-    test('whenNotDryrun() is called when not dry run', async (done) => {
-      const localEnv = { ...basicEnv, dryrun: false };
+    test('whenNotDryrun() is called when not dry run', async () => {
+      const localEnv: Env = {
+        ...basicEnv,
+        config: { ...basicEnv.config!, impact: 'full' },
+      };
       await whenNotDryrun(spy, localEnv);
       expect(spy).toHaveBeenCalledTimes(1);
-      done();
     });
 
-    test('whenNotVerify() is not called when verify is on', async (done) => {
+    test('whenNotVerify() is not called when verify is on', async () => {
       const localEnv = { ...basicEnv, verify: true };
       await whenNotVerify(spy, localEnv);
       expect(spy).not.toHaveBeenCalled();
-      done();
     });
-    test('whenNotVerify() is called when verify is off', async (done) => {
+    test('whenNotVerify() is called when verify is off', async () => {
       await whenNotVerify(spy, basicEnv);
       expect(spy).toHaveBeenCalledTimes(1);
-      done();
     });
   });
   describe('stage detection - canary, beta, production', () => {
@@ -88,25 +84,21 @@ describe('when', () => {
       expect(isStage('production', basicEnv)).toBeFalsy();
       expect(isStage('production')(basicEnv)).toBeFalsy();
     });
-    test('whenStage() is called when stage is correct', async (done) => {
+    test('whenStage() is called when stage is correct', async () => {
       await whenStage('beta')(spy, basicEnv);
       expect(spy).toHaveBeenCalledTimes(1);
-      done();
     });
-    test('whenStage() is not called when stage is wrong', async (done) => {
+    test('whenStage() is not called when stage is wrong', async () => {
       await whenStage('production')(spy, basicEnv);
       expect(spy).not.toHaveBeenCalled();
-      done();
     });
-    test("whenNotStage() is called when stage doesn't match", async (done) => {
+    test("whenNotStage() is called when stage doesn't match", async () => {
       await whenNotStage('production')(spy, basicEnv);
       expect(spy).toHaveBeenCalledTimes(1);
-      done();
     });
-    test('whenNotStage() is not called when stage matches', async (done) => {
+    test('whenNotStage() is not called when stage matches', async () => {
       await whenNotStage('beta')(spy, basicEnv);
       expect(spy).not.toHaveBeenCalled();
-      done();
     });
   });
 });
