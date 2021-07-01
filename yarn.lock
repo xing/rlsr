@@ -1080,6 +1080,13 @@
   resolved "https://registry.yarnpkg.com/@types/prettier/-/prettier-2.3.0.tgz#2e8332cc7363f887d32ec5496b207d26ba8052bb"
   integrity sha512-hkc1DATxFLQo4VxPDpMH1gCkPpBbpOoJ/4nhuXw4n63/0R6bCpQECj4+K226UJ4JO/eJQz+1mC2I7JsWanAdQw==
 
+"@types/ramda@^0.27.42":
+  version "0.27.42"
+  resolved "https://registry.yarnpkg.com/@types/ramda/-/ramda-0.27.42.tgz#4a61332c143ee5601ca8a7415544b9c79061d1b4"
+  integrity sha512-O4b1HAiT4mD4/PaPtAg5LEPs5E05tKPnFbVsDTC/ChBd1Wl9jbmwHm1GcumXv4AuENwv8XD8ciTyn+hRXDs6qQ==
+  dependencies:
+    ts-toolbelt "^6.15.1"
+
 "@types/stack-utils@^2.0.0":
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@types/stack-utils/-/stack-utils-2.0.0.tgz#7036640b4e21cc2f259ae826ce843d277dad8cff"
@@ -5980,6 +5987,11 @@ ts-jest@^27.0.3:
     mkdirp "1.x"
     semver "7.x"
     yargs-parser "20.x"
+
+ts-toolbelt@^6.15.1:
+  version "6.15.5"
+  resolved "https://registry.yarnpkg.com/ts-toolbelt/-/ts-toolbelt-6.15.5.tgz#cb3b43ed725cb63644782c64fbcad7d8f28c0a83"
+  integrity sha512-FZIXf1ksVyLcfr7M317jbB67XFJhOO1YqdTcuGaq9q5jLUoTikukZ+98TPjKiP2jC5CgmYdWWYs0s2nLSU0/1A==
 
 tsconfig-paths@^3.9.0:
   version "3.9.0"
