@@ -118,10 +118,18 @@ export type Env = {
   packages?: Record<string, Package>;
 };
 
-export type RelatedPackages = {
-  dependencies: string[];
-  devDependencies: string[];
-  peerDependencies: string[];
+export type RelatedPackageTypes = 'default' | 'dev' | 'peer';
+type RelatedPackageBase = {
+  type: RelatedPackageTypes;
+  name: string;
+};
+export type RelatedPackageDependsOn = RelatedPackageBase & {
+  /** npm version range string like `^2`, '3.0.1', '2 - 3' */
+  range: string;
+};
+export type RelatedPackageDependingOnThis = RelatedPackageBase & {
+  /** npm version range of the current package that is supported by the other package */
+  ownPackageRange: string;
 };
 
 export type Package = {
@@ -133,11 +141,11 @@ export type Package = {
    * Collection of other (internal) Packages that depends on this
    * (this = independent)
    */
-  dependingOnThis: RelatedPackages;
+  dependingOnThis: RelatedPackageDependingOnThis[];
   /**
    * Collection of other (internal) Packages that this one depends on
    * */
-  dependsOn: RelatedPackages;
+  dependsOn: RelatedPackageDependsOn[];
 
   /**
    * This value indicates if a major, minor, patch or no release is needed.

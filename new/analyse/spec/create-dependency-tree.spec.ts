@@ -9,12 +9,8 @@ import { envWithConfig } from '../../fixtures/env';
 const buildPackage = (name: string): Package => ({
   messages: [],
   relatedMessages: [],
-  dependingOnThis: {
-    dependencies: [],
-    peerDependencies: [],
-    devDependencies: [],
-  },
-  dependsOn: { dependencies: [], peerDependencies: [], devDependencies: [] },
+  dependingOnThis: [],
+  dependsOn: [],
   determinedIncrementLevel: -1,
   path: `path/to/${name}`,
   packageJson: [],
@@ -71,15 +67,21 @@ describe('[analyse] createDependencyTree module', () => {
       // 2 devDepends on 3
       // 3 peerDepends on 4
       // 4 doesn't depend on anyone
-      mockPackages['test-package-1'].dependsOn.dependencies.push(
-        'test-package-2'
-      );
-      mockPackages['test-package-2'].dependsOn.devDependencies.push(
-        'test-package-3'
-      );
-      mockPackages['test-package-3'].dependsOn.peerDependencies.push(
-        'test-package-4'
-      );
+      mockPackages['test-package-1'].dependsOn.push({
+        name: 'test-package-2',
+        range: '1.0.0',
+        type: 'default',
+      });
+      mockPackages['test-package-2'].dependsOn.push({
+        name: 'test-package-3',
+        range: '^1',
+        type: 'dev',
+      });
+      mockPackages['test-package-3'].dependsOn.push({
+        name: 'test-package-4',
+        range: '2.5.0 - 3',
+        type: 'peer',
+      });
 
       expectedPackages = clone(mockPackages);
 
@@ -96,15 +98,21 @@ describe('[analyse] createDependencyTree module', () => {
     });
 
     it('registers dependencies tree correctly', () => {
-      expectedPackages['test-package-2'].dependingOnThis.dependencies.push(
-        'test-package-1'
-      );
-      expectedPackages['test-package-3'].dependingOnThis.devDependencies.push(
-        'test-package-2'
-      );
-      expectedPackages['test-package-4'].dependingOnThis.peerDependencies.push(
-        'test-package-3'
-      );
+      expectedPackages['test-package-2'].dependingOnThis.push({
+        name: 'test-package-1',
+        type: 'default',
+        ownPackageRange: '1.0.0',
+      });
+      expectedPackages['test-package-3'].dependingOnThis.push({
+        name: 'test-package-2',
+        type: 'dev',
+        ownPackageRange: '^1',
+      });
+      expectedPackages['test-package-4'].dependingOnThis.push({
+        name: 'test-package-3',
+        type: 'peer',
+        ownPackageRange: '2.5.0 - 3',
+      });
       expect(result).toEqual({ ...envWithConfig, packages: expectedPackages });
     });
 

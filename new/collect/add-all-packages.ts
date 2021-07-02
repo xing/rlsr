@@ -1,4 +1,4 @@
-import { Env, Module, Package, RelatedPackages } from '../types';
+import { Env, Module, Package } from '../types';
 import { sync as glob } from 'glob';
 import { yellow } from 'chalk';
 
@@ -18,24 +18,14 @@ export const addAllPackages: Module = (env) => {
 
   const packages: Env['packages'] = packageJsonPaths.reduce(
     (accumulator, packageJsonPath) => {
-      const dependingOnThis: RelatedPackages = {
-        dependencies: [],
-        devDependencies: [],
-        peerDependencies: [],
-      };
-      const dependsOn: RelatedPackages = {
-        dependencies: [],
-        devDependencies: [],
-        peerDependencies: [],
-      };
       const currentPackage: Package = {
         path: packageJsonPath.replace(PACKAGE_JSON_ENDING, ''),
         packageJson: require(packageJsonPath),
         messages: [],
         relatedMessages: [],
         determinedIncrementLevel: -1,
-        dependingOnThis,
-        dependsOn,
+        dependingOnThis: [],
+        dependsOn: [],
       };
 
       // Make sure every package has a name
