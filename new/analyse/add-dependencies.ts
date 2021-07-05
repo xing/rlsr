@@ -1,4 +1,4 @@
-import { Module, Package } from '../types';
+import { Module, Package, RelatedPackageTypes } from '../types';
 
 import { logger } from '../helpers/logger';
 
@@ -20,19 +20,37 @@ export const addDependencies: Module = (env) => {
       const currentPackage = { ...(accumulator![packageName] as Package) };
 
       // Assign only internal dependencies
-      currentPackage.dependsOn.dependencies = Object.keys(
-        currentPackage.packageJson.dependencies || {}
-      ).filter((dependencyName) => packagesNames.includes(dependencyName));
+      currentPackage.dependsOn.push(
+        ...Object.entries(currentPackage.packageJson.dependencies || {})
+          .filter(([name]) => packagesNames.includes(name))
+          .map(([name, range]) => ({
+            type: 'default' as RelatedPackageTypes,
+            name,
+            range,
+          }))
+      );
 
       // Assign only internal devDependencies
-      currentPackage.dependsOn.devDependencies = Object.keys(
-        currentPackage.packageJson.devDependencies || {}
-      ).filter((dependencyName) => packagesNames.includes(dependencyName));
+      currentPackage.dependsOn.push(
+        ...Object.entries(currentPackage.packageJson.devDependencies || {})
+          .filter(([name]) => packagesNames.includes(name))
+          .map(([name, range]) => ({
+            type: 'dev' as RelatedPackageTypes,
+            name,
+            range,
+          }))
+      );
 
       // Assign only internal peerDependencies
-      currentPackage.dependsOn.peerDependencies = Object.keys(
-        currentPackage.packageJson.peerDependencies || {}
-      ).filter((dependencyName) => packagesNames.includes(dependencyName));
+      currentPackage.dependsOn.push(
+        ...Object.entries(currentPackage.packageJson.peerDependencies || {})
+          .filter(([name]) => packagesNames.includes(name))
+          .map(([name, range]) => ({
+            type: 'peer' as RelatedPackageTypes,
+            name,
+            range,
+          }))
+      );
 
       return {
         ...accumulator,

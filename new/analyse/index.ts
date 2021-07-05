@@ -3,6 +3,7 @@ import { wait } from '../helpers/wait-module';
 import { log } from '../helpers/log-module';
 
 import { addDependencies } from './add-dependencies';
+import { createDependencyTree } from './create-dependency-tree';
 
 export const analyse = composeAsync(
   log('ANALYSE PHASE: Looking at what needs to be changed'),
@@ -33,7 +34,7 @@ export const analyse = composeAsync(
   //   type (default dev peer)
   //   range: npm version range string like `^2`... what is currently there
   // }
-  // createDependencyTree,
+  createDependencyTree,
 
   // We do one sanity check/change before the action starts
   // this is only important for the first run, because we can't know how the dependencies are set up.

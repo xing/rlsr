@@ -75,16 +75,8 @@ describe('addAllPackages Module', () => {
           messages: [],
           relatedMessages: [],
           determinedIncrementLevel: -1,
-          dependingOnThis: {
-            dependencies: [],
-            devDependencies: [],
-            peerDependencies: [],
-          },
-          dependsOn: {
-            dependencies: [],
-            devDependencies: [],
-            peerDependencies: [],
-          },
+          dependingOnThis: [],
+          dependsOn: [],
         },
         mockSecondPackage: {
           path: 'path/to/second/',
@@ -92,16 +84,8 @@ describe('addAllPackages Module', () => {
           messages: [],
           relatedMessages: [],
           determinedIncrementLevel: -1,
-          dependingOnThis: {
-            dependencies: [],
-            devDependencies: [],
-            peerDependencies: [],
-          },
-          dependsOn: {
-            dependencies: [],
-            devDependencies: [],
-            peerDependencies: [],
-          },
+          dependingOnThis: [],
+          dependsOn: [],
         },
       };
 

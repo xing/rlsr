@@ -11,16 +11,8 @@ const mockPackageBuilder: (path: string, name: string) => Package = (
   messages: [],
   relatedMessages: [],
   determinedIncrementLevel: -1,
-  dependingOnThis: {
-    dependencies: [],
-    devDependencies: [],
-    peerDependencies: [],
-  },
-  dependsOn: {
-    dependencies: [],
-    devDependencies: [],
-    peerDependencies: [],
-  },
+  dependingOnThis: [],
+  dependsOn: [],
 });
 
 const mockEnvPackages: Env['packages'] = {
@@ -31,15 +23,15 @@ const mockEnvPackages: Env['packages'] = {
 };
 mockEnvPackages.mock1Package.packageJson.dependencies = {
   lodash: '1',
-  mock2Package: '1',
+  mock2Package: '1.0.0',
 };
 mockEnvPackages.mock1Package.packageJson.devDependencies = {
   eslint: '1',
-  mock3Package: '1',
+  mock3Package: '^1',
 };
 mockEnvPackages.mock1Package.packageJson.peerDependencies = {
   react: '1',
-  mock4Package: '1',
+  mock4Package: '2.5.0 - 3',
 };
 
 // mock Logger
@@ -89,11 +81,11 @@ describe('addDependencies Module', () => {
           ...mockEnvPackages,
           mock1Package: {
             ...mockEnvPackages.mock1Package,
-            dependsOn: {
-              dependencies: ['mock2Package'],
-              devDependencies: ['mock3Package'],
-              peerDependencies: ['mock4Package'],
-            },
+            dependsOn: [
+              { name: 'mock2Package', type: 'default', range: '1.0.0' },
+              { name: 'mock3Package', type: 'dev', range: '^1' },
+              { name: 'mock4Package', type: 'peer', range: '2.5.0 - 3' },
+            ],
           },
         },
       };
