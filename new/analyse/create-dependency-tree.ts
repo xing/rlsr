@@ -41,17 +41,14 @@ export const createDependencyTree: Module = (env) => {
     counter.peerDependencies += peerDependencies.length;
 
     // And for each of the current package dependencies
-    [defaultDependencies, devDependencies, peerDependencies].forEach(
+    packagesClone[packageName].dependsOn.forEach(({ name, type, range }) => {
       // register itself (together with the npm version range this current package needs) of each dependency
-      (dependsOnPackage) =>
-        dependsOnPackage.forEach(({ name, type, range }) => {
-          packagesClone[name].dependingOnThis.push({
-            name: packageName,
-            type,
-            ownPackageRange: range,
-          });
-        })
-    );
+      packagesClone[name].dependingOnThis.push({
+        name: packageName,
+        type,
+        ownPackageRange: range,
+      });
+    });
   });
 
   log(

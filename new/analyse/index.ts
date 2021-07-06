@@ -4,6 +4,7 @@ import { log } from '../helpers/log-module';
 
 import { addDependencies } from './add-dependencies';
 import { createDependencyTree } from './create-dependency-tree';
+import { extendDependencyRanges } from './extend-dependency-ranges';
 
 export const analyse = composeAsync(
   log('ANALYSE PHASE: Looking at what needs to be changed'),
@@ -21,6 +22,15 @@ export const analyse = composeAsync(
   // addDependencies
   addDependencies,
 
+  // We do one sanity check/change before the action starts
+  // this is only important for the first run, because we can't know how the dependencies are set up.
+  // We widen the range of dependencies.
+  // So if the range is strictly toed to one version (i.e. `1.2.3` instead of ^1.2.3), we widen it
+  // to allow all patch versions. SO go through all dependencies (and peer / dev), look for that pattern
+  // and prepend a `^`.
+  // As we produce widened ranges throughout the process, this has no effect anymore from the second run onwards.
+  extendDependencyRanges,
+
   // See add-relations-to-packages.js
   // this creates a tree of dependencies - directly connects the files to each other
   // and also adds the inverted relation (parent-child/child-parent)
@@ -35,15 +45,6 @@ export const analyse = composeAsync(
   //   range: npm version range string like `^2`... what is currently there
   // }
   createDependencyTree,
-
-  // We do one sanity check/change before the action starts
-  // this is only important for the first run, because we can't know how the dependencies are set up.
-  // We widen the range of dependencies.
-  // So if the range is strictly toed to one version (i.e. `1.2.3` instead of ^1.2.3), we widen it
-  // to allow all patch versions. SO go through all dependencies (and peer / dev), look for that pattern
-  // and prepend a `^`.
-  // As we produce widened ranges throughout the process, this has no effect anymore from the second run onwards.
-  // widenDependencyRanges
 
   // Adding messages to the packages is a two step process.
   // That's different from the former rlsr script, that had the package name in the message
