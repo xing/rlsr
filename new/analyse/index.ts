@@ -4,7 +4,7 @@ import { log } from '../helpers/log-module';
 
 import { addDependencies } from './add-dependencies';
 import { createDependencyTree } from './create-dependency-tree';
-import { widenDependencyRanges } from './widen-dependency-ranges';
+import { extendDependencyRanges } from './extend-dependency-ranges';
 
 export const analyse = composeAsync(
   log('ANALYSE PHASE: Looking at what needs to be changed'),
@@ -29,7 +29,7 @@ export const analyse = composeAsync(
   // to allow all patch versions. SO go through all dependencies (and peer / dev), look for that pattern
   // and prepend a `^`.
   // As we produce widened ranges throughout the process, this has no effect anymore from the second run onwards.
-  widenDependencyRanges,
+  extendDependencyRanges,
 
   // See add-relations-to-packages.js
   // this creates a tree of dependencies - directly connects the files to each other

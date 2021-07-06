@@ -10,7 +10,7 @@ const mockWait = jest.fn(() => mockWaitResult);
 const mockLogResult = jest.fn();
 const mockLog = jest.fn(() => mockLogResult);
 const mockAddDependencies = jest.fn();
-const mockWidenDependencyRanges = jest.fn();
+const mockExtendDependencyRanges = jest.fn();
 const mockCreateDependencyTree = jest.fn();
 
 jest.mock('../../helpers/compose-async', () => ({
@@ -21,8 +21,8 @@ jest.mock('../../helpers/log-module', () => ({ log: mockLog }));
 jest.mock('../add-dependencies', () => ({
   addDependencies: mockAddDependencies,
 }));
-jest.mock('../widen-dependency-ranges', () => ({
-  widenDependencyRanges: mockWidenDependencyRanges,
+jest.mock('../extend-dependency-ranges', () => ({
+  extendDependencyRanges: mockExtendDependencyRanges,
 }));
 jest.mock('../create-dependency-tree', () => ({
   createDependencyTree: mockCreateDependencyTree,
@@ -53,9 +53,9 @@ describe("analyse's Index", () => {
     expect(mockComposeAsync.mock.calls[0][1]).toBe(mockAddDependencies);
   });
 
-  test("3. widen package's dependencies ranges", () => {
+  test("3. extend package's dependencies ranges", () => {
     // @ts-ignore
-    expect(mockComposeAsync.mock.calls[0][2]).toBe(mockWidenDependencyRanges);
+    expect(mockComposeAsync.mock.calls[0][2]).toBe(mockExtendDependencyRanges);
   });
 
   test("4. creates package's dependencies tree", () => {

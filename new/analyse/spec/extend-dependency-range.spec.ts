@@ -20,12 +20,18 @@ const mockLog = jest.fn();
 const mockLogger = jest.fn(() => ({ log: mockLog }));
 jest.doMock('../../helpers/logger', () => ({ logger: mockLogger }));
 
-describe('WidenDependencyRange Module', () => {
-  let widenDependencyRanges: Module;
+describe('ExtendDependencyRange Module', () => {
+  let extendDependencyRanges: Module;
   let result: Env;
   let expectedPackages: Env['packages'];
 
+  afterAll(() => {
+    jest.useRealTimers();
+  });
   beforeAll(() => {
+    // mock Date
+    jest.useFakeTimers('modern').setSystemTime(new Date(2020, 3, 1));
+
     const mockPackages = {
       'test-package-1': buildPackage('test-package-1'),
       'test-package-2': buildPackage('test-package-2'),
@@ -68,12 +74,21 @@ describe('WidenDependencyRange Module', () => {
 
     const mockEnv: Env = { ...envWithConfig, packages: mockPackages };
     expectedPackages = clone(mockPackages);
-    expectedPackages['test-package-1'].dependsOn[1].range = '^1.0.0';
-    expectedPackages['test-package-3'].dependsOn[0].range = '^2.5.0 - 3';
+    expectedPackages['test-package-1'].dependsOn[1].range = '~1.0.0';
+    expectedPackages['test-package-1'].determinedIncrementLevel = 0;
+    expectedPackages['test-package-1'].relatedMessages.push({
+      type: 'patch',
+      hash: 'n/a',
+      date: new Date().toISOString(),
+      message: 'fix: extend dependency ranges',
+      body: `affected dependencies: test-package-3`,
+      text: `affected dependencies: test-package-3`,
+      level: 'patch',
+    });
 
-    widenDependencyRanges =
-      require('../widen-dependency-ranges').widenDependencyRanges;
-    result = widenDependencyRanges(mockEnv) as Env;
+    extendDependencyRanges =
+      require('../extend-dependency-ranges').extendDependencyRanges;
+    result = extendDependencyRanges(mockEnv) as Env;
   });
 
   it('returns an Env config object', () => {
@@ -81,17 +96,17 @@ describe('WidenDependencyRange Module', () => {
   });
 
   /**
-   * Individual assertions on widening scenarios below
+   * Individual assertions on extending scenarios below
    */
-  it('widens pinned internal package versions ("1.0.0" -> "^1.0.0")', () => {
+  it('extends pinned internal package versions ("1.0.0" -> "~1.0.0")', () => {
     expect(result.packages!['test-package-1'].dependsOn[1].range).toEqual(
-      '^1.0.0'
+      '~1.0.0'
     );
   });
 
-  it('widens range versions ("1 - 2" -> "^1 - 2")', () => {
+  it('leaves range versions ("1 - 2") untouched', () => {
     expect(result.packages!['test-package-3'].dependsOn[0].range).toEqual(
-      '^2.5.0 - 3'
+      '2.5.0 - 3'
     );
   });
 
@@ -107,5 +122,25 @@ describe('WidenDependencyRange Module', () => {
 
   it('leaves external dependencies untouched', () => {
     expect(result.packages!['test-package-4'].dependsOn[0].range).toEqual('*');
+  });
+
+  it('flags increment level on affected packages', () => {
+    expect(result.packages!['test-package-1'].determinedIncrementLevel).toEqual(
+      0
+    );
+  });
+
+  it('adds a patch message to each affected dependency', () => {
+    expect(result.packages!['test-package-1'].relatedMessages).toEqual([
+      {
+        type: 'patch',
+        hash: 'n/a',
+        date: new Date().toISOString(),
+        message: 'fix: extend dependency ranges',
+        body: `affected dependencies: test-package-3`,
+        text: `affected dependencies: test-package-3`,
+        level: 'patch',
+      },
+    ]);
   });
 });
