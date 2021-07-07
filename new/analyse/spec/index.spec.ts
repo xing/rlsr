@@ -12,6 +12,7 @@ const mockLog = jest.fn(() => mockLogResult);
 const mockAddDependencies = jest.fn();
 const mockExtendDependencyRanges = jest.fn();
 const mockCreateDependencyTree = jest.fn();
+const mockAddPackageNamesToMessages = jest.fn();
 
 jest.mock('../../helpers/compose-async', () => ({
   composeAsync: mockComposeAsync,
@@ -26,6 +27,9 @@ jest.mock('../extend-dependency-ranges', () => ({
 }));
 jest.mock('../create-dependency-tree', () => ({
   createDependencyTree: mockCreateDependencyTree,
+}));
+jest.mock('../add-package-names-to-messages', () => ({
+  addPackageNamesToMessages: mockAddPackageNamesToMessages,
 }));
 
 describe("analyse's Index", () => {
@@ -61,6 +65,13 @@ describe("analyse's Index", () => {
   test("4. creates package's dependencies tree", () => {
     // @ts-ignore
     expect(mockComposeAsync.mock.calls[0][3]).toBe(mockCreateDependencyTree);
+  });
+
+  test('5. add package names to messages', () => {
+    // @ts-ignore
+    expect(mockComposeAsync.mock.calls[0][4]).toBe(
+      mockAddPackageNamesToMessages
+    );
   });
 
   test('calls "wait(1000)" at the end', () => {

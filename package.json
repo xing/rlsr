@@ -65,6 +65,7 @@
     "chalk": "^4.1.1",
     "conventional-commits-parser": "3.2.1",
     "cosmiconfig": "^7.0.0",
+    "find-up": "^5.0.0",
     "git-latest-semver-tag": "1.0.2",
     "git-raw-commits": "2.0.10",
     "glob": "7.1.7",
