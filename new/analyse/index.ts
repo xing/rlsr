@@ -5,6 +5,7 @@ import { log } from '../helpers/log-module';
 import { addDependencies } from './add-dependencies';
 import { createDependencyTree } from './create-dependency-tree';
 import { extendDependencyRanges } from './extend-dependency-ranges';
+import { addPackageNamesToMessages } from './add-package-names-to-messages';
 
 export const analyse = composeAsync(
   log('ANALYSE PHASE: Looking at what needs to be changed'),
@@ -56,7 +57,7 @@ export const analyse = composeAsync(
   // addAffectedPAckages.ts and util.ts
   // the principle is: go through all files of the commit message (they're already attached to the message)
   // then `findUp` for the package.json and extract the package name from there.
-  // addPackageNamesToMessages
+  addPackageNamesToMessages,
 
   // STEP 2:
   // Then it's easy to turn this around. Each package (the previously created data structure in env)
