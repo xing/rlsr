@@ -6,6 +6,7 @@ import { addDependencies } from './add-dependencies';
 import { createDependencyTree } from './create-dependency-tree';
 import { extendDependencyRanges } from './extend-dependency-ranges';
 import { addPackageNamesToMessages } from './add-package-names-to-messages';
+import { addMessagesToPackages } from './add-messages-to-packages';
 
 export const analyse = composeAsync(
   log('ANALYSE PHASE: Looking at what needs to be changed'),
@@ -63,7 +64,7 @@ export const analyse = composeAsync(
   // Then it's easy to turn this around. Each package (the previously created data structure in env)
   // now gets the message added. I.e. go through all messages. Get the package names from there
   // then go to the package and add that message over there.
-  // addMessagesToPackages
+  addMessagesToPackages,
 
   // up next, we need a first version run.
   // from the messages attached to the packages, we need to find out the increment

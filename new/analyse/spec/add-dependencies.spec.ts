@@ -1,3 +1,4 @@
+/* eslint-env node, jest */
 import type { Env, Module, Package } from '../../types';
 import { envWithConfig } from '../../fixtures/env';
 
