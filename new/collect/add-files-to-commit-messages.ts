@@ -21,7 +21,11 @@ const addFilesToCommitMessages: Module = async (env: Env) => {
   const committedFiles = await Promise.all(
     originalCommitMessages.map(async (commitMessage: Message) => {
       try {
-        return await simpleGit().raw(...gitCommand, commitMessage.hash);
+        const result: string = await simpleGit().raw(
+          ...gitCommand,
+          commitMessage.hash
+        );
+        return result.trim().split('\n');
       } catch (e) {
         error(e);
         throw new Error('Cannot extract committed files');
