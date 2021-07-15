@@ -7,6 +7,7 @@ import { createDependencyTree } from './create-dependency-tree';
 import { extendDependencyRanges } from './extend-dependency-ranges';
 import { addPackageNamesToMessages } from './add-package-names-to-messages';
 import { addMessagesToPackages } from './add-messages-to-packages';
+import { determineDirectIncrement } from './determine-direct-increment';
 
 export const analyse = composeAsync(
   log('ANALYSE PHASE: Looking at what needs to be changed'),
@@ -70,7 +71,7 @@ export const analyse = composeAsync(
   // from the messages attached to the packages, we need to find out the increment
   // 0 = patch, 1 = minor, 2 = major
   // Just go through all messages, map them to that number and find the mathematical maximum.
-  // determineDirectIncrement
+  determineDirectIncrement,
 
   // with that increment, we can now calculate the new version number and store it in a new variable
   // the existing version number should still be there, so don't override.
