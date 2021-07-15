@@ -8,8 +8,10 @@ const mockYellow = jest.fn((text) => `yellow(${text})`);
 jest.doMock('chalk', () => ({ yellow: mockYellow }));
 
 // mock Logger
+const mockError = jest.fn();
 const mockLog = jest.fn();
 const mockLogger = jest.fn(() => ({
+  error: mockError,
   log: mockLog,
 }));
 jest.doMock('../../helpers/logger', () => ({
@@ -22,14 +24,13 @@ const mockPackages: Record<string, { name: string }> = {
   'path/to/second/package.json': { name: 'mockSecondPackage' },
 };
 const mockPackagesPaths = Object.keys(mockPackages);
-mockPackagesPaths.forEach((mockPackagesPath) => {
-  jest.doMock(mockPackagesPath, () => mockPackages[mockPackagesPath], {
-    virtual: true,
-  });
-});
 
 // mock Glob
-const mockSync = jest.fn(() => mockPackagesPaths);
+const mockSync = jest.fn((globPattern) => {
+  return globPattern === `${envWithConfig.appRoot}/package.json`
+    ? []
+    : mockPackagesPaths;
+});
 jest.doMock('glob', () => ({ sync: mockSync }));
 
 describe('addAllPackages Module', () => {
@@ -46,6 +47,11 @@ describe('addAllPackages Module', () => {
 
   describe('when used', () => {
     beforeAll(() => {
+      mockPackagesPaths.forEach((mockPackagesPath) => {
+        jest.doMock(mockPackagesPath, () => mockPackages[mockPackagesPath], {
+          virtual: true,
+        });
+      });
       result = addAllPackages(envWithConfig) as Env;
     });
 
@@ -53,9 +59,17 @@ describe('addAllPackages Module', () => {
       expect(mockLog).toHaveBeenNthCalledWith(1, 'Search for all package.json');
     });
 
+    it('uses the right golb pattern for the main package.json', () => {
+      expect(mockSync).toHaveBeenCalledTimes(2);
+      expect(mockSync).toHaveBeenNthCalledWith(
+        1,
+        `${envWithConfig.appRoot}/package.json`
+      );
+    });
     it('uses the right golb pattern for package.json', () => {
-      expect(mockSync).toHaveBeenCalledTimes(1);
-      expect(mockSync).toHaveBeenCalledWith(
+      expect(mockSync).toHaveBeenCalledTimes(2);
+      expect(mockSync).toHaveBeenNthCalledWith(
+        2,
         `${envWithConfig.appRoot}/!(node_modules)/**/package.json`
       );
     });
@@ -97,5 +111,17 @@ describe('addAllPackages Module', () => {
       expect(result).toEqual(expected);
     });
   });
-  it.todo('throws an error on unnamed packages (packages.json field)');
+
+  it('throws an error on unnamed packages (packages.json field)', () => {
+    jest.resetModules();
+    jest.mock('path/to/first/package.json', () => ({}), { virtual: true });
+    jest.mock('path/to/second/package.json', () => ({}), { virtual: true });
+    const mockEnv: Env = { ...envWithConfig };
+    const expectedErrorMessage = `Missing "name" attribute for package path/to/first/package.json`;
+
+    expect(() => addAllPackages(mockEnv)).toThrow(expectedErrorMessage);
+
+    expect(mockError).toHaveBeenCalledTimes(1);
+    expect(mockError).toHaveBeenCalledWith(expectedErrorMessage);
+  });
 });
