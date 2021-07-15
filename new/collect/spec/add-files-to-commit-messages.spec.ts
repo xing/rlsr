@@ -67,7 +67,7 @@ describe('addFilesToCommitMessages Module', () => {
     };
 
     beforeAll(async () => {
-      mockRaw.mockResolvedValue(mockCommitMesages);
+      mockRaw.mockResolvedValue(mockCommitMesages.join('\n'));
       result = await addFilesToCommitMessages(mockEnv);
     });
 
