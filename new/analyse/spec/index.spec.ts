@@ -14,6 +14,7 @@ const mockExtendDependencyRanges = jest.fn();
 const mockCreateDependencyTree = jest.fn();
 const mockAddPackageNamesToMessages = jest.fn();
 const mockAddMessagesToPackages = jest.fn();
+const mockDetermineDirectIncrement = jest.fn();
 
 jest.mock('../../helpers/compose-async', () => ({
   composeAsync: mockComposeAsync,
@@ -34,6 +35,9 @@ jest.mock('../add-package-names-to-messages', () => ({
 }));
 jest.mock('../add-messages-to-packages', () => ({
   addMessagesToPackages: mockAddMessagesToPackages,
+}));
+jest.mock('../determine-direct-increment', () => ({
+  determineDirectIncrement: mockDetermineDirectIncrement,
 }));
 
 describe("analyse's Index", () => {
@@ -81,6 +85,13 @@ describe("analyse's Index", () => {
   test('6. adds messages to packages', () => {
     // @ts-ignore
     expect(mockComposeAsync.mock.calls[0][5]).toBe(mockAddMessagesToPackages);
+  });
+
+  test('7. determine direct increment', () => {
+    // @ts-ignore
+    expect(mockComposeAsync.mock.calls[0][6]).toBe(
+      mockDetermineDirectIncrement
+    );
   });
 
   test('calls "wait(1000)" at the end', () => {
