@@ -8,6 +8,7 @@ import { extendDependencyRanges } from './extend-dependency-ranges';
 import { addPackageNamesToMessages } from './add-package-names-to-messages';
 import { addMessagesToPackages } from './add-messages-to-packages';
 import { determineDirectIncrement } from './determine-direct-increment';
+import { determineVersion } from './determine-version';
 
 export const analyse = composeAsync(
   log('ANALYSE PHASE: Looking at what needs to be changed'),
@@ -79,7 +80,7 @@ export const analyse = composeAsync(
   // 1 => Minor is incremented, patch is 0
   // 2 => Major is incremented, minor and patch are 0
   // `semver.bump` (/src/transform/semver) has the code.
-  // determineVersion (first run, we run that once again later)
+  determineVersion, // (first run, we run that once again later)
 
   // the next step will be the most complex in the analyse phase.
   // It's about incrementing the dependents if needed

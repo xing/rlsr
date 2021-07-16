@@ -116,7 +116,7 @@ export type Env = {
   rawCommitMessages?: MessageRaw[];
   commitMessages?: Message[];
   /** collection of affected packages for this release */
-  packages?: Record<string, Package>;
+  packages?: Record<string, Package | PackageAfterDetermineVersion>;
 };
 
 export type RelatedPackageTypes = 'default' | 'dev' | 'peer';
@@ -157,6 +157,11 @@ export type Package = {
   path: string;
   /** Content of this package's package.json file */
   packageJson: PackageJson;
+};
+
+export type PackageAfterDetermineVersion = Package & {
+  /** Version to be released this package with */
+  incrementedVersion: string;
 };
 
 export type Module = (env: Env) => Promise<Env> | Env;
