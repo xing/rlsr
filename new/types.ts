@@ -80,6 +80,7 @@ export type Message = MessageConventionalCommit & {
   committedFiles?: string[];
   affectedPackages?: string[];
 };
+export type RelatedMessages = Pick<Message, 'date' | 'level' | 'text'>;
 
 export type Env = {
   /** The stage as demanded by the command line - canary, beta or production */
@@ -137,7 +138,7 @@ export type Package = {
   /** Commit Messages stating what changed on this package (strictly) */
   messages: Message[];
   /** Commit Messages to be used for each (internal) dependency being released */
-  relatedMessages: Message[];
+  relatedMessages: RelatedMessages[];
   /**
    * Collection of other (internal) Packages that depends on this
    * (this = independent)

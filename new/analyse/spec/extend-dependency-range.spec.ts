@@ -77,11 +77,7 @@ describe('ExtendDependencyRange Module', () => {
     expectedPackages['test-package-1'].dependsOn[1].range = '~1.0.0';
     expectedPackages['test-package-1'].determinedIncrementLevel = 0;
     expectedPackages['test-package-1'].relatedMessages.push({
-      type: 'patch',
-      hash: 'n/a',
       date: new Date().toISOString(),
-      message: 'fix: extend dependency ranges',
-      body: `affected dependencies: test-package-3`,
       text: `affected dependencies: test-package-3`,
       level: 'patch',
     });
@@ -133,11 +129,7 @@ describe('ExtendDependencyRange Module', () => {
   it('adds a patch message to each affected dependency', () => {
     expect(result.packages!['test-package-1'].relatedMessages).toEqual([
       {
-        type: 'patch',
-        hash: 'n/a',
         date: new Date().toISOString(),
-        message: 'fix: extend dependency ranges',
-        body: `affected dependencies: test-package-3`,
         text: `affected dependencies: test-package-3`,
         level: 'patch',
       },
