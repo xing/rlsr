@@ -4,7 +4,7 @@ import { green, red, yellow, white } from 'chalk';
 
 import { logger } from '../helpers/logger';
 
-const { error, log } = logger('determine direct increment');
+const { error, log } = logger('[analyse] determine direct increment');
 
 const mapLevelToIncrementLevel: Record<
   Message['level'],
