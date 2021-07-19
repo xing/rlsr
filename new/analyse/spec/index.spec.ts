@@ -16,6 +16,7 @@ const mockAddPackageNamesToMessages = jest.fn();
 const mockAddMessagesToPackages = jest.fn();
 const mockDetermineDirectIncrement = jest.fn();
 const mockDetermineVersion = jest.fn();
+const mockAdaptDependencies = jest.fn();
 
 jest.mock('../../helpers/compose-async', () => ({
   composeAsync: mockComposeAsync,
@@ -42,6 +43,9 @@ jest.mock('../determine-direct-increment', () => ({
 }));
 jest.mock('../determine-version', () => ({
   determineVersion: mockDetermineVersion,
+}));
+jest.mock('../adapt-dependencies', () => ({
+  adaptDependencies: mockAdaptDependencies,
 }));
 
 describe("analyse's Index", () => {
@@ -101,6 +105,11 @@ describe("analyse's Index", () => {
   test('8. determine version (first run)', () => {
     // @ts-ignore
     expect(mockComposeAsync.mock.calls[0][7]).toBe(mockDetermineVersion);
+  });
+
+  test('9. adapt dependencies', () => {
+    // @ts-ignore
+    expect(mockComposeAsync.mock.calls[0][8]).toBe(mockAdaptDependencies);
   });
 
   test('calls "wait(1000)" at the end', () => {
