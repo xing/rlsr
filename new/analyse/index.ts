@@ -21,9 +21,14 @@ export const analyse = composeAsync(
   // and not from the package.json (except on the first run)
   // if that is the case, you'll find a dependency range of `*`
   //
-  // ADDITION: I guess we don't need dev dependencies here - it's enough when they have `*`
+  // REMAINING TODOS
+  // (1) We don't need dev dependencies here - it's enough when they stick to having `*`
   // so you can safely filter out dev deps and only concentrate on peer and default deps
-  // addDependencies
+  // (2) Als missing: If a `rlsr.json` is present (see `env.status`), it already has data
+  // that fits to that data structure and in most cases contains the actual ranges. These
+  // structures must get merged.
+  // (3) For point 2, the package.json has precendence unless it contains a `*` in the range.
+  // This automatically includes cases qith the keyword `new` as dependency range
   addDependencies,
 
   // We do one sanity check/change before the action starts
@@ -96,6 +101,9 @@ export const analyse = composeAsync(
   //     type `fix`, text `dependency <name> has changed from <x> to <y>`
   //   - change the range of the related dependency to e.g. `>=1.2.7 <1.3.0`
   //   - you get the lower range value with `semver.minVersion` from the semver npm package
+  //   - SPECIAL CASE: If you find the keyword `new` instead of the range, the lower range
+  //     value is set to the new package version number of the dependency
+  //     e.g. `1.1.0` => `>= 1.1.1`
   //   - you get the upper range version by a minor bump of the new package version number
   //     e.g. if the new version number is `3.0` and the old range was ^2, the new range becomes
   //     >=2.0.0 <3.1.0
@@ -105,6 +113,7 @@ export const analyse = composeAsync(
   // as some increments have changed, we re-run the previous `determineVersion` script
   // because only patch changes are added and patch changes are always within the range,
   // we don't have to run `adaptDependencies` a second time.
+
   // determineVersion (second run),
 
   // finally, we go through some re-arrangements
@@ -135,9 +144,14 @@ export const analyse = composeAsync(
   //   packages: {
   //     <packagename>: {
   //       version: "<new version>",
-  //       dependencies: {
-  //         <otherpackagename>: "<newdependencyrange>"
-  //       }
+  //       dependencies: [
+  //         {
+  //           name: "dependency",
+  //           type: "default" | "peer",
+  //           range: "<new range>"
+  //         }.
+  //         ...
+  //       ]
   //     }
   //   }
   // }
