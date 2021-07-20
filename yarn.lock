@@ -1087,6 +1087,11 @@
   dependencies:
     ts-toolbelt "^6.15.1"
 
+"@types/semver@^7.3.7":
+  version "7.3.7"
+  resolved "https://registry.yarnpkg.com/@types/semver/-/semver-7.3.7.tgz#b9eb89d7dfa70d5d1ce525bc1411a35347f533a3"
+  integrity sha512-4g1jrL98mdOIwSOUh6LTlB0Cs9I0dQPwINUhBg7C6pN4HLr8GS8xsksJxilW6S6dQHVi2K/o+lQuQcg7LroCnw==
+
 "@types/stack-utils@^2.0.0":
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@types/stack-utils/-/stack-utils-2.0.0.tgz#7036640b4e21cc2f259ae826ce843d277dad8cff"
