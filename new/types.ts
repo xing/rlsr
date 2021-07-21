@@ -85,7 +85,11 @@ export type RelatedMessages = Pick<Message, 'date' | 'level' | 'text'>;
 export type ChangeLogMessage = {
   message: string;
   hash?: string;
-  version?: string;
+}
+
+export type MainChangeLogMessage = {
+  version: string;
+  messages: ChangeLogMessage[];
 }
 
 export type Env = {
@@ -125,7 +129,7 @@ export type Env = {
   /** collection of affected packages for this release */
   packages?: Record<string, Package | PackageAfterDetermineVersion>;
   /** changelog messages */
-  changelog?: Record<string, ChangeLogMessage>;
+  changelog?: Record<string, MainChangeLogMessage>;
 };
 
 export type RelatedPackageTypes = 'default' | 'dev' | 'peer';

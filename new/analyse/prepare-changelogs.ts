@@ -1,5 +1,5 @@
 // import { Message } from './../types';
-import type { Module, PackageAfterPrepareChangelogs, ChangeLogMessage } from '../types';
+import type { Module, PackageAfterPrepareChangelogs, ChangeLogMessage, Env } from '../types';
 import { clone } from 'ramda';
 
 // import path from 'path';
@@ -17,9 +17,9 @@ export const prepareChangelogs: Module = (env) => {
     throw new Error(errorMessage);
   }
 
-  // todo: remove after Santi implements releasable packages
+  // todo: replace with the releasable packages implementation
   const releasablePackages = clone(env.packages)  as Record<string, PackageAfterPrepareChangelogs>;
-  console.dir(releasablePackages,  {depth: null });
+  // console.dir(releasablePackages,  {depth: null });
 
   Object.entries(releasablePackages).forEach(([packageName, currentPackage]) => {
     log(`preparing changelog messages for ${packageName} `);
@@ -30,8 +30,9 @@ export const prepareChangelogs: Module = (env) => {
 
     if(!messages.length) {
       const errorMessage = `No changelog messages found for ${packageName}`;
-      error(errorMessage);
-      throw new Error(errorMessage);
+      log(errorMessage);
+      return;
+      // throw new Error(errorMessage);
     }
 
     let changeLogContent: PackageAfterPrepareChangelogs["changelogs"] = {};
@@ -44,6 +45,23 @@ export const prepareChangelogs: Module = (env) => {
 
     log(`writing changelog messages for ${packageName} on ${version}`);
     currentPackage.changelogs = changeLogContent;
+
+    log(`writing main changelog messages for ${packageName} on ${version}`);
+    const changelogDate = new Date().toISOString().split('T')[0];
+    const mainChangeLogFile = join(`${env.appRoot}/metadata/changelog/`, `${changelogDate}.json`);
+
+    let mainChangeLogContent: Env["changelog"] = {};
+    if (fs.existsSync(mainChangeLogFile)) {
+      mainChangeLogContent = JSON.parse(fs.readFileSync(mainChangeLogFile, 'utf8'));
+    }
+
+    mainChangeLogContent![packageName]= {version, messages};
+    env.changelog = mainChangeLogContent;
+
+    // TODO: writing files will be implemented on later step
+    // const newChangelogContent = JSON.stringify(changeLogContent, null, 2);
+    // fs.writeFileSync(changelogFile, newChangelogContent, 'utf8');
+    // fs.writeFileSync(mainChangelogFile, JSON.stringify(mainChangeLogContent, null, 2));
   });
 
   return { ...env, packages: releasablePackages };
