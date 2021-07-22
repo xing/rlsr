@@ -82,15 +82,18 @@ export type Message = MessageConventionalCommit & {
 };
 export type RelatedMessages = Pick<Message, 'date' | 'level' | 'text'>;
 
-export type ChangeLogMessage = {
+export type ChangelogMessage = {
   message: string;
   hash?: string;
-}
+};
 
-export type MainChangeLogMessage = {
+export type MainChangelogMessage = {
+  package: string;
   version: string;
-  messages: ChangeLogMessage[];
-}
+  messages: ChangelogMessage[];
+};
+
+export type MainChangelog = Record<string, MainChangelogMessage[]>;
 
 export type Env = {
   /** The stage as demanded by the command line - canary, beta or production */
@@ -127,9 +130,12 @@ export type Env = {
   rawCommitMessages?: MessageRaw[];
   commitMessages?: Message[];
   /** collection of affected packages for this release */
-  packages?: Record<string, Package | PackageAfterDetermineVersion>;
+  packages?: Record<
+    string,
+    Package | PackageAfterDetermineVersion | PackageAfterPrepareChangelogs
+  >;
   /** changelog messages */
-  changelog?: Record<string, MainChangeLogMessage>;
+  changelog?: MainChangelog;
 };
 
 export type RelatedPackageTypes = 'default' | 'dev' | 'peer';
@@ -177,8 +183,10 @@ export type PackageAfterDetermineVersion = Package & {
   incrementedVersion: string;
 };
 
+export type PackageChangelog = Record<string, ChangelogMessage[]>;
+
 export type PackageAfterPrepareChangelogs = PackageAfterDetermineVersion & {
-  changelogs: Record<string, ChangeLogMessage[]>
+  changelogs: PackageChangelog;
 };
 
 export type Module = (env: Env) => Promise<Env> | Env;
