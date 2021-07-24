@@ -49,7 +49,7 @@ describe('addDependencies Module', () => {
 
   it('Sets up a logger', () => {
     expect(mockLogger).toBeCalledTimes(1);
-    expect(mockLogger).toBeCalledWith('add dependencies');
+    expect(mockLogger).toBeCalledWith('[analyse] add dependencies');
   });
 
   it("Throws an exception if 'env.packages' is empty", () => {
