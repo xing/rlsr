@@ -114,8 +114,7 @@ export const analyse = composeAsync(
   // as some increments have changed, we re-run the previous `determineVersion` script
   // because only patch changes are added and patch changes are always within the range,
   // we don't have to run `adaptDependencies` a second time.
-
-  // determineVersion (second run),
+  determineVersion,
 
   // finally, we go through some re-arrangements
 

@@ -40,25 +40,42 @@ const mockParse = parse as jest.MockedFunction<typeof parse>;
 mockParse.mockImplementation((version) => version);
 
 // mock EnvObject
-const mockPackageBuilder = (
-  id: Package['determinedIncrementLevel']
-): Package => ({
-  path: `mock/path/to/package_${id}/`,
-  packageJson: { name: `mock${id}Package`, version: '1.0.0' },
-  messages: [],
-  relatedMessages: [],
-  determinedIncrementLevel: id,
-  dependingOnThis: [],
-  dependsOn: [],
-});
+function mockPackageBuilder(
+  id: number,
+  determinedIncrementLevel: Package['determinedIncrementLevel']
+): Package;
+function mockPackageBuilder(
+  id: number,
+  determinedIncrementLevel: Package['determinedIncrementLevel'],
+  incrementedVersion: string
+): PackageAfterDetermineVersion;
+function mockPackageBuilder(
+  id: number,
+  determinedIncrementLevel: Package['determinedIncrementLevel'],
+  incrementedVersion?: string
+): Package | PackageAfterDetermineVersion {
+  return {
+    path: `mock/path/to/package_${id}/`,
+    packageJson: { name: `mock${id}Package`, version: '1.0.0' },
+    messages: [],
+    relatedMessages: [],
+    determinedIncrementLevel: determinedIncrementLevel,
+    dependingOnThis: [],
+    dependsOn: [],
+    ...(incrementedVersion ? { incrementedVersion } : {}),
+  };
+}
 
 const mockEnv: Env = {
   ...envWithConfig,
   packages: {
-    'mock-1Package': mockPackageBuilder(-1), // misc
-    mock0Package: mockPackageBuilder(0), // patch
-    mock1Package: mockPackageBuilder(1), // minor
-    mock2Package: mockPackageBuilder(2), // major
+    'mock-1Package': mockPackageBuilder(-1, -1), // misc
+    mock0Package: mockPackageBuilder(0, 0), // patch
+    mock1Package: mockPackageBuilder(1, 1), // minor
+    mock2Package: mockPackageBuilder(2, 2), // major
+    mock3Package: mockPackageBuilder(3, 0, '1.0.1'), // patch, marked as released
+    mock4Package: mockPackageBuilder(4, 1, '1.1.0'), // minor, marked as released
+    mock5Package: mockPackageBuilder(5, 2, '2.0.0'), // major, marked as released
   },
 };
 
@@ -144,6 +161,17 @@ describe('determineVersion Module', () => {
         (result.packages!.mock0Package as PackageAfterDetermineVersion)
           .incrementedVersion
       ).toEqual('1.0.1');
+    });
+    it('leaves previously processed packages as they are', () => {
+      expect(result.packages!.mock3Package).toEqual(
+        expectedEnv.packages!.mock3Package
+      );
+      expect(result.packages!.mock4Package).toEqual(
+        expectedEnv.packages!.mock4Package
+      );
+      expect(result.packages!.mock5Package).toEqual(
+        expectedEnv.packages!.mock5Package
+      );
     });
   });
 });

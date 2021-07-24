@@ -112,6 +112,11 @@ describe("analyse's Index", () => {
     expect(mockComposeAsync.mock.calls[0][8]).toBe(mockAdaptDependencies);
   });
 
+  test('10. determine version (second run)', () => {
+    // @ts-ignore
+    expect(mockComposeAsync.mock.calls[0][9]).toBe(mockDetermineVersion);
+  });
+
   test('calls "wait(1000)" at the end', () => {
     const lastComposeArgument =
       mockComposeAsync.mock.calls[0][mockComposeAsync.mock.calls[0].length - 1];
