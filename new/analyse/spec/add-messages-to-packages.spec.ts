@@ -1,5 +1,5 @@
 /* eslint-env node, jest */
-import type { Env, Module, Package , Message} from '../../types';
+import type { Env, Module, Package, Message } from '../../types';
 import { clone } from 'ramda';
 
 import { envWithConfig } from '../../fixtures/env';
@@ -15,9 +15,8 @@ const envWithoutCommitMessages: Env = { ...envWithConfig };
 const envWithoutPackages: Env = { ...envWithConfig, commitMessages: [] };
 
 // mock Packages
-const mockPackageBuilder = (
-  id: number,
-): Package => ({
+const mockPackageBuilder = (id: number): Package => ({
+  currentVersion: '1.0.0',
   path: `mock/path/to/package_${id}/`,
   packageJson: { name: `mock${id}Package` },
   messages: [],
@@ -39,7 +38,7 @@ const messageFactory = (id: number): Message => ({
     `mock/path/to/package_${id}/file_2.js`,
     `mock/path/to/package_${id}/file_3.js`,
   ],
-  affectedPackages: [`mock${id}Package`]
+  affectedPackages: [`mock${id}Package`],
 });
 
 const mockEnvPackages: Env['packages'] = {
@@ -47,7 +46,10 @@ const mockEnvPackages: Env['packages'] = {
   mock2Package: mockPackageBuilder(2),
   mock3Package: mockPackageBuilder(3),
 };
-const mockCommitMessages: Env['commitMessages'] = [messageFactory(1), messageFactory(2)];
+const mockCommitMessages: Env['commitMessages'] = [
+  messageFactory(1),
+  messageFactory(2),
+];
 
 const mockEnv: Env = {
   ...envWithConfig,
@@ -86,14 +88,19 @@ describe('addMessagesToPackages module', () => {
 
   it('throws an error when an invalid "affectedPackage" is registered', () => {
     const mockInvalidAffectedPackageEnv = clone(mockEnv);
-    mockInvalidAffectedPackageEnv.commitMessages![1].affectedPackages!.push('lodash');
+    mockInvalidAffectedPackageEnv.commitMessages![1].affectedPackages!.push(
+      'lodash'
+    );
 
     const expectedErrorMessage = '"lodash" is not a valid (registered) package';
     expect(() => addMessagesToPackages(mockInvalidAffectedPackageEnv)).toThrow(
       expectedErrorMessage
     );
     expect(mockError).toHaveBeenCalledTimes(1);
-    expect(mockError).toHaveBeenCalledWith(expectedErrorMessage, mockInvalidAffectedPackageEnv.commitMessages![1]);
+    expect(mockError).toHaveBeenCalledWith(
+      expectedErrorMessage,
+      mockInvalidAffectedPackageEnv.commitMessages![1]
+    );
   });
 
   describe('on run', () => {
@@ -112,8 +119,12 @@ describe('addMessagesToPackages module', () => {
     });
 
     it('registers "commitMessages" to its affected packages', () => {
-      expect(result.packages!.mock1Package.messages).toContain(result.commitMessages![0]);
-      expect(result.packages!.mock2Package.messages).toContain(result.commitMessages![1]);
+      expect(result.packages!.mock1Package.messages).toContain(
+        result.commitMessages![0]
+      );
+      expect(result.packages!.mock2Package.messages).toContain(
+        result.commitMessages![1]
+      );
     });
 
     it('no "commitMessages" is registered to unaffected packages', () => {

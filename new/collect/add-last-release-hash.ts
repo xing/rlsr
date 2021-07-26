@@ -25,7 +25,10 @@ export const addLastReleaseHash: Module = async (env: Env) => {
   if (lastReleaseHash) {
     lastReleaseHash = lastReleaseHash;
   } else if (env.tagsInTree && env.tagsInTree.length > 0) {
-    lastReleaseHash = findLastReleaseTag(env.tagsInTree, env.status.releaseTag);
+    lastReleaseHash = findLastReleaseTag(
+      env.tagsInTree,
+      env.status.releaseTag || ''
+    );
   }
 
   lastReleaseHash

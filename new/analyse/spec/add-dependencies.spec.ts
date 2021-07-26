@@ -7,6 +7,7 @@ const mockPackageBuilder: (path: string, name: string) => Package = (
   path,
   name
 ) => ({
+  currentVersion: '1.0.0',
   path,
   packageJson: { name },
   messages: [],
@@ -47,11 +48,6 @@ describe('addDependencies Module', () => {
     addDependencies = require('../add-dependencies').addDependencies;
   });
 
-  it('Sets up a logger', () => {
-    expect(mockLogger).toBeCalledTimes(1);
-    expect(mockLogger).toBeCalledWith('[analyse] add dependencies');
-  });
-
   it("Throws an exception if 'env.packages' is empty", () => {
     const expectedErrorMessage =
       '"packages" attribute not found on env config object';
@@ -70,11 +66,6 @@ describe('addDependencies Module', () => {
       }) as Env;
     });
 
-    it('logs an introduction message', () => {
-      expect(mockLog).toBeCalledTimes(1);
-      expect(mockLog).toBeCalledWith("Populating packages' dependencies");
-    });
-
     it('returns an Env config object with populated "dependsOn" dependencies', () => {
       const expectedEnv: Env = {
         ...envWithConfig,
@@ -84,7 +75,6 @@ describe('addDependencies Module', () => {
             ...mockEnvPackages.mock1Package,
             dependsOn: [
               { name: 'mock2Package', type: 'default', range: '1.0.0' },
-              { name: 'mock3Package', type: 'dev', range: '^1' },
               { name: 'mock4Package', type: 'peer', range: '2.5.0 - 3' },
             ],
           },

@@ -53,14 +53,20 @@ export type Config = {
   betaTag: string;
 };
 
+export type PackageStatus = {
+  version: string;
+  dependencies: Record<string, RelatedPackageDependsOn>;
+};
+
 export type Status = {
   /** commit Hash of last release */
   lastReleaseHash?: string;
   /** customizable release tag to be used by rlsr script (e.g.: "release") */
-  releaseTag: string;
+  releaseTag?: string;
   /** list of all packages including their version number */
-  versions: Record<string, string>;
+  packages: Record<string, PackageStatus>;
 };
+
 import type { DefaultLogFields } from 'simple-git';
 
 export type MessageRaw = Pick<
@@ -140,8 +146,8 @@ export type Env = {
 
 export type RelatedPackageTypes = 'default' | 'dev' | 'peer';
 type RelatedPackageBase = {
-  type: RelatedPackageTypes;
   name: string;
+  type: RelatedPackageTypes;
 };
 export type RelatedPackageDependsOn = RelatedPackageBase & {
   /** npm version range string like `^2`, '3.0.1', '2 - 3' */
@@ -153,6 +159,8 @@ export type RelatedPackageDependingOnThis = RelatedPackageBase & {
 };
 
 export type Package = {
+  /** the version number before we start to increment */
+  currentVersion: string;
   /** Commit Messages stating what changed on this package (strictly) */
   messages: Message[];
   /** Commit Messages to be used for each (internal) dependency being released */

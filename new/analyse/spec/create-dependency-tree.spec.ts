@@ -7,6 +7,7 @@ import { envWithConfig } from '../../fixtures/env';
 
 // mock Packages
 const buildPackage = (name: string): Package => ({
+  currentVersion: '1.0.0',
   messages: [],
   relatedMessages: [],
   dependingOnThis: [],
