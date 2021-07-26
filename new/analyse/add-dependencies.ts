@@ -6,6 +6,7 @@ import {
 } from '../types';
 
 import { logger } from '../helpers/logger';
+import { clone } from 'ramda';
 
 const { error, log } = logger('[analyse] add dependencies');
 
@@ -18,7 +19,9 @@ export const addDependencies: Module = (env) => {
     throw new Error(errorMessage);
   }
 
-  const packagesNames = Object.keys(env.packages);
+  const envPackages = clone(env.packages);
+
+  const packagesNames = Object.keys(envPackages);
 
   const packages = packagesNames.reduce((accumulator, packageName) => {
     const currentPackage = { ...(accumulator![packageName] as Package) };
@@ -67,7 +70,7 @@ export const addDependencies: Module = (env) => {
       ...accumulator,
       [packageName]: currentPackage,
     };
-  }, env.packages);
+  }, envPackages);
 
   return { ...env, packages };
 };

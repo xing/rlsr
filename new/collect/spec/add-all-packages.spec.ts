@@ -40,11 +40,6 @@ describe('addAllPackages Module', () => {
     addAllPackages = require('../add-all-packages').addAllPackages;
   });
 
-  it('configures logger', () => {
-    expect(mockLogger).toHaveBeenCalledTimes(1);
-    expect(mockLogger).toHaveBeenCalledWith('add all packages');
-  });
-
   describe('when used', () => {
     beforeAll(() => {
       mockPackagesPaths.forEach((mockPackagesPath) => {
