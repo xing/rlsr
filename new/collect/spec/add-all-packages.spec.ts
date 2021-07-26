@@ -40,11 +40,6 @@ describe('addAllPackages Module', () => {
     addAllPackages = require('../add-all-packages').addAllPackages;
   });
 
-  it('configures logger', () => {
-    expect(mockLogger).toHaveBeenCalledTimes(1);
-    expect(mockLogger).toHaveBeenCalledWith('add all packages');
-  });
-
   describe('when used', () => {
     beforeAll(() => {
       mockPackagesPaths.forEach((mockPackagesPath) => {
@@ -84,6 +79,7 @@ describe('addAllPackages Module', () => {
     it('should return the collection of packages present in the project', () => {
       const expectedPackages: Env['packages'] = {
         mockFirstPackage: {
+          currentVersion: '1.0.0',
           path: 'path/to/first/',
           packageJson: mockPackages['path/to/first/package.json'],
           messages: [],
@@ -93,6 +89,7 @@ describe('addAllPackages Module', () => {
           dependsOn: [],
         },
         mockSecondPackage: {
+          currentVersion: '1.0.0',
           path: 'path/to/second/',
           packageJson: mockPackages['path/to/second/package.json'],
           messages: [],
@@ -117,7 +114,7 @@ describe('addAllPackages Module', () => {
     jest.mock('path/to/first/package.json', () => ({}), { virtual: true });
     jest.mock('path/to/second/package.json', () => ({}), { virtual: true });
     const mockEnv: Env = { ...envWithConfig };
-    const expectedErrorMessage = `Missing "name" attribute for package path/to/first/package.json`;
+    const expectedErrorMessage = `Missing "name" attribute for package <path/to/first/package.json>`;
 
     expect(() => addAllPackages(mockEnv)).toThrow(expectedErrorMessage);
 

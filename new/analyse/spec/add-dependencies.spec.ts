@@ -1,5 +1,10 @@
 /* eslint-env node, jest */
-import type { Env, Module, Package } from '../../types';
+import type {
+  Env,
+  Module,
+  Package,
+  RelatedPackageDependsOn,
+} from '../../types';
 import { envWithConfig } from '../../fixtures/env';
 
 // mock Packages
@@ -7,6 +12,7 @@ const mockPackageBuilder: (path: string, name: string) => Package = (
   path,
   name
 ) => ({
+  currentVersion: '1.0.0',
   path,
   packageJson: { name },
   messages: [],
@@ -47,11 +53,6 @@ describe('addDependencies Module', () => {
     addDependencies = require('../add-dependencies').addDependencies;
   });
 
-  it('Sets up a logger', () => {
-    expect(mockLogger).toBeCalledTimes(1);
-    expect(mockLogger).toBeCalledWith('[analyse] add dependencies');
-  });
-
   it("Throws an exception if 'env.packages' is empty", () => {
     const expectedErrorMessage =
       '"packages" attribute not found on env config object';
@@ -61,18 +62,14 @@ describe('addDependencies Module', () => {
     expect(mockError).toHaveBeenCalledTimes(1);
     expect(mockError).toHaveBeenCalledWith(expectedErrorMessage);
   });
-  describe('when executed', () => {
+
+  describe('without rlsr.json data', () => {
     let result: Env;
     beforeAll(() => {
       result = addDependencies({
         ...envWithConfig,
         packages: mockEnvPackages,
       }) as Env;
-    });
-
-    it('logs an introduction message', () => {
-      expect(mockLog).toBeCalledTimes(1);
-      expect(mockLog).toBeCalledWith("Populating packages' dependencies");
     });
 
     it('returns an Env config object with populated "dependsOn" dependencies', () => {
@@ -84,7 +81,6 @@ describe('addDependencies Module', () => {
             ...mockEnvPackages.mock1Package,
             dependsOn: [
               { name: 'mock2Package', type: 'default', range: '1.0.0' },
-              { name: 'mock3Package', type: 'dev', range: '^1' },
               { name: 'mock4Package', type: 'peer', range: '2.5.0 - 3' },
             ],
           },
@@ -93,4 +89,122 @@ describe('addDependencies Module', () => {
       expect(result).toEqual(expectedEnv);
     });
   });
+
+  describe('with rlsr.json data', () => {
+    let result: Env;
+    let dependencies: RelatedPackageDependsOn[];
+
+    beforeAll(() => {
+      const env: Env = {
+        ...envWithConfig,
+        status: {
+          packages: {
+            mockPackageUnderTest: {
+              version: '1.0.0',
+              dependencies: {
+                mockPreviouslyAvailable: {
+                  name: 'mockPreviouslyAvailableButOverwritten',
+                  type: 'default',
+                  range: '1 - 2',
+                },
+                mockPreviouslyAvailableButOverwritten: {
+                  name: 'mockPreviouslyAvailableButOverwritten',
+                  type: 'default',
+                  range: '1 - 3',
+                },
+                mockPreviouslyAvailableButNew: {
+                  name: 'mockPreviouslyAvailableButOverwritten',
+                  type: 'default',
+                  range: '1 - 4',
+                },
+              },
+            },
+            mockPreviouslyAvailable: {
+              version: '1.0.0',
+              dependencies: {},
+            },
+            mockPreviouslyAvailableButOverwritten: {
+              version: '1.0.0',
+              dependencies: {},
+            },
+            mockPreviouslyAvailableButNew: {
+              version: '1.0.0',
+              dependencies: {},
+            },
+          },
+        },
+        packages: {
+          mockPackageUnderTest: createMockPackage('mockPreviouslyAvailable', {
+            mockPreviouslyAvailable: '*',
+            mockPreviouslyAvailableButOverwritten: '2 - 3',
+            mockPreviouslyAvailableButNew: 'new',
+            mockPreviouslyNotAvailable: '*',
+          }),
+          mockPreviouslyAvailable: createMockPackage('mockPreviouslyAvailable'),
+          mockPreviouslyAvailableButOverwritten: createMockPackage(
+            'mockPreviouslyAvailableButOverwritten'
+          ),
+          mockPreviouslyAvailableButNew: createMockPackage(
+            'mockPreviouslyAvailableButNew'
+          ),
+          mockPreviouslyNotAvailable: createMockPackage(
+            'mockPreviouslyNotAvailable'
+          ),
+        },
+      };
+      result = addDependencies(env) as Env;
+      dependencies = result?.packages?.mockPackageUnderTest?.dependsOn ?? [];
+    });
+    it('has a result', () => {
+      expect(result).toBeDefined();
+    });
+    it('takes the dependency from rlsr.json if it is `*`', () => {
+      const found = dependencies.find(
+        (dependency) => dependency.name === 'mockPreviouslyAvailable'
+      );
+      expect(found).toBeDefined();
+      expect(found?.range).toEqual('1 - 2');
+    });
+    it('takes the dependency from package.json if it is defined there', () => {
+      const found = dependencies.find(
+        (dependency) =>
+          dependency.name === 'mockPreviouslyAvailableButOverwritten'
+      );
+      expect(found).toBeDefined();
+      expect(found?.range).toEqual('2 - 3');
+    });
+    it('keeps the keyword `new` if it is defined', () => {
+      const found = dependencies.find(
+        (dependency) => dependency.name === 'mockPreviouslyAvailableButNew'
+      );
+      expect(found).toBeDefined();
+      expect(found?.range).toEqual('new');
+    });
+    it('keeps the `*` if it it is a package that previously did not exist', () => {
+      const found = dependencies.find(
+        (dependency) => dependency.name === 'mockPreviouslyNotAvailable'
+      );
+      expect(found).toBeDefined();
+      expect(found?.range).toEqual('*');
+    });
+  });
 });
+
+const createMockPackage = (
+  name: string,
+  dependencies: Record<string, string> = {},
+  peerDependencies: Record<string, string> = {},
+  override: Partial<Package> = {}
+): Package => {
+  return {
+    currentVersion: '1.0.0',
+    path: 'path/to/second/',
+    packageJson: { name, dependencies, peerDependencies },
+    messages: [],
+    relatedMessages: [],
+    determinedIncrementLevel: -1,
+    dependingOnThis: [],
+    dependsOn: [],
+    ...override,
+  };
+};

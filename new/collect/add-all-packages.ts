@@ -19,9 +19,27 @@ export const addAllPackages: Module = (env) => {
 
   const packages: Env['packages'] = packageJsonPaths.reduce(
     (accumulator, packageJsonPath) => {
+      const packageJson = require(packageJsonPath);
+
+      // Make sure every package has a name
+      if (!packageJson.name) {
+        const errorMessage = `Missing "name" attribute for package <${packageJsonPath}>`;
+        error(errorMessage);
+        throw new Error(errorMessage);
+      }
+
+      // first look at the rlsr.json for current version
+      // then into the package.json
+      // and have 1.0.0 as a fallback
+      const currentVersion =
+        env.status?.packages[packageJson.name]?.version ??
+        packageJson.version ??
+        '1.0.0';
+
       const currentPackage: Package = {
+        currentVersion,
         path: packageJsonPath.replace(PACKAGE_JSON_ENDING, ''),
-        packageJson: require(packageJsonPath),
+        packageJson,
         messages: [],
         relatedMessages: [],
         determinedIncrementLevel: -1,
@@ -29,16 +47,9 @@ export const addAllPackages: Module = (env) => {
         dependsOn: [],
       };
 
-      // Make sure every package has a name
-      if (!currentPackage.packageJson.name) {
-        const errorMessage = `Missing "name" attribute for package ${packageJsonPath}`;
-        error(errorMessage);
-        throw new Error(errorMessage);
-      }
-
       return {
         ...accumulator,
-        [currentPackage.packageJson.name]: currentPackage,
+        [packageJson.name]: currentPackage,
       };
     },
     {} as Env['packages']

@@ -1,64 +1,76 @@
-import { Module, Package, RelatedPackageTypes } from '../types';
+import {
+  Module,
+  Package,
+  RelatedPackageDependsOn,
+  RelatedPackageTypes,
+} from '../types';
 
 import { logger } from '../helpers/logger';
+import { clone } from 'ramda';
 
 const { error, log } = logger('[analyse] add dependencies');
 
 export const addDependencies: Module = (env) => {
+  log("Populating packages' dependencies");
+
   if (!env.packages) {
     const errorMessage = '"packages" attribute not found on env config object';
     error(errorMessage);
     throw new Error(errorMessage);
   }
 
-  log("Populating packages' dependencies");
+  const envPackages = clone(env.packages);
 
-  const packagesNames = Object.keys(env.packages);
+  const packagesNames = Object.keys(envPackages);
 
-  const packages = packagesNames.reduce(
-    (accumulator, packageName, _currentIndex, packagesNames) => {
-      const currentPackage = { ...(accumulator![packageName] as Package) };
+  const packages = packagesNames.reduce((accumulator, packageName) => {
+    const currentPackage = { ...(accumulator![packageName] as Package) };
 
-      // Assign only internal dependencies
-      currentPackage.dependsOn.push(
-        ...Object.entries(currentPackage.packageJson.dependencies || {})
-          .filter(([name]) => packagesNames.includes(name))
-          .map(([name, range]) => ({
-            type: 'default' as RelatedPackageTypes,
-            name,
-            range,
-          }))
-      );
+    const dependencies: RelatedPackageDependsOn[] = [
+      // all dependencies
+      ...Object.entries(currentPackage.packageJson.dependencies || {}).map(
+        ([name, range]) => ({
+          name,
+          range,
+          type: 'default' as RelatedPackageTypes,
+        })
+      ),
+      // plus all peer dependencies
+      ...Object.entries(currentPackage.packageJson.peerDependencies || {}).map(
+        ([name, range]) => ({
+          name,
+          range,
+          type: 'peer' as RelatedPackageTypes,
+        })
+      ),
+      // we don't care about dev dependencies
+    ]
+      // filter out external packages
+      .filter(({ name }) => {
+        return packagesNames.includes(name);
+      })
+      // if it's already in the rlsr.json, we take that one
+      .map((dependency) => {
+        if (
+          dependency.range === '*' &&
+          env.status?.packages[packageName].dependencies[dependency.name]
+        ) {
+          dependency.range =
+            env.status?.packages[packageName].dependencies[
+              dependency.name
+            ].range;
+        }
+        return dependency;
+      });
 
-      // Assign only internal devDependencies
-      currentPackage.dependsOn.push(
-        ...Object.entries(currentPackage.packageJson.devDependencies || {})
-          .filter(([name]) => packagesNames.includes(name))
-          .map(([name, range]) => ({
-            type: 'dev' as RelatedPackageTypes,
-            name,
-            range,
-          }))
-      );
+    // Assign only internal dependencies
+    currentPackage.dependsOn = dependencies;
 
-      // Assign only internal peerDependencies
-      currentPackage.dependsOn.push(
-        ...Object.entries(currentPackage.packageJson.peerDependencies || {})
-          .filter(([name]) => packagesNames.includes(name))
-          .map(([name, range]) => ({
-            type: 'peer' as RelatedPackageTypes,
-            name,
-            range,
-          }))
-      );
-
-      return {
-        ...accumulator,
-        [packageName]: currentPackage,
-      };
-    },
-    env.packages
-  );
+    return {
+      ...accumulator,
+      [packageName]: currentPackage,
+    };
+  }, envPackages);
 
   return { ...env, packages };
 };

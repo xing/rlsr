@@ -6,6 +6,7 @@ import { clone } from 'ramda';
 
 // mock Packages
 const buildPackage = (name: string): Package => ({
+  currentVersion: '1.0.0',
   messages: [],
   relatedMessages: [],
   dependingOnThis: [],
