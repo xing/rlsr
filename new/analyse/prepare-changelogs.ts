@@ -38,9 +38,17 @@ export const prepareChangelogs: Module = (env) => {
 
     const changelogFile = join(currentPackage.path, 'changelog.json');
     const version = currentPackage.incrementedVersion;
-    const messages: ChangelogMessage[] = currentPackage.messages.map(
+
+    const pkgMessages: ChangelogMessage[] = currentPackage.messages.map(
       ({ message, hash }) => ({ message, hash })
     );
+
+    const relatedMessages: ChangelogMessage[] =
+      currentPackage.relatedMessages.map(({ text }) => ({
+        message: text,
+      }));
+
+    const messages = pkgMessages.concat(...relatedMessages);
 
     if (!messages.length) {
       const errorMessage = `No messages found for ${packageName}`;

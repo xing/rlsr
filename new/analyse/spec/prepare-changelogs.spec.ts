@@ -1,3 +1,4 @@
+import { RelatedMessages } from './../../types';
 import { envWithConfig } from '../../fixtures/env';
 import type {
   Env,
@@ -22,6 +23,15 @@ const messageFactory = (id: number, packageId: number): Message => ({
   level: 'patch',
 });
 
+const relatedMessageFactory = (
+  id: number,
+  packageId: number
+): RelatedMessages => ({
+  date: `mockDate ${id}`,
+  text: `text ${id} for package ${packageId}`,
+  level: 'patch',
+});
+
 // mock Packages
 const mockPackageBuilder = (
   id: number
@@ -29,7 +39,7 @@ const mockPackageBuilder = (
   path: `mock/path/to/package_${id}/`,
   packageJson: { name: `mock${id}Package` },
   messages: [messageFactory(1, id), messageFactory(2, id)],
-  relatedMessages: [],
+  relatedMessages: [relatedMessageFactory(1, id), relatedMessageFactory(2, id)],
   determinedIncrementLevel: 1,
   dependingOnThis: [],
   dependsOn: [],
@@ -58,6 +68,8 @@ describe('prepareChangelogs Module', () => {
         [version]: [
           { message: `mockMessage 1 for package ${id}`, hash: 'mockHash 1' },
           { message: `mockMessage 2 for package ${id}`, hash: 'mockHash 2' },
+          { message: `text 1 for package ${id}` },
+          { message: `text 2 for package ${id}` },
         ],
       };
 
@@ -78,6 +90,8 @@ describe('prepareChangelogs Module', () => {
           messages: [
             { message: 'mockMessage 1 for package 1', hash: 'mockHash 1' },
             { message: 'mockMessage 2 for package 1', hash: 'mockHash 2' },
+            { message: 'text 1 for package 1' },
+            { message: 'text 2 for package 1' },
           ],
         },
         {
@@ -86,6 +100,8 @@ describe('prepareChangelogs Module', () => {
           messages: [
             { message: 'mockMessage 1 for package 2', hash: 'mockHash 1' },
             { message: 'mockMessage 2 for package 2', hash: 'mockHash 2' },
+            { message: 'text 1 for package 2' },
+            { message: 'text 2 for package 2' },
           ],
         },
       ],
