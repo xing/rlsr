@@ -138,7 +138,10 @@ export type Env = {
   /** collection of affected packages for this release */
   packages?: Record<
     string,
-    Package | PackageAfterDetermineVersion | PackageAfterPrepareChangelogs
+    | Package
+    | PackageAfterDetermineVersion
+    | PackageAfterPrepareChangelogs
+    | PackageAfterCreatePackageJsonContent
   >;
   /** changelog messages */
   changelog?: MainChangelog;
@@ -180,8 +183,10 @@ export type Package = {
    * Its value is computed based on how big its dependencies are being released now
    **/
   determinedIncrementLevel: -1 | 0 | 1 | 2;
+
   /** Package's path in the system */
   path: string;
+
   /** Content of this package's package.json file */
   packageJson: PackageJson;
 };
@@ -196,6 +201,15 @@ export type PackageChangelog = Record<string, ChangelogMessage[]>;
 export type PackageAfterPrepareChangelogs = PackageAfterDetermineVersion & {
   changelogs: PackageChangelog;
 };
+
+export type PackageAfterCreatePackageJsonContent =
+  PackageAfterPrepareChangelogs & {
+    /** Content of this package's package.json to be published  */
+    packageJsonNpm: PackageJson;
+
+    /** Content of this package's package.json to be published  */
+    packageJsonGit: PackageJson;
+  };
 
 export type Module = (env: Env) => Promise<Env> | Env;
 
