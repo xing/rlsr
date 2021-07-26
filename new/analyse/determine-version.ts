@@ -51,7 +51,7 @@ export const determineVersion: Module = (env) => {
       throw new Error(errorMessage);
     }
 
-    // obatin the new version number
+    // obtain the new version number
     const incrementedVersion = semver.inc(
       parsedVersion,
       incrementLevels[determinedIncrementLevel]

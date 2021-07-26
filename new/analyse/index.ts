@@ -10,6 +10,7 @@ import { addMessagesToPackages } from './add-messages-to-packages';
 import { determineDirectIncrement } from './determine-direct-increment';
 import { determineVersion } from './determine-version';
 import { adaptDependencies } from './adapt-dependencies';
+import { prepareChangelogs } from './prepare-changelogs';
 
 export const analyse = composeAsync(
   log('ANALYSE PHASE: Looking at what needs to be changed'),
@@ -125,7 +126,19 @@ export const analyse = composeAsync(
   // - finally bring all previously created relatedMessages back to the top level message list
   // - and do the same strip-down with that list
   // In the end, we should have similar changelog objects in each package and at the top
-  // prepareChangelogs
+
+  /**
+   * /packages/xdl/button/changelog.json
+   * {
+   * "1.2.3": [ {Message} ]
+   * }
+   *
+   * /metadata/changelog/{timestamp}.json
+   * {
+   * "@xingternal/button": {"version": "1.2.3", "message": [{Message}]}
+   * }
+   */
+  prepareChangelogs,
 
   // secondly the package jsons
   // we finally will have two new variants.
