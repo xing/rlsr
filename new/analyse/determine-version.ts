@@ -18,7 +18,7 @@ const mapLevelToColour: Record<
   2: ['major', red],
 };
 
-const { error, log } = logger('determine Version (1)');
+const { error, log } = logger('[analyse] determine Version');
 
 export const determineVersion: Module = (env) => {
   if (!env.packages) {

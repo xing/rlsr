@@ -9,6 +9,7 @@ import { addPackageNamesToMessages } from './add-package-names-to-messages';
 import { addMessagesToPackages } from './add-messages-to-packages';
 import { determineDirectIncrement } from './determine-direct-increment';
 import { determineVersion } from './determine-version';
+import { adaptDependencies } from './adapt-dependencies';
 
 export const analyse = composeAsync(
   log('ANALYSE PHASE: Looking at what needs to be changed'),
@@ -108,13 +109,12 @@ export const analyse = composeAsync(
   //     e.g. if the new version number is `3.0` and the old range was ^2, the new range becomes
   //     >=2.0.0 <3.1.0
   // for testing purposes, it makes sense to extract the essential parts into simple pure functions
-  // adaptDependencies,
+  adaptDependencies,
 
   // as some increments have changed, we re-run the previous `determineVersion` script
   // because only patch changes are added and patch changes are always within the range,
   // we don't have to run `adaptDependencies` a second time.
-
-  // determineVersion (second run),
+  determineVersion,
 
   // finally, we go through some re-arrangements
 

@@ -32,11 +32,7 @@ export const extendDependencyRanges: Module = (env) => {
       packageValue.determinedIncrementLevel = 0;
       // add patch message to dependency
       packageValue.relatedMessages.push({
-        type: 'patch',
-        hash: 'n/a',
         date: new Date().toISOString(),
-        message: 'fix: extend dependency ranges',
-        body: `affected dependencies: ${extendedDependencies.join(', ')}`,
         text: `affected dependencies: ${extendedDependencies.join(', ')}`,
         level: 'patch',
       });

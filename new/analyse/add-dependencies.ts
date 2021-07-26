@@ -2,7 +2,7 @@ import { Module, Package, RelatedPackageTypes } from '../types';
 
 import { logger } from '../helpers/logger';
 
-const { error, log } = logger('add dependencies');
+const { error, log } = logger('[analyse] add dependencies');
 
 export const addDependencies: Module = (env) => {
   if (!env.packages) {
