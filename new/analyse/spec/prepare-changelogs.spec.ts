@@ -129,6 +129,7 @@ describe('prepareChangelogs Module', () => {
   it('throws an error when messages are missing for the package', () => {
     const invalidMockEnv = clone(mockEnv);
     invalidMockEnv.packages!.mock2Package.messages = [];
+    invalidMockEnv.packages!.mock2Package.relatedMessages = [];
     const expectedErrorMessage = `No messages found for mock2Package`;
 
     expect(() => prepareChangelogs(invalidMockEnv)).toThrow(
