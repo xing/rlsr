@@ -12,6 +12,7 @@ import { determineVersion } from './determine-version';
 import { adaptDependencies } from './adapt-dependencies';
 import { prepareChangelogs } from './prepare-changelogs';
 import { createPackageJsonContent } from './create-package-json-content';
+import { createRlsrJsonContent } from './create-rlsr-json-content';
 
 export const analyse = composeAsync(
   log('ANALYSE PHASE: Looking at what needs to be changed'),
@@ -170,7 +171,7 @@ export const analyse = composeAsync(
   //   }
   // }
   // all the needed info is available, so this only has to be assembled together.
-  // createRlsrJsonContent
+  createRlsrJsonContent,
 
   // final final step
   // it might be worth spitting out some needed information

@@ -29,4 +29,5 @@ export const basicEnv: Env = {
 export const envWithConfig: Env = {
   ...basicEnv,
   config: defaultConfig,
+  currentHash: 'hash',
 };

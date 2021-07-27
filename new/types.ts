@@ -124,6 +124,8 @@ export type Env = {
   tagsInTree?: string[];
   /** Status from previous runs */
   status?: Status;
+  /** Status after the run to be written into the rlsr.json */
+  newStatus?: Status;
   /** Hash of the last commit */
   currentHash?: string;
   /** Hash of the initial commit */
