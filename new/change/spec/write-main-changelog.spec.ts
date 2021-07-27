@@ -91,7 +91,11 @@ describe('writeMainChangelog Module', () => {
 
   it('writes main changelog with the correct content', () => {
     const expectedFilePath = 'changelogs/changelog.json';
-    const expectedFileContent = JSON.stringify(mockEnv.changelog, null, 2);
+    const expectedFileContent = `${JSON.stringify(
+      mockEnv.changelog,
+      null,
+      2
+    )}\n`;
     writeMainChangelog(mockEnv);
 
     expect(fs.writeFileSync).toHaveBeenCalledWith(

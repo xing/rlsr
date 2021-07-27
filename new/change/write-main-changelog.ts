@@ -24,6 +24,9 @@ export const writeMainChangelog: Module = (env) => {
 
   log('writing main changelog');
 
-  writeFileSync(mainChangeLogFile, JSON.stringify(env.changelog, null, 2));
+  writeFileSync(
+    mainChangeLogFile,
+    `${JSON.stringify(env.changelog, null, 2)}\n`
+  );
   return { ...env };
 };

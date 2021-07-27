@@ -74,11 +74,11 @@ describe('writePackageChangelogs Module', () => {
     const mockPackage = mockEnv.packages!.mockPackage;
 
     const expectedChangelogPath = `${mockPackage.path}changelog.json`;
-    const expectedChangelogContent = JSON.stringify(
+    const expectedChangelogContent = `${JSON.stringify(
       (mockPackage as PackageAfterPrepareChangelogs).changelogs,
       null,
       2
-    );
+    )}\n`;
 
     writePackageChangelogs(mockEnv);
 
