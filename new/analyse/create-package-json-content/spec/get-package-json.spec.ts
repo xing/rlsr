@@ -117,10 +117,17 @@ describe('get-package-json helper', () => {
         result = getPackageJson(packages, 'mockPackage1', type);
       });
 
-      it('sets version to the one to be released', () => {
+      it(`sets version to ${
+        isNpm
+          ? (packages.mockPackage1 as PackageAfterPrepareChangelogs)
+              .incrementedVersion
+          : '0.0.1-brewery'
+      }`, () => {
         expect(result.version).toEqual(
-          (packages.mockPackage1 as PackageAfterPrepareChangelogs)
-            .incrementedVersion
+          isNpm
+            ? (packages.mockPackage1 as PackageAfterPrepareChangelogs)
+                .incrementedVersion
+            : '0.0.1-brewery'
         );
       });
 
