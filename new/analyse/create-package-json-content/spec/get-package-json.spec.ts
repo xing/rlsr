@@ -44,6 +44,7 @@ const mockPackageBuilder = (
   devDependencies: PackageJson['devDependencies'] = {},
   peerDependencies: PackageJson['peerDependencies'] = {}
 ): Package | PackageAfterPrepareChangelogs => ({
+  currentVersion: '1.0.0',
   path: `mock/path/to/package_${id}/`,
   packageJson: mockPackageJsonBuilder(
     `mock${id}Package`,
