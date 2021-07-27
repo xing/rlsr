@@ -2,6 +2,9 @@ import { composeAsync } from '../helpers/compose-async';
 import { wait } from '../helpers/wait-module';
 import { log } from '../helpers/log-module';
 
+import { writePackageChangelogs } from './write-package-changelogs';
+import { writeMainChangelog } from './write-main-changelog';
+
 export const change = composeAsync(
   log('CHANGE PHASE: writing all relevant files locally'),
 
@@ -25,7 +28,7 @@ export const change = composeAsync(
   //   }
   // - write the file
   // the new entry should be the topmost one
-  // writeMainChangelog
+  writeMainChangelog,
 
   // additionally, we maintain a single changelog file for each package
   // - read this file if it exists (its structure is an array)
@@ -38,7 +41,7 @@ export const change = composeAsync(
   // - write the file
   // the new entry should be the topmost one and it should only be done for
   // packages that have at least an increment of `0`
-  // writePackageChangelogs
+  writePackageChangelogs,
 
   wait(1000)
 );
