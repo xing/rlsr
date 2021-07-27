@@ -1,6 +1,9 @@
 import { Env, PackageAfterCreatePackageJsonContent } from '../../types';
-
 import { clone } from 'ramda';
+
+import { logger } from '../../helpers/logger';
+
+const { error } = logger('[analyse] create package json content');
 
 function getPackageJson(
   packages: Env['packages'],
@@ -21,15 +24,25 @@ function getPackageJson(
   | PackageAfterCreatePackageJsonContent['packageJsonGit'] {
   const isNpm = type === 'npm';
 
-  const clonePackageJson = clone(packages![packageName].packageJson);
+  const currentPackage = packages![packageName];
+
+  const clonePackageJson = clone(currentPackage.packageJson);
   const dependsOnMap = isNpm
     ? Object.fromEntries(
-        packages![packageName].dependsOn.map((dependency) => [
+        currentPackage.dependsOn.map((dependency) => [
           dependency.name,
           dependency,
         ])
       )
     : {};
+
+  // Add
+  if (!('incrementedVersion' in currentPackage)) {
+    const errorMessage = `missing "incrementedVersion" on package ${packageName}`;
+    error(errorMessage);
+    throw new Error(errorMessage);
+  }
+  clonePackageJson.version = currentPackage.incrementedVersion;
 
   // package has dependencies
   if (clonePackageJson.dependencies) {
