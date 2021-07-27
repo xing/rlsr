@@ -32,7 +32,7 @@ export const addAllPackages: Module = (env) => {
       // then into the package.json
       // and have 1.0.0 as a fallback
       const currentVersion =
-        env.status?.packages[packageJson.name]?.version ??
+        env.status?.packages?.[packageJson.name]?.version ??
         packageJson.version ??
         '1.0.0';
 
