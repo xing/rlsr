@@ -17,7 +17,8 @@ const mockAddMessagesToPackages = jest.fn();
 const mockDetermineDirectIncrement = jest.fn();
 const mockDetermineVersion = jest.fn();
 const mockAdaptDependencies = jest.fn();
-const mockPrepareChangeLogs = jest.fn();
+const mockPrepareChangelogs = jest.fn();
+const mockCreatePackageJsonContent = jest.fn();
 
 jest.mock('../../helpers/compose-async', () => ({
   composeAsync: mockComposeAsync,
@@ -48,9 +49,11 @@ jest.mock('../determine-version', () => ({
 jest.mock('../adapt-dependencies', () => ({
   adaptDependencies: mockAdaptDependencies,
 }));
-
-jest.mock('../prepare-changelogs.ts', () => ({
-  prepareChangeLogs: mockPrepareChangeLogs,
+jest.mock('../prepare-changelogs', () => ({
+  prepareChangelogs: mockPrepareChangelogs,
+}));
+jest.mock('../create-package-json-content', () => ({
+  createPackageJsonContent: mockCreatePackageJsonContent,
 }));
 
 describe("analyse's Index", () => {
@@ -124,7 +127,14 @@ describe("analyse's Index", () => {
 
   test('11. prepare change logs', () => {
     // @ts-ignore
-    expect(mockComposeAsync.mock.calls[0][10]).toBe(mockPrepareChangeLogs);
+    expect(mockComposeAsync.mock.calls[0][10]).toBe(mockPrepareChangelogs);
+  });
+
+  test('12. create package.json content', () => {
+    // @ts-ignore
+    expect(mockComposeAsync.mock.calls[0][11]).toBe(
+      mockCreatePackageJsonContent
+    );
   });
 
   test('calls "wait(1000)" at the end', () => {

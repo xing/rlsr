@@ -11,6 +11,7 @@ import { determineDirectIncrement } from './determine-direct-increment';
 import { determineVersion } from './determine-version';
 import { adaptDependencies } from './adapt-dependencies';
 import { prepareChangelogs } from './prepare-changelogs';
+import { createPackageJsonContent } from './create-package-json-content';
 
 export const analyse = composeAsync(
   log('ANALYSE PHASE: Looking at what needs to be changed'),
@@ -145,7 +146,7 @@ export const analyse = composeAsync(
   // variant one: used for publishing contains the new dependency ranges
   // variant two: used for github contains "*" as dependency values.
   // (variant zero: the previous version remains as it is - we keep it for debugging)
-  // createPackageJsonContent
+  createPackageJsonContent,
 
   // thirdly the rlsr json
   // as the package jsons won't have the dependency information anymore (there's only `*`)
