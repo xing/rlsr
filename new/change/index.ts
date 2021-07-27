@@ -2,6 +2,7 @@ import { composeAsync } from '../helpers/compose-async';
 import { wait } from '../helpers/wait-module';
 import { log } from '../helpers/log-module';
 
+import { writePackageJsonsToNpm } from './write-package-jsons-to-npm';
 import { writePackageChangelogs } from './write-package-changelogs';
 import { writeMainChangelog } from './write-main-changelog';
 
@@ -12,7 +13,7 @@ export const change = composeAsync(
   // in this case it's the variant with the dependency ranges.
   // Do this only if the increment is at least `0`.
   // The new content of the files should™ already be in the env (see createPackageJsonContent).
-  // writePackageJsonsToNpm
+  writePackageJsonsToNpm,
 
   // write new versions into central rlsr.json file
   // The new content of the files should™ alsoalready be in the env
