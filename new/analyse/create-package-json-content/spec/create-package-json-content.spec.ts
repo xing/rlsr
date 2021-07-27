@@ -37,6 +37,7 @@ mockGetReleasablePackages.mockImplementation(() => []);
 const mockPackageBuilder = (
   id: number
 ): Package | PackageAfterPrepareChangelogs => ({
+  currentVersion: '1.0.0',
   path: `mock/path/to/package_${id}/`,
   packageJson: { name: `mock${id}Package` },
   messages: [],

@@ -8,6 +8,7 @@ const mockPackageBuilder: (
   name: string,
   incrementedVersion?: string
 ) => Package | PackageAfterDetermineVersion = (name, incrementedVersion) => ({
+  currentVersion: '1.0.0',
   path: 'mock/path/to/package',
   packageJson: { name },
   messages: [],

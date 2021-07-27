@@ -46,6 +46,7 @@ function mockPackageBuilder(
   incrementedVersion?: string
 ): Package | PackageAfterDetermineVersion {
   return {
+    currentVersion: '1.0.0',
     path: 'mock/path/to/package',
     packageJson: { name },
     messages: [],
