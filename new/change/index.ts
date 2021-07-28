@@ -4,6 +4,7 @@ import { log } from '../helpers/log-module';
 
 import { writePackageJsonsToNpm } from './write-package-jsons-to-npm';
 import { writePackageChangelogs } from './write-package-changelogs';
+import { writeRlsrJson } from './write-rlsr-json';
 import { writeMainChangelog } from './write-main-changelog';
 
 export const change = composeAsync(
@@ -18,7 +19,7 @@ export const change = composeAsync(
   // write new versions into central rlsr.json file
   // The new content of the files should™ alsoalready be in the env
   // (see createrlsrJsonContent).
-  // writeToRlsrJson
+  writeRlsrJson
 
   // we maintain a single file with changelog content
   // - read this file if it exists (its structure is an array)

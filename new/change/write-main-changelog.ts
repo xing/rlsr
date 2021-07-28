@@ -28,5 +28,5 @@ export const writeMainChangelog: Module = (env) => {
     mainChangeLogFile,
     `${JSON.stringify(env.changelog, null, 2)}\n`
   );
-  return { ...env };
+  return env;
 };
