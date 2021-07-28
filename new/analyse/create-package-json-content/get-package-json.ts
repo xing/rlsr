@@ -1,6 +1,9 @@
 import { Env, PackageAfterCreatePackageJsonContent } from '../../types';
-
 import { clone } from 'ramda';
+
+import { logger } from '../../helpers/logger';
+
+const { error } = logger('[analyse] create package json content');
 
 function getPackageJson(
   packages: Env['packages'],
@@ -21,15 +24,32 @@ function getPackageJson(
   | PackageAfterCreatePackageJsonContent['packageJsonGit'] {
   const isNpm = type === 'npm';
 
-  const clonePackageJson = clone(packages![packageName].packageJson);
+  const currentPackage = packages![packageName];
+
+  const clonePackageJson = clone(currentPackage.packageJson);
   const dependsOnMap = isNpm
     ? Object.fromEntries(
-        packages![packageName].dependsOn.map((dependency) => [
+        currentPackage.dependsOn.map((dependency) => [
           dependency.name,
           dependency,
         ])
       )
     : {};
+
+  // Add
+  if (!('incrementedVersion' in currentPackage)) {
+    const errorMessage = `missing "incrementedVersion" on package ${packageName}`;
+    error(errorMessage);
+    throw new Error(errorMessage);
+  }
+
+  /**
+   * NPM needs fixed version numbers, but in order to reduce conflicts while merging, we hardcode
+   * `0.0.1-brewery` for each one on git and reference to them as dependencies as "*"
+   * */
+  clonePackageJson.version = isNpm
+    ? currentPackage.incrementedVersion
+    : '0.0.1-brewery';
 
   // package has dependencies
   if (clonePackageJson.dependencies) {

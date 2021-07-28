@@ -44,7 +44,7 @@ const mockPackageBuilder = (
   devDependencies: PackageJson['devDependencies'] = {},
   peerDependencies: PackageJson['peerDependencies'] = {}
 ): Package | PackageAfterPrepareChangelogs => ({
-  currentVersion: '1.0.0',
+  currentVersion: '1.2.3',
   path: `mock/path/to/package_${id}/`,
   packageJson: mockPackageJsonBuilder(
     `mock${id}Package`,
@@ -61,7 +61,7 @@ const mockPackageBuilder = (
     ...getDependsOn(devDependencies, 'dev'),
     ...getDependsOn(peerDependencies, 'peer'),
   ],
-  incrementedVersion: '1.1.3',
+  incrementedVersion: '1.3.0',
 });
 
 const externalPackages = {
@@ -117,6 +117,20 @@ describe('get-package-json helper', () => {
         result = getPackageJson(packages, 'mockPackage1', type);
       });
 
+      it(`sets version to ${
+        isNpm
+          ? (packages.mockPackage1 as PackageAfterPrepareChangelogs)
+              .incrementedVersion
+          : '0.0.1-brewery'
+      }`, () => {
+        expect(result.version).toEqual(
+          isNpm
+            ? (packages.mockPackage1 as PackageAfterPrepareChangelogs)
+                .incrementedVersion
+            : '0.0.1-brewery'
+        );
+      });
+
       Object.entries(dependencies).forEach(([name, version]) => {
         if (name in packages) {
           it(`sets version for "${name}" (internal dependency) to "${
@@ -162,16 +176,6 @@ describe('get-package-json helper', () => {
           });
         }
       });
-
-      if (
-        Object.keys(dependencies).length === 0 &&
-        Object.keys(devDependencies).length === 0 &&
-        Object.keys(peerDependencies).length === 0
-      ) {
-        it('returns the packageJson untouched', () => {
-          expect(result).toEqual(packages.mockPackage1.packageJson);
-        });
-      }
     }
   );
 });
