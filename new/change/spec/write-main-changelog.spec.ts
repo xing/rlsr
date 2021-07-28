@@ -1,8 +1,10 @@
 // import { writeMainChangelog } from './../write-main-changelog';
+import fs from 'fs';
+
+import { clone } from 'ramda';
+
 import { envWithConfig } from '../../fixtures/env';
 import type { Module, Env } from '../../types';
-import { clone } from 'ramda';
-import fs from 'fs';
 
 jest.mock('fs');
 

@@ -1,4 +1,5 @@
 const R = require('ramda');
+
 const polishPackages = require('./polish-packages');
 const refineMessages = require('./refine-messages');
 const addRelationsToPackages = require('./add-relations-to-packages');

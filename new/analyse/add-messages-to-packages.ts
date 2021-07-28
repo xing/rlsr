@@ -1,7 +1,8 @@
+import { clone } from 'ramda';
+
 import type { Module } from '../types';
 
 import { logger } from '../helpers/logger';
-import { clone } from 'ramda';
 
 const { error, log } = logger('[analyse] add messages to packages');
 

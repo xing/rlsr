@@ -1,9 +1,10 @@
-import type { Module, PackageAfterDetermineVersion } from '../types';
-
-import { logger } from '../helpers/logger';
 import { clone } from 'ramda';
 import semver from 'semver';
 import { green, red, yellow, white } from 'chalk';
+
+import { logger } from '../helpers/logger';
+
+import type { Module, PackageAfterDetermineVersion } from '../types';
 
 const mapLevelToColour: Record<
   PackageAfterDetermineVersion['determinedIncrementLevel'],

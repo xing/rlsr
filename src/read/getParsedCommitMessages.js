@@ -1,6 +1,7 @@
 const commits = require('git-raw-commits');
 const parser = require('conventional-commits-parser');
 const R = require('ramda');
+
 const addType = require('./addType');
 
 const BREAKING_REGEXP = /BREAKING/;

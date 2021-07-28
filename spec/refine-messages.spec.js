@@ -1,6 +1,7 @@
 /* eslint-env node, jest */
 
 const refineMessages = require('../src/transform/refine-messages');
+
 const getEnv = require('./fixtures/env-small.fixture');
 
 const getMessage = () => ({

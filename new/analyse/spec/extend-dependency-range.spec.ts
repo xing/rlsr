@@ -1,8 +1,9 @@
 /* eslint-env node, jest */
+import { clone } from 'ramda';
+
 import type { Env, Module, Package } from '../../types';
 
 import { envWithConfig } from '../../fixtures/env';
-import { clone } from 'ramda';
 
 // mock Packages
 const buildPackage = (name: string): Package => ({

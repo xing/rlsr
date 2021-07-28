@@ -1,6 +1,7 @@
+import fs from 'fs';
+
 import { envWithConfig } from '../../fixtures/env';
 import type { Module, Env } from '../../types';
-import fs from 'fs';
 
 // mock logger
 const mockLog = jest.fn();
@@ -28,8 +29,6 @@ const mockEnv: Env = {
 
 describe('writeRlsrJson Module', () => {
   let writeRlsrJson: Module;
-
-  console.log('top describe');
 
   beforeAll(() => {
     writeRlsrJson = require('../write-rlsr-json').writeRlsrJson;

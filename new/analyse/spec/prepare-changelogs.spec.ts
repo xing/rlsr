@@ -1,5 +1,7 @@
-import { RelatedMessages } from './../../types';
+import { clone } from 'ramda';
+
 import { envWithConfig } from '../../fixtures/env';
+
 import type {
   Env,
   Message,
@@ -7,7 +9,9 @@ import type {
   Package,
   PackageAfterPrepareChangelogs,
 } from '../../types';
-import { clone } from 'ramda';
+
+import { RelatedMessages } from './../../types';
+
 // mock logger
 const mockLog = jest.fn();
 const mockError = jest.fn();

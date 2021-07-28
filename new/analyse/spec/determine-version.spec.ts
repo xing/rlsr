@@ -1,6 +1,8 @@
 /* eslint-env node, jest */
 import { inc, parse } from 'semver';
 
+import { clone } from 'ramda';
+
 import type {
   Env,
   Module,
@@ -8,7 +10,6 @@ import type {
   PackageAfterDetermineVersion,
 } from '../../types';
 import { envWithConfig } from '../../fixtures/env';
-import { clone } from 'ramda';
 
 // mock logger
 const mockError = jest.fn();

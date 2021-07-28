@@ -1,5 +1,7 @@
 import { bold } from 'chalk';
+
 import { Module } from '../types';
+
 import { logger } from './logger';
 
 const l = logger('========');

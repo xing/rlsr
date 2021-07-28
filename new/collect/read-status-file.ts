@@ -1,5 +1,6 @@
-import { Env, Module, Status } from '../types';
 import { join } from 'path';
+
+import { Env, Module, Status } from '../types';
 
 /**
  * Reads the top level rlsr.json and adds the data to env

@@ -1,6 +1,7 @@
 import { pick } from 'lodash/fp';
 import { yellow } from 'chalk';
 import simpleGit, { SimpleGit } from 'simple-git';
+
 import { logger } from '../helpers/logger';
 import { Module, Env } from '../types';
 

@@ -1,5 +1,6 @@
-import { Config, Env, Module } from '../types';
 import { cosmiconfigSync } from 'cosmiconfig';
+
+import { Config, Env, Module } from '../types';
 import { setDebug } from '../helpers/logger';
 
 export const defaultConfig: Config = {

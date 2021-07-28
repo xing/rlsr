@@ -1,4 +1,5 @@
 const R = require('ramda');
+
 const bump = require('./semver').bump;
 const modifyPackages = require('./modify-packages');
 

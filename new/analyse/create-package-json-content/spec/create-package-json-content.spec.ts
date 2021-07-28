@@ -1,4 +1,6 @@
 /* eslint-env node, jest */
+import { clone } from 'ramda';
+
 import type {
   Env,
   Module,
@@ -6,7 +8,6 @@ import type {
   PackageAfterPrepareChangelogs,
 } from '../../../types';
 import { envWithConfig } from '../../../fixtures/env';
-import { clone } from 'ramda';
 
 import { getReleasablePackages } from '../../adapt-dependencies/get-releasable-packages';
 import { getPackageJson } from '../get-package-json';

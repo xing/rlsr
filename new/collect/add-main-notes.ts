@@ -1,8 +1,10 @@
-import type { Module, ReleaseNote } from '../types';
-import { sync as glob } from 'glob';
 import { readFileSync } from 'fs';
 import path from 'path';
+
+import { sync as glob } from 'glob';
 import { yellow } from 'chalk';
+
+import type { Module, ReleaseNote } from '../types';
 
 import { logger } from '../helpers/logger';
 

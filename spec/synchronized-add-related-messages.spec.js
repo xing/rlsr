@@ -1,6 +1,7 @@
 /* eslint-env node, jest */
 
 const synchronizedAddRelatedMessages = require('../src/transform/synchronized-add-related-messages');
+
 const getEnv = require('./fixtures/env-small.fixture');
 const getMessage = require('./fixtures/message-small.fixture');
 

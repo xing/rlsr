@@ -2,10 +2,10 @@ module.exports = {
   extends: [
     'plugin:react/recommended',
     'plugin:@typescript-eslint/recommended', // Uses the recommended rules from the @typescript-eslint/eslint-plugin
-    'prettier/@typescript-eslint', // Uses eslint-config-prettier to disable ESLint rules from @typescript-eslint/eslint-plugin that would conflict with prettier
+    'prettier', // Uses eslint-config-prettier to disable ESLint rules from @typescript-eslint/eslint-plugin that would conflict with prettier
     'plugin:prettier/recommended',
   ],
-  plugins: ['eslint-plugin-xing', '@typescript-eslint', 'prettier', 'import'],
+  plugins: ['@typescript-eslint', 'prettier', 'import'],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaVersion: 2018, // Allows for the parsing of modern ECMAScript features
@@ -22,11 +22,6 @@ module.exports = {
   env: {
     jest: true,
     browser: true,
-  },
-  settings: {
-    react: {
-      version: 'detect',
-    },
   },
   rules: {
     'prettier/prettier': 2,

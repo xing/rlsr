@@ -1,7 +1,8 @@
 /* eslint-env node, jest */
+import { clone } from 'ramda';
+
 import type { Env, Message, Module } from '../../../types';
 import { envWithConfig } from '../../../fixtures/env';
-import { clone } from 'ramda';
 
 // mock Log
 const mockError = jest.fn();

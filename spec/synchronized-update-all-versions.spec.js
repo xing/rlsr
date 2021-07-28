@@ -1,6 +1,7 @@
 /* eslint-env node, jest */
 
 const R = require('ramda');
+
 const getEnv = require('./fixtures/env-small.fixture')({
   one: {
     name: 'one',

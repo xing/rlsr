@@ -1,4 +1,8 @@
 /* eslint-env node, jest */
+import semver from 'semver';
+
+import { clone } from 'ramda';
+
 import type {
   Env,
   Module,
@@ -7,8 +11,6 @@ import type {
 } from '../../../types';
 import { envWithConfig } from '../../../fixtures/env';
 import { getReleasablePackages } from '../get-releasable-packages';
-import semver from 'semver';
-import { clone } from 'ramda';
 
 // mock semver
 jest.mock('semver');

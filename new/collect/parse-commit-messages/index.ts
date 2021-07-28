@@ -1,8 +1,9 @@
-import type { Module, Env, Message } from '../../types';
-
 import { yellow } from 'chalk';
 import { pipe } from 'lodash/fp';
+
+import type { Module, Env, Message } from '../../types';
 import { logger } from '../../helpers/logger';
+
 import { parse } from './parse';
 import { refineType } from './refine-type';
 import { addLevel } from './add-level';

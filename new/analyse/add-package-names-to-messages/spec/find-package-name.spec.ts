@@ -1,7 +1,9 @@
 /* eslint-env node, jest */
 import { dirname, join } from 'path';
-import findUp from 'find-up';
+
 import { readFileSync } from 'fs';
+
+import findUp from 'find-up';
 
 // mock Log
 const mockError = jest.fn();

@@ -1,6 +1,7 @@
-import { Env, Module, Package } from '../types';
 import { sync as glob } from 'glob';
 import { yellow } from 'chalk';
+
+import { Env, Module, Package } from '../types';
 
 import { logger } from '../helpers/logger';
 

@@ -1,5 +1,6 @@
-import { Env, PackageAfterCreatePackageJsonContent } from '../../types';
 import { clone } from 'ramda';
+
+import { Env, PackageAfterCreatePackageJsonContent } from '../../types';
 
 import { logger } from '../../helpers/logger';
 

@@ -1,6 +1,8 @@
 const fs = require('fs');
-const R = require('ramda');
+
 const path = require('path');
+
+const R = require('ramda');
 
 module.exports = (env) =>
   new Promise((resolve, reject) => {

@@ -1,8 +1,10 @@
-import type { Env } from '../../types';
-
 import { dirname, join } from 'path';
-import findUp from 'find-up';
+
 import { readFileSync } from 'fs';
+
+import findUp from 'find-up';
+
+import type { Env } from '../../types';
 
 import { logger } from '../../helpers/logger';
 

@@ -1,7 +1,9 @@
+import { join } from 'path';
+
+import { writeFileSync, existsSync, mkdirSync } from 'fs';
+
 import type { Module } from '../types';
 import { logger } from '../helpers/logger';
-import { join } from 'path';
-import { writeFileSync, existsSync, mkdirSync } from 'fs';
 
 const { error, log } = logger('[change] write main changelog');
 

@@ -1,7 +1,9 @@
 /* eslint-env node, jest */
 
 const R = require('ramda');
+
 const unsynchronizedCalculateNewVersion = require('../src/transform/unsynchronized-calculate-new-version');
+
 const getEnv = require('./fixtures/env-small.fixture');
 const getMessage = require('./fixtures/message-small.fixture');
 

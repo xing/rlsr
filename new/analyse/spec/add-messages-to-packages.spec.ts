@@ -1,6 +1,7 @@
 /* eslint-env node, jest */
-import type { Env, Module, Package, Message } from '../../types';
 import { clone } from 'ramda';
+
+import type { Env, Module, Package, Message } from '../../types';
 
 import { envWithConfig } from '../../fixtures/env';
 

@@ -14,11 +14,12 @@ const levels = {
   error: red('ERR'),
 };
 
-const log = (level: 'debug' | 'log' | 'warn' | 'error', section: string) => (
-  ...rest: any[]
-) => {
-  console.log(`${levels[level]} ${dim('[' + section + ']')}`, ...rest);
-};
+const log =
+  (level: 'debug' | 'log' | 'warn' | 'error', section: string) =>
+  (...rest: any[]) => {
+    // eslint-disable-next-line no-console
+    console.log(`${levels[level]} ${dim('[' + section + ']')}`, ...rest);
+  };
 
 export const logger = (section: string) => ({
   debug: debug ? log('debug', section) : noop,

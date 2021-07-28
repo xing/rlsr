@@ -1,7 +1,10 @@
 const path = require('path');
+
 const R = require('ramda');
-const exec = require('./exec');
+
 const getPackages = require('../read/getPackages');
+
+const exec = require('./exec');
 
 const command = R.curry((log, dbg, dir, cmd, description) => {
   log(`exec command: ${description}`);

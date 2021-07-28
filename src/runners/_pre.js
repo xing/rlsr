@@ -1,5 +1,7 @@
-const R = require('ramda');
 const path = require('path');
+
+const R = require('ramda');
+
 const latestTag = require('../tools/get-latest-semver-tag');
 const messages = require('../tools/get-parsed-commit-messages');
 const packages = require('../tools/get-packages');

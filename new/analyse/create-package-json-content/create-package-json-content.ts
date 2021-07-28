@@ -1,9 +1,10 @@
+import { clone } from 'ramda';
+
 import type {
   Module,
   PackageAfterCreatePackageJsonContent,
   PackageAfterPrepareChangelogs,
 } from '../../types';
-import { clone } from 'ramda';
 
 import { logger } from '../../helpers/logger';
 import { getReleasablePackages } from '../adapt-dependencies/get-releasable-packages';

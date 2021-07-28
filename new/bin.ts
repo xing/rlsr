@@ -1,8 +1,9 @@
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
+
 import { run } from './index';
 
-const opt = (y: yargs.Argv<{}>) =>
+const opt = (y: yargs.Argv<Record<string, unknown>>) =>
   y
     .option('dryrun', {
       alias: 'd',

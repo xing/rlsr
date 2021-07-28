@@ -1,6 +1,7 @@
 /* eslint-env node, jest */
 
 const polishPackages = require('../src/transform/polish-packages');
+
 const getEnv = require('./fixtures/env-small.fixture');
 
 describe('polishPackages()', () => {
