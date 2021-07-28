@@ -19,7 +19,7 @@ export const change = composeAsync(
   // write new versions into central rlsr.json file
   // The new content of the files should™ alsoalready be in the env
   // (see createrlsrJsonContent).
-  writeRlsrJson
+  writeRlsrJson,
 
   // we maintain a single file with changelog content
   // - read this file if it exists (its structure is an array)

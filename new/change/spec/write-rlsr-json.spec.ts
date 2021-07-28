@@ -42,7 +42,6 @@ describe('writeRlsrJson Module', () => {
   it('throws an error when rlsrJson content (newStatus) is not set up', () => {
     const expectedErrorMessage =
       'the data for rlsr.json seems not to be calculated';
-    q;
     expect(() => writeRlsrJson(envWithConfig)).toThrow(expectedErrorMessage);
     expect(mockError).toHaveBeenCalledTimes(1);
     expect(mockError).toHaveBeenCalledWith(expectedErrorMessage);
