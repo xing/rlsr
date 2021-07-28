@@ -31,5 +31,5 @@ export const writePackageChangelogs: Module = (env) => {
       `${JSON.stringify(changelogJson, null, 2)}\n`
     );
   });
-  return { ...env };
+  return env;
 };
