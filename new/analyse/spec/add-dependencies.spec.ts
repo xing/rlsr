@@ -6,6 +6,7 @@ import type {
   RelatedPackageDependsOn,
 } from '../../types';
 import { envWithConfig } from '../../fixtures/env';
+import { createMockPackage } from '../fixtures/createMockPackage';
 
 // mock Packages
 const mockPackageBuilder: (path: string, name: string) => Package = (
@@ -189,22 +190,3 @@ describe('addDependencies Module', () => {
     });
   });
 });
-
-const createMockPackage = (
-  name: string,
-  dependencies: Record<string, string> = {},
-  peerDependencies: Record<string, string> = {},
-  override: Partial<Package> = {}
-): Package => {
-  return {
-    currentVersion: '1.0.0',
-    path: 'path/to/second/',
-    packageJson: { name, dependencies, peerDependencies },
-    messages: [],
-    relatedMessages: [],
-    determinedIncrementLevel: -1,
-    dependingOnThis: [],
-    dependsOn: [],
-    ...override,
-  };
-};
