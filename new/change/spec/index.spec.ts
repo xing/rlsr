@@ -11,6 +11,7 @@ const mockLogResult = jest.fn();
 const mockLog = jest.fn(() => mockLogResult);
 
 const mockWritePackageJsonsToNpm = jest.fn();
+const mockWriteRlsrJson = jest.fn();
 const mockWriteMainChangelog = jest.fn();
 const mockWritePackageChangelogs = jest.fn();
 
@@ -22,6 +23,9 @@ jest.mock('../../helpers/log-module', () => ({ log: mockLog }));
 
 jest.mock('../write-package-jsons-to-npm', () => ({
   writePackageJsonsToNpm: mockWritePackageJsonsToNpm,
+}));
+jest.mock('../write-rlsr-json', () => ({
+  writeRlsrJson: mockWriteRlsrJson,
 }));
 jest.mock('../write-main-changelog', () => ({
   writeMainChangelog: mockWriteMainChangelog,
@@ -55,14 +59,19 @@ describe("change's Index", () => {
     expect(mockComposeAsync.mock.calls[0][1]).toBe(mockWritePackageJsonsToNpm);
   });
 
-  test('3. writes main changelog', () => {
+  test('3. writes rlsr.json file', () => {
     // @ts-ignore
-    expect(mockComposeAsync.mock.calls[0][2]).toBe(mockWriteMainChangelog);
+    expect(mockComposeAsync.mock.calls[0][2]).toBe(mockWriteRlsrJson);
   });
 
-  test('4. writes changelos per packages', () => {
+  test('4. writes main changelog', () => {
     // @ts-ignore
-    expect(mockComposeAsync.mock.calls[0][3]).toBe(mockWritePackageChangelogs);
+    expect(mockComposeAsync.mock.calls[0][3]).toBe(mockWriteMainChangelog);
+  });
+
+  test('5. writes changelos per packages', () => {
+    // @ts-ignore
+    expect(mockComposeAsync.mock.calls[0][4]).toBe(mockWritePackageChangelogs);
   });
 
   test('calls "wait(1000)" at the end', () => {
