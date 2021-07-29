@@ -1,7 +1,8 @@
+import simpleGit from 'simple-git';
+
 import type { Env, Module } from '../types';
 import { logger } from '../helpers/logger';
 
-import simpleGit from 'simple-git';
 const { log, error } = logger('[persist] push changes');
 const git = simpleGit();
 

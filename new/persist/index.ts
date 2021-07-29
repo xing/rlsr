@@ -2,6 +2,7 @@ import { composeAsync } from '../helpers/compose-async';
 import { wait } from '../helpers/wait-module';
 import { log } from '../helpers/log-module';
 
+import { publish } from './publish';
 import { pushChanges } from './push-changes';
 
 export const persist = composeAsync(
@@ -13,7 +14,7 @@ export const persist = composeAsync(
   // Then go into that folder and run `npm publish .` in there.
   // We don't want the output in the log (except in verbose mode).
   // But it's worth printing a success message for each released package.
-  // publish
+  publish,
 
   // revert package.jsons
   // after the package is publishet, we bring back the package.jsons with the `*`
