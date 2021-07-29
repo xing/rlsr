@@ -11,6 +11,7 @@ const mockLogResult = jest.fn();
 const mockLog = jest.fn(() => mockLogResult);
 
 const mockPublish = jest.fn();
+const mockWritePackageJsonsForGit = jest.fn();
 
 jest.mock('../../helpers/compose-async', () => ({
   composeAsync: mockComposeAsync,
@@ -20,6 +21,9 @@ jest.mock('../../helpers/log-module', () => ({ log: mockLog }));
 
 jest.mock('../publish', () => ({
   publish: mockPublish,
+}));
+jest.mock('../write-package-jsons-for-git', () => ({
+  writePackageJsonsForGit: mockWritePackageJsonsForGit,
 }));
 
 describe("persist's Index", () => {
@@ -45,6 +49,11 @@ describe("persist's Index", () => {
   test('2. publishes changes to NPM', () => {
     // @ts-ignore
     expect(mockComposeAsync.mock.calls[0][1]).toBe(mockPublish);
+  });
+
+  test('3. write package.json files for git', () => {
+    // @ts-ignore
+    expect(mockComposeAsync.mock.calls[0][2]).toBe(mockWritePackageJsonsForGit);
   });
 
   test('calls "wait(1000)" at the end', () => {

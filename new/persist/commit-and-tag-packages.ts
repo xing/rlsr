@@ -3,7 +3,7 @@ import type { Env, Module, PackageAfterPrepareChangelogs } from '../types';
 import { logger } from '../helpers/logger';
 
 import simpleGit from 'simple-git';
-import { getReleasablePackages } from '../analyse/adapt-dependencies/get-releasable-packages';
+import { getReleasablePackages } from '../helpers/get-releasable-packages';
 
 const { log, error } = logger('[persist] commit and tag packages');
 const git = simpleGit();

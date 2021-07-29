@@ -5,32 +5,38 @@ import type { Module } from '../types';
 import { logger } from '../helpers/logger';
 import { getReleasablePackages } from '../helpers/get-releasable-packages';
 
-const { log, error } = logger('[change] write packageJsons (NPM)');
+const { error, log } = logger('[persist] package.json files (git)');
 
-export const writePackageJsonsToNpm: Module = (env) => {
+// revert package.jsons
+// after the package is publishet, we bring back the package.jsons with the `*`
+// dependencies. The data structure should be in the env.
+// This is a very similar step to change > writeToPackageJsons
+export const writePackageJsonsForGit: Module = (env) => {
   if (!env.packages) {
     const errorMessage = 'missing "packages" on env object.';
     error(errorMessage);
     throw new Error(errorMessage);
   }
 
-  log('Analysing releasable packages...');
+  log('Preparing packages to commit to Git');
 
   const releasablePackages = getReleasablePackages(env.packages);
 
   releasablePackages.forEach((packageName) => {
     const currentPackage = env.packages![packageName];
 
-    if (!('packageJsonNpm' in currentPackage)) {
+    if (!('packageJsonGit' in currentPackage)) {
       const errorMessage = `missing "packageJsonNpm" on package ${packageName}.`;
       error(errorMessage);
       throw new Error(errorMessage);
     }
-    log(`Writting "${packageName}"`);
+
+    const packageJsonPath = `${currentPackage.path}/package.json`;
+    log(`Reverting "${packageName}" (${packageJsonPath})`);
 
     writeFileSync(
-      `${currentPackage.path}/package.json`,
-      `${JSON.stringify(currentPackage.packageJsonNpm, null, 2)}\n`
+      packageJsonPath,
+      `${JSON.stringify(currentPackage.packageJsonGit, null, 2)}\n`
     );
   });
 
