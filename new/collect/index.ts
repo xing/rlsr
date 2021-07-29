@@ -1,10 +1,12 @@
 import { composeAsync } from '../helpers/compose-async';
 import { wait } from '../helpers/wait-module';
 import { log } from '../helpers/log-module';
+
+import { whenNotDryrun, whenNotStage } from '../helpers/when';
+
 import { config } from './config';
 import { mainPackage } from './main-package';
 import { startReport } from './start-report';
-import { whenNotDryrun, whenNotStage } from '../helpers/when';
 import { checkNpmPing, checkNpmLogin } from './check-npm';
 import { addGitStatus } from './add-git-status';
 import { checkGitStatus } from './check-git-status';

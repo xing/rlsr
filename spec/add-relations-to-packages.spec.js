@@ -1,6 +1,7 @@
 /* eslint-env node, jest */
 
 const addRelationsToPackages = require('../src/transform/add-relations-to-packages');
+
 const getEnv = require('./fixtures/env-small.fixture');
 
 const packages = {

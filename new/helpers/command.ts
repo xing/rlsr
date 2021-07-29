@@ -1,6 +1,9 @@
 import { spawn } from 'child_process';
+
 import c from 'chalk';
+
 import { Env, Module } from '../types';
+
 import { logger } from './logger';
 
 type Output = 'silent' | 'inf' | 'err';

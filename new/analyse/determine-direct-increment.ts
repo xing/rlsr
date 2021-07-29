@@ -1,6 +1,7 @@
-import type { Package, Message, Module } from '../types';
 import { clone } from 'ramda';
 import { green, red, yellow, white } from 'chalk';
+
+import type { Package, Message, Module } from '../types';
 
 import { logger } from '../helpers/logger';
 

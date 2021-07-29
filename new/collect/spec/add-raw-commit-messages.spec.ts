@@ -45,8 +45,8 @@ describe('addRawCommitMessages Module', () => {
   let addRawCommitMessages: Module;
 
   beforeAll(() => {
-    addRawCommitMessages = require('../add-raw-commit-messages')
-      .addRawCommitMessages;
+    addRawCommitMessages =
+      require('../add-raw-commit-messages').addRawCommitMessages;
   });
 
   it('uses git messages logger', () => {

@@ -1,7 +1,9 @@
 // MIGRATION: current
 
-const R = require('ramda');
 const path = require('path');
+
+const R = require('ramda');
+
 const getLatestSemverTag = require('./getLatestSemverTag');
 const getParsedCommitMessages = require('./getParsedCommitMessages');
 const getPackages = require('./getPackages');

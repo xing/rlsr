@@ -1,3 +1,5 @@
+import { clone } from 'ramda';
+
 import {
   Module,
   Package,
@@ -6,7 +8,6 @@ import {
 } from '../types';
 
 import { logger } from '../helpers/logger';
-import { clone } from 'ramda';
 
 const { error, log } = logger('[analyse] add dependencies');
 

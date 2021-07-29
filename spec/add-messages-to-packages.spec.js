@@ -1,8 +1,10 @@
 /* eslint-env node, jest */
 const R = require('ramda');
+
+const addMessagesToPackages = require('../src/transform/add-messages-to-packages');
+
 const getMessage = require('./fixtures/message-small.fixture');
 const getRawEnv = require('./fixtures/env-small.fixture');
-const addMessagesToPackages = require('../src/transform/add-messages-to-packages');
 
 const multiMessage = R.assoc('affected', ['one', 'two']);
 const irrelevantMessage = R.assoc('affected', ['three']);

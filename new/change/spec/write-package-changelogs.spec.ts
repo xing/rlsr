@@ -1,3 +1,5 @@
+import fs from 'fs';
+
 import { envWithConfig } from '../../fixtures/env';
 import type {
   Module,
@@ -5,7 +7,6 @@ import type {
   PackageAfterPrepareChangelogs,
   Package,
 } from '../../types';
-import fs from 'fs';
 
 // mock logger
 const mockLog = jest.fn();

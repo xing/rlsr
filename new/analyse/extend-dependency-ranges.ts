@@ -1,6 +1,6 @@
-import type { Module } from '../types';
-
 import { clone } from 'ramda';
+
+import type { Module } from '../types';
 
 import { logger } from '../helpers/logger';
 

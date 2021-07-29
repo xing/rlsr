@@ -1,8 +1,10 @@
 /* eslint-env node, jest */
 const R = require('ramda');
+
 const transform = require('../../src/transform');
 const getEnv = require('../fixtures/env-large.fixture');
 const getMessage = require('../fixtures/message-large.fixture');
+
 const diff = require('recursive-diff').getDiff;
 
 const applyMainScope = R.assoc('scope', 'four');

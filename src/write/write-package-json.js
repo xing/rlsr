@@ -1,5 +1,6 @@
-const R = require('ramda');
 const fs = require('fs');
+
+const R = require('ramda');
 
 module.exports = (env) => (pkg) =>
   new Promise((resolve, reject) => {

@@ -1,11 +1,14 @@
 import semver from 'semver';
 
+import { clone } from 'ramda';
+
+import { white } from 'chalk';
+
 import type { Module, PackageAfterDetermineVersion } from '../../types';
 
 import { logger } from '../../helpers/logger';
+
 import { getReleasablePackages } from './get-releasable-packages';
-import { clone } from 'ramda';
-import { white } from 'chalk';
 
 const { error, log } = logger('[analyse] adapt dependencies');
 

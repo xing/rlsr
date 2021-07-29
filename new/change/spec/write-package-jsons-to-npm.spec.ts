@@ -1,5 +1,6 @@
 /* eslint-env node, jest */
 import { writeFileSync } from 'fs';
+
 import type {
   Env,
   Module,

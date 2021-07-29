@@ -1,5 +1,6 @@
-const glob = require('glob');
 const path = require('path');
+
+const glob = require('glob');
 
 module.exports = (rootDir, nsp) =>
   new Promise((resolve, reject) => {

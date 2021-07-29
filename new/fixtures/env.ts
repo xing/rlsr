@@ -1,4 +1,5 @@
 import { resolve } from 'path';
+
 import { defaultConfig } from '../collect/config';
 
 import { Env } from '../types';

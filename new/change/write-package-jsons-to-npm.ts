@@ -1,6 +1,6 @@
-import type { Module } from '../types';
-
 import { writeFileSync } from 'fs';
+
+import type { Module } from '../types';
 
 import { logger } from '../helpers/logger';
 

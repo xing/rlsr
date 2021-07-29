@@ -1,4 +1,5 @@
 import { red, bold } from 'chalk';
+
 import { Env, Module } from '../types';
 
 import { logger } from '../helpers/logger';

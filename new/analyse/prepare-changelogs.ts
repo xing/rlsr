@@ -1,3 +1,9 @@
+import fs from 'fs';
+
+import { join } from 'path';
+
+import { clone } from 'ramda';
+
 import type {
   Module,
   PackageAfterDetermineVersion,
@@ -6,11 +12,8 @@ import type {
   MainChangelog,
   ChangelogMessage,
 } from '../types';
-import { clone } from 'ramda';
-import fs from 'fs';
 
 import { logger } from '../helpers/logger';
-import { join } from 'path';
 
 import { getReleasablePackages } from './adapt-dependencies/get-releasable-packages';
 

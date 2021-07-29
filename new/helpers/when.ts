@@ -1,4 +1,5 @@
 import { curry, negate } from 'lodash/fp';
+
 import { Env, Module, Stage } from '../types';
 
 type ChoiceFn = (env: Env) => boolean;

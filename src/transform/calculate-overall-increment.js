@@ -1,4 +1,5 @@
 const R = require('ramda');
+
 const bump = require('./semver').bump;
 const max = R.apply(Math.max);
 

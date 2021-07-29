@@ -1,6 +1,8 @@
-import { Env, Module } from '../types';
-import { CoreProperties as PackageJson } from '@schemastore/package';
 import { join } from 'path';
+
+import { CoreProperties as PackageJson } from '@schemastore/package';
+
+import { Env, Module } from '../types';
 
 /**
  * Reads the top level package.json

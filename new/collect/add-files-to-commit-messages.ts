@@ -1,7 +1,8 @@
 import type { Env, Message, Module } from '../types';
-const simpleGit = require('simple-git');
 
 import { logger } from '../helpers/logger';
+
+const simpleGit = require('simple-git');
 
 const { error } = logger('add files to commits');
 
