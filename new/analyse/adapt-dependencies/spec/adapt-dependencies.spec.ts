@@ -10,7 +10,7 @@ import type {
   PackageAfterDetermineVersion,
 } from '../../../types';
 import { envWithConfig } from '../../../fixtures/env';
-import { getReleasablePackages } from '../get-releasable-packages';
+import { getReleasablePackages } from '../../../helpers/get-releasable-packages';
 
 // mock semver
 jest.mock('semver');
@@ -32,7 +32,7 @@ const mockLogger = jest.fn(() => ({
 jest.doMock('../../../helpers/logger', () => ({ logger: mockLogger }));
 
 // mock get-releasable-packages
-jest.mock('../get-releasable-packages');
+jest.mock('../../../helpers/get-releasable-packages');
 const mockGetReleasablePackages = getReleasablePackages as jest.MockedFunction<
   typeof getReleasablePackages
 >;

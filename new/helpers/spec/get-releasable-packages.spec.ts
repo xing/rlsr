@@ -1,5 +1,5 @@
 /* eslint-env node, jest */
-import type { Package, PackageAfterDetermineVersion } from '../../../types';
+import type { Package, PackageAfterDetermineVersion } from '../../types';
 
 import { getReleasablePackages } from '../get-releasable-packages';
 

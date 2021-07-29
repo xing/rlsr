@@ -8,7 +8,7 @@ import type { Module, PackageAfterDetermineVersion } from '../../types';
 
 import { logger } from '../../helpers/logger';
 
-import { getReleasablePackages } from './get-releasable-packages';
+import { getReleasablePackages } from '../../helpers/get-releasable-packages';
 
 const { error, log } = logger('[analyse] adapt dependencies');
 

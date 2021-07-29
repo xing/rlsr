@@ -4,7 +4,7 @@ import type { Module, PackageAfterCreatePackageJsonContent } from '../types';
 
 import { logger } from '../helpers/logger';
 import { command } from '../helpers/command';
-import { getReleasablePackages } from '../analyse/adapt-dependencies/get-releasable-packages';
+import { getReleasablePackages } from '../helpers/get-releasable-packages';
 
 const topic = 'publish to NPM';
 const { error, log } = logger(topic);

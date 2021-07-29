@@ -7,7 +7,7 @@ import type {
 } from '../../types';
 
 import { logger } from '../../helpers/logger';
-import { getReleasablePackages } from '../adapt-dependencies/get-releasable-packages';
+import { getReleasablePackages } from '../../helpers/get-releasable-packages';
 
 import { getPackageJson } from './get-package-json';
 
