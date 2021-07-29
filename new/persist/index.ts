@@ -2,6 +2,8 @@ import { composeAsync } from '../helpers/compose-async';
 import { wait } from '../helpers/wait-module';
 import { log } from '../helpers/log-module';
 
+import { pushChanges } from './push-changes';
+
 export const persist = composeAsync(
   log('PERSIST PHASE: publishing files and committing to git'),
 
@@ -35,7 +37,7 @@ export const persist = composeAsync(
   // But I don't expect larger tree conflicts to happen anymore.
   // This commit is suppoesd to contain only rlsr.json and changelogs
   // package.jsons should only be in there if new packages are being added.
-  // pushChanges
+  pushChanges,
 
   wait(1000)
 );
