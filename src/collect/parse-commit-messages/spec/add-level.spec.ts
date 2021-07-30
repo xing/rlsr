@@ -16,15 +16,21 @@ const buildMockedMessage = (
 import { addLevel } from '../add-level';
 
 describe.each`
-  type       | breaking | expectedLevel
-  ${'chore'} | ${false} | ${'misc'}
-  ${'chore'} | ${true}  | ${'major'}
-  ${'fix'}   | ${false} | ${'patch'}
-  ${'style'} | ${false} | ${'patch'}
-  ${'fix'}   | ${true}  | ${'major'}
-  ${'style'} | ${true}  | ${'major'}
-  ${'feat'}  | ${false} | ${'minor'}
-  ${'feat'}  | ${true}  | ${'major'}
+  type          | breaking | expectedLevel
+  ${'chore'}    | ${false} | ${'misc'}
+  ${'style'}    | ${false} | ${'misc'}
+  ${'chore'}    | ${true}  | ${'major'}
+  ${'fix'}      | ${false} | ${'patch'}
+  ${'fix'}      | ${true}  | ${'major'}
+  ${'style'}    | ${true}  | ${'major'}
+  ${'refactor'} | ${false} | ${'patch'}
+  ${'refactor'} | ${true}  | ${'major'}
+  ${'perf'}     | ${false} | ${'patch'}
+  ${'perf'}     | ${true}  | ${'major'}
+  ${'revert'}   | ${false} | ${'patch'}
+  ${'revert'}   | ${true}  | ${'major'}
+  ${'feat'}     | ${false} | ${'minor'}
+  ${'feat'}     | ${true}  | ${'major'}
 `(
   'add-level helper: type: "$type", (Breaking: $breaking)',
   ({ type, breaking, expectedLevel }) => {
