@@ -4,7 +4,6 @@
   "description": "create npm releses and changelogs from a multi repo",
   "main": "src/index.js",
   "bin": {
-    "rlsr": "./bin/rlsr.js",
     "rlsr4": "./bin/rlsr4.js"
   },
   "publishConfig": {
