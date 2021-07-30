@@ -13,7 +13,9 @@ export const addLevel = (
         message.level = 'minor';
         break;
       case 'fix':
-      case 'style':
+      case 'refactor':
+      case 'perf':
+      case 'revert':
         message.level = 'patch';
         break;
       default:
