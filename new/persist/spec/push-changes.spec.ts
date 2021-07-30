@@ -1,3 +1,4 @@
+/* eslint-env node, jest */
 // mock Logger
 const mockLog = jest.fn();
 const mockLoggerError = jest.fn();

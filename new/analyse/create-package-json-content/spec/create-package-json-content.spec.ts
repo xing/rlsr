@@ -9,7 +9,7 @@ import type {
 } from '../../../types';
 import { envWithConfig } from '../../../fixtures/env';
 
-import { getReleasablePackages } from '../../adapt-dependencies/get-releasable-packages';
+import { getReleasablePackages } from '../../../helpers/get-releasable-packages';
 import { getPackageJson } from '../get-package-json';
 
 // mock getPackageJson
@@ -28,7 +28,7 @@ const mockLogger = jest.fn(() => ({
 jest.doMock('../../../helpers/logger', () => ({ logger: mockLogger }));
 
 // mock getReleasablePackages
-jest.mock('../../adapt-dependencies/get-releasable-packages');
+jest.mock('../../../helpers/get-releasable-packages');
 const mockGetReleasablePackages = getReleasablePackages as jest.MockedFunction<
   typeof getReleasablePackages
 >;

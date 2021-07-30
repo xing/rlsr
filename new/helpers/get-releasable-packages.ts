@@ -1,4 +1,4 @@
-import type { Package, PackageAfterDetermineVersion } from '../../types';
+import type { Package, PackageAfterDetermineVersion } from '../types';
 
 /**
  * Identifies and returns a collection of package names to be released

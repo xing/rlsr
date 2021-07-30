@@ -6,7 +6,7 @@ import type {
 } from '../../types';
 
 import { envWithConfig } from '../../fixtures/env';
-import { getReleasablePackages } from '../../analyse/adapt-dependencies/get-releasable-packages';
+import { getReleasablePackages } from '../../helpers/get-releasable-packages';
 import { command } from '../../helpers/command';
 
 // mock logger
@@ -36,7 +36,7 @@ const mockPackageBuilder = (
   incrementedVersion: '1.0.1',
 });
 
-jest.mock('../../analyse/adapt-dependencies/get-releasable-packages');
+jest.mock('../../helpers/get-releasable-packages');
 const mockGetReleasablePackages = getReleasablePackages as jest.MockedFunction<
   typeof getReleasablePackages
 >;

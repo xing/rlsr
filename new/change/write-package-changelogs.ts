@@ -7,7 +7,7 @@ import { clone } from 'ramda';
 import type { Module } from '../types';
 import { logger } from '../helpers/logger';
 
-import { getReleasablePackages } from '../analyse/adapt-dependencies/get-releasable-packages';
+import { getReleasablePackages } from '../helpers/get-releasable-packages';
 
 import { PackageAfterPrepareChangelogs } from './../types';
 

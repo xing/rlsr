@@ -4,6 +4,7 @@ import { log } from '../helpers/log-module';
 
 import { publish } from './publish';
 import { commitAndTagPackages } from './commit-and-tag-packages';
+import { writePackageJsonsForGit } from './write-package-jsons-for-git';
 import { pushChanges } from './push-changes';
 
 export const persist = composeAsync(
@@ -21,7 +22,7 @@ export const persist = composeAsync(
   // after the package is publishet, we bring back the package.jsons with the `*`
   // dependencies. The data structure should be in the env.
   // This is a very similar step to change > writeToPackageJsons
-  // writePackageJsonsForGit
+  writePackageJsonsForGit,
 
   // finally the changed files must be added to git.
   // it's a
