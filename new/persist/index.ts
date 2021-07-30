@@ -3,6 +3,7 @@ import { wait } from '../helpers/wait-module';
 import { log } from '../helpers/log-module';
 
 import { publish } from './publish';
+import { commitAndTagPackages } from './commit-and-tag-packages';
 import { pushChanges } from './push-changes';
 
 export const persist = composeAsync(
@@ -28,7 +29,7 @@ export const persist = composeAsync(
   // - `git commit -m "<a useful commit message>"`
   //    should probably contain all the bumps in the message body?!?
   // - git tag for each changed package (tag format `@xingternal/button@32.1.1`)
-  // commitAndTagPackages
+  commitAndTagPackages,
 
   // - `git pull`
   // - `git push`
