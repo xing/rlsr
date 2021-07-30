@@ -1,6 +1,6 @@
 # rlsr
 
-[![Build Status](https://travis-ci.org/xing/rlsr.svg?branch=master)](https://travis-ci.org/xing/rlsr)
+[![Build Status](https://travis-ci.com/xing/rlsr.svg?branch=master)](https://travis-ci.com/xing/rlsr)
 
 Manage automatic releases in a multi repo environment (comparable to lerna and
 lerna-semantic-release)
