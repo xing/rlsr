@@ -1,5 +1,5 @@
 import { yellow } from 'chalk';
-import { pipe } from 'lodash/fp';
+import { pipe } from 'ramda';
 
 import type { Module, Env, Message } from '../../types';
 import { logger } from '../../helpers/logger';

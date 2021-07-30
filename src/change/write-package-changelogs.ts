@@ -9,7 +9,7 @@ import { logger } from '../helpers/logger';
 
 import { getReleasablePackages } from '../helpers/get-releasable-packages';
 
-import { PackageAfterPrepareChangelogs } from './../types';
+import { PackageAfterPrepareChangelogs } from '../types';
 
 const { error, log } = logger('[change] write package changelogs');
 

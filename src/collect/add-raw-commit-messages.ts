@@ -1,4 +1,4 @@
-import { pick } from 'lodash/fp';
+import { pick } from 'ramda';
 import { yellow } from 'chalk';
 import simpleGit, { SimpleGit } from 'simple-git';
 

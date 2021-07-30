@@ -1,5 +1,4 @@
 import { red, yellow, dim, green } from 'chalk';
-import { noop } from 'lodash/fp';
 
 let debug = false;
 
@@ -22,7 +21,7 @@ const log =
   };
 
 export const logger = (section: string) => ({
-  debug: debug ? log('debug', section) : noop,
+  debug: debug ? log('debug', section) : () => undefined,
   log: log('log', section),
   warn: log('warn', section),
   error: log('error', section),

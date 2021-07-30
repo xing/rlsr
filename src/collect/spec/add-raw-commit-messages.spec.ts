@@ -9,7 +9,7 @@ const buildPromise: buildPromiseType = (result) =>
 const mockYellow = jest.fn((message) => `yellow(${message})`);
 jest.mock('chalk', () => ({ yellow: mockYellow }));
 
-// lodash/fp pick mocks
+// ramda pick mocks
 const messageFactory: (id: number) => MessageRaw = (id: number) => ({
   hash: `mockHash ${id}`,
   date: `mockDate ${id}`,
@@ -18,7 +18,7 @@ const messageFactory: (id: number) => MessageRaw = (id: number) => ({
 });
 const mockPicker = jest.fn(messageFactory);
 const mockPick = jest.fn(() => mockPicker);
-jest.mock('lodash/fp', () => ({ pick: mockPick }));
+jest.mock('ramda', () => ({ pick: mockPick }));
 
 // logger mocks
 const mockLoggerLog = jest.fn();

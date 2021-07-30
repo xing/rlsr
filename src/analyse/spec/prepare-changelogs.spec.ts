@@ -10,7 +10,7 @@ import type {
   PackageAfterPrepareChangelogs,
 } from '../../types';
 
-import { RelatedMessages } from './../../types';
+import { RelatedMessages } from '../../types';
 
 // mock logger
 const mockLog = jest.fn();

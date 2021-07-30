@@ -17,10 +17,10 @@ const buildMessageMock = (
 const mockYellow = jest.fn((text) => `yellow(${text})`);
 jest.mock('chalk', () => ({ yellow: mockYellow }));
 
-// mock lodash/fp
+// mock ramda
 const mockMessageTransform = jest.fn((element) => element);
 const mockPipe = jest.fn(() => mockMessageTransform);
-jest.mock('lodash/fp', () => ({ pipe: mockPipe }));
+jest.mock('ramda', () => ({ pipe: mockPipe }));
 
 // mock logger
 const mockLog = jest.fn();

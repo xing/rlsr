@@ -1,4 +1,4 @@
-import { curry, negate } from 'lodash/fp';
+import { complement, curry } from 'ramda';
 
 import { Env, Module, Stage } from '../types';
 
@@ -13,8 +13,8 @@ export const isVerify: ChoiceFn = (env) =>
   env.config?.impact === 'verify' || env.config?.impact === 'dryrun';
 export const isStage = curry((stage: Stage, env: Env) => env.stage === stage);
 
-export const whenNotDryrun = when(negate(isDryRun));
-export const whenNotVerify = when(negate(isVerify));
+export const whenNotDryrun = when(complement(isDryRun));
+export const whenNotVerify = when(complement(isVerify));
 
 export const whenStage = (stage: Stage) => when(isStage(stage));
-export const whenNotStage = (stage: Stage) => when(negate(isStage(stage)));
+export const whenNotStage = (stage: Stage) => when(complement(isStage(stage)));
