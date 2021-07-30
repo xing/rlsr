@@ -1,4 +1,3 @@
 #! /usr/bin/env node
-const rlsr = require('..');
 
-rlsr(process.argv[2]);
+require('../build/src/bin');
