@@ -1,6 +1,5 @@
 module.exports = {
   extends: [
-    'plugin:react/recommended',
     'plugin:@typescript-eslint/recommended', // Uses the recommended rules from the @typescript-eslint/eslint-plugin
     'prettier', // Uses eslint-config-prettier to disable ESLint rules from @typescript-eslint/eslint-plugin that would conflict with prettier
     'plugin:prettier/recommended',
@@ -55,8 +54,6 @@ module.exports = {
     'import/order': [1, { 'newlines-between': 'always-and-inside-groups' }],
     'max-lines-per-function': 0,
     'prefer-const': 0,
-    'react/no-children-prop': 0,
-    'react/jsx-fragments': [1, 'element'],
     'sort-imports': 0,
     'sort-vars': 0,
     // These rules are never needed when using Prettier
@@ -85,12 +82,6 @@ module.exports = {
     '@typescript-eslint/no-use-before-define': 'off',
   },
   overrides: [
-    {
-      files: ['**/*.ts'],
-      rules: {
-        'react/prop-types': ['off'],
-      },
-    },
     {
       files: ['integration-test/**/*', '**/_common/**/*'],
       rules: { 'import/no-extraneous-dependencies': ['off'] },
