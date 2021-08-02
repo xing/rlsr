@@ -3,25 +3,24 @@ import { clone } from 'ramda';
 import type { Module } from '../types';
 
 import { logger } from '../helpers/logger';
+import { missingEnvAttrError } from '../helpers/validation-errors';
 
-const { error, log } = logger('[analyse] add messages to packages');
+const topic = '[analyse] add messages to packages';
+const { error, log } = logger(topic);
 
 export const addMessagesToPackages: Module = (env) => {
   if (!env.commitMessages) {
-    const errorMessage = 'missing "commitMessages" on env object';
-    error(errorMessage);
-    throw new Error(errorMessage);
+    missingEnvAttrError('commitMessages', topic);
   }
+
   if (!env.packages) {
-    const errorMessage = 'missing "packages" on env object';
-    error(errorMessage);
-    throw new Error(errorMessage);
+    missingEnvAttrError('packages', topic);
   }
 
   log('Register messages to packages');
-  const clonePackages = clone(env.packages);
+  const clonePackages = clone(env.packages!);
 
-  env.commitMessages.forEach((commitMessage) => {
+  env.commitMessages!.forEach((commitMessage) => {
     commitMessage.affectedPackages?.forEach((affectedPackage) => {
       if (!clonePackages[affectedPackage]) {
         const errorMessage = `"${affectedPackage}" is not a valid (registered) package`;

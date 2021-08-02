@@ -18,15 +18,10 @@ jest.doMock('chalk', () => ({
 }));
 
 // mock logger
-const mockError = jest.fn();
 const mockLog = jest.fn();
-const mockLogger = jest.fn(() => ({
-  error: mockError,
-  log: mockLog,
-}));
-jest.doMock('../../helpers/logger', () => ({
-  logger: mockLogger,
-}));
+const mockError = jest.fn();
+const mockLogger = jest.fn(() => ({ log: mockLog, error: mockError }));
+jest.doMock('../../helpers/logger', () => ({ logger: mockLogger }));
 
 // mock Packages
 const mockPackageBuilder = (id: number): Package => ({
@@ -79,7 +74,7 @@ describe('determineDirectIncrement Module', () => {
   });
 
   it('throws an error if "commitMessage" is not present on env Config Object', () => {
-    const expectedError = '"commitMessage" not present on env config object.';
+    const expectedError = 'missing "commitMessages" on env object.';
     const mockEnv: Env = { ...envWithConfig };
 
     expect(() => determineDirectIncrement(mockEnv)).toThrow(expectedError);
@@ -89,7 +84,7 @@ describe('determineDirectIncrement Module', () => {
   });
 
   it('throws an error if "packages" is not present on env Config Object', () => {
-    const expectedError = '"packages" not present on env config object.';
+    const expectedError = 'missing "packages" on env object.';
     const mockEnv: Env = { ...envWithConfig, commitMessages: [] };
 
     expect(() => determineDirectIncrement(mockEnv)).toThrow(expectedError);

@@ -4,17 +4,17 @@ import { yellow } from 'chalk';
 import { Module } from '../types';
 
 import { logger } from '../helpers/logger';
+import { missingEnvAttrError } from '../helpers/validation-errors';
 
-const { error, log } = logger('[analyse] create dependency tree');
+const topic = '[analyse] create dependency tree';
+const { log } = logger('[analyse] create dependency tree');
 
 export const createDependencyTree: Module = (env) => {
   if (!env.packages) {
-    const errorMessage = 'no packages found on env config object';
-    error(errorMessage);
-    throw new Error(errorMessage);
+    missingEnvAttrError('packages', topic);
   }
 
-  const packagesClone = clone(env.packages);
+  const packagesClone = clone(env.packages!);
   const counter = {
     default: 0,
     devDependencies: 0,

@@ -8,19 +8,19 @@ import {
 } from '../types';
 
 import { logger } from '../helpers/logger';
+import { missingEnvAttrError } from '../helpers/validation-errors';
 
-const { error, log } = logger('[analyse] add dependencies');
+const topic = '[analyse] add dependencies';
+const { log } = logger(topic);
 
 export const addDependencies: Module = (env) => {
   log("Populating packages' dependencies");
 
   if (!env.packages) {
-    const errorMessage = '"packages" attribute not found on env config object';
-    error(errorMessage);
-    throw new Error(errorMessage);
+    missingEnvAttrError('packages', topic);
   }
 
-  const envPackages = clone(env.packages);
+  const envPackages = clone(env.packages!);
 
   const packagesNames = Object.keys(envPackages);
 

@@ -9,18 +9,18 @@ import type { Module, PackageAfterDetermineVersion } from '../../types';
 import { logger } from '../../helpers/logger';
 
 import { getReleasablePackages } from '../../helpers/get-releasable-packages';
+import { missingEnvAttrError } from '../../helpers/validation-errors';
 
+const topic = '[analyse] adapt dependencies';
 const { error, log } = logger('[analyse] adapt dependencies');
 
 export const adaptDependencies: Module = (env) => {
   if (!env.packages) {
-    const errorMessage = 'missing "packages" on env object.';
-    error(errorMessage);
-    throw new Error(errorMessage);
+    missingEnvAttrError('packages', topic);
   }
 
   log('analyse affected packages');
-  const clonePackages = clone(env.packages);
+  const clonePackages = clone(env.packages!);
   const releasablePackages = getReleasablePackages(clone(clonePackages));
 
   log(`${Object.keys(releasablePackages).length} packages will be released`);

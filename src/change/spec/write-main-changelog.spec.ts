@@ -69,8 +69,7 @@ describe('writeMainChangelog Module', () => {
   });
 
   it('throws an error when "changelogPath" is missing on Env config object', () => {
-    const expectedErrorMessage =
-      '"changelogPath" attribute not found on env config object';
+    const expectedErrorMessage = 'missing "changelogPath" on env object.';
 
     const invalidEnvConfig = clone(envWithConfig);
     invalidEnvConfig.config!.changelogPath = '';

@@ -42,7 +42,7 @@ describe('addPackageNamesToMessages Module', () => {
   });
 
   it('throws an exception if env config object has no "commitMessages"', () => {
-    const expectedErrorMessage = 'missing "commitMessages" on env object';
+    const expectedErrorMessage = 'missing "commitMessages" on env object.';
     expect(() => addPackageNamesToMessages(envWithConfig)).toThrow(
       expectedErrorMessage
     );

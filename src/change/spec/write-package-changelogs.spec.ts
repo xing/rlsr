@@ -65,8 +65,7 @@ describe('writePackageChangelogs Module', () => {
   });
 
   it('throws an error when "packages" is missing on Env config object', () => {
-    const expectedErrorMessage =
-      '"packages" attribute not found on env config object';
+    const expectedErrorMessage = 'missing "packages" on env object.';
 
     expect(() => writePackageChangelogs(envWithConfig)).toThrow(
       expectedErrorMessage

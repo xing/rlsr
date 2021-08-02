@@ -4,15 +4,15 @@ import { logger } from '../helpers/logger';
 
 import simpleGit from 'simple-git';
 import { getReleasablePackages } from '../helpers/get-releasable-packages';
+import { missingEnvAttrError } from '../helpers/validation-errors';
 
-const { log, error } = logger('[persist] commit and tag packages');
+const topic = '[persist] commit and tag packages';
+const { log, error } = logger(topic);
 const git = simpleGit();
 
 const commitAndTagPackages: Module = async (env: Env) => {
   if (!env.packages) {
-    const errorMessage = 'missing "packages" on env object.';
-    error(errorMessage);
-    throw new Error(errorMessage);
+    missingEnvAttrError('packages', topic);
   }
 
   const prepareCommit = (releasablePackages: string[]): string[] => {
