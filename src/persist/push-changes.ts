@@ -24,7 +24,21 @@ const pushChanges: Module = async (env: Env) => {
     log('Pushing tags');
     await git.pushTags(remote, ['--follow-tags']);
   } catch (err) {
-    error('Error pushing changes');
+    const backupBranchName = `release-backup-${
+      new Date().toISOString().split('T')[0]
+    }`;
+
+    error(
+      `Error pushing changes, persisting release changes into "${backupBranchName}"`
+    );
+
+    try {
+      await git.checkoutBranch(backupBranchName, branch);
+      await git.push(remote, backupBranchName);
+    } catch (err) {
+      error('cannot persist release changes');
+    }
+
     throw err;
   }
 
