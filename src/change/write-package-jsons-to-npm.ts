@@ -1,10 +1,7 @@
-import { writeFileSync } from 'fs';
-
-import { white } from 'chalk';
-
 import type { Module } from '../types';
 
 import { logger } from '../helpers/logger';
+import { writeFile } from '../helpers/write-file';
 
 const { log, error } = logger('[change] write packageJsons (NPM)');
 
@@ -23,11 +20,10 @@ export const writePackageJsonsToNpm: Module = (env) => {
       error(errorMessage);
       throw new Error(errorMessage);
     }
-    log(`Writting "${white(packageName)}"`);
-
-    writeFileSync(
+    log(`Writting "${packageName}"`);
+    writeFile(
       `${currentPackage.path}/package.json`,
-      `${JSON.stringify(currentPackage.packageJsonNpm, null, 2)}\n`
+      currentPackage.packageJsonNpm
     );
   });
 
