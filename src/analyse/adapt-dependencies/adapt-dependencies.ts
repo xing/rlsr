@@ -51,7 +51,7 @@ export const adaptDependencies: Module = (env) => {
       // Add Message
       relatedPackage.relatedMessages.push({
         date: new Date().toISOString(),
-        text: `fix: dependency "${packageName}" has changed from ${currentPackage.packageJson.version} to ${currentPackage.incrementedVersion}`,
+        text: `fix: dependency "${packageName}" has changed from ${currentPackage.currentVersion} to ${currentPackage.incrementedVersion}`,
         level: 'patch',
       });
 
