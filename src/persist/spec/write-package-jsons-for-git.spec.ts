@@ -7,7 +7,6 @@ import type {
   PackageAfterCreatePackageJsonContent,
 } from '../../types';
 
-import { getReleasablePackages } from '../../helpers/get-releasable-packages';
 import { envWithConfig } from '../../fixtures/env';
 
 // mock fs
@@ -26,12 +25,6 @@ const mockLogger = jest.fn(() => ({
 jest.doMock('../../helpers/logger', () => ({
   logger: mockLogger,
 }));
-
-// mock getReleasablePackages
-jest.mock('../../helpers/get-releasable-packages');
-const mockGetReleasablePackages = getReleasablePackages as jest.MockedFunction<
-  typeof getReleasablePackages
->;
 
 // mock packages
 const mockPackageBuilder = (
@@ -53,14 +46,6 @@ const mockPackageBuilder = (
   dependsOn: [],
   incrementedVersion: '1.0.1',
 });
-const mockEnvPrivatePackages = {
-  ...envWithConfig,
-  packages: {
-    mockPackage1: mockPackageBuilder(1, true),
-    mockPackage2: mockPackageBuilder(2, true),
-    mockPackage3: mockPackageBuilder(3, true),
-  },
-};
 const mockEnvMixedPackages = {
   ...envWithConfig,
   packages: {
@@ -86,40 +71,22 @@ describe('writePackageJsonsForGit Module', () => {
     expect(mockError).toHaveBeenCalledWith(expectedErrorMessage);
   });
 
-  it('returns an unchanged env object if no releasablePackage is detected', async () => {
-    mockGetReleasablePackages.mockImplementation(() => []);
-    expect(writePackageJsonsForGit(mockEnvMixedPackages)).toEqual(
-      mockEnvMixedPackages
-    );
-    expect(mockWriteFileSync).not.toHaveBeenCalled();
-  });
-
-  it('returns an unchanged env object if all releasablePackages are private', async () => {
-    mockGetReleasablePackages.mockImplementation(() => []);
-    expect(writePackageJsonsForGit(mockEnvPrivatePackages)).toEqual(
-      mockEnvPrivatePackages
-    );
-    expect(mockWriteFileSync).not.toHaveBeenCalled();
-  });
-
-  describe('when run with public & releasable packages', () => {
+  describe('when run with packages', () => {
     let result: Env;
-    const publicPackages: [
+    const registeredPackages: [
       number,
       string,
       PackageAfterCreatePackageJsonContent
-    ][] = Object.entries(mockEnvMixedPackages.packages)
-      .filter(([_name, pkg]) => !pkg.packageJson.private)
-      .map((entry, index) => [index, ...entry]);
+    ][] = Object.entries(mockEnvMixedPackages.packages).map((entry, index) => [
+      index,
+      ...entry,
+    ]);
 
     beforeAll(() => {
-      mockGetReleasablePackages.mockImplementation(() =>
-        publicPackages.map(([_index, name]) => name)
-      );
       result = writePackageJsonsForGit(mockEnvMixedPackages) as Env;
     });
 
-    it.each(publicPackages)(
+    it.each(registeredPackages)(
       '%i writes package.json file for %s',
       (index, _packageName, currentPackage) => {
         expect(mockWriteFileSync).toHaveBeenNthCalledWith(
