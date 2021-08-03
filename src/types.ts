@@ -88,15 +88,10 @@ export type Message = MessageConventionalCommit & {
 };
 export type RelatedMessages = Pick<Message, 'date' | 'level' | 'text'>;
 
-export type ChangelogMessage = {
-  message: string;
-  hash?: string;
-};
-
 export type MainChangelogMessage = {
   package: string;
   version: string;
-  messages: ChangelogMessage[];
+  messages: Message[] | RelatedMessages[];
 };
 
 export type MainChangelog = Record<string, MainChangelogMessage[]>;
@@ -147,6 +142,7 @@ export type Env = {
   >;
   /** changelog messages */
   changelog?: MainChangelog;
+  mainChangelogPath?: string;
 };
 
 export type RelatedPackageTypes = 'default' | 'dev' | 'peer';
@@ -198,7 +194,7 @@ export type PackageAfterDetermineVersion = Package & {
   incrementedVersion: string;
 };
 
-export type PackageChangelog = Record<string, ChangelogMessage[]>;
+export type PackageChangelog = Record<string, Message[] | RelatedMessages[]>;
 
 export type PackageAfterPrepareChangelogs = PackageAfterDetermineVersion & {
   changelogs: PackageChangelog;

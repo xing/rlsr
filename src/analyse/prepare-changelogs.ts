@@ -1,9 +1,11 @@
-import fs from 'fs';
+import { existsSync, readFileSync } from 'fs';
 
 import { join } from 'path';
 
 import { white } from 'chalk';
 import { clone } from 'ramda';
+
+import { getWeekNumber } from '../helpers/get-week-number';
 
 import type {
   Module,
@@ -11,7 +13,8 @@ import type {
   PackageAfterPrepareChangelogs,
   PackageChangelog,
   MainChangelog,
-  ChangelogMessage,
+  Message,
+  RelatedMessages,
 } from '../types';
 
 import { logger } from '../helpers/logger';
@@ -30,7 +33,13 @@ export const prepareChangelogs: Module = (env) => {
   const clonePackages = clone(env.packages);
   const releasablePackages = getReleasablePackages(clonePackages);
 
-  const changelogDate = new Date().toISOString();
+  const changelogDate = `${getWeekNumber(new Date()).join('-')}`;
+  const mainChangeLogPath = join(
+    `${env.config!.changelogPath}`,
+    `rlsr-log-${changelogDate}.json`
+  );
+
+  env.mainChangelogPath = mainChangeLogPath;
   let mainChangeLogContent: MainChangelog = { [changelogDate]: [] };
 
   releasablePackages.forEach((packageName) => {
@@ -42,16 +51,10 @@ export const prepareChangelogs: Module = (env) => {
     const changelogFile = join(currentPackage.path, 'changelog.json');
     const version = currentPackage.incrementedVersion;
 
-    const pkgMessages: ChangelogMessage[] = currentPackage.messages.map(
-      ({ message, hash }) => ({ message, hash })
-    );
+    const pkgMessages: Message[] = currentPackage.messages;
+    const relatedMessages: RelatedMessages[] = currentPackage.relatedMessages;
 
-    const relatedMessages: ChangelogMessage[] =
-      currentPackage.relatedMessages.map(({ text }) => ({
-        message: text,
-      }));
-
-    const messages = pkgMessages.concat(...relatedMessages);
+    const messages = [...pkgMessages, ...relatedMessages];
 
     if (!messages.length) {
       const errorMessage = `No messages found for "${white(packageName)}"`;
@@ -61,9 +64,10 @@ export const prepareChangelogs: Module = (env) => {
 
     let changeLogContent: PackageChangelog = {};
 
-    if (fs.existsSync(changelogFile)) {
-      changeLogContent = JSON.parse(fs.readFileSync(changelogFile, 'utf8'));
+    if (existsSync(changelogFile)) {
+      changeLogContent = JSON.parse(readFileSync(changelogFile, 'utf8'));
     }
+
     changeLogContent[version] = messages;
     log(
       `writing changelog messages for "${white(packageName)}" on ${white(
@@ -81,14 +85,10 @@ export const prepareChangelogs: Module = (env) => {
         version
       )}`
     );
-    const mainChangeLogFile = join(
-      `${env.config!.changelogPath}`,
-      `${changelogDate.split('T')[0]}.json`
-    );
 
-    if (fs.existsSync(mainChangeLogFile)) {
+    if (existsSync(mainChangeLogPath)) {
       mainChangeLogContent = JSON.parse(
-        fs.readFileSync(mainChangeLogFile, 'utf8')
+        readFileSync(mainChangeLogPath, 'utf8')
       );
     }
 

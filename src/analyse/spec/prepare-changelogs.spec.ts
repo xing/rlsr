@@ -6,6 +6,7 @@ import type {
   Module,
   Package,
   PackageAfterPrepareChangelogs,
+  PackageChangelog,
 } from '../../types';
 
 import { RelatedMessages } from '../../types';
@@ -71,16 +72,16 @@ describe('prepareChangelogs Module', () => {
   let expectedEnv: Env = clone(mockEnv);
 
   beforeAll(() => {
-    jest.useFakeTimers('modern').setSystemTime(new Date('2021, 7, 22'));
+    jest.useFakeTimers('modern').setSystemTime(new Date('2021, 8, 3'));
 
     [1, 2].forEach((id) => {
       const version = `1.1.${id}`;
-      const expectedPkgChangelogs = {
+      const expectedPkgChangelogs: PackageChangelog = {
         [version]: [
-          { message: `mockMessage 1 for package ${id}`, hash: 'mockHash 1' },
-          { message: `mockMessage 2 for package ${id}`, hash: 'mockHash 2' },
-          { message: `text 1 for package ${id}` },
-          { message: `text 2 for package ${id}` },
+          messageFactory(1, id),
+          messageFactory(2, id),
+          relatedMessageFactory(1, id),
+          relatedMessageFactory(2, id),
         ],
       };
 
@@ -91,28 +92,28 @@ describe('prepareChangelogs Module', () => {
       ).changelogs = expectedPkgChangelogs;
     });
 
-    const date = new Date().toISOString();
+    expectedEnv.mainChangelogPath = 'changelogs/rlsr-log-2021-31.json';
 
     expectedEnv.changelog = {
-      [date]: [
+      '2021-31': [
         {
           package: 'mock1Package',
           version: '1.1.1',
           messages: [
-            { message: 'mockMessage 1 for package 1', hash: 'mockHash 1' },
-            { message: 'mockMessage 2 for package 1', hash: 'mockHash 2' },
-            { message: 'text 1 for package 1' },
-            { message: 'text 2 for package 1' },
+            messageFactory(1, 1),
+            messageFactory(2, 1),
+            relatedMessageFactory(1, 1),
+            relatedMessageFactory(2, 1),
           ],
         },
         {
           package: 'mock2Package',
           version: '1.1.2',
           messages: [
-            { message: 'mockMessage 1 for package 2', hash: 'mockHash 1' },
-            { message: 'mockMessage 2 for package 2', hash: 'mockHash 2' },
-            { message: 'text 1 for package 2' },
-            { message: 'text 2 for package 2' },
+            messageFactory(1, 2),
+            messageFactory(2, 2),
+            relatedMessageFactory(1, 2),
+            relatedMessageFactory(2, 2),
           ],
         },
       ],

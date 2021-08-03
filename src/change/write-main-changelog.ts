@@ -1,5 +1,3 @@
-import { join } from 'path';
-
 import { writeFileSync, existsSync, mkdirSync } from 'fs';
 
 import type { Module } from '../types';
@@ -9,7 +7,7 @@ const { error, log } = logger('[change] write main changelog');
 
 export const writeMainChangelog: Module = (env) => {
   const mainChangeLogDir = env.config!.changelogPath;
-  const mainChangeLogFile = join(env.config!.changelogPath, 'changelog.json');
+  const mainChangeLogPath = env.mainChangelogPath;
 
   if (!mainChangeLogDir) {
     const errorMessage =
@@ -27,7 +25,7 @@ export const writeMainChangelog: Module = (env) => {
   log('writing main changelog');
 
   writeFileSync(
-    mainChangeLogFile,
+    mainChangeLogPath!,
     `${JSON.stringify(env.changelog, null, 2)}\n`
   );
   return env;
