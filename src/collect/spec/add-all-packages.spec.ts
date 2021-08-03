@@ -1,11 +1,12 @@
 /* eslint-env node, jest */
+import { sync } from 'glob';
 
 import type { Env, Module } from '../../types';
-import { envWithConfig } from '../../fixtures/env';
 
 // mock chalk
+const mockWhite = jest.fn((text) => `white(${text})`);
 const mockYellow = jest.fn((text) => `yellow(${text})`);
-jest.doMock('chalk', () => ({ yellow: mockYellow }));
+jest.mock('chalk', () => ({ yellow: mockYellow, white: mockWhite }));
 
 // mock Logger
 const mockError = jest.fn();
@@ -18,6 +19,8 @@ jest.doMock('../../helpers/logger', () => ({
   logger: mockLogger,
 }));
 
+import { envWithConfig } from '../../fixtures/env';
+
 // mock Packages
 const mockPackages: Record<string, { name: string }> = {
   'path/to/first/package.json': { name: 'mockFirstPackage' },
@@ -26,12 +29,13 @@ const mockPackages: Record<string, { name: string }> = {
 const mockPackagesPaths = Object.keys(mockPackages);
 
 // mock Glob
-const mockSync = jest.fn((globPattern) => {
+const mockSync = sync as jest.MockedFunction<typeof sync>;
+mockSync.mockImplementation((globPattern) => {
   return globPattern === `${envWithConfig.appRoot}/package.json`
     ? []
     : mockPackagesPaths;
 });
-jest.doMock('glob', () => ({ sync: mockSync }));
+jest.mock('glob');
 
 describe('addAllPackages Module', () => {
   let result: Env;
@@ -70,10 +74,7 @@ describe('addAllPackages Module', () => {
     });
 
     it('logs found packages', () => {
-      expect(mockYellow).toHaveBeenCalledTimes(1);
-      expect(mockYellow).toHaveBeenCalledWith(2);
-
-      expect(mockLog).toHaveBeenNthCalledWith(2, 'yellow(2) packages found');
+      expect(mockLog).toHaveBeenLastCalledWith('yellow(2) packages found');
     });
 
     it('should return the collection of packages present in the project', () => {

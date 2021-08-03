@@ -1,5 +1,5 @@
 import { sync as glob } from 'glob';
-import { yellow } from 'chalk';
+import { white, yellow } from 'chalk';
 
 import { Env, Module, Package } from '../types';
 
@@ -28,6 +28,8 @@ export const addAllPackages: Module = (env) => {
         error(errorMessage);
         throw new Error(errorMessage);
       }
+
+      log(`fetching ${white(packageJson.name)} (${packageJsonPath})`);
 
       // first look at the rlsr.json for current version
       // then into the package.json

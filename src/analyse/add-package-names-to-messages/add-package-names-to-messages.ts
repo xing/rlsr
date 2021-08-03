@@ -1,4 +1,5 @@
 import { clone } from 'ramda';
+import { white } from 'chalk';
 
 import type { Module } from '../../types';
 
@@ -34,7 +35,7 @@ export const addPackageNamesToMessages: Module = (env) => {
   });
 
   [...userAffectedPackages].forEach((affectedPackage) =>
-    log(`${affectedPackage} was affected`)
+    log(`${white(affectedPackage)} was affected`)
   );
 
   return { ...env, commitMessages: cloneCommitMessages };

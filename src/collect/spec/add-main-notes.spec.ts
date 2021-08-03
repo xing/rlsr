@@ -40,8 +40,9 @@ const mockLogger = jest.fn(() => ({ log: mockLog }));
 jest.doMock('../../helpers/logger', () => ({ logger: mockLogger }));
 
 // mock Chalk
+const mockWhite = jest.fn((text) => `white(${text})`);
 const mockYellow = jest.fn((text) => `yellow(${text})`);
-jest.doMock('chalk', () => ({ yellow: mockYellow }));
+jest.doMock('chalk', () => ({ yellow: mockYellow, white: mockWhite }));
 
 describe('addMainNotes Module', () => {
   let addMainNotes: Module;
@@ -100,7 +101,7 @@ describe('addMainNotes Module', () => {
       it('logs found package', () => {
         expect(mockLog).toHaveBeenNthCalledWith(
           id + 1,
-          `found release notes for ${pkg.name}`
+          `found release notes for white(${pkg.name})`
         );
       });
     });

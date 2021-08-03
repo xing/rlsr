@@ -63,7 +63,7 @@ export const determineDirectIncrement: Module = (env) => {
 
   Object.entries(packagesToRelease).forEach(([packageName, level]) => {
     log(
-      `"${packageName}" flagged to have a ${mapLevelToColour[level](
+      `"${white(packageName)}" flagged to have a ${mapLevelToColour[level](
         level
       )} release`
     );

@@ -2,7 +2,7 @@ import { readFileSync } from 'fs';
 import path from 'path';
 
 import { sync as glob } from 'glob';
-import { yellow } from 'chalk';
+import { white, yellow } from 'chalk';
 
 import type { Module, ReleaseNote } from '../types';
 
@@ -26,7 +26,7 @@ export const addMainNotes: Module = (env) => {
     );
     const content = readFileSync(releaseNotesFile, 'utf8');
 
-    log(`found release notes for ${packageJson.name}`);
+    log(`found release notes for ${white(packageJson.name)}`);
 
     return {
       package: packageJson.name,

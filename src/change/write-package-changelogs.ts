@@ -3,6 +3,7 @@ import { join } from 'path';
 import fs from 'fs';
 
 import { clone } from 'ramda';
+import { white } from 'chalk';
 
 import type { Module } from '../types';
 import { logger } from '../helpers/logger';
@@ -26,7 +27,7 @@ export const writePackageChangelogs: Module = (env) => {
       packageName
     ] as PackageAfterPrepareChangelogs;
 
-    log(`writing changelogs for ${packageName} `);
+    log(`writing changelogs for ${white(packageName)} `);
     const changelogJson = currentPackage.changelogs;
     const changelogFile = join(currentPackage.path, 'changelog.json');
 
