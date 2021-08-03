@@ -76,7 +76,7 @@ describe('addRawCommitMessages Module', () => {
     it("access simpleGit's log data since last release", () => {
       expect(mockSimpleGitLog).toHaveBeenCalledTimes(1);
       expect(mockSimpleGitLog).toHaveBeenCalledWith({
-        from: lastReleaseHash ? `${lastReleaseHash}^1` : mockEnv.initialHash,
+        from: lastReleaseHash ?? mockEnv.initialHash,
         to: mockEnv.currentHash,
       });
     });
