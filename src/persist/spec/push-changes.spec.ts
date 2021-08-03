@@ -15,12 +15,14 @@ jest.mock('../../helpers/logger', () => ({
 const mockPull = jest.fn();
 const mockPush = jest.fn();
 const mockPushTags = jest.fn();
+const mockCheckoutBranch = jest.fn();
 
 // mock SingleGit
 const mockSimpleGit = jest.fn(() => ({
   pull: mockPull,
   push: mockPush,
   pushTags: mockPushTags,
+  checkoutBranch: mockCheckoutBranch,
 }));
 jest.mock('simple-git', () => mockSimpleGit);
 
@@ -28,8 +30,13 @@ import { envWithConfig } from '../../fixtures/env';
 import { pushChanges } from '../push-changes';
 
 describe('pushChanges Module', () => {
+  beforeAll(() => {
+    jest.useFakeTimers('modern').setSystemTime(new Date('2021, 7, 22'));
+  });
+
   afterEach(() => {
     jest.clearAllMocks();
+    jest.clearAllTimers();
   });
 
   it('throws an exeption when changes cannot be pulled', async () => {
@@ -46,13 +53,19 @@ describe('pushChanges Module', () => {
     mockPush.mockRejectedValue(new Error());
     await expect(pushChanges(envWithConfig)).rejects.toThrow();
 
-    expect(mockLoggerError).toHaveBeenCalledTimes(1);
-    expect(mockLoggerError).toHaveBeenCalledWith('Error pushing changes');
+    const branchName = `release-backup-${
+      new Date().toISOString().split('T')[0]
+    }`;
+    expect(mockLoggerError).toHaveBeenCalledTimes(2);
+    expect(mockLoggerError).toHaveBeenCalledWith(
+      `Error pushing changes, persisting release changes into "${branchName}"`
+    );
   });
 
   it('succesfully pushes changes', async () => {
     mockPull.mockResolvedValue(envWithConfig);
     mockPush.mockResolvedValue(envWithConfig);
+    mockCheckoutBranch.mockRejectedValue(envWithConfig);
     await pushChanges(envWithConfig);
 
     expect(mockPull).toBeCalledTimes(1);
