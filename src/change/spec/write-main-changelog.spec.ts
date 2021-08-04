@@ -1,10 +1,9 @@
-// import { writeMainChangelog } from './../write-main-changelog';
 import fs from 'fs';
 
 import { clone } from 'ramda';
 
 import { envWithConfig } from '../../fixtures/env';
-import type { Module, Env } from '../../types';
+import type { Module, Env, Message, RelatedMessage } from '../../types';
 
 jest.mock('fs');
 
@@ -14,35 +13,42 @@ const mockError = jest.fn();
 const mockLogger = jest.fn(() => ({ log: mockLog, error: mockError }));
 jest.doMock('../../helpers/logger', () => ({ logger: mockLogger }));
 
+const messageFactory = (id: number, packageId: number): Message => ({
+  hash: `mockHash ${id}`,
+  date: `mockDate ${id}`,
+  message: `mockMessage ${id} for package ${packageId}`,
+  body: `mockBody ${id}`,
+  text: `text ${id}`,
+  level: 'patch',
+});
+
+const relatedMessageFactory = (
+  id: number,
+  packageId: number
+): RelatedMessage => ({
+  date: `mockDate ${id}`,
+  text: `text ${id} for package ${packageId}`,
+  level: 'patch',
+});
+
 const mockEnv: Env = {
   ...envWithConfig,
+  mainChangelogPath: 'changelogs/rlsr-log-2021-31.json',
   changelog: {
     '2021-07-27T09:30:36.657Z': [
       {
         package: '@xingternal/brewery-test-one',
         version: '1.1.0',
-        messages: [
-          {
-            message: 'feat: add new package as dev and peer dependency',
-            hash: 'a34b4b38fc15ada5f305939a0de2463f68d74ad2',
-          },
-        ],
+        messages: [messageFactory(1, 1)],
       },
       {
         package: '@xingternal/brewery-test-three',
         version: '3.3.0',
         messages: [
-          {
-            message: 'feat: add new package as dev and peer dependency',
-            hash: 'a34b4b38fc15ada5f305939a0de2463f68d74ad2',
-          },
-          {
-            message: 'affected dependencies: @xingternal/brewery-test-four',
-          },
-          {
-            message:
-              'fix: dependency "@xingternal/brewery-test-four" has changed from 1.0.0 to 1.1.0',
-          },
+          messageFactory(1, 2),
+          messageFactory(2, 2),
+          relatedMessageFactory(1, 2),
+          relatedMessageFactory(1, 2),
         ],
       },
     ],
@@ -54,10 +60,12 @@ describe('writeMainChangelog Module', () => {
 
   beforeAll(() => {
     writeMainChangelog = require('../write-main-changelog').writeMainChangelog;
+    jest.useFakeTimers('modern').setSystemTime(new Date('2021, 8, 3'));
   });
 
   afterEach(() => {
     jest.clearAllMocks();
+    jest.clearAllTimers();
   });
 
   it('throws an error when "changelogPath" is missing on Env config object', () => {
@@ -92,12 +100,13 @@ describe('writeMainChangelog Module', () => {
   });
 
   it('writes main changelog with the correct content', () => {
-    const expectedFilePath = 'changelogs/changelog.json';
+    const expectedFilePath = 'changelogs/rlsr-log-2021-31.json';
     const expectedFileContent = `${JSON.stringify(
       mockEnv.changelog,
       null,
       2
     )}\n`;
+
     writeMainChangelog(mockEnv);
 
     expect(fs.writeFileSync).toHaveBeenCalledWith(

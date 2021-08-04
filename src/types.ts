@@ -86,17 +86,12 @@ export type Message = MessageConventionalCommit & {
   committedFiles?: string[];
   affectedPackages?: string[];
 };
-export type RelatedMessages = Pick<Message, 'date' | 'level' | 'text'>;
-
-export type ChangelogMessage = {
-  message: string;
-  hash?: string;
-};
+export type RelatedMessage = Pick<Message, 'date' | 'level' | 'text'>;
 
 export type MainChangelogMessage = {
   package: string;
   version: string;
-  messages: ChangelogMessage[];
+  messages: Message[] | RelatedMessage[];
 };
 
 export type MainChangelog = Record<string, MainChangelogMessage[]>;
@@ -147,6 +142,7 @@ export type Env = {
   >;
   /** changelog messages */
   changelog?: MainChangelog;
+  mainChangelogPath?: string;
 };
 
 export type RelatedPackageTypes = 'default' | 'dev' | 'peer';
@@ -169,7 +165,7 @@ export type Package = {
   /** Commit Messages stating what changed on this package (strictly) */
   messages: Message[];
   /** Commit Messages to be used for each (internal) dependency being released */
-  relatedMessages: RelatedMessages[];
+  relatedMessages: RelatedMessage[];
   /**
    * Collection of other (internal) Packages that depends on this
    * (this = independent)
@@ -198,7 +194,7 @@ export type PackageAfterDetermineVersion = Package & {
   incrementedVersion: string;
 };
 
-export type PackageChangelog = Record<string, ChangelogMessage[]>;
+export type PackageChangelog = Record<string, (Message | RelatedMessage)[]>;
 
 export type PackageAfterPrepareChangelogs = PackageAfterDetermineVersion & {
   changelogs: PackageChangelog;

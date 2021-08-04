@@ -38,7 +38,16 @@ const mockPackageBuilder = (
   packageJsonGit: { name: `mockPackage${id}`, private: privatePackage },
   messages: [],
   changelogs: {
-    '1.0.0': [{ message: 'my mocked changelog message', hash: 'mocked hash' }],
+    '1.0.0': [
+      {
+        hash: `mockHash ${id}`,
+        date: `mockDate ${id}`,
+        message: `mockMessage ${id} }`,
+        body: `mockBody ${id}`,
+        text: `text ${id}`,
+        level: 'patch',
+      },
+    ],
   },
   relatedMessages: [],
   determinedIncrementLevel: 0,

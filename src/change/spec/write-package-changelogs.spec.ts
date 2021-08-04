@@ -6,6 +6,7 @@ import type {
   Env,
   PackageAfterPrepareChangelogs,
   Package,
+  Message,
 } from '../../types';
 
 // mock logger
@@ -15,15 +16,6 @@ const mockLogger = jest.fn(() => ({ log: mockLog, error: mockError }));
 jest.doMock('../../helpers/logger', () => ({ logger: mockLogger }));
 
 jest.mock('fs');
-
-const changelogMock = (version: string) => ({
-  [version]: [
-    {
-      message: 'mockMessage',
-      hash: 'mockHash',
-    },
-  ],
-});
 
 // mock Packages
 const mockPackageBuilder = (
@@ -39,7 +31,18 @@ const mockPackageBuilder = (
   dependingOnThis: [],
   dependsOn: [],
   incrementedVersion: version,
-  changelogs: changelogMock(version),
+  changelogs: {
+    [version]: [
+      {
+        hash: `mockHash${id}`,
+        date: `mockDate`,
+        message: `mockMessage${id}`,
+        body: `mockBody ${id}`,
+        text: `text ${id}`,
+        level: 'patch',
+      } as Message,
+    ],
+  },
 });
 
 const mockEnv: Env = {
