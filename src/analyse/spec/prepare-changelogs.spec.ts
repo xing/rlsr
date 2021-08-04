@@ -7,9 +7,8 @@ import type {
   Package,
   PackageAfterPrepareChangelogs,
   PackageChangelog,
+  RelatedMessage,
 } from '../../types';
-
-import { RelatedMessages } from '../../types';
 
 // mock chalk
 const mockWhite = jest.fn((text) => `white(${text})`);
@@ -35,7 +34,7 @@ const messageFactory = (id: number, packageId: number): Message => ({
 const relatedMessageFactory = (
   id: number,
   packageId: number
-): RelatedMessages => ({
+): RelatedMessage => ({
   date: `mockDate ${id}`,
   text: `text ${id} for package ${packageId}`,
   level: 'patch',

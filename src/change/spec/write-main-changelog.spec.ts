@@ -3,7 +3,7 @@ import fs from 'fs';
 import { clone } from 'ramda';
 
 import { envWithConfig } from '../../fixtures/env';
-import type { Module, Env, Message, RelatedMessages } from '../../types';
+import type { Module, Env, Message, RelatedMessage } from '../../types';
 
 jest.mock('fs');
 
@@ -25,7 +25,7 @@ const messageFactory = (id: number, packageId: number): Message => ({
 const relatedMessageFactory = (
   id: number,
   packageId: number
-): RelatedMessages => ({
+): RelatedMessage => ({
   date: `mockDate ${id}`,
   text: `text ${id} for package ${packageId}`,
   level: 'patch',

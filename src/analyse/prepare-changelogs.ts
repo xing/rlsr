@@ -14,7 +14,7 @@ import type {
   PackageChangelog,
   MainChangelog,
   Message,
-  RelatedMessages,
+  RelatedMessage,
 } from '../types';
 
 import { logger } from '../helpers/logger';
@@ -52,7 +52,7 @@ export const prepareChangelogs: Module = (env) => {
     const version = currentPackage.incrementedVersion;
 
     const pkgMessages: Message[] = currentPackage.messages;
-    const relatedMessages: RelatedMessages[] = currentPackage.relatedMessages;
+    const relatedMessages: RelatedMessage[] = currentPackage.relatedMessages;
 
     const messages = [...pkgMessages, ...relatedMessages];
 
