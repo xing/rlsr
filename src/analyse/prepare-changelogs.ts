@@ -10,7 +10,6 @@ import { getWeekNumber } from '../helpers/get-week-number';
 import type {
   Module,
   PackageAfterDetermineVersion,
-  PackageAfterPrepareChangelogs,
   PackageChangelog,
   MainChangelog,
   Message,
@@ -24,6 +23,13 @@ import { getReleasablePackages } from '../helpers/get-releasable-packages';
 const { error, log } = logger('[analyse] prepare changelogs');
 
 export const prepareChangelogs: Module = (env) => {
+  if (!env.config?.changelogPath) {
+    const errorMessage =
+      '"config.changelogPath" attribute not found on env config object';
+    error(errorMessage);
+    throw new Error(errorMessage);
+  }
+
   if (!env.packages) {
     const errorMessage = '"packages" attribute not found on env config object';
     error(errorMessage);
@@ -33,19 +39,32 @@ export const prepareChangelogs: Module = (env) => {
   const clonePackages = clone(env.packages);
   const releasablePackages = getReleasablePackages(clonePackages);
 
+  if (!releasablePackages.length) {
+    const errorMessage = 'No packages to be released found!';
+    error(errorMessage);
+    throw new Error(errorMessage);
+  }
+
   const changelogDate = `${getWeekNumber(new Date()).join('-')}`;
-  const mainChangeLogPath = join(
-    `${env.config!.changelogPath}`,
+  const mainChangelogPath = join(
+    `${env.config.changelogPath}`,
     `rlsr-log-${changelogDate}.json`
   );
 
-  env.mainChangelogPath = mainChangeLogPath;
-  let mainChangeLogContent: MainChangelog = { [changelogDate]: [] };
+  const mainChangelogContent: MainChangelog = { [changelogDate]: [] };
+
+  if (existsSync(mainChangelogPath)) {
+    Object.assign(
+      mainChangelogContent,
+      JSON.parse(readFileSync(mainChangelogPath, 'utf8'))
+    );
+  }
 
   releasablePackages.forEach((packageName) => {
     const currentPackage = clonePackages[
       packageName
     ] as PackageAfterDetermineVersion;
+
     log(`preparing changelog messages for ${white(packageName)} `);
 
     const changelogFile = join(currentPackage.path, 'changelog.json');
@@ -53,7 +72,6 @@ export const prepareChangelogs: Module = (env) => {
 
     const pkgMessages: Message[] = currentPackage.messages;
     const relatedMessages: RelatedMessage[] = currentPackage.relatedMessages;
-
     const messages = [...pkgMessages, ...relatedMessages];
 
     if (!messages.length) {
@@ -62,13 +80,16 @@ export const prepareChangelogs: Module = (env) => {
       throw new Error(errorMessage);
     }
 
-    let changeLogContent: PackageChangelog = {};
+    const changelogContent: PackageChangelog = {};
 
     if (existsSync(changelogFile)) {
-      changeLogContent = JSON.parse(readFileSync(changelogFile, 'utf8'));
+      Object.assign(
+        changelogContent,
+        JSON.parse(readFileSync(changelogFile, 'utf8'))
+      );
     }
 
-    changeLogContent[version] = messages;
+    changelogContent[version] = messages;
     log(
       `writing changelog messages for "${white(packageName)}" on ${white(
         version
@@ -76,9 +97,9 @@ export const prepareChangelogs: Module = (env) => {
     );
 
     clonePackages[packageName] = {
-      ...clone(currentPackage),
-      changelogs: changeLogContent,
-    } as PackageAfterPrepareChangelogs;
+      ...currentPackage,
+      changelogs: changelogContent,
+    };
 
     log(
       `writing main changelog messages for "${white(packageName)}" on ${white(
@@ -86,19 +107,17 @@ export const prepareChangelogs: Module = (env) => {
       )}`
     );
 
-    if (existsSync(mainChangeLogPath)) {
-      mainChangeLogContent = JSON.parse(
-        readFileSync(mainChangeLogPath, 'utf8')
-      );
-    }
-
-    mainChangeLogContent![changelogDate].push({
+    mainChangelogContent[changelogDate].push({
       package: packageName,
       version,
       messages,
     });
-    env.changelog = mainChangeLogContent;
   });
 
-  return { ...env, packages: clonePackages };
+  return {
+    ...env,
+    packages: clonePackages,
+    mainChangelogPath,
+    changelog: mainChangelogContent,
+  };
 };
