@@ -66,7 +66,7 @@ describe('createPackageJsonContent Module', () => {
   });
 
   it('throws an error when "packages" is missing on Env config object', () => {
-    const expectedErrorMessage = 'missing "packages" on env object';
+    const expectedErrorMessage = 'missing "packages" on env object.';
     expect(() => createPackageJsonContent(envWithConfig)).toThrow(
       expectedErrorMessage
     );

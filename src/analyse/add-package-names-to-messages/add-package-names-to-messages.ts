@@ -6,20 +6,20 @@ import type { Module } from '../../types';
 import { logger } from '../../helpers/logger';
 
 import { findPackageName } from './find-package-name';
+import { missingEnvAttrError } from '../../helpers/validation-errors';
 
-const { error, log } = logger('[analyse] add package names to messages');
+const topic = '[analyse] add package names to messages';
+const { log } = logger(topic);
 
 export const addPackageNamesToMessages: Module = (env) => {
   if (!env.commitMessages) {
-    const errorMessage = 'missing "commitMessages" on env object';
-    error(errorMessage);
-    throw new Error(errorMessage);
+    missingEnvAttrError('commitMessages', topic);
   }
 
   log('Analyse affected packages per commit');
   const userAffectedPackages = new Set<string>();
 
-  const cloneCommitMessages = clone(env.commitMessages);
+  const cloneCommitMessages = clone(env.commitMessages!);
 
   cloneCommitMessages.forEach((commitMessage) => {
     const affectedPackages = new Set<string>();

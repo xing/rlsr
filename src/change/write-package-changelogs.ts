@@ -1,7 +1,5 @@
 import { join } from 'path';
 
-import fs from 'fs';
-
 import { clone } from 'ramda';
 import { white } from 'chalk';
 
@@ -9,18 +7,18 @@ import type { Module } from '../types';
 import { logger } from '../helpers/logger';
 
 import { getReleasablePackages } from '../helpers/get-releasable-packages';
+import { writeFile } from '../helpers/write-file';
 
 import { PackageAfterPrepareChangelogs } from '../types';
 
-const { error, log } = logger('[change] write package changelogs');
+const section = '[change] write package changelogs';
+const { log, throwMissingAttrError } = logger(section);
 
 export const writePackageChangelogs: Module = (env) => {
   if (!env.packages) {
-    const errorMessage = '"packages" attribute not found on env config object';
-    error(errorMessage);
-    throw new Error(errorMessage);
+    throwMissingAttrError('packages');
   }
-  const releasablePackages = getReleasablePackages(clone(env.packages));
+  const releasablePackages = getReleasablePackages(clone(env.packages!));
 
   releasablePackages.forEach((packageName) => {
     const currentPackage = env.packages![
@@ -31,10 +29,7 @@ export const writePackageChangelogs: Module = (env) => {
     const changelogJson = currentPackage.changelogs;
     const changelogFile = join(currentPackage.path, 'changelog.json');
 
-    fs.writeFileSync(
-      changelogFile,
-      `${JSON.stringify(changelogJson, null, 2)}\n`
-    );
+    writeFile(changelogFile, changelogJson);
   });
   return env;
 };

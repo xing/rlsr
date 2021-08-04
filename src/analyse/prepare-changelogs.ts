@@ -20,17 +20,16 @@ import type {
 import { logger } from '../helpers/logger';
 
 import { getReleasablePackages } from '../helpers/get-releasable-packages';
+import { missingEnvAttrError } from '../helpers/validation-errors';
 
-const { error, log } = logger('[analyse] prepare changelogs');
+const topic = '[analyse] prepare changelogs';
+const { error, log } = logger(topic);
 
 export const prepareChangelogs: Module = (env) => {
   if (!env.packages) {
-    const errorMessage = '"packages" attribute not found on env config object';
-    error(errorMessage);
-    throw new Error(errorMessage);
+    missingEnvAttrError('packages', topic);
   }
-
-  const clonePackages = clone(env.packages);
+  const clonePackages = clone(env.packages!);
   const releasablePackages = getReleasablePackages(clonePackages);
 
   const changelogDate = `${getWeekNumber(new Date()).join('-')}`;

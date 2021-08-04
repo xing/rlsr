@@ -4,8 +4,10 @@ import { green, red, yellow, white } from 'chalk';
 import type { Package, Message, Module } from '../types';
 
 import { logger } from '../helpers/logger';
+import { missingEnvAttrError } from '../helpers/validation-errors';
 
-const { error, log } = logger('[analyse] determine direct increment');
+const topic = '[analyse] determine direct increment';
+const { log } = logger(topic);
 
 const mapLevelToIncrementLevel: Record<
   Message['level'],
@@ -28,21 +30,18 @@ const mapLevelToColour: Record<
 
 export const determineDirectIncrement: Module = (env) => {
   if (!env.commitMessages) {
-    const errorMessage = '"commitMessage" not present on env config object.';
-    error(errorMessage);
-    throw new Error(errorMessage);
-  }
-  if (!env.packages) {
-    const errorMessage = '"packages" not present on env config object.';
-    error(errorMessage);
-    throw new Error(errorMessage);
+    missingEnvAttrError('commitMessages', topic);
   }
 
-  const clonePackages = clone(env.packages);
+  if (!env.packages) {
+    missingEnvAttrError('packages', topic);
+  }
+
+  const clonePackages = clone(env.packages!);
   const packagesToRelease: Record<string, Message['level']> = {};
 
   log('analyse registered commitMessages');
-  env.commitMessages.forEach((commitMessage) => {
+  env.commitMessages!.forEach((commitMessage) => {
     commitMessage.affectedPackages?.forEach((affectedPackageName) => {
       const affectedPackage = clonePackages[affectedPackageName];
 

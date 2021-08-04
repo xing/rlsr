@@ -5,9 +5,10 @@ import type { Module, PackageAfterCreatePackageJsonContent } from '../types';
 import { logger } from '../helpers/logger';
 import { command } from '../helpers/command';
 import { getReleasablePackages } from '../helpers/get-releasable-packages';
+import { missingEnvAttrError } from '../helpers/validation-errors';
 
 const topic = 'publish to NPM';
-const { error, log } = logger(topic);
+const { log } = logger(topic);
 
 // now that we have all relevant files in place locally
 // we can publish each of the packages to npm.
@@ -17,12 +18,10 @@ const { error, log } = logger(topic);
 // But it's worth printing a success message for each released package.
 export const publish: Module = async (env) => {
   if (!env.packages) {
-    const errorMessage = 'missing "packages" on env object.';
-    error(errorMessage);
-    throw new Error(errorMessage);
+    missingEnvAttrError('packages', topic);
   }
 
-  const releasablePackages = getReleasablePackages(env.packages);
+  const releasablePackages = getReleasablePackages(env.packages!);
 
   log(white(`Releasing ${releasablePackages.length} packages`));
 

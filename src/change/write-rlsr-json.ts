@@ -1,9 +1,7 @@
 import { join } from 'path';
-
-import { writeFileSync } from 'fs';
-
 import type { Module } from '../types';
 import { logger } from '../helpers/logger';
+import { writeFile } from '../helpers/write-file';
 
 const { error, log } = logger('[change] write main changelog');
 
@@ -17,7 +15,7 @@ export const writeRlsrJson: Module = (env) => {
   log('writing status information to rlsr.json');
 
   const statusFile = join(env.appRoot, 'rlsr.json');
+  writeFile(statusFile, env.newStatus);
 
-  writeFileSync(statusFile, `${JSON.stringify(env.newStatus, null, 2)}\n`);
   return env;
 };

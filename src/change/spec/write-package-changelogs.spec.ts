@@ -12,7 +12,12 @@ import type {
 // mock logger
 const mockLog = jest.fn();
 const mockError = jest.fn();
-const mockLogger = jest.fn(() => ({ log: mockLog, error: mockError }));
+const mockThrowMissingAttrError = jest.fn();
+const mockLogger = jest.fn(() => ({
+  log: mockLog,
+  error: mockError,
+  throwMissingAttrError: mockThrowMissingAttrError,
+}));
 jest.doMock('../../helpers/logger', () => ({ logger: mockLogger }));
 
 jest.mock('fs');
@@ -64,9 +69,8 @@ describe('writePackageChangelogs Module', () => {
     jest.clearAllMocks();
   });
 
-  it('throws an error when "packages" is missing on Env config object', () => {
-    const expectedErrorMessage =
-      '"packages" attribute not found on env config object';
+  it.only('throws an error when "packages" is missing on Env config object', () => {
+    const expectedErrorMessage = 'missing "packages" on env object.';
 
     expect(() => writePackageChangelogs(envWithConfig)).toThrow(
       expectedErrorMessage

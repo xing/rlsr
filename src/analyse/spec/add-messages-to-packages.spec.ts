@@ -70,7 +70,7 @@ describe('addMessagesToPackages module', () => {
   });
 
   it('throws an error when "commitMessages" is missing on Env config object', () => {
-    const expectedErrorMessage = 'missing "commitMessages" on env object';
+    const expectedErrorMessage = 'missing "commitMessages" on env object.';
     expect(() => addMessagesToPackages(envWithoutCommitMessages)).toThrow(
       expectedErrorMessage
     );
@@ -79,7 +79,7 @@ describe('addMessagesToPackages module', () => {
   });
 
   it('throws an error when "packages" is missing on Env config object', () => {
-    const expectedErrorMessage = 'missing "packages" on env object';
+    const expectedErrorMessage = 'missing "packages" on env object.';
     expect(() => addMessagesToPackages(envWithoutPackages)).toThrow(
       expectedErrorMessage
     );

@@ -20,9 +20,21 @@ const log =
     console.log(`${levels[level]} ${dim('[' + section + ']')}`, ...rest);
   };
 
-export const logger = (section: string) => ({
-  debug: debug ? log('debug', section) : () => undefined,
-  log: log('log', section),
-  warn: log('warn', section),
-  error: log('error', section),
-});
+const setCurrentTopic = (topic: string) => {
+  topic = topic;
+};
+
+export const logger = (section: string) => {
+  setCurrentTopic(section);
+  return {
+    debug: debug ? log('debug', section) : () => undefined,
+    log: log('log', section),
+    warn: log('warn', section),
+    error: log('error', section),
+    throwMissingAttrError: (attr: string) => {
+      const errorMessage = `missing "${attr}" on env object.`;
+      log('error', section);
+      throw new Error(errorMessage);
+    },
+  };
+};

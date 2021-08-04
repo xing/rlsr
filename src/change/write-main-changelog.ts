@@ -1,19 +1,19 @@
-import { writeFileSync, existsSync, mkdirSync } from 'fs';
+import { existsSync, mkdirSync } from 'fs';
 
 import type { Module } from '../types';
 import { logger } from '../helpers/logger';
+import { writeFile } from '../helpers/write-file';
+import { missingEnvAttrError } from '../helpers/validation-errors';
 
-const { error, log } = logger('[change] write main changelog');
+const topic = '[change] write main changelog';
+const { log } = logger(topic);
 
 export const writeMainChangelog: Module = (env) => {
   const mainChangeLogDir = env.config!.changelogPath;
-  const mainChangeLogPath = env.mainChangelogPath;
+  const mainChangeLogPath = env.mainChangelogPath!;
 
   if (!mainChangeLogDir) {
-    const errorMessage =
-      '"changelogPath" attribute not found on env config object';
-    error(errorMessage);
-    throw new Error(errorMessage);
+    missingEnvAttrError('changelogPath', topic);
   }
 
   if (!existsSync(mainChangeLogDir)) {
@@ -23,10 +23,7 @@ export const writeMainChangelog: Module = (env) => {
   }
 
   log('writing main changelog');
+  writeFile(mainChangeLogPath, env.changelog!);
 
-  writeFileSync(
-    mainChangeLogPath!,
-    `${JSON.stringify(env.changelog, null, 2)}\n`
-  );
   return env;
 };

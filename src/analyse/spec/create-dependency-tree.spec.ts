@@ -46,7 +46,7 @@ describe('[analyse] createDependencyTree module', () => {
   });
 
   it('throws an exception when "env.packages" is not defined', () => {
-    const expectedError = 'no packages found on env config object';
+    const expectedError = 'missing "packages" on env object.';
     expect(() => createDependencyTree(envWithConfig)).toThrow(expectedError);
     expect(mockError).toHaveBeenCalledTimes(1);
     expect(mockError).toHaveBeenCalledWith(expectedError);

@@ -5,6 +5,7 @@ import { green, red, yellow, white } from 'chalk';
 import { logger } from '../helpers/logger';
 
 import type { Module, PackageAfterDetermineVersion } from '../types';
+import { missingEnvAttrError } from '../helpers/validation-errors';
 
 const mapLevelToColour: Record<
   PackageAfterDetermineVersion['determinedIncrementLevel'],
@@ -19,18 +20,17 @@ const mapLevelToColour: Record<
   2: ['major', red],
 };
 
-const { error, log } = logger('[analyse] determine Version');
+const topic = '[analyse] determine Version';
+const { error, log } = logger(topic);
 
 export const determineVersion: Module = (env) => {
   if (!env.packages) {
-    const errorMessage = 'missing "packages" on env object.';
-    error(errorMessage);
-    throw new Error(errorMessage);
+    missingEnvAttrError('packages', topic);
   }
 
   log('analyse packages');
 
-  const clonePackages = clone(env.packages);
+  const clonePackages = clone(env.packages!);
 
   const incrementLevels: semver.ReleaseType[] = ['patch', 'minor', 'major'];
 

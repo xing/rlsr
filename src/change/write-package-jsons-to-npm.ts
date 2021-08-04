@@ -1,33 +1,29 @@
-import { writeFileSync } from 'fs';
-
-import { white } from 'chalk';
-
 import type { Module } from '../types';
 
 import { logger } from '../helpers/logger';
+import { writeFile } from '../helpers/write-file';
+import { missingEnvAttrError } from '../helpers/validation-errors';
 
-const { log, error } = logger('[change] write packageJsons (NPM)');
+const section = '[change] write packageJsons (NPM)';
+const { log, error } = logger(section);
 
 export const writePackageJsonsToNpm: Module = (env) => {
   if (!env.packages) {
-    const errorMessage = 'missing "packages" on env object.';
-    error(errorMessage);
-    throw new Error(errorMessage);
+    missingEnvAttrError('packages', section);
   }
 
   log('Analysing releasable packages...');
 
-  Object.entries(env.packages).forEach(([packageName, currentPackage]) => {
+  Object.entries(env.packages!).forEach(([packageName, currentPackage]) => {
     if (!('packageJsonNpm' in currentPackage)) {
       const errorMessage = `missing "packageJsonNpm" on package ${packageName}.`;
       error(errorMessage);
       throw new Error(errorMessage);
     }
-    log(`Writting "${white(packageName)}"`);
-
-    writeFileSync(
+    log(`Writting "${packageName}"`);
+    writeFile(
       `${currentPackage.path}/package.json`,
-      `${JSON.stringify(currentPackage.packageJsonNpm, null, 2)}\n`
+      currentPackage.packageJsonNpm
     );
   });
 
