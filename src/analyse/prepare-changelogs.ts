@@ -30,17 +30,23 @@ export const prepareChangelogs: Module = (env) => {
     throw new Error(errorMessage);
   }
 
+  if (!env.config?.changelogPath) {
+    const errorMessage =
+      '"config.changelogPath" attribute not found on env config object';
+    error(errorMessage);
+    throw new Error(errorMessage);
+  }
+
   const clonePackages = clone(env.packages);
   const releasablePackages = getReleasablePackages(clonePackages);
 
   const changelogDate = `${getWeekNumber(new Date()).join('-')}`;
-  const mainChangeLogPath = join(
-    `${env.config!.changelogPath}`,
+  const mainChangelogPath = join(
+    `${env.config.changelogPath}`,
     `rlsr-log-${changelogDate}.json`
   );
 
-  env.mainChangelogPath = mainChangeLogPath;
-  let mainChangeLogContent: MainChangelog = { [changelogDate]: [] };
+  const mainChangelogContent: MainChangelog = {};
 
   releasablePackages.forEach((packageName) => {
     const currentPackage = clonePackages[
@@ -86,19 +92,22 @@ export const prepareChangelogs: Module = (env) => {
       )}`
     );
 
-    if (existsSync(mainChangeLogPath)) {
-      mainChangeLogContent = JSON.parse(
-        readFileSync(mainChangeLogPath, 'utf8')
-      );
+    if (existsSync(mainChangelogPath)) {
+      const fileContent = JSON.parse(readFileSync(mainChangelogPath, 'utf8'));
+      Object.assign(mainChangelogContent, fileContent);
     }
 
-    mainChangeLogContent![changelogDate].push({
+    mainChangelogContent[changelogDate].push({
       package: packageName,
       version,
       messages,
     });
-    env.changelog = mainChangeLogContent;
   });
 
-  return { ...env, packages: clonePackages };
+  return {
+    ...env,
+    packages: clonePackages,
+    mainChangelogPath,
+    changelog: mainChangelogContent,
+  };
 };

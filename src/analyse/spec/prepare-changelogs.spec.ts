@@ -137,6 +137,10 @@ describe('prepareChangelogs Module', () => {
     expect(mockError).toHaveBeenCalledWith(expectedErrorMessage);
   });
 
+  it.todo(
+    'throws an error when "config.changelogPath" is missing on Env config object'
+  );
+
   it('throws an error when messages are missing for the package', () => {
     const invalidMockEnv = clone(mockEnv);
     invalidMockEnv.packages!.mock2Package.messages = [];
@@ -152,4 +156,8 @@ describe('prepareChangelogs Module', () => {
   it('returns the right Env config with prepared changelogs', () => {
     expect(result).toEqual(expectedEnv);
   });
+
+  it.todo('creates a new file if none previously exists');
+
+  it.todo('extends logs if file already exists');
 });
