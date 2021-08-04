@@ -10,14 +10,13 @@ import { getReleasablePackages } from '../helpers/get-releasable-packages';
 import { writeFile } from '../helpers/write-file';
 
 import { PackageAfterPrepareChangelogs } from '../types';
-import { missingEnvAttrError } from '../helpers/validation-errors';
 
 const section = '[change] write package changelogs';
-const { log } = logger(section);
+const { log, throwMissingAttrError } = logger(section);
 
 export const writePackageChangelogs: Module = (env) => {
   if (!env.packages) {
-    missingEnvAttrError('packages', section);
+    throwMissingAttrError('packages');
   }
   const releasablePackages = getReleasablePackages(clone(env.packages!));
 
