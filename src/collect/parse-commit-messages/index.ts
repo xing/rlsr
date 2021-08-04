@@ -32,5 +32,10 @@ export const parseCommitMessages: Module = (env: Env) => {
     } patch`
   );
 
+  if (!commitMessages.length) {
+    log('No relevant commits found, stopping the script');
+    process.exit(0);
+  }
+
   return { ...env, commitMessages } as Env;
 };

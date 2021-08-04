@@ -65,6 +65,22 @@ const mockEnv: Env = {
   },
 };
 
+const invalidMockEnv: Env = {
+  ...envWithConfig,
+  packages: {
+    mockPackage: {
+      currentVersion: '1.0.0',
+      path: `mock/path/`,
+      packageJson: { name: `mockPackage` },
+      messages: [],
+      relatedMessages: [],
+      determinedIncrementLevel: 1,
+      dependingOnThis: [],
+      dependsOn: [],
+    },
+  },
+};
+
 describe('prepareChangelogs Module', () => {
   let prepareChangelogs: Module;
   let result: Env;
@@ -146,6 +162,15 @@ describe('prepareChangelogs Module', () => {
     expect(() => prepareChangelogs(invalidMockEnv)).toThrow(
       expectedErrorMessage
     );
+    expect(mockError).toHaveBeenCalledWith(expectedErrorMessage);
+  });
+
+  it('throws an error when releasable packages are empty', () => {
+    const expectedErrorMessage = 'No packages to be released found!';
+    expect(() => prepareChangelogs(invalidMockEnv)).toThrow(
+      expectedErrorMessage
+    );
+
     expect(mockError).toHaveBeenCalledWith(expectedErrorMessage);
   });
 

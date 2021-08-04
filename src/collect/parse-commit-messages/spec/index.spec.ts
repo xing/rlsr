@@ -38,10 +38,17 @@ jest.mock('../add-level', () => ({ addLevel: mockAddLevel }));
 
 describe('parse-commit-messages', () => {
   let parseCommitMessages: Module;
+  let mockProcessExit: jest.SpyInstance;
 
   beforeAll(() => {
+    mockProcessExit = jest.spyOn(process, 'exit').mockImplementation();
     parseCommitMessages = require('../index').parseCommitMessages;
   });
+
+  afterAll(() => {
+    mockProcessExit.mockRestore();
+  });
+
   test('creates "git messages" logger', () => {
     expect(mockLogger).toHaveBeenCalledTimes(1);
     expect(mockLogger).toHaveBeenCalledWith('git messages');
@@ -88,26 +95,40 @@ describe('parse-commit-messages', () => {
       test(`logs ${major} major, ${minor} minor and ${patch} patch commits`, () => {
         expect(mockYellow).toHaveBeenCalledTimes(1);
         expect(mockYellow).toHaveBeenCalledWith(major + minor + patch);
-        expect(mockLog).toHaveBeenCalledTimes(1);
-        expect(mockLog).toHaveBeenCalledWith(
+
+        expect(mockLog).toHaveBeenNthCalledWith(
+          1,
           `yellow(${
             major + minor + patch
           }) relevant commits: ${major} major / ${minor} minor / ${patch} patch`
         );
       });
 
-      test(`returns an Env config object with ${
-        major + minor + patch
-      } parsed messages in "commitMessages" attribute`, () => {
-        expect(result).toEqual({
-          ...mockEnv,
-          commitMessages: [
-            ...buildMessageMock(major, 'major'),
-            ...buildMessageMock(minor, 'minor'),
-            ...buildMessageMock(patch, 'patch'),
-          ],
+      if (major + minor + patch === 0) {
+        test('exits the script with no error', () => {
+          expect(mockProcessExit).toHaveBeenCalledTimes(1);
+          expect(mockProcessExit).toHaveBeenCalledWith(0);
         });
-      });
+
+        test('exits the script with no error', () => {
+          expect(mockLog).toHaveBeenLastCalledWith(
+            'No relevant commits found, stopping the script'
+          );
+        });
+      } else {
+        test(`returns an Env config object with ${
+          major + minor + patch
+        } parsed messages in "commitMessages" attribute`, () => {
+          expect(result).toEqual({
+            ...mockEnv,
+            commitMessages: [
+              ...buildMessageMock(major, 'major'),
+              ...buildMessageMock(minor, 'minor'),
+              ...buildMessageMock(patch, 'patch'),
+            ],
+          });
+        });
+      }
     }
   );
 });
