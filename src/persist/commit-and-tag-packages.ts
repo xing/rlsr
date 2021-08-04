@@ -1,8 +1,10 @@
 import { clone } from 'ramda';
+
+import simpleGit from 'simple-git';
+
 import type { Env, Module, PackageAfterPrepareChangelogs } from '../types';
 import { logger } from '../helpers/logger';
 
-import simpleGit from 'simple-git';
 import { getReleasablePackages } from '../helpers/get-releasable-packages';
 
 const { log, error } = logger('[persist] commit and tag packages');
