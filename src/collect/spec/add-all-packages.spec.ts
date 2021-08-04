@@ -25,6 +25,12 @@ import { envWithConfig } from '../../fixtures/env';
 const mockPackages: Record<string, { name: string }> = {
   'path/to/first/package.json': { name: 'mockFirstPackage' },
   'path/to/second/package.json': { name: 'mockSecondPackage' },
+  '/node_modules/path/to/nodeModulesPackage1/package.json': {
+    name: 'mockNodeModulesPackage1',
+  },
+  'path/to/first/node_modules/nodeModulesPackage2/package.json': {
+    name: 'mockNodeModulesPackage2',
+  },
 };
 const mockPackagesPaths = Object.keys(mockPackages);
 
@@ -58,18 +64,10 @@ describe('addAllPackages Module', () => {
       expect(mockLog).toHaveBeenNthCalledWith(1, 'Search for all package.json');
     });
 
-    it('uses the right golb pattern for the main package.json', () => {
-      expect(mockSync).toHaveBeenCalledTimes(2);
-      expect(mockSync).toHaveBeenNthCalledWith(
-        1,
-        `${envWithConfig.appRoot}/package.json`
-      );
-    });
-    it('uses the right golb pattern for package.json', () => {
-      expect(mockSync).toHaveBeenCalledTimes(2);
-      expect(mockSync).toHaveBeenNthCalledWith(
-        2,
-        `${envWithConfig.appRoot}/!(node_modules)/**/package.json`
+    it('uses the right golb pattern for all package.json', () => {
+      expect(mockSync).toHaveBeenCalledTimes(1);
+      expect(mockSync).toHaveBeenCalledWith(
+        `${envWithConfig.appRoot}/**/package.json`
       );
     });
 
@@ -77,7 +75,7 @@ describe('addAllPackages Module', () => {
       expect(mockLog).toHaveBeenLastCalledWith('yellow(2) packages found');
     });
 
-    it('should return the collection of packages present in the project', () => {
+    it('should return the collection of packages present in the project, excluding node_modules', () => {
       const expectedPackages: Env['packages'] = {
         mockFirstPackage: {
           currentVersion: '1.0.0',

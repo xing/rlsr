@@ -13,10 +13,9 @@ const PACKAGE_JSON_ENDING = /package\.json$/;
 export const addAllPackages: Module = (env) => {
   log('Search for all package.json');
   // Fetch all packageJson' paths
-  const packageJsonPaths: string[] = [
-    ...glob(`${env.appRoot}/package.json`), // the main project's
-    ...glob(`${env.appRoot}/!(node_modules)/**/package.json`), // and everything else
-  ];
+  const packageJsonPaths: string[] = glob(
+    `${env.appRoot}/**/package.json`
+  ).filter((packageJsonPath) => !packageJsonPath.includes('/node_modules/'));
 
   const packages: Env['packages'] = packageJsonPaths.reduce(
     (accumulator, packageJsonPath) => {
