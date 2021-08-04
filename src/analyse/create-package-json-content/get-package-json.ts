@@ -40,7 +40,7 @@ function getPackageJson(
 
   /**
    * NPM needs fixed version numbers, but in order to reduce conflicts while merging, we hardcode
-   * `0.0.1-brewery` for each one on git and reference to them as dependencies as "*"
+   * `0.0.1` for each one on git and reference to them as dependencies as "*"
    * */
   if (isNpm) {
     if ('incrementedVersion' in currentPackage) {
@@ -60,7 +60,7 @@ function getPackageJson(
       clonePackageJson.version = currentPackage.currentVersion;
     }
   } else {
-    clonePackageJson.version = '0.0.1-brewery';
+    clonePackageJson.version = '0.0.1';
   }
 
   // package has dependencies

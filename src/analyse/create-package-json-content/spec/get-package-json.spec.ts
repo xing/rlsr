@@ -121,13 +121,13 @@ describe('get-package-json helper', () => {
         isNpm
           ? (packages.mockPackage1 as PackageAfterPrepareChangelogs)
               .incrementedVersion
-          : '0.0.1-brewery'
+          : '0.0.1'
       }`, () => {
         expect(result.version).toEqual(
           isNpm
             ? (packages.mockPackage1 as PackageAfterPrepareChangelogs)
                 .incrementedVersion
-            : '0.0.1-brewery'
+            : '0.0.1'
         );
       });
 
