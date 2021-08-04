@@ -137,7 +137,9 @@ describe('publish Module', () => {
         });
 
         it(`returns the publishing command for ${packageName}`, () => {
-          expect(commandString).toEqual(`npm publish ${pkg.path}`);
+          expect(commandString).toEqual(
+            `npm publish ${pkg.path} --loglevel warn`
+          );
         });
 
         it(`logs ${packageName} is getting released`, () => {

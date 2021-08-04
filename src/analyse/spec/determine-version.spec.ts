@@ -102,7 +102,7 @@ describe('determineVersion Module', () => {
       'Invalid version "latest" for package "mock0Package"';
     mockParse.mockImplementationOnce(() => null);
     const mockWrongVersionEnv: Env = clone(mockEnv);
-    mockWrongVersionEnv.packages!.mock0Package.packageJson.version = 'latest';
+    mockWrongVersionEnv.packages!.mock0Package.currentVersion = 'latest';
 
     expect(() => determineVersion(mockWrongVersionEnv)).toThrow(
       expectedErrorMessage

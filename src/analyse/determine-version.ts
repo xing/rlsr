@@ -35,19 +35,17 @@ export const determineVersion: Module = (env) => {
   const incrementLevels: semver.ReleaseType[] = ['patch', 'minor', 'major'];
 
   Object.keys(clonePackages).forEach((packageName) => {
-    const {
-      determinedIncrementLevel,
-      packageJson: { version },
-    } = clonePackages[packageName];
+    const { determinedIncrementLevel, currentVersion } =
+      clonePackages[packageName];
 
     // Only process packages flagged to be incremented
     if (determinedIncrementLevel === -1) {
       return;
     }
 
-    const parsedVersion: semver.SemVer | null = semver.parse(version);
+    const parsedVersion: semver.SemVer | null = semver.parse(currentVersion);
     if (!parsedVersion) {
-      const errorMessage = `Invalid version "${version}" for package "${packageName}"`;
+      const errorMessage = `Invalid version "${currentVersion}" for package "${packageName}"`;
       error(errorMessage);
       throw new Error(errorMessage);
     }
@@ -59,7 +57,7 @@ export const determineVersion: Module = (env) => {
     );
 
     if (!incrementedVersion) {
-      const errorMessage = `version "${version}" cannot be increased to "${incrementLevels[determinedIncrementLevel]}" for package "${packageName}"`;
+      const errorMessage = `version "${currentVersion}" cannot be increased to "${incrementLevels[determinedIncrementLevel]}" for package "${packageName}"`;
       error(errorMessage);
       throw new Error(errorMessage);
     }
@@ -74,7 +72,7 @@ export const determineVersion: Module = (env) => {
     log(
       `${packageName} flagged to get a ${incrementColor(
         incrementLevel
-      )} release ${white(`${version} -> ${incrementedVersion}`)}`
+      )} release ${white(`${currentVersion} -> ${incrementedVersion}`)}`
     );
 
     clonePackages[packageName] = incrementedVersionPackage;

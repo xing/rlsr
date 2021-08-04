@@ -3,7 +3,6 @@ import { writeFileSync } from 'fs';
 import type { Module } from '../types';
 
 import { logger } from '../helpers/logger';
-import { getReleasablePackages } from '../helpers/get-releasable-packages';
 
 const { error, log } = logger('[persist] package.json files (git)');
 
@@ -20,11 +19,7 @@ export const writePackageJsonsForGit: Module = (env) => {
 
   log('Preparing packages to commit to Git');
 
-  const releasablePackages = getReleasablePackages(env.packages);
-
-  releasablePackages.forEach((packageName) => {
-    const currentPackage = env.packages![packageName];
-
+  Object.entries(env.packages).forEach(([packageName, currentPackage]) => {
     if (!('packageJsonGit' in currentPackage)) {
       const errorMessage = `missing "packageJsonNpm" on package ${packageName}.`;
       error(errorMessage);

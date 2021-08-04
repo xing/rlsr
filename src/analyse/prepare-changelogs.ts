@@ -2,6 +2,7 @@ import fs from 'fs';
 
 import { join } from 'path';
 
+import { white } from 'chalk';
 import { clone } from 'ramda';
 
 import type {
@@ -36,7 +37,7 @@ export const prepareChangelogs: Module = (env) => {
     const currentPackage = clonePackages[
       packageName
     ] as PackageAfterDetermineVersion;
-    log(`preparing changelog messages for ${packageName} `);
+    log(`preparing changelog messages for ${white(packageName)} `);
 
     const changelogFile = join(currentPackage.path, 'changelog.json');
     const version = currentPackage.incrementedVersion;
@@ -53,7 +54,7 @@ export const prepareChangelogs: Module = (env) => {
     const messages = pkgMessages.concat(...relatedMessages);
 
     if (!messages.length) {
-      const errorMessage = `No messages found for ${packageName}`;
+      const errorMessage = `No messages found for "${white(packageName)}"`;
       error(errorMessage);
       throw new Error(errorMessage);
     }
@@ -64,14 +65,22 @@ export const prepareChangelogs: Module = (env) => {
       changeLogContent = JSON.parse(fs.readFileSync(changelogFile, 'utf8'));
     }
     changeLogContent[version] = messages;
-    log(`writing changelog messages for ${packageName} on ${version}`);
+    log(
+      `writing changelog messages for "${white(packageName)}" on ${white(
+        version
+      )}`
+    );
 
     clonePackages[packageName] = {
       ...clone(currentPackage),
       changelogs: changeLogContent,
     } as PackageAfterPrepareChangelogs;
 
-    log(`writing main changelog messages for ${packageName} on ${version}`);
+    log(
+      `writing main changelog messages for "${white(packageName)}" on ${white(
+        version
+      )}`
+    );
     const mainChangeLogFile = join(
       `${env.config!.changelogPath}`,
       `${changelogDate.split('T')[0]}.json`

@@ -38,17 +38,19 @@ const mockGetReleasablePackages = getReleasablePackages as jest.MockedFunction<
 >;
 
 // mock Packages
-function mockPackageBuilder(name: string): Package;
+function mockPackageBuilder(name: string, currentVersion: string): Package;
 function mockPackageBuilder(
   name: string,
+  currentVersion: string,
   incrementedVersion: string
 ): PackageAfterDetermineVersion;
 function mockPackageBuilder(
   name: string,
+  currentVersion: string,
   incrementedVersion?: string
 ): Package | PackageAfterDetermineVersion {
   return {
-    currentVersion: '1.0.0',
+    currentVersion,
     path: 'mock/path/to/package',
     packageJson: { name },
     messages: [],
@@ -83,10 +85,10 @@ describe('adaptDependencies Module', () => {
     const mockEnv: Env = {
       ...envWithConfig,
       packages: {
-        mockPackage1: mockPackageBuilder('mockPackage1'),
-        mockPackage2: mockPackageBuilder('mockPackage2'),
-        mockPackage3: mockPackageBuilder('mockPackage3'),
-        mockPackage4: mockPackageBuilder('mockPackage4'),
+        mockPackage1: mockPackageBuilder('mockPackage1', '1.0.0'),
+        mockPackage2: mockPackageBuilder('mockPackage2', '1.0.0'),
+        mockPackage3: mockPackageBuilder('mockPackage3', '1.0.0'),
+        mockPackage4: mockPackageBuilder('mockPackage4', '1.0.0'),
       },
     };
     mockGetReleasablePackages.mockImplementationOnce(() => []);
@@ -103,10 +105,10 @@ describe('adaptDependencies Module', () => {
     let result: Env;
     beforeAll(() => {
       jest.clearAllMocks();
-      const mockPackage1 = mockPackageBuilder('mockPackage1');
-      const mockPackage2 = mockPackageBuilder('mockPackage2', '1.0.0');
-      const mockPackage3 = mockPackageBuilder('mockPackage3');
-      const mockPackage4 = mockPackageBuilder('mockPackage4', '1.2.3');
+      const mockPackage1 = mockPackageBuilder('mockPackage1', '1.0.0');
+      const mockPackage2 = mockPackageBuilder('mockPackage2', '1.0.0', '1.0.0');
+      const mockPackage3 = mockPackageBuilder('mockPackage3', '1.0.0');
+      const mockPackage4 = mockPackageBuilder('mockPackage4', '1.0.0', '1.2.3');
       mockEnv = {
         ...envWithConfig,
         packages: {
@@ -162,10 +164,18 @@ describe('adaptDependencies Module', () => {
         jest.clearAllMocks();
         jest.useFakeTimers();
 
-        const mockPackage1 = mockPackageBuilder('mockPackage1');
-        const mockPackage2 = mockPackageBuilder('mockPackage2', '1.2.0');
-        const mockPackage3 = mockPackageBuilder('mockPackage3');
-        const mockPackage4 = mockPackageBuilder('mockPackage4', '1.2.3');
+        const mockPackage1 = mockPackageBuilder('mockPackage1', '1.0.0');
+        const mockPackage2 = mockPackageBuilder(
+          'mockPackage2',
+          '1.1.0',
+          '1.2.0'
+        );
+        const mockPackage3 = mockPackageBuilder('mockPackage3', '1.0.0');
+        const mockPackage4 = mockPackageBuilder(
+          'mockPackage4',
+          '1.2.2',
+          '1.2.3'
+        );
         mockPackage2.packageJson = { version: '1.1.0' };
         mockPackage2.dependingOnThis.push({
           name: 'mockPackage4',

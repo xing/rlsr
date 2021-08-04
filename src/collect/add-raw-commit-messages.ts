@@ -14,9 +14,7 @@ export const addRawCommitMessages: Module = async (env: Env) => {
   const git: SimpleGit = simpleGit();
 
   // If lastReleaseHash isn't available, we assume this is the Project's first release
-  const from = env.lastReleaseHash
-    ? `${env.lastReleaseHash}^1`
-    : env.initialHash;
+  const from = env.lastReleaseHash ?? env.initialHash;
 
   let data = await git.log({
     from,

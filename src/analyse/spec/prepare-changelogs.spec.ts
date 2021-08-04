@@ -1,7 +1,5 @@
 import { clone } from 'ramda';
 
-import { envWithConfig } from '../../fixtures/env';
-
 import type {
   Env,
   Message,
@@ -11,6 +9,12 @@ import type {
 } from '../../types';
 
 import { RelatedMessages } from '../../types';
+
+// mock chalk
+const mockWhite = jest.fn((text) => `white(${text})`);
+jest.mock('chalk', () => ({
+  white: mockWhite,
+}));
 
 // mock logger
 const mockLog = jest.fn();
@@ -50,6 +54,8 @@ const mockPackageBuilder = (
   dependsOn: [],
   incrementedVersion: `1.1.${id}`,
 });
+
+import { envWithConfig } from '../../fixtures/env';
 
 const mockEnv: Env = {
   ...envWithConfig,
@@ -135,7 +141,7 @@ describe('prepareChangelogs Module', () => {
     const invalidMockEnv = clone(mockEnv);
     invalidMockEnv.packages!.mock2Package.messages = [];
     invalidMockEnv.packages!.mock2Package.relatedMessages = [];
-    const expectedErrorMessage = `No messages found for mock2Package`;
+    const expectedErrorMessage = `No messages found for "white(mock2Package)"`;
 
     expect(() => prepareChangelogs(invalidMockEnv)).toThrow(
       expectedErrorMessage

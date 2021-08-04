@@ -1,9 +1,10 @@
 import { writeFileSync } from 'fs';
 
+import { white } from 'chalk';
+
 import type { Module } from '../types';
 
 import { logger } from '../helpers/logger';
-import { getReleasablePackages } from '../helpers/get-releasable-packages';
 
 const { log, error } = logger('[change] write packageJsons (NPM)');
 
@@ -16,17 +17,13 @@ export const writePackageJsonsToNpm: Module = (env) => {
 
   log('Analysing releasable packages...');
 
-  const releasablePackages = getReleasablePackages(env.packages);
-
-  releasablePackages.forEach((packageName) => {
-    const currentPackage = env.packages![packageName];
-
+  Object.entries(env.packages).forEach(([packageName, currentPackage]) => {
     if (!('packageJsonNpm' in currentPackage)) {
       const errorMessage = `missing "packageJsonNpm" on package ${packageName}.`;
       error(errorMessage);
       throw new Error(errorMessage);
     }
-    log(`Writting "${packageName}"`);
+    log(`Writting "${white(packageName)}"`);
 
     writeFileSync(
       `${currentPackage.path}/package.json`,

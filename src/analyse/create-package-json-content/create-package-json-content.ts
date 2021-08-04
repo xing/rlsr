@@ -1,4 +1,5 @@
 import { clone } from 'ramda';
+import { white } from 'chalk';
 
 import type {
   Module,
@@ -7,7 +8,6 @@ import type {
 } from '../../types';
 
 import { logger } from '../../helpers/logger';
-import { getReleasablePackages } from '../../helpers/get-releasable-packages';
 
 import { getPackageJson } from './get-package-json';
 
@@ -22,12 +22,10 @@ export const createPackageJsonContent: Module = (env) => {
 
   log('analyse packageJson Content');
 
-  const releasablePackages = getReleasablePackages(env.packages);
-
   const clonePackages = clone(env.packages);
 
-  releasablePackages.forEach((packageName) => {
-    log(`generating git & npm package.json files for ${packageName}`);
+  Object.keys(clonePackages).forEach((packageName) => {
+    log(`generating git & npm package.json files for "${white(packageName)}"`);
 
     const currentPackage: PackageAfterCreatePackageJsonContent = {
       ...(clonePackages[packageName] as PackageAfterPrepareChangelogs),

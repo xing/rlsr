@@ -1,10 +1,11 @@
 import { clone } from 'ramda';
+import { white } from 'chalk';
 
 import { Env, PackageAfterCreatePackageJsonContent } from '../../types';
 
 import { logger } from '../../helpers/logger';
 
-const { error } = logger('[analyse] create package json content');
+const { log } = logger('[analyse] create package json content');
 
 function getPackageJson(
   packages: Env['packages'],
@@ -37,20 +38,30 @@ function getPackageJson(
       )
     : {};
 
-  // Add
-  if (!('incrementedVersion' in currentPackage)) {
-    const errorMessage = `missing "incrementedVersion" on package ${packageName}`;
-    error(errorMessage);
-    throw new Error(errorMessage);
-  }
-
   /**
    * NPM needs fixed version numbers, but in order to reduce conflicts while merging, we hardcode
    * `0.0.1-brewery` for each one on git and reference to them as dependencies as "*"
    * */
-  clonePackageJson.version = isNpm
-    ? currentPackage.incrementedVersion
-    : '0.0.1-brewery';
+  if (isNpm) {
+    if ('incrementedVersion' in currentPackage) {
+      clonePackageJson.version = currentPackage.incrementedVersion;
+    } else {
+      /**
+       * When only devDependencies change, packages are not flagged
+       * to be released (and therefore they don't get an
+       * `incrementedVersion` attribute either).
+       * So `currentVersion` must be used for them.
+       */
+      log(
+        `using "currentVersion" (${white(
+          currentPackage.currentVersion
+        )}) for package "${white(packageName)}" (${type})`
+      );
+      clonePackageJson.version = currentPackage.currentVersion;
+    }
+  } else {
+    clonePackageJson.version = '0.0.1-brewery';
+  }
 
   // package has dependencies
   if (clonePackageJson.dependencies) {

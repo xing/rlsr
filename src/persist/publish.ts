@@ -41,7 +41,7 @@ export const publish: Module = async (env) => {
         log(
           `publishing ${releasablePackage}@${currentPackage.incrementedVersion}`
         );
-        return `npm publish ${currentPackage.path}`;
+        return `npm publish ${currentPackage.path} --loglevel warn`;
       },
       'silent', // @TODO: Use 'inf' on verbose mode
       'err'
