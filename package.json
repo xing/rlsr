@@ -15,7 +15,9 @@
     "test": "yarn jest && yarn lint",
     "lint": "eslint .",
     "ts:watch": "yarn tsc --watch",
-    "ts:compile": "yarn tsc"
+    "ts:compile": "yarn tsc",
+    "prepack": "git clean -dfx && yarn && yarn run ts:compile",
+    "postpublish": "git push"
   },
   "repository": {
     "type": "git",
