@@ -32,7 +32,7 @@ const mockPackageBuilder = (
   privatePackage = false
 ): PackageAfterCreatePackageJsonContent => ({
   currentVersion: '1.0.0',
-  path: `mock/path/to/mockPackage${id}`,
+  path: `mock/path/to/mockPackage${id}/`,
   packageJson: { name: `mockPackage${id}`, private: privatePackage },
   packageJsonNpm: { name: `mockPackage${id}`, private: privatePackage },
   packageJsonGit: { name: `mockPackage${id}`, private: privatePackage },
@@ -100,7 +100,7 @@ describe('writePackageJsonsForGit Module', () => {
       (index, _packageName, currentPackage) => {
         expect(mockWriteFileSync).toHaveBeenNthCalledWith(
           index + 1,
-          `${currentPackage.path}/package.json`,
+          `${currentPackage.path}package.json`,
           `${JSON.stringify(currentPackage.packageJsonGit, null, 2)}\n`
         );
       }

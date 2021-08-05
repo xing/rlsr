@@ -5,7 +5,7 @@ import simpleGit, { SimpleGit } from 'simple-git';
 import { logger } from '../helpers/logger';
 import { Module, Env } from '../types';
 
-const { log } = logger('git messages');
+const { log } = logger('git raw messages');
 
 /**
  * Get all commit messages between the last hash and now

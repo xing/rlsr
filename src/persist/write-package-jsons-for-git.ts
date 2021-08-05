@@ -1,5 +1,7 @@
 import { writeFileSync } from 'fs';
 
+import { white } from 'chalk';
+
 import type { Module } from '../types';
 
 import { logger } from '../helpers/logger';
@@ -26,8 +28,8 @@ export const writePackageJsonsForGit: Module = (env) => {
       throw new Error(errorMessage);
     }
 
-    const packageJsonPath = `${currentPackage.path}/package.json`;
-    log(`Reverting "${packageName}" (${packageJsonPath})`);
+    const packageJsonPath = `${currentPackage.path}package.json`;
+    log(`Reverting "${white(packageName)}" (${packageJsonPath})`);
 
     writeFileSync(
       packageJsonPath,

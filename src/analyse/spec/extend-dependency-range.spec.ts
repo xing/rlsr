@@ -80,7 +80,7 @@ describe('ExtendDependencyRange Module', () => {
     expectedPackages['test-package-1'].determinedIncrementLevel = 0;
     expectedPackages['test-package-1'].relatedMessages.push({
       date: new Date().toISOString(),
-      text: `affected dependencies: test-package-3`,
+      text: `fix: widened dependency ranges test-package-3 (default) 1.0.0 to ~1.0.0`,
       level: 'patch',
     });
 
@@ -132,7 +132,7 @@ describe('ExtendDependencyRange Module', () => {
     expect(result.packages!['test-package-1'].relatedMessages).toEqual([
       {
         date: new Date().toISOString(),
-        text: `affected dependencies: test-package-3`,
+        text: `fix: widened dependency ranges test-package-3 (default) 1.0.0 to ~1.0.0`,
         level: 'patch',
       },
     ]);

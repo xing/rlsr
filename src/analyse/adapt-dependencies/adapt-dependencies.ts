@@ -48,12 +48,6 @@ export const adaptDependencies: Module = (env) => {
       if (relatedPackage.determinedIncrementLevel === -1) {
         relatedPackage.determinedIncrementLevel++;
       }
-      // Add Message
-      relatedPackage.relatedMessages.push({
-        date: new Date().toISOString(),
-        text: `fix: dependency "${packageName}" has changed from ${currentPackage.currentVersion} to ${currentPackage.incrementedVersion}`,
-        level: 'patch',
-      });
 
       // Adapt ranges to include the releasable package's new version
       const lowerVersionLimit =
@@ -93,6 +87,12 @@ export const adaptDependencies: Module = (env) => {
         )} to ${white(newOwnPackageRange)}`
       );
       dependingOnPackage.range = newOwnPackageRange;
+      // Add Message
+      relatedPackage.relatedMessages.push({
+        date: new Date().toISOString(),
+        text: `fix: adapt dependency "${packageName}" from ${dependingPackage.ownPackageRange} to ${newOwnPackageRange}`,
+        level: 'patch',
+      });
 
       log(
         `Extend version range for ${white(dependingPackage.name)} on ${white(

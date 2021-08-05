@@ -226,7 +226,7 @@ describe('adaptDependencies Module', () => {
       it('adds a relatedMessage entry', () => {
         expect(result.packages!.mockPackage4.relatedMessages[0]).toEqual({
           date: new Date().toISOString(),
-          text: `fix: dependency "mockPackage2" has changed from 1.1.0 to 1.2.0`,
+          text: `fix: adapt dependency "mockPackage2" from >=1.0.0 <1.2.0 to >=1.0.0 <1.3.0`,
           level: 'patch',
         });
       });
@@ -260,7 +260,7 @@ describe('adaptDependencies Module', () => {
             '>=1.0.0 <1.3.0';
         expectedEnv.packages!.mockPackage4.relatedMessages.push({
           date: new Date().toISOString(),
-          text: `fix: dependency "mockPackage2" has changed from 1.1.0 to 1.2.0`,
+          text: `fix: adapt dependency "mockPackage2" from >=1.0.0 <1.2.0 to >=1.0.0 <1.3.0`,
           level: 'patch',
         });
         expect(result).toEqual(expectedEnv);

@@ -64,11 +64,14 @@ export const prepareChangelogs: Module = (env) => {
     const currentPackage = clonePackages[
       packageName
     ] as PackageAfterDetermineVersion;
-
-    log(`preparing changelog messages for ${white(packageName)} `);
-
-    const changelogFile = join(currentPackage.path, 'changelog.json');
     const version = currentPackage.incrementedVersion;
+    const changelogFile = join(currentPackage.path, 'changelog.json');
+
+    log(
+      `preparing changelog messages for "${white(packageName)}" on ${white(
+        version
+      )}`
+    );
 
     const pkgMessages: Message[] = currentPackage.messages;
     const relatedMessages: RelatedMessage[] = currentPackage.relatedMessages;
@@ -90,22 +93,14 @@ export const prepareChangelogs: Module = (env) => {
     }
 
     changelogContent[version] = messages;
-    log(
-      `writing changelog messages for "${white(packageName)}" on ${white(
-        version
-      )}`
-    );
+    log(`add message on package changelog`);
 
     clonePackages[packageName] = {
       ...currentPackage,
       changelogs: changelogContent,
     };
 
-    log(
-      `writing main changelog messages for "${white(packageName)}" on ${white(
-        version
-      )}`
-    );
+    log(`add message on main changelog`);
 
     mainChangelogContent[changelogDate].push({
       package: packageName,

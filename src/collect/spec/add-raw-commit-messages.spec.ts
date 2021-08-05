@@ -49,9 +49,9 @@ describe('addRawCommitMessages Module', () => {
       require('../add-raw-commit-messages').addRawCommitMessages;
   });
 
-  it('uses git messages logger', () => {
+  it('uses git raw messages logger', () => {
     expect(mockLogger).toHaveBeenCalledTimes(1);
-    expect(mockLogger).toHaveBeenCalledWith('git messages');
+    expect(mockLogger).toHaveBeenCalledWith('git raw messages');
   });
 
   describe.each`
