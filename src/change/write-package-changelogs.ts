@@ -27,10 +27,10 @@ export const writePackageChangelogs: Module = (env) => {
       packageName
     ] as PackageAfterPrepareChangelogs;
 
-    log(`writing changelogs for ${white(packageName)} `);
     const changelogJson = currentPackage.changelogs;
     const changelogFile = join(currentPackage.path, 'changelog.json');
 
+    log(`writing changelogs for ${white(packageName)} (${changelogFile})`);
     fs.writeFileSync(
       changelogFile,
       `${JSON.stringify(changelogJson, null, 2)}\n`

@@ -10,12 +10,21 @@ const buildMessageMock = (
     hash: 'hash',
     date: 'date',
     message: 'message',
+    text: 'text',
     body: 'body',
   });
 
 // mock chalk
+const mockWhite = jest.fn((text) => `white(${text})`);
+const mockGreen = jest.fn((text) => `green(${text})`);
+const mockRed = jest.fn((text) => `red(${text})`);
 const mockYellow = jest.fn((text) => `yellow(${text})`);
-jest.mock('chalk', () => ({ yellow: mockYellow }));
+jest.mock('chalk', () => ({
+  white: mockWhite,
+  green: mockGreen,
+  red: mockRed,
+  yellow: mockYellow,
+}));
 
 // mock ramda
 const mockMessageTransform = jest.fn((element) => element);
@@ -49,9 +58,9 @@ describe('parse-commit-messages', () => {
     mockProcessExit.mockRestore();
   });
 
-  test('creates "git messages" logger', () => {
+  test('creates "parse commit messages" logger', () => {
     expect(mockLogger).toHaveBeenCalledTimes(1);
-    expect(mockLogger).toHaveBeenCalledWith('git messages');
+    expect(mockLogger).toHaveBeenCalledWith('parse commit messages');
   });
   test('chain parsers (parse, refineType and addLevel) to parse messages', () => {
     expect(mockPipe).toHaveBeenCalledTimes(1);
@@ -92,16 +101,35 @@ describe('parse-commit-messages', () => {
         jest.clearAllMocks();
       });
 
-      test(`logs ${major} major, ${minor} minor and ${patch} patch commits`, () => {
-        expect(mockYellow).toHaveBeenCalledTimes(1);
-        expect(mockYellow).toHaveBeenCalledWith(major + minor + patch);
-
+      test('logs introduction', () => {
         expect(mockLog).toHaveBeenNthCalledWith(
           1,
-          `yellow(${
-            major + minor + patch
-          }) relevant commits: ${major} major / ${minor} minor / ${patch} patch`
+          'Analysing relevant commit messages'
         );
+      });
+
+      test('logs relevant commit messages', () => {
+        for (let i = 1; i <= major; i++) {
+          expect(mockRed).toHaveBeenNthCalledWith(i, 'major');
+          expect(mockLog).toHaveBeenNthCalledWith(
+            1 + i,
+            `red(major) commit (hash) "text"`
+          );
+        }
+        for (let i = 1; i <= minor; i++) {
+          expect(mockYellow).toHaveBeenNthCalledWith(i, 'minor');
+          expect(mockLog).toHaveBeenNthCalledWith(
+            1 + major + i,
+            `yellow(minor) commit (hash) "text"`
+          );
+        }
+        for (let i = 1; i <= patch; i++) {
+          expect(mockGreen).toHaveBeenNthCalledWith(i, 'patch');
+          expect(mockLog).toHaveBeenNthCalledWith(
+            1 + major + minor + i,
+            `green(patch) commit (hash) "text"`
+          );
+        }
       });
 
       if (major + minor + patch === 0) {
@@ -116,6 +144,21 @@ describe('parse-commit-messages', () => {
           );
         });
       } else {
+        test(`logs ${major} major, ${minor} minor and ${patch} patch commits`, () => {
+          expect(mockYellow).toHaveBeenNthCalledWith(
+            minor + 1,
+            major + minor + patch
+          );
+          expect(mockYellow).toHaveBeenNthCalledWith(minor + 2, minor);
+
+          expect(mockLog).toHaveBeenNthCalledWith(
+            2 + major + minor + patch,
+            `yellow(${
+              major + minor + patch
+            }) relevant commits: red(${major}) major / yellow(${minor}) minor / green(${patch}) patch`
+          );
+        });
+
         test(`returns an Env config object with ${
           major + minor + patch
         } parsed messages in "commitMessages" attribute`, () => {

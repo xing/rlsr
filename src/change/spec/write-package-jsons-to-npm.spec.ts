@@ -102,7 +102,7 @@ describe('writePackageJsonsToNpm Module', () => {
         ] as PackageAfterCreatePackageJsonContent;
         expect(mockWriteFileSync).toHaveBeenNthCalledWith(
           index + 1,
-          `${currentPackage.path}/package.json`,
+          `${currentPackage.path}package.json`,
           `${JSON.stringify(currentPackage.packageJsonNpm, null, 2)}\n`
         );
       });

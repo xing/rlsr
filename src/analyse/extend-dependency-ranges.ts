@@ -1,6 +1,6 @@
 import { clone } from 'ramda';
 
-import type { Module } from '../types';
+import type { Module, RelatedPackageTypes } from '../types';
 
 import { logger } from '../helpers/logger';
 
@@ -17,13 +17,26 @@ export const extendDependencyRanges: Module = (env) => {
   Object.values(packagesClone!).forEach((packageValue) => {
     // extend dependencies ranges
     let changed = false;
-    const extendedDependencies: string[] = [];
+    const extendedDependencies: {
+      name: string;
+      originalRange: string;
+      newRange: string;
+      type: RelatedPackageTypes;
+    }[] = [];
     packageValue.dependsOn.forEach((dependency) => {
       if (PINNED_VERSION_PATTERN.test(dependency.range)) {
         extendCounter++;
         changed = true;
-        dependency.range = `~${dependency.range}`;
-        extendedDependencies.push(dependency.name);
+        const newRange = `~${dependency.range}`;
+
+        extendedDependencies.push({
+          name: dependency.name,
+          originalRange: dependency.range,
+          newRange,
+          type: dependency.type,
+        });
+
+        dependency.range = newRange;
       }
     });
 
@@ -33,7 +46,13 @@ export const extendDependencyRanges: Module = (env) => {
       // add patch message to dependency
       packageValue.relatedMessages.push({
         date: new Date().toISOString(),
-        text: `affected dependencies: ${extendedDependencies.join(', ')}`,
+        // "widened dependencies: @xingternal/button (default) 1.2.3 -> ~1.2.3, @xingternal/top-bar (dev) 2.3.4 -> ~2.3.4
+        text: `fix: widened dependency ranges ${extendedDependencies
+          .map(
+            ({ name, newRange, type, originalRange }) =>
+              `${name} (${type}) ${originalRange} to ${newRange}`
+          )
+          .join(', ')}`,
         level: 'patch',
       });
     }

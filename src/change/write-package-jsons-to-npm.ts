@@ -23,10 +23,13 @@ export const writePackageJsonsToNpm: Module = (env) => {
       error(errorMessage);
       throw new Error(errorMessage);
     }
-    log(`Writting "${white(packageName)}"`);
+
+    const packageJsonPath = `${currentPackage.path}package.json`;
+
+    log(`Writing "${white(packageName)}" (${packageJsonPath})`);
 
     writeFileSync(
-      `${currentPackage.path}/package.json`,
+      packageJsonPath,
       `${JSON.stringify(currentPackage.packageJsonNpm, null, 2)}\n`
     );
   });
