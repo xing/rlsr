@@ -2,6 +2,8 @@ import { composeAsync } from '../helpers/compose-async';
 import { wait } from '../helpers/wait-module';
 import { log } from '../helpers/log-module';
 
+import { plugins } from '../helpers/plugins';
+
 import { writePackageJsonsToNpm } from './write-package-jsons-to-npm';
 import { writePackageChangelogs } from './write-package-changelogs';
 import { writeRlsrJson } from './write-rlsr-json';
@@ -44,6 +46,9 @@ export const change = composeAsync(
   // the new entry should be the topmost one and it should only be done for
   // packages that have at least an increment of `0`
   writePackageChangelogs,
+
+  // run registered plugins for this phase
+  plugins('change'),
 
   wait(1000)
 );

@@ -18,6 +18,7 @@ const mockEnvWithRegistry: Env = {
     betaBranch: 'beta',
     mainBranch: 'main',
     betaTag: 'beta',
+    plugins: [],
   },
 };
 

@@ -29,6 +29,8 @@ const mockParseCommitMessages = jest.fn();
 const mockAddFilesToCommitMessages = jest.fn();
 const mockAddAllPackages = jest.fn();
 const mockAddMainNotes = jest.fn();
+const mockPluginsModule = jest.fn();
+const mockPlugins = jest.fn(() => mockPluginsModule);
 
 jest.mock('../../helpers/compose-async', () => ({
   composeAsync: mockComposeAsync,
@@ -70,6 +72,9 @@ jest.mock('../add-all-packages', () => ({
 }));
 jest.mock('../add-main-notes', () => ({
   addMainNotes: mockAddMainNotes,
+}));
+jest.mock('../../helpers/plugins', () => ({
+  plugins: mockPlugins,
 }));
 
 describe("collect's Index", () => {
@@ -165,9 +170,15 @@ describe("collect's Index", () => {
     // @ts-ignore
     expect(mockComposeAsync.mock.calls[0][14]).toBe(mockAddMainNotes);
   });
-  test('16. waits for a second', () => {
+  test('16. calls for Collect Plugins', () => {
     // @ts-ignore
-    expect(mockComposeAsync.mock.calls[0][15]).toBe(mockWaitResult);
+    expect(mockComposeAsync.mock.calls[0][15]).toBe(mockPluginsModule);
+    expect(mockPlugins).toHaveBeenCalledTimes(1);
+    expect(mockPlugins).toHaveBeenCalledWith('collect');
+  });
+  test('17. waits for a second', () => {
+    // @ts-ignore
+    expect(mockComposeAsync.mock.calls[0][16]).toBe(mockWaitResult);
   });
 
   // Aditional tests

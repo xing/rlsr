@@ -1,6 +1,7 @@
 import { composeAsync } from '../helpers/compose-async';
 import { wait } from '../helpers/wait-module';
 import { log } from '../helpers/log-module';
+import { plugins } from '../helpers/plugins';
 
 import { whenNotDryrun, whenNotStage } from '../helpers/when';
 
@@ -80,6 +81,9 @@ export const collect = composeAsync(
   // we also have that code in brewery release
   // #tested
   addMainNotes,
+
+  // run registered plugins for this phase
+  plugins('collect'),
 
   wait(1000)
 );

@@ -1,10 +1,10 @@
 {
   "name": "rlsr",
-  "version": "4.0.6",
+  "version": "4.0.7",
   "description": "create npm releses and changelogs from a multi repo",
-  "main": "src/index.js",
+  "main": "build/src/index.js",
   "bin": {
-    "rlsr": "./bin/rlsr.js"
+    "rlsr": "./build/src/bin.js"
   },
   "publishConfig": {
     "registry": "http://registry.npmjs.com/"
@@ -30,7 +30,6 @@
   "author": "Matthias Reis",
   "license": "MIT",
   "devDependencies": {
-    "@schemastore/package": "^0.0.6",
     "@types/chalk": "^2.2.0",
     "@types/conventional-commits-parser": "^3.0.1",
     "@types/cosmiconfig": "^6.0.0",
@@ -61,6 +60,7 @@
     "typescript": "^4.3.5"
   },
   "dependencies": {
+    "@schemastore/package": "^0.0.6",
     "chalk": "^4.1.1",
     "conventional-commits-parser": "3.2.1",
     "cosmiconfig": "^7.0.0",

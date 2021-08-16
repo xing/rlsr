@@ -20,6 +20,7 @@ export const basicEnv: Env = {
     betaBranch: 'foo',
     mainBranch: 'foo',
     betaTag: 'foo',
+    plugins: [],
   },
   dryrun: true,
   verify: false,
