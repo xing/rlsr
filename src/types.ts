@@ -16,6 +16,8 @@ export type Stage = 'canary' | 'beta' | 'production';
  */
 export type Mode = 'independent' | 'synchronized' | 'synchronizedMain';
 
+export type Phase = 'collect' | 'analyse' | 'change' | 'persist';
+
 /**
  * Possible impacts:
  * - `full`: changes are persisted to git, packages are published
@@ -51,6 +53,7 @@ export type Config = {
   mainBranch: string;
   /** tag used to publish beta versionspackages - usually `beta` */
   betaTag: string;
+  plugins: string[];
 };
 
 export type PackageStatus = {

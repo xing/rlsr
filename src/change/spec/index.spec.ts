@@ -14,6 +14,8 @@ const mockWritePackageJsonsToNpm = jest.fn();
 const mockWriteRlsrJson = jest.fn();
 const mockWriteMainChangelog = jest.fn();
 const mockWritePackageChangelogs = jest.fn();
+const mockPluginsModule = jest.fn();
+const mockPlugins = jest.fn(() => mockPluginsModule);
 
 jest.mock('../../helpers/compose-async', () => ({
   composeAsync: mockComposeAsync,
@@ -32,6 +34,9 @@ jest.mock('../write-main-changelog', () => ({
 }));
 jest.mock('../write-package-changelogs', () => ({
   writePackageChangelogs: mockWritePackageChangelogs,
+}));
+jest.mock('../../helpers/plugins', () => ({
+  plugins: mockPlugins,
 }));
 
 describe("change's Index", () => {
@@ -74,6 +79,13 @@ describe("change's Index", () => {
     expect(mockComposeAsync.mock.calls[0][4]).toBe(mockWritePackageChangelogs);
   });
 
+  test('6. calls for Change Plugins', () => {
+    // @ts-ignore
+    expect(mockComposeAsync.mock.calls[0][5]).toBe(mockPluginsModule);
+    expect(mockPlugins).toHaveBeenCalledTimes(1);
+    expect(mockPlugins).toHaveBeenCalledWith('change');
+  });
+
   test('calls "wait(1000)" at the end', () => {
     const lastComposeArgument =
       mockComposeAsync.mock.calls[0][mockComposeAsync.mock.calls[0].length - 1];
@@ -83,7 +95,7 @@ describe("change's Index", () => {
   });
 
   // Aditional tests
-  test(`exports "composeAsync"'s result as "collect"`, () => {
+  test(`exports "composeAsync"'s result as "change"`, () => {
     expect(result).toBe(mockComposeAsyncResult);
   });
 });

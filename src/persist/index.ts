@@ -1,6 +1,7 @@
 import { composeAsync } from '../helpers/compose-async';
 import { wait } from '../helpers/wait-module';
 import { log } from '../helpers/log-module';
+import { plugins } from '../helpers/plugins';
 
 import { publish } from './publish';
 import { commitAndTagPackages } from './commit-and-tag-packages';
@@ -41,6 +42,9 @@ export const persist = composeAsync(
   // This commit is suppoesd to contain only rlsr.json and changelogs
   // package.jsons should only be in there if new packages are being added.
   pushChanges,
+
+  // run registered plugins for this phase
+  plugins('persist'),
 
   wait(1000)
 );

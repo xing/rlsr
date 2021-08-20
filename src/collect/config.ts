@@ -18,6 +18,7 @@ export const defaultConfig: Config = {
   betaBranch: 'master',
   productionBranch: 'master',
   mainBranch: 'master',
+  plugins: [],
 };
 
 /**

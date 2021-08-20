@@ -2,6 +2,8 @@ import { composeAsync } from '../helpers/compose-async';
 import { wait } from '../helpers/wait-module';
 import { log } from '../helpers/log-module';
 
+import { plugins } from '../helpers/plugins';
+
 import { addDependencies } from './add-dependencies';
 import { createDependencyTree } from './create-dependency-tree';
 import { extendDependencyRanges } from './extend-dependency-ranges';
@@ -184,6 +186,9 @@ export const analyse = composeAsync(
   // - the new commit hash as a github link to click on
   // all in a nice and quickly readable way
   // printReport
+
+  // run registered plugins for this phase
+  plugins('analyse'),
 
   wait(1000)
 );

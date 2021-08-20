@@ -2,6 +2,9 @@ import type { Arguments } from 'yargs';
 
 import { version } from '../package.json';
 
+export * from './types';
+export { logger } from './helpers/logger';
+
 import { composeAsync } from './helpers/compose-async';
 import { collect } from './collect';
 import { change } from './change';

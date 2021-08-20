@@ -1,12 +1,13 @@
 import type { Module, Env } from '../types';
 
-type ComposeAsync = (...fns: Module[]) => Module;
+type ComposeAsync = (...functions: Module[]) => Module;
 
 export const composeAsync: ComposeAsync =
-  (...fns) =>
+  (...functions) =>
   (env: Env) => {
-    return fns.reduce(
-      (prev: Promise<Env>, curr: Module) => prev.then((env) => curr(env)),
+    return functions.reduce(
+      (accumulator: Promise<Env>, currentFunction: Module) =>
+        accumulator.then((env) => currentFunction(env)),
       Promise.resolve(env)
     );
   };
