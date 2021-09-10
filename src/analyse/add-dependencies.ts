@@ -47,14 +47,12 @@ export const addDependencies: Module = (env) => {
       // we don't care about dev dependencies
     ]
       // filter out external packages
-      .filter(({ name }) => {
-        return packagesNames.includes(name);
-      })
+      .filter(({ name }) => packagesNames.includes(name))
       // if it's already in the rlsr.json, we take that one
       .map((dependency) => {
         if (
           dependency.range === '*' &&
-          env.status?.packages[packageName].dependencies[dependency.name]
+          env.status?.packages[packageName]?.dependencies[dependency.name]
         ) {
           dependency.range =
             env.status?.packages[packageName].dependencies[

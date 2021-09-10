@@ -42,7 +42,7 @@ export const analyse = composeAsync(
   // We widen the range of dependencies.
   // So if the range is strictly toed to one version (i.e. `1.2.3` instead of ^1.2.3), we widen it
   // to allow all patch versions. SO go through all dependencies (and peer / dev), look for that pattern
-  // and prepend a `^`.
+  // and prepend a `~`.
   // As we produce widened ranges throughout the process, this has no effect anymore from the second run onwards.
   extendDependencyRanges,
 

@@ -8,7 +8,11 @@ import type {
   PackageAfterCreatePackageJsonContent,
   RelatedPackageDependsOn,
 } from '../../../types';
-import { getPackageJson } from '../get-package-json';
+
+// mock logger
+const mockLog = jest.fn();
+const mockLogger = jest.fn(() => ({ log: mockLog }));
+jest.doMock('../../../helpers/logger', () => ({ logger: mockLogger }));
 
 // mock Packages
 const mockPackageJsonBuilder = (
@@ -114,6 +118,8 @@ describe('get-package-json helper', () => {
         mockPackage4: mockPackageBuilder(4),
       };
       beforeAll(() => {
+        const getPackageJson = require('../get-package-json').getPackageJson;
+
         result = getPackageJson(packages, 'mockPackage1', type);
       });
 

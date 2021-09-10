@@ -4,11 +4,11 @@ import { clone } from 'ramda';
 
 import { white } from 'chalk';
 
-import type { Module, PackageAfterDetermineVersion } from '../../types';
+import type { Module, PackageAfterDetermineVersion } from '../types';
 
-import { logger } from '../../helpers/logger';
+import { logger } from '../helpers/logger';
 
-import { getReleasablePackages } from '../../helpers/get-releasable-packages';
+import { getReleasablePackages } from '../helpers/get-releasable-packages';
 
 const { error, log } = logger('[analyse] adapt dependencies');
 
@@ -32,13 +32,26 @@ export const adaptDependencies: Module = (env) => {
       packageName
     ] as PackageAfterDetermineVersion;
     currentPackage.dependingOnThis.forEach((dependingPackage) => {
-      // Only process related packages if their given dependency range won't cover the releasable package's new version
+      const isAsteriskRange = ['*', '^*', '~*'].includes(
+        dependingPackage.ownPackageRange
+      );
+      /*
+       * Only process related packages if their given dependency range won't
+       * cover the releasable package's new version.
+       * Asterisk ranges must be replaced and are processed below
+       */
       if (
+        !isAsteriskRange &&
         semver.satisfies(
           currentPackage.incrementedVersion,
           dependingPackage.ownPackageRange
         )
       ) {
+        log(`Semver satisfied!`, {
+          incrementedVersion: currentPackage.incrementedVersion,
+          dependingPackage: dependingPackage.name,
+          ownPackageRange: dependingPackage.ownPackageRange,
+        });
         return;
       }
 
@@ -51,9 +64,9 @@ export const adaptDependencies: Module = (env) => {
 
       // Adapt ranges to include the releasable package's new version
       const lowerVersionLimit =
-        dependingPackage.ownPackageRange === 'new'
-          ? // If 'new' is used as version range, then we must use the new version as the lower range edge
-            currentPackage.incrementedVersion
+        // If '*', '^*' or '~*' is used as version range, then we must use the new version as the lower range edge
+        isAsteriskRange
+          ? currentPackage.incrementedVersion
           : semver.minVersion(dependingPackage.ownPackageRange)?.raw;
       // Upper limit is extended to allow all future path releases on this package
       const upperVersionLimit = semver.inc(
@@ -102,6 +115,36 @@ export const adaptDependencies: Module = (env) => {
         )}`
       );
       dependingPackage.ownPackageRange = newOwnPackageRange;
+    });
+
+    currentPackage.dependsOn.forEach((dependingOnPackage) => {
+      const isAsteriskRange = ['*', '^*', '~*'].includes(
+        dependingOnPackage.range
+      );
+      if (!isAsteriskRange) return;
+
+      const relatedPackage = clonePackages[
+        dependingOnPackage.name
+      ] as PackageAfterDetermineVersion;
+
+      // Use relatedPackage (current or incremented) version as min limit
+      const lowerVersionLimit =
+        relatedPackage.incrementedVersion || relatedPackage.currentVersion;
+      // Upper limit is extended to allow all future path releases on this package
+      const upperVersionLimit = semver.inc(lowerVersionLimit, 'minor');
+
+      const newPackageRange = `>=${lowerVersionLimit} <${upperVersionLimit}`;
+      dependingOnPackage.range = newPackageRange;
+
+      log(
+        `Extend version range for ${white(dependingOnPackage.name)} on ${white(
+          packageName
+        )} from ${white(dependingOnPackage.range)} to ${white(newPackageRange)}`
+      );
+
+      relatedPackage.dependingOnThis.find(
+        ({ name }) => name === packageName
+      )!.ownPackageRange = newPackageRange;
     });
   });
 
