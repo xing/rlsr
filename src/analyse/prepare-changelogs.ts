@@ -2,6 +2,8 @@ import { existsSync, readFileSync } from 'fs';
 
 import { join } from 'path';
 
+import semver from 'semver';
+
 import { white } from 'chalk';
 import { clone } from 'ramda';
 
@@ -102,8 +104,12 @@ export const prepareChangelogs: Module = (env) => {
 
     log(`add message on main changelog`);
 
+    const incrementLevels: semver.ReleaseType[] = ['patch', 'minor', 'major'];
+
     mainChangelogContent[changelogDate].push({
       package: packageName,
+      determinedIncrementLevel:
+        incrementLevels[currentPackage.determinedIncrementLevel],
       version,
       messages,
     });

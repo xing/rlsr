@@ -39,11 +39,13 @@ const mockEnv: Env = {
       {
         package: '@xingternal/brewery-test-one',
         version: '1.1.0',
+        determinedIncrementLevel: 'patch',
         messages: [messageFactory(1, 1)],
       },
       {
         package: '@xingternal/brewery-test-three',
         version: '3.3.0',
+        determinedIncrementLevel: 'patch',
         messages: [
           messageFactory(1, 2),
           messageFactory(2, 2),
