@@ -2,7 +2,7 @@ import semver from 'semver';
 
 import { clone } from 'ramda';
 
-import { white } from 'chalk';
+import { white, green } from 'chalk';
 
 import type { Module, PackageAfterDetermineVersion } from '../types';
 
@@ -47,11 +47,15 @@ export const adaptDependencies: Module = (env) => {
           dependingPackage.ownPackageRange
         )
       ) {
-        log(`Semver satisfied!`, {
-          incrementedVersion: currentPackage.incrementedVersion,
-          dependingPackage: dependingPackage.name,
-          ownPackageRange: dependingPackage.ownPackageRange,
-        });
+        log(
+          `${green(dependingPackage.name)}'s new verion "${green(
+            currentPackage.incrementedVersion
+          )}" is included in its declared dependency range "${green(
+            dependingPackage.ownPackageRange
+          )}"
+         `
+        );
+
         return;
       }
 

@@ -114,6 +114,7 @@ describe('prepareChangelogs Module', () => {
         {
           package: 'mock1Package',
           version: '1.1.1',
+          determinedIncrementLevel: 'minor',
           messages: [
             messageFactory(1, 1),
             messageFactory(2, 1),
@@ -124,6 +125,7 @@ describe('prepareChangelogs Module', () => {
         {
           package: 'mock2Package',
           version: '1.1.2',
+          determinedIncrementLevel: 'minor',
           messages: [
             messageFactory(1, 2),
             messageFactory(2, 2),

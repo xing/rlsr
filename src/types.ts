@@ -94,6 +94,7 @@ export type RelatedMessage = Pick<Message, 'date' | 'level' | 'text'>;
 export type MainChangelogMessage = {
   package: string;
   version: string;
+  determinedIncrementLevel: string;
   messages: Message[] | RelatedMessage[];
 };
 
