@@ -26,7 +26,9 @@ const addFilesToCommitMessages: Module = async (env: Env) => {
           ...gitCommand,
           commitMessage.hash
         );
-        return result.trim().split('\n');
+
+        const trimmedResult = result.trim();
+        return trimmedResult === '' ? [] : trimmedResult.split('\n');
       } catch (e) {
         error(e);
         throw new Error('Cannot extract committed files');
