@@ -122,7 +122,7 @@ describe('publish Module', () => {
       string,
       PackageAfterCreatePackageJsonContent
     ][] = Object.entries(mockEnvMixedPackages.packages)
-      .filter(([_name, pkg]) => !pkg.packageJson.private)
+      .filter(([, pkg]) => !pkg.packageJson.private)
       .map((entry, index) => [index, ...entry]);
 
     describe.each(publicPackages)(
@@ -164,7 +164,7 @@ describe('publish Module', () => {
       string,
       PackageAfterCreatePackageJsonContent
     ][] = Object.entries(mockEnvMixedPackages.packages)
-      .filter(([_name, pkg]) => pkg.packageJson.private)
+      .filter(([, pkg]) => pkg.packageJson.private)
       .map((entry, index) => [index, ...entry]);
 
     it('does not publish private packages', () => {

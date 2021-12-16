@@ -57,7 +57,7 @@ describe('addFilesToCommitMessages Module', () => {
   describe('with a commitMessages collection', () => {
     let result: Env;
     const mockCommitMessage = [messageFactory(1)];
-    const mockCommitMesages: string[] = [
+    const mockCommittedFiles: string[] = [
       '/mock_path_to_file_1',
       '/mock_path_to_file_2',
     ];
@@ -67,7 +67,7 @@ describe('addFilesToCommitMessages Module', () => {
     };
 
     beforeAll(async () => {
-      mockRaw.mockResolvedValue(mockCommitMesages.join('\n'));
+      mockRaw.mockResolvedValue(mockCommittedFiles.join('\n'));
       result = await addFilesToCommitMessages(mockEnv);
     });
 
@@ -77,7 +77,35 @@ describe('addFilesToCommitMessages Module', () => {
         commitMessages: [
           {
             ...mockCommitMessage[0],
-            committedFiles: mockCommitMesages,
+            committedFiles: mockCommittedFiles,
+          },
+        ],
+      };
+      expect(result).toEqual(expected);
+    });
+  });
+
+  describe('with no committed files', () => {
+    let result: Env;
+    const mockCommitMessage = [messageFactory(1)];
+
+    const mockEnv: Env = {
+      ...envWithConfig,
+      commitMessages: mockCommitMessage,
+    };
+
+    beforeAll(async () => {
+      mockRaw.mockResolvedValue('');
+      result = await addFilesToCommitMessages(mockEnv);
+    });
+
+    it('returns an Env object with files on its commitMessages collection', () => {
+      const expected: Env = {
+        ...mockEnv,
+        commitMessages: [
+          {
+            ...mockCommitMessage[0],
+            committedFiles: [],
           },
         ],
       };
