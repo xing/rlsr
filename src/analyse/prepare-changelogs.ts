@@ -7,7 +7,7 @@ import semver from 'semver';
 import { white } from 'chalk';
 import { clone } from 'ramda';
 
-import { getWeekNumber } from '../helpers/get-week-number';
+import { getYearWeek } from '../helpers/get-week-number';
 
 import type {
   Module,
@@ -47,7 +47,7 @@ export const prepareChangelogs: Module = (env) => {
     throw new Error(errorMessage);
   }
 
-  const changelogDate = `${getWeekNumber(new Date()).join('-')}`;
+  const changelogDate = `${getYearWeek(new Date()).join('-')}`;
   const mainChangelogPath = join(
     `${env.config.changelogPath}`,
     `rlsr-log-${changelogDate}.json`

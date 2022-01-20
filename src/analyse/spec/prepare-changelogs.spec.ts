@@ -87,7 +87,7 @@ describe('prepareChangelogs Module', () => {
   let expectedEnv: Env = clone(mockEnv);
 
   beforeAll(() => {
-    jest.useFakeTimers('modern').setSystemTime(new Date('2021, 8, 3'));
+    jest.useFakeTimers('modern').setSystemTime(new Date('2022, 1, 3'));
 
     [1, 2].forEach((id) => {
       const version = `1.1.${id}`;
@@ -107,10 +107,10 @@ describe('prepareChangelogs Module', () => {
       ).changelogs = expectedPkgChangelogs;
     });
 
-    expectedEnv.mainChangelogPath = 'changelogs/rlsr-log-2021-31.json';
+    expectedEnv.mainChangelogPath = 'changelogs/rlsr-log-2022-01.json';
 
     expectedEnv.changelog = {
-      '2021-31': [
+      '2022-01': [
         {
           package: 'mock1Package',
           version: '1.1.1',
