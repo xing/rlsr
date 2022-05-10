@@ -3,6 +3,7 @@ module.exports = {
     'plugin:@typescript-eslint/recommended', // Uses the recommended rules from the @typescript-eslint/eslint-plugin
     'prettier', // Uses eslint-config-prettier to disable ESLint rules from @typescript-eslint/eslint-plugin that would conflict with prettier
     'plugin:prettier/recommended',
+    'plugin:import/typescript',
   ],
   plugins: ['@typescript-eslint', 'prettier', 'import'],
   parser: '@typescript-eslint/parser',
@@ -88,4 +89,9 @@ module.exports = {
       rules: { 'import/no-extraneous-dependencies': ['off'] },
     },
   ],
+  settings: {
+    'import/resolver': {
+      typescript: {},
+    },
+  },
 };

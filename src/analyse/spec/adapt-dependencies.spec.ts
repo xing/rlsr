@@ -1,5 +1,5 @@
 /* eslint-env node, jest */
-import semver from 'semver';
+import * as semver from 'semver';
 
 import { clone } from 'ramda';
 
