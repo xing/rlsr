@@ -1,5 +1,5 @@
 import { clone } from 'ramda';
-import semver from 'semver';
+import * as semver from 'semver';
 import { green, red, yellow, white } from 'chalk';
 
 import { logger } from '../helpers/logger';
