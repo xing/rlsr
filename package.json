@@ -49,7 +49,7 @@
     "eslint": "7.29.0",
     "eslint-config-prettier": "8.3.0",
     "eslint-config-standard": "^16.0.3",
-    "eslint-plugin-import": "^2.23.4",
+    "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "3.4.0",
     "eslint-plugin-promise": "^5.1.0",
@@ -62,7 +62,7 @@
   "dependencies": {
     "@schemastore/package": "^0.0.6",
     "chalk": "^4.1.1",
-    "conventional-commits-parser": "3.2.1",
+    "conventional-commits-parser": "3.2.4",
     "cosmiconfig": "^7.0.0",
     "find-up": "^5.0.0",
     "glob": "7.1.7",
