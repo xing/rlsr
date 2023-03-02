@@ -53,8 +53,7 @@ export const parseCommitMessages: Module = (env: Env) => {
       )} major / ${yellow(counterMinor)} minor / ${green(counterPatch)} patch`
     );
   } else {
-    log('No relevant commits found, stopping the script');
-    process.exit(0);
+    log('No relevant commits found');
   }
 
   return { ...env, commitMessages } as Env;
