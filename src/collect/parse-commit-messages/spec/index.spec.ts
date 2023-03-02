@@ -47,15 +47,9 @@ jest.mock('../add-level', () => ({ addLevel: mockAddLevel }));
 
 describe('parse-commit-messages', () => {
   let parseCommitMessages: Module;
-  let mockProcessExit: jest.SpyInstance;
 
   beforeAll(() => {
-    mockProcessExit = jest.spyOn(process, 'exit').mockImplementation();
     parseCommitMessages = require('../index').parseCommitMessages;
-  });
-
-  afterAll(() => {
-    mockProcessExit.mockRestore();
   });
 
   test('creates "parse commit messages" logger', () => {
@@ -133,15 +127,8 @@ describe('parse-commit-messages', () => {
       });
 
       if (major + minor + patch === 0) {
-        test('exits the script with no error', () => {
-          expect(mockProcessExit).toHaveBeenCalledTimes(1);
-          expect(mockProcessExit).toHaveBeenCalledWith(0);
-        });
-
-        test('exits the script with no error', () => {
-          expect(mockLog).toHaveBeenLastCalledWith(
-            'No relevant commits found, stopping the script'
-          );
+        test('add logs', () => {
+          expect(mockLog).toHaveBeenLastCalledWith('No relevant commits found');
         });
       } else {
         test(`logs ${major} major, ${minor} minor and ${patch} patch commits`, () => {
