@@ -1,6 +1,6 @@
 {
   "name": "rlsr",
-  "version": "5.0.0",
+  "version": "5.1.1",
   "description": "create npm releses and changelogs from a multi repo",
   "main": "build/src/index.js",
   "bin": {
