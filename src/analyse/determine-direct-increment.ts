@@ -1,4 +1,3 @@
-import { clone } from 'ramda';
 import { green, red, yellow, white } from 'chalk';
 
 import type { Package, Message, Module } from '../types';
@@ -38,7 +37,7 @@ export const determineDirectIncrement: Module = (env) => {
     throw new Error(errorMessage);
   }
 
-  const clonePackages = clone(env.packages);
+  const clonePackages = structuredClone(env.packages);
   const packagesToRelease: Record<string, Message['level']> = {};
 
   log('analyse registered commitMessages');

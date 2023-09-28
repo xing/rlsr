@@ -1,6 +1,4 @@
 /* eslint-env node, jest */
-import { clone } from 'ramda';
-
 import type { Env, Module, Package } from '../../types';
 
 import { envWithConfig } from '../../fixtures/env';
@@ -75,7 +73,7 @@ describe('ExtendDependencyRange Module', () => {
     });
 
     const mockEnv: Env = { ...envWithConfig, packages: mockPackages };
-    expectedPackages = clone(mockPackages);
+    expectedPackages = structuredClone(mockPackages);
     expectedPackages['test-package-1'].dependsOn[1].range = '~1.0.0';
     expectedPackages['test-package-1'].determinedIncrementLevel = 0;
     expectedPackages['test-package-1'].relatedMessages.push({

@@ -1,7 +1,5 @@
 /* eslint-env node, jest */
 
-import { clone } from 'ramda';
-
 import { envWithConfig } from '../../fixtures/env';
 import type { Env, Message, Module, Package } from '../../types';
 
@@ -105,7 +103,7 @@ describe('determineDirectIncrement Module', () => {
       packages: mockEnvPackages,
       commitMessages: mockCommitMessages,
     };
-    const expectedEnv: Env = clone(mockEnv);
+    const expectedEnv: Env = structuredClone(mockEnv);
     const { mock1Package, mock2Package, mock3Package, mock4Package } =
       expectedEnv.packages!;
     beforeAll(() => {

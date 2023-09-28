@@ -1,4 +1,3 @@
-import { clone } from 'ramda';
 import { white } from 'chalk';
 
 import { Env, PackageAfterCreatePackageJsonContent } from '../../types';
@@ -28,7 +27,7 @@ function getPackageJson(
 
   const currentPackage = packages![packageName];
 
-  const clonePackageJson = clone(currentPackage.packageJson);
+  const clonePackageJson = structuredClone(currentPackage.packageJson);
   const dependsOnMap = isNpm
     ? Object.fromEntries(
         currentPackage.dependsOn.map((dependency) => [

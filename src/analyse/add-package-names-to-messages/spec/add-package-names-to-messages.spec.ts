@@ -1,6 +1,4 @@
 /* eslint-env node, jest */
-import { clone } from 'ramda';
-
 import type { Env, Message, Module } from '../../../types';
 import { envWithConfig } from '../../../fixtures/env';
 
@@ -57,7 +55,7 @@ describe('addPackageNamesToMessages Module', () => {
     };
     const result = addPackageNamesToMessages(mockEnv);
 
-    const expectedEnv = clone(mockEnv);
+    const expectedEnv = structuredClone(mockEnv);
     expectedEnv.commitMessages![0].affectedPackages = ['package_1'];
     expectedEnv.commitMessages![1].affectedPackages = ['package_2'];
     expectedEnv.commitMessages![2].affectedPackages = ['package_3'];

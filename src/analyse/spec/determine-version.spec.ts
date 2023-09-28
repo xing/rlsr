@@ -1,8 +1,6 @@
 /* eslint-env node, jest */
 import { inc, parse } from 'semver';
 
-import { clone } from 'ramda';
-
 import type {
   Env,
   Module,
@@ -101,7 +99,7 @@ describe('determineVersion Module', () => {
     const expectedErrorMessage =
       'Invalid version "latest" for package "mock0Package"';
     mockParse.mockImplementationOnce(() => null);
-    const mockWrongVersionEnv: Env = clone(mockEnv);
+    const mockWrongVersionEnv: Env = structuredClone(mockEnv);
     mockWrongVersionEnv.packages!.mock0Package.currentVersion = 'latest';
 
     expect(() => determineVersion(mockWrongVersionEnv)).toThrow(
@@ -115,7 +113,7 @@ describe('determineVersion Module', () => {
     mockInc.mockImplementationOnce(() => null);
     const expectedErrorMessage =
       'version "1.0.0" cannot be increased to "patch" for package "mock0Package"';
-    const mockWrongVersionEnv: Env = clone(mockEnv);
+    const mockWrongVersionEnv: Env = structuredClone(mockEnv);
 
     expect(() => determineVersion(mockWrongVersionEnv)).toThrow(
       expectedErrorMessage
@@ -126,7 +124,7 @@ describe('determineVersion Module', () => {
 
   describe('on run', () => {
     let result: Env;
-    const expectedEnv: Env = clone(mockEnv);
+    const expectedEnv: Env = structuredClone(mockEnv);
     (
       expectedEnv.packages!.mock0Package as PackageAfterDetermineVersion
     ).incrementedVersion = '1.0.1';

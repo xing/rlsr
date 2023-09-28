@@ -1,6 +1,4 @@
 /* eslint-env node, jest */
-import { clone } from 'ramda';
-
 import type { Env, Module, Package, Message } from '../../types';
 
 import { envWithConfig } from '../../fixtures/env';
@@ -88,7 +86,7 @@ describe('addMessagesToPackages module', () => {
   });
 
   it('throws an error when an invalid "affectedPackage" is registered', () => {
-    const mockInvalidAffectedPackageEnv = clone(mockEnv);
+    const mockInvalidAffectedPackageEnv = structuredClone(mockEnv);
     mockInvalidAffectedPackageEnv.commitMessages![1].affectedPackages!.push(
       'lodash'
     );
@@ -106,7 +104,7 @@ describe('addMessagesToPackages module', () => {
 
   describe('on run', () => {
     let result: Env;
-    const expectedEnv = clone(mockEnv);
+    const expectedEnv = structuredClone(mockEnv);
 
     beforeAll(() => {
       expectedEnv.packages!.mock1Package.messages.push(mockCommitMessages[0]);

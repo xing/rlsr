@@ -1,8 +1,6 @@
 /* eslint-env node, jest */
 import * as semver from 'semver';
 
-import { clone } from 'ramda';
-
 import type {
   Env,
   Module,
@@ -410,7 +408,7 @@ describe('adaptDependencies Module', () => {
       );
 
       it('returns an Env config object reflecting new ranges', () => {
-        const expectedEnv = clone(mockEnv);
+        const expectedEnv = structuredClone(mockEnv);
 
         expectedEnv.packages!.mockPackage4.relatedMessages.push({
           date: new Date().toISOString(),

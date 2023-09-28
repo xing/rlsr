@@ -5,8 +5,6 @@ import { join } from 'path';
 import semver from 'semver';
 
 import { white } from 'chalk';
-import { clone } from 'ramda';
-
 import { getYearWeek } from '../helpers/get-week-number';
 
 import type {
@@ -38,7 +36,7 @@ export const prepareChangelogs: Module = (env) => {
     throw new Error(errorMessage);
   }
 
-  const clonePackages = clone(env.packages);
+  const clonePackages = structuredClone(env.packages);
   const releasablePackages = getReleasablePackages(clonePackages);
 
   if (!releasablePackages.length) {

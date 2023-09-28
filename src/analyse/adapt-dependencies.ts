@@ -1,7 +1,5 @@
 import * as semver from 'semver';
 
-import { clone } from 'ramda';
-
 import { white, green } from 'chalk';
 
 import type { Module, PackageAfterDetermineVersion } from '../types';
@@ -20,8 +18,10 @@ export const adaptDependencies: Module = (env) => {
   }
 
   log('analyse affected packages');
-  const clonePackages = clone(env.packages);
-  const releasablePackages = getReleasablePackages(clone(clonePackages));
+  const clonePackages = structuredClone(env.packages);
+  const releasablePackages = getReleasablePackages(
+    structuredClone(clonePackages)
+  );
 
   log(`${Object.keys(releasablePackages).length} packages will be released`);
 

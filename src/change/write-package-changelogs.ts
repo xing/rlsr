@@ -2,7 +2,6 @@ import { join } from 'path';
 
 import fs from 'fs';
 
-import { clone } from 'ramda';
 import { white } from 'chalk';
 
 import type { Module } from '../types';
@@ -20,7 +19,9 @@ export const writePackageChangelogs: Module = (env) => {
     error(errorMessage);
     throw new Error(errorMessage);
   }
-  const releasablePackages = getReleasablePackages(clone(env.packages));
+  const releasablePackages = getReleasablePackages(
+    structuredClone(env.packages)
+  );
 
   releasablePackages.forEach((packageName) => {
     const currentPackage = env.packages![

@@ -1,5 +1,3 @@
-import { clone } from 'ramda';
-
 import type {
   Env,
   Message,
@@ -84,7 +82,7 @@ const invalidMockEnv: Env = {
 describe('prepareChangelogs Module', () => {
   let prepareChangelogs: Module;
   let result: Env;
-  let expectedEnv: Env = clone(mockEnv);
+  let expectedEnv: Env = structuredClone(mockEnv);
 
   beforeAll(() => {
     jest.useFakeTimers('modern').setSystemTime(new Date('2022, 1, 3'));
@@ -156,7 +154,7 @@ describe('prepareChangelogs Module', () => {
   });
 
   it('throws an error when messages are missing for the package', () => {
-    const invalidMockEnv = clone(mockEnv);
+    const invalidMockEnv = structuredClone(mockEnv);
     invalidMockEnv.packages!.mock2Package.messages = [];
     invalidMockEnv.packages!.mock2Package.relatedMessages = [];
     const expectedErrorMessage = `No messages found for "white(mock2Package)"`;

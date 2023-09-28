@@ -1,6 +1,4 @@
 /* eslint-env node, jest */
-import { clone } from 'ramda';
-
 import type { Env, Module, Package } from '../../types';
 
 import { envWithConfig } from '../../fixtures/env';
@@ -84,7 +82,7 @@ describe('[analyse] createDependencyTree module', () => {
         type: 'peer',
       });
 
-      expectedPackages = clone(mockPackages);
+      expectedPackages = structuredClone(mockPackages);
 
       const mockEnv: Env = {
         ...envWithConfig,

@@ -1,5 +1,3 @@
-import { clone } from 'ramda';
-
 import type { Env, Module, Phase } from '../../types';
 
 import { composeAsync } from '../compose-async';
@@ -36,7 +34,7 @@ jest.doMock('test-plugin-package-2', () => mockPluginPackage2, {
 import { envWithConfig } from '../../fixtures/env';
 const mockEnv = { ...envWithConfig };
 
-const mockEnvWithPlugins = clone(mockEnv);
+const mockEnvWithPlugins = structuredClone(mockEnv);
 mockEnvWithPlugins.config!.plugins = [
   'test-plugin-package-1',
   'test-plugin-package-2',

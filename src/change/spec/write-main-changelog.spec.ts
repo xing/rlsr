@@ -1,7 +1,5 @@
 import fs from 'fs';
 
-import { clone } from 'ramda';
-
 import { envWithConfig } from '../../fixtures/env';
 import type { Module, Env, Message, RelatedMessage } from '../../types';
 
@@ -74,7 +72,7 @@ describe('writeMainChangelog Module', () => {
     const expectedErrorMessage =
       '"changelogPath" attribute not found on env config object';
 
-    const invalidEnvConfig = clone(envWithConfig);
+    const invalidEnvConfig = structuredClone(envWithConfig);
     invalidEnvConfig.config!.changelogPath = '';
 
     expect(() => writeMainChangelog(invalidEnvConfig)).toThrow(

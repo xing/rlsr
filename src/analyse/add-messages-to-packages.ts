@@ -1,5 +1,3 @@
-import { clone } from 'ramda';
-
 import type { Module } from '../types';
 
 import { logger } from '../helpers/logger';
@@ -19,7 +17,7 @@ export const addMessagesToPackages: Module = (env) => {
   }
 
   log('Register messages to packages');
-  const clonePackages = clone(env.packages);
+  const clonePackages = structuredClone(env.packages);
 
   env.commitMessages.forEach((commitMessage) => {
     commitMessage.affectedPackages?.forEach((affectedPackage) => {

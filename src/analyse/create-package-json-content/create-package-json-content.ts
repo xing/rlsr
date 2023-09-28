@@ -1,4 +1,3 @@
-import { clone } from 'ramda';
 import { white } from 'chalk';
 
 import type {
@@ -22,7 +21,7 @@ export const createPackageJsonContent: Module = (env) => {
 
   log('analyse packageJson Content');
 
-  const clonePackages = clone(env.packages);
+  const clonePackages = structuredClone(env.packages);
 
   Object.keys(clonePackages).forEach((packageName) => {
     log(`generating git & npm package.json files for "${white(packageName)}"`);

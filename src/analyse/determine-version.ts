@@ -1,4 +1,3 @@
-import { clone } from 'ramda';
 import * as semver from 'semver';
 import { green, red, yellow, white } from 'chalk';
 
@@ -30,7 +29,7 @@ export const determineVersion: Module = (env) => {
 
   log('analyse packages');
 
-  const clonePackages = clone(env.packages);
+  const clonePackages = structuredClone(env.packages);
 
   const incrementLevels: semver.ReleaseType[] = ['patch', 'minor', 'major'];
 

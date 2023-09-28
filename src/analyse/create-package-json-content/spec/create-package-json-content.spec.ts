@@ -1,6 +1,4 @@
 /* eslint-env node, jest */
-import { clone } from 'ramda';
-
 import type {
   Env,
   Module,
@@ -84,7 +82,7 @@ describe('createPackageJsonContent Module', () => {
     });
 
     it('returns processed Env object', () => {
-      const cloneEnv = clone(mockEnvWithPackages);
+      const cloneEnv = structuredClone(mockEnvWithPackages);
       cloneEnv.packages!.mockPackage1 = {
         ...cloneEnv.packages!.mockPackage1,
         packageJsonGit: { name: 'mockPackage1', version: '*' },

@@ -1,5 +1,3 @@
-import { clone } from 'ramda';
-
 import simpleGit from 'simple-git';
 
 import type { Env, Module, PackageAfterPrepareChangelogs } from '../types';
@@ -28,7 +26,9 @@ const commitAndTagPackages: Module = async (env: Env) => {
     });
   };
 
-  const releasablePackages = getReleasablePackages(clone(env.packages!));
+  const releasablePackages = getReleasablePackages(
+    structuredClone(env.packages!)
+  );
   const commitMessageStr = `chore(release): publish new version
 ${prepareCommit(releasablePackages).join('\n')}`;
 

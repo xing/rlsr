@@ -1,5 +1,3 @@
-import { clone } from 'ramda';
-
 import {
   Module,
   Package,
@@ -20,7 +18,7 @@ export const addDependencies: Module = (env) => {
     throw new Error(errorMessage);
   }
 
-  const envPackages = clone(env.packages);
+  const envPackages = structuredClone(env.packages);
 
   const packagesNames = Object.keys(envPackages);
 

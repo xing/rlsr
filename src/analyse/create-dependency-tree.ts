@@ -1,4 +1,3 @@
-import { clone } from 'ramda';
 import { yellow } from 'chalk';
 
 import { Module } from '../types';
@@ -14,7 +13,7 @@ export const createDependencyTree: Module = (env) => {
     throw new Error(errorMessage);
   }
 
-  const packagesClone = clone(env.packages);
+  const packagesClone = structuredClone(env.packages);
   const counter = {
     default: 0,
     devDependencies: 0,

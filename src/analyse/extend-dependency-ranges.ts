@@ -1,5 +1,3 @@
-import { clone } from 'ramda';
-
 import type { Module, RelatedPackageTypes } from '../types';
 
 import { logger } from '../helpers/logger';
@@ -10,7 +8,7 @@ const { log } = logger('[analyse] extend dependency ranges');
 const PINNED_VERSION_PATTERN = /^\d+\.\d+\.\d+$/;
 
 export const extendDependencyRanges: Module = (env) => {
-  const packagesClone = clone(env.packages);
+  const packagesClone = structuredClone(env.packages);
 
   log('Analysing packages');
   let extendCounter = 0;
